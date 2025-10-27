@@ -79,7 +79,7 @@
     screenshot-template = "~/pictures/shared/anime-related/my-screens/vlcsnap-%F-T%wH.%wM.%wS.%wT-F%{estimated-frame-number}v%#01n";
     screenshot-format = "png";
     keep-open = true;
-    force-window = "immediate";
+    force-window = "yes";
     taskbar-progress = true;
 
     # CACHE
