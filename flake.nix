@@ -66,6 +66,11 @@
       url = "git+file:/home/user/programs/Personal/wk-dev?rev=bd1f1ab50f874a6bb0a4350f401778b4f3ec645d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

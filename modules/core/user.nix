@@ -10,13 +10,16 @@
   ...
 }:
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    inputs.mango.nixosModules.mango
+  ];
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs username host localModulesPath localSecretsPath localPkgsPath secrets; };
     users.${username} = {
-      imports = [ (localModulesPath + "/home") ];
+      imports = [ (localModulesPath + "/home") ] ++ [ inputs.mango.hmModules.mango ];
       home.username = "${username}";
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "25.11"; # TODO make this more dynamic

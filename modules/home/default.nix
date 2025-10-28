@@ -8,7 +8,8 @@
     ./emacs.nix                       # emacs editor
     ./doom.nix                        # An Emacs framework
     ./gtk.nix                         # gtk theme
-    ./hyprland                        # window manager
+    ./hyprland                        # wayland window manager
+    ./mango                           # wayland window manager
     ./mpv                             # general-purpose media player
     ./nvim                            # neovim editor
     ./packages                        # other packages
