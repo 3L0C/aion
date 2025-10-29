@@ -49,7 +49,7 @@
 
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland"; 
+      inputs.hyprland.follows = "hyprland";
     };
 
     waybar.url = "github:Alexays/Waybar";
@@ -77,29 +77,38 @@
   outputs =
     { nixpkgs, self, ... }@inputs:
     let
+      inherit (self) outputs;
+
+      # Basic configuration
       username = "user";
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
       lib = nixpkgs.lib;
       localModulesPath = ./modules;
       localSecretsPath = ./secrets;
       localPkgsPath = ./pkgs;
-      secrets = builtins.fromJSON (builtins.readFile (localSecretsPath + "/secrets.json"));
+      secrets =
+        if builtins.pathExists (localSecretsPath + "/secrets.json")
+        then builtins.fromJSON (builtins.readFile (localSecretsPath + "/secrets.json"))
+        else {};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = builtins.attrValues (import ./overlays {inherit inputs;});
+      };
     in
     {
       nixosConfigurations = {
         snow = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            {nixpkgs.pkgs = pkgs;}
+
             ./hosts/desktops
             ./hosts/desktops/snow
           ];
           specialArgs = {
             host = "snow";
-            inherit self inputs username localModulesPath localSecretsPath localPkgsPath secrets;
+            inherit self inputs outputs username localModulesPath localSecretsPath localPkgsPath secrets;
           };
         };
       };

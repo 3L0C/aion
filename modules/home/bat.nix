@@ -6,10 +6,8 @@
       pager = "less -FR";
       theme = "gruvbox-dark";
     };
-    extraPackages = with pkgs.bat-extras; [
-      batman
-      batpipe
-      batdiff
-    ];
+    extraPackages = builtins.attrValues {
+      inherit (pkgs.stable.bat-extras) batdiff batman batgrep batpipe;
+    };
   };
 }
