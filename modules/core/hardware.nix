@@ -9,12 +9,6 @@ in
       enable = true;
       package = hyprland-pkgs.mesa;
       enable32Bit = true;
-      extraPackages = with pkgs; [
-        amdvlk
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk
-      ];
     };
 
     bluetooth = {
