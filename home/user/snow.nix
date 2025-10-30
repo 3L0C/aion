@@ -1,7 +1,15 @@
-{inputs, ...}: {
+{...}: {
   imports = [
-    ../../profiles/desktop.nix      # Desktop environment (includes base)
-    ../../profiles/development.nix  # Dev tools
-    ../../profiles/media.nix        # Media applications
+    ./global
+    ./features/de/common
+    ./features/de/apps
+    ./features/de/hyprland-heim
+    ./features/de/mango
+    ./features/de/services/waybar
+    ./features/de/services/wk
+    ./features/dev
+    ./features/media/mpv
+    ./features/packages
+    ./features/scripts
   ];
 }

@@ -1,5 +1,12 @@
-{ pkgs, inputs, ... }:
 {
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    inputs.mango.hmModules.mango
+  ];
+
   home.packages = with pkgs; [
     wmenu
   ];
