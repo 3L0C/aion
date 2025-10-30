@@ -1,11 +1,6 @@
-{ lib, pkgs, ... }:
-let
-  mpv-persist-properties =
-    pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/persist-properties.nix") {  };
-in
-{
+{pkgs, ...}: {
   programs.mpv = {
-    scripts = [ mpv-persist-properties ];
+    scripts = [pkgs.custom.mpvScripts.persist-properties];
     scriptOpts = {
       persist_properties = {
         properties = "sub-pos";

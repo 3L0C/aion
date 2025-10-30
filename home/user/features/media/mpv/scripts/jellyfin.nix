@@ -1,9 +1,8 @@
-{ lib, pkgs, secrets, ... }:
-let
-  mpv-jellyfin = pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/jellyfin.nix") {  };
-
-in
 {
+  pkgs,
+  secrets,
+  ...
+}: {
   programs.mpv = {
     scriptOpts = {
       jellyfin = {

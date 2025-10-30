@@ -100,7 +100,7 @@
       };
     };
   in {
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    legacyPackages = forEachSystem (pkgs: pkgs.custom);
     formatter = forEachSystem (pkgs: pkgs.alejandra);
     checks = forEachSystem (pkgs: import ./checks.nix {inherit inputs pkgs;});
     devShells = forEachSystem (pkgs: {

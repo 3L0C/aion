@@ -1,14 +1,11 @@
-{ lib, pkgs, ... }:
-let
-  mpv-gallery-view =
-    pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/gallery-view.nix") {
-      enableContactSheet = true;
-      enablePlaylistView = true;
-    };
-in
-{
+{pkgs, ...}: {
   programs.mpv = {
-    scripts = [ mpv-gallery-view ];
+    scripts = [
+      (pkgs.custom.mpvScripts.gallery-view.override {
+        enableContactSheet = true;
+        enablePlaylistView = true;
+      })
+    ];
     bindings = {
       "g" = "script-binding playlist_view/playlist-view-toggle";
     };

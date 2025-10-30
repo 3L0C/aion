@@ -1,11 +1,5 @@
-{ lib, pkgs, ... }:
-let
-  trackselect = pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/trackselect.nix") {  };
-in
-{
+{pkgs, ...}: {
   programs.mpv = {
-    scripts = [
-      trackselect
-    ];
+    scripts = [pkgs.custom.mpvScripts.trackselect];
   };
 }

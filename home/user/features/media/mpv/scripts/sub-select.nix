@@ -1,11 +1,6 @@
-{ lib, pkgs, ... }:
-let
-  mpv-sub-select =
-    pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/sub-select.nix") {  };
-in
-{
+{pkgs, ...}: {
   programs.mpv = {
-    scripts = [ mpv-sub-select ];
+    scripts = [pkgs.custom.mpvScripts.sub-select];
     scriptOpts = {
       sub_select = {
         force_enable = "yes";

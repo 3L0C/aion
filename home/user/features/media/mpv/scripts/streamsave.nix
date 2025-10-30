@@ -1,12 +1,6 @@
-{ lib, pkgs, ... }:
-let
-  streamsave = pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/streamsave.nix") {  };
-in
-{
+{pkgs, ...}: {
   programs.mpv = {
-    scripts = [
-      streamsave
-    ];
+    scripts = [pkgs.custom.mpvScripts.streamsave];
     scriptOpts = {
       streamsave = {
         # General Options

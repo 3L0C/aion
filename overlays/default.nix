@@ -12,6 +12,9 @@ in {
       };
     };
   };
+  custom-packages = final: _prev: {
+    custom = import ../pkgs {pkgs = final;};
+  };
   modifications = _final: prev: {
   };
 }

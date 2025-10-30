@@ -1,11 +1,5 @@
-{ lib, pkgs, ... }:
-let
-  stats = pkgs.callPackage (lib.custom.relativeToRoot "pkgs/mpv/scripts/stats.nix") {  };
-in
-{
+{pkgs, ...}: {
   programs.mpv = {
-    scripts = [
-      stats
-    ];
+    scripts = [pkgs.custom.mpvScripts.stats];
   };
 }
