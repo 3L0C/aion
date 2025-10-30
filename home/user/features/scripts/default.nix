@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   home.packages = with pkgs.custom.scripts; [
-    nb
-    bs
-    vidthumb
-    doomemacs
-    hmpv
-    wip-test
+    nb              # Nix build helper
+    bs              # Build script
+    vidthumb        # Video thumbnail generator
+    doomemacs       # Doom Emacs launcher
+    hmpv            # MPV helper
+    wip-test        # Test script
   ];
 }
