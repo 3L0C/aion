@@ -1,4 +1,8 @@
 {
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./global
 
@@ -15,6 +19,16 @@
     ./optional/graphics.nix
     ./optional/bluetooth.nix
     ./optional/fixes
+  ];
+  assertions = [
+    {
+      assertion = config.hostSpec.kind == "desktop" || config.hostSpec.kind == "laptop";
+      message = "pc.nix is intended for desktop/laptop hosts. Got kind: ${config.hostSpec.kind}";
+    }
+    {
+      assertion = config.hostSpec.hasDiscreteGPU -> config.hardware.graphics.enable or false;
+      message = "Hosts with discrete GPUs should enable hardware.graphics";
+    }
   ];
 
   nix = {
