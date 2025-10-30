@@ -15,45 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    hypr-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-    };
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-    };
-
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs = {
-        hyprgraphics.follows = "hyprland/hyprgraphics";
-        hyprlang.follows = "hyprland/hyprlang";
-        hyprutils.follows = "hyprland/hyprutils";
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-      };
-    };
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs = {
-        hyprland = {
-          follows = "hyprland";
-        };
-      };
-    };
-
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    waybar.url = "github:Alexays/Waybar";
-
     nur.url = "github:nix-community/NUR";
     nix-gaming.url = "github:fufexan/nix-gaming";
 
@@ -72,45 +33,87 @@
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { nixpkgs, self, ... }@inputs:
-    let
-      inherit (self) outputs;
-
-      # Basic configuration
-      username = "user";
-      system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      localModulesPath = ./modules;
-      localSecretsPath = ./secrets;
-      localPkgsPath = ./pkgs;
-      secrets =
-        if builtins.pathExists (localSecretsPath + "/secrets.json")
-        then builtins.fromJSON (builtins.readFile (localSecretsPath + "/secrets.json"))
-        else {};
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = builtins.attrValues (import ./overlays {inherit inputs;});
-      };
-    in
-    {
-      nixosConfigurations = {
-        snow = nixpkgs.lib.nixosSystem {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    lib = nixpkgs.lib.extend (
+      _: _: (import ./lib {inherit (nixpkgs) lib;}) // home-manager.lib
+    );
+    username = "user";
+    supportedSystems = [
+      "x86_64-linux"
+    ];
+    pkgsFor = lib.genAttrs supportedSystems (
+      system:
+        import nixpkgs {
           inherit system;
-          modules = [
-            {nixpkgs.pkgs = pkgs;}
-
-            ./hosts/desktops
-            ./hosts/desktops/snow
-          ];
-          specialArgs = {
-            host = "snow";
-            inherit self inputs outputs username localModulesPath localSecretsPath localPkgsPath secrets;
-          };
+          config.allowUnfree = true;
+          overlays = builtins.attrValues (import ./overlays {inherit inputs;});
+        }
+    );
+    forEachSystem = f: lib.genAttrs supportedSystems (sys: f pkgsFor.${sys});
+    secrets = let
+      secretsPath = ./secrets + "/secrets.json";
+      secretsExist = builtins.pathExists secretsPath;
+      tryReadSecrets = builtins.tryEval (builtins.fromJSON (builtins.readFile secretsPath));
+    in
+      if !secretsExist
+      then {}
+      else if tryReadSecrets.success
+      then tryReadSecrets.value
+      else {};
+    mkNixos = hostname: system: {
+      name = hostname;
+      value = lib.nixosSystem {
+        specialArgs = {
+          inherit lib inputs outputs secrets;
+          heimRev = self.shortRev or self.dirtyShortRev or "dirty";
         };
+        modules = [
+          {nixpkgs.pkgs = pkgsFor.${system};}
+
+          ./hosts/${hostname}/spec.nix
+          ./hosts/${hostname}
+        ];
       };
     };
+    mkHome = username: hostname: system: {
+      name = "${username}@${hostname}";
+      value = lib.homeManagerConfiguration {
+        extraSpecialArgs = {
+          inherit lib inputs outputs secrets;
+          inherit (import ./hosts/${hostname}/spec.nix) hostSpec;
+        };
+        pkgs = pkgsFor.${system};
+        modules = [./home/${username}/${hostname}.nix];
+      };
+    };
+  in {
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
+    checks = forEachSystem (pkgs: import ./checks.nix {inherit inputs pkgs;});
+    devShells = forEachSystem (pkgs: {
+      default = import ./shell.nix {
+        inherit pkgs;
+        checks = self.checks.${pkgs.system};
+      };
+    });
+    nixosConfigurations = lib.listToAttrs [
+      (mkNixos "snow" "x86_64-linux")
+    ];
+    homeConfigurations = lib.listToAttrs [
+      (mkHome "user" "snow" "x86_64-linux")
+    ];
+  };
 }
