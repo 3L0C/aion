@@ -1,38 +1,53 @@
 {
-  programs.zsh = {
-    shellAliases = {
-      c = "clear";
-      cd = "z";
-      tt = "gtrash put";
-      cat = "bat";
-      nano = "micro";
-      code = "codium";
-      diff = "delta --diff-so-fancy --side-by-side";
-      less = "bat";
-      f = "superfile";
-      py = "python";
-      ipy = "ipython";
-      icat = "kitten icat";
-      dsize = "du -hs";
-      pdf = "tdf";
-      open = "xdg-open";
-      space = "ncdu";
-      man = "BAT_THEME='default' batman";
-
-      l = "eza --icons  -a --group-directories-first -1"; # EZA_ICON_SPACING=2
-      ll = "eza --icons  -a --group-directories-first -1 --no-user --long";
-      tree = "eza --icons --tree --group-directories-first";
-      cdnix = "cd ~/nixos-config && codium ~/nixos-config";
-      ns = "nom-shell --run zsh";
-      nd = "nom develop --command zsh";
-      nb = "nom build";
-      nc = "nh clean all --keep 5";
-      nft = "nh os test";
-      nfs = "nh os switch";
-      nfu = "nh os switch --update";
-
-      piv = "python -m venv .venv";
-      psv = "source .venv/bin/activate";
-    };
+  programs.zsh.shellAliases = {
+    vim = "nvim";
+    vimdiff = "nvim -d";
+    e = "$EDITOR";
+    v = "$EDITOR";
+    se = "sudoedit";
+    cp = "cp -iv";
+    mv = "mv -iv";
+    rm = "rm -vI";
+    mkd = "mkdir -pv";
+    ls = "ls -hN --color=auto --group-directories-first";
+    ll = "ls -Al";
+    grep = "grep --color=auto";
+    diff = "diff --color=auto";
+    ip = "ip -c";
+    ccat = "highlight --out-format=ansi";
+    ka = "killall";
+    g = "git";
+    p = "python3";
+    z = "zathura";
+    bc = "bc -ql";
+    yt = "yt-dlp --add-metadata -i";
+    yta = "yt -x -f bestaudio/best";
+    ffmpeg = "ffmpeg -hide-banner";
+    fmpv = "mpv --x11-name=fmpv";
+    resys = "sudo systemctl restart";
+    statsys = "sudo systemctl status";
+    stopsys = "sudo systemctl stop";
+    killsys = "sudo systemctl kill";
+    startsys = "sudo systemctl start";
+    ensys = "sudo systemctl enable";
+    fsys = "systemctl --failed";
+    usys = "systemctl --user";
+    uresys = "systemctl --user restart";
+    ustatsys = "systemctl --user status";
+    ustopsys = "systemctl --user stop";
+    ukillsys = "systemctl --user kill";
+    ustartsys = "systemctl --user start";
+    uensys = "systemctl --user enable";
+    tks = "tmux kill-session";
+    tls = "tmux ls";
+    rsync2 = "rsync --info=progress2 --partial -auvzs";
+    debsync = "rsync -avP";
+    sf = "grep -R -i --exclude='*.log' --exclude='*.supp'";
+    pf = "printf '%s\\n'";
+    cht = "cht.sh";
+    magit = "nvim -c MagitOnly";
+    pypi-up = "p -m build && twine upload dist/*";
+    update = "sudo nixos-rebuild switch";
+    upgrade = "sudo nixos-rebuild switch --upgrade";
   };
 }

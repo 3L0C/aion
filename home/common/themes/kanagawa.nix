@@ -1,4 +1,4 @@
-{...}: let
+let
   colors = {
     bg = "#181616";
     bgAlt = "#0d0c0c";
@@ -28,31 +28,24 @@
     darkCyan = "#658594";
   };
 
-  sakuraPink = "#D27E99";
-  peachRed = "#FF5D62";
-  waveAqua1 = "#6A9589";
   waveBlue1 = "#223249";
   waveBlue2 = "#2D4F67";
-  springViolet1 = "#938AA9";
-  springViolet2 = "#9CABCA";
-  boatYellow1 = "#938056";
   boatYellow2 = "#C0A36E";
-  oniViolet2 = "#b8b4d0";
-  comet = "#54536D";
+
   samuraiRed = "#E82424";
-  roninYellow = "#FF9E3B";
+
   autumnGreen = "#76946A";
   autumnRed = "#C34043";
   autumnYellow = "#DCA561";
   winterGreen = "#2B3328";
   winterYellow = "#49443C";
   winterRed = "#43242B";
-  winterBlue = "#252535";
+
   lightMagenta = "#D8A8E1";
 in {
   themeSpec = {
     name = "kanagawa-abyss";
-    colors = colors;
+    inherit colors;
 
     border = colors.blue; # active window border
     borderInactive = colors.base4; # inactive window border
