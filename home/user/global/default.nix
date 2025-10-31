@@ -7,6 +7,7 @@
   imports =
     (map lib.custom.relativeToRoot ["modules/home-manager" "modules/common"])
     ++ [
+      ../../common/themes/kanagawa.nix
       ../features/cli/common
       ../features/cli/zsh
     ];

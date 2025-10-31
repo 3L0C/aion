@@ -1,0 +1,101 @@
+{...}: let
+  colors = {
+    bg = "#181616";
+    bgAlt = "#0d0c0c";
+    fg = "#DCD7BA";
+    fgAlt = "#C8C093";
+    base0 = "#0d0c0c";
+    base1 = "#12120f";
+    base2 = "#1D1C19";
+    base3 = "#282727";
+    base4 = "#393836";
+    base5 = "#625e5a";
+    base6 = "#727169";
+    base7 = "#C8C093";
+    base8 = "#DCD7BA";
+
+    grey = "#727169";
+    red = "#FF5D62";
+    orange = "#FFA066";
+    green = "#98BB6C";
+    teal = "#7AA89F";
+    yellow = "#E6C384";
+    blue = "#7FB4CA";
+    darkBlue = "#7E9CD8";
+    magenta = "#957FB8";
+    violet = "#9CABCA";
+    cyan = "#A3D4D5";
+    darkCyan = "#658594";
+  };
+
+  sakuraPink = "#D27E99";
+  peachRed = "#FF5D62";
+  waveAqua1 = "#6A9589";
+  waveBlue1 = "#223249";
+  waveBlue2 = "#2D4F67";
+  springViolet1 = "#938AA9";
+  springViolet2 = "#9CABCA";
+  boatYellow1 = "#938056";
+  boatYellow2 = "#C0A36E";
+  oniViolet2 = "#b8b4d0";
+  comet = "#54536D";
+  samuraiRed = "#E82424";
+  roninYellow = "#FF9E3B";
+  autumnGreen = "#76946A";
+  autumnRed = "#C34043";
+  autumnYellow = "#DCA561";
+  winterGreen = "#2B3328";
+  winterYellow = "#49443C";
+  winterRed = "#43242B";
+  winterBlue = "#252535";
+  lightMagenta = "#D8A8E1";
+in {
+  themeSpec = {
+    name = "kanagawa-abyss";
+    colors = colors;
+
+    border = colors.blue; # active window border
+    borderInactive = colors.base4; # inactive window border
+    background = colors.bg; # primary background
+    backgroundAlt = colors.bgAlt; # alternative background
+    foreground = colors.fg; # primary text
+    foregroundAlt = colors.fgAlt; # secondary text
+    error = samuraiRed; # Bright error red
+    warning = colors.yellow; # warnings
+    success = colors.green; # success states
+    info = colors.blue; # informational
+    highlight = colors.darkBlue; # highlighted elements
+    selection = waveBlue1; # Deep blue selection background
+    cursor = colors.blue; # cursor color
+    match = boatYellow2; # Bright yellow for search matches
+    button = colors.blue; # buttons
+    buttonHover = colors.darkBlue; # button hover state
+    menu = colors.base3; # menu background
+    menuSelection = waveBlue2; # Menu item selection
+    tooltip = colors.base3; # tooltip background
+    barBackground = colors.base0; # status bar background
+    barForeground = colors.fg; # status bar text
+    barAccent = colors.blue; # status bar accent
+    comment = colors.grey; # code comments
+    keyword = colors.blue; # language keywords
+    function = colors.magenta; # function names
+    string = colors.green; # string literals
+    variable = lightMagenta; # lighter magenta - variables
+    constant = colors.violet; # constants
+    type = colors.yellow; # type names
+    operator = colors.blue; # operators
+    number = colors.orange; # numeric literals
+    vcsAdded = autumnGreen; # Green for added lines
+    vcsModified = autumnYellow; # Yellow for modified lines
+    vcsDeleted = autumnRed; # Red for deleted lines
+    diffAdd = winterGreen; # Dark green background for additions
+    diffChange = winterYellow; # Dark yellow background for changes
+    diffDelete = winterRed; # Dark red background for deletions
+    fonts = {
+      mono = "monospace";
+      sans = "sans-serif";
+      serif = "serif";
+      size = 12;
+    };
+  };
+}
