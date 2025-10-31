@@ -20,7 +20,13 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [makeWrapper];
-  buildInputs = [bash jq mpv socat perl];
+  buildInputs = [
+    bash
+    jq
+    mpv
+    socat
+    perl
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,7 +39,15 @@ stdenv.mkDerivation {
 
       # Wrap each script with necessary PATH additions
       wrapProgram "$out/bin/$script_name" \
-        --prefix PATH : ${lib.makeBinPath [bash jq mpv socat perl]}
+        --prefix PATH : ${
+      lib.makeBinPath [
+        bash
+        jq
+        mpv
+        socat
+        perl
+      ]
+    }
     done
   '';
 

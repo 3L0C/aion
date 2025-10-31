@@ -6,7 +6,13 @@
       theme = "gruvbox-dark";
     };
     extraPackages = builtins.attrValues {
-      inherit (pkgs.stable.bat-extras) batdiff batman batgrep batpipe;
+      inherit
+        (pkgs.stable.bat-extras)
+        batdiff
+        batman
+        batgrep
+        batpipe
+        ;
     };
   };
 }

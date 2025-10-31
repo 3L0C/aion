@@ -150,8 +150,12 @@
       };
       permission = [
         "${lib.escapeRegex (lib.getExe pkgs.grim)}, screencopy, allow"
-        "${lib.escapeRegex (lib.getExe inputs.hyprlock.packages.${pkgs.system}.hyprlock)}, screencopy, allow"
-        "${lib.escapeRegex (lib.getExe inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland)}, screencopy, allow"
+        "${
+          lib.escapeRegex (lib.getExe inputs.hyprlock.packages.${pkgs.system}.hyprlock)
+        }, screencopy, allow"
+        "${
+          lib.escapeRegex (lib.getExe inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland)
+        }, screencopy, allow"
       ];
       plugin = {
         stack = {

@@ -4,7 +4,10 @@
   ...
 }: {
   imports =
-    (map lib.custom.relativeToRoot ["modules/nixos" "modules/common"])
+    (map lib.custom.relativeToRoot [
+      "modules/nixos"
+      "modules/common"
+    ])
     ++ [
       ./nix.nix
       ./locale.nix

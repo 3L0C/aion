@@ -8,7 +8,11 @@ in {
       description = "The name of the host";
     };
     kind = mkOption {
-      type = types.enum ["desktop" "laptop" "headless"];
+      type = types.enum [
+        "desktop"
+        "laptop"
+        "headless"
+      ];
       description = "The kind of host";
     };
     isWork = mkOption {

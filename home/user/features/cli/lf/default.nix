@@ -4,7 +4,11 @@
 
     settings = {
       # Display settings
-      ratios = [1 2 3];
+      ratios = [
+        1
+        2
+        3
+      ];
       shell = "bash";
       shellopts = "-eu";
       ifs = "\\n";

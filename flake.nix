@@ -47,9 +47,7 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    lib = nixpkgs.lib.extend (
-      _: _: (import ./lib {inherit (nixpkgs) lib;}) // home-manager.lib
-    );
+    lib = nixpkgs.lib.extend (_: _: (import ./lib {inherit (nixpkgs) lib;}) // home-manager.lib);
     supportedSystems = [
       "x86_64-linux"
     ];
@@ -76,7 +74,12 @@
       name = hostname;
       value = lib.nixosSystem {
         specialArgs = {
-          inherit lib inputs outputs secrets;
+          inherit
+            lib
+            inputs
+            outputs
+            secrets
+            ;
           heimRev = self.shortRev or self.dirtyShortRev or "dirty";
         };
         modules = [
@@ -91,7 +94,12 @@
       name = "${username}@${hostname}";
       value = lib.homeManagerConfiguration {
         extraSpecialArgs = {
-          inherit lib inputs outputs secrets;
+          inherit
+            lib
+            inputs
+            outputs
+            secrets
+            ;
           inherit (import ./hosts/${hostname}/spec.nix) hostSpec;
         };
         pkgs = pkgsFor.${system};

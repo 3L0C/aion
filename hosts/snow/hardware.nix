@@ -10,8 +10,17 @@
 
   boot = {
     initrd = {
-      availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid"];
-      kernelModules = ["dm-snapshot" "cryptd"];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+      ];
+      kernelModules = [
+        "dm-snapshot"
+        "cryptd"
+      ];
       luks.devices = {
         nixcrypt = {
           device = "/dev/disk/by-label/NIXLUKS";
@@ -32,7 +41,10 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/NIXBOOT";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   swapDevices = [

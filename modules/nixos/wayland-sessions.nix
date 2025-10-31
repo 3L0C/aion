@@ -32,30 +32,33 @@ in {
   };
 
   config = {
-    environment.etc = builtins.listToAttrs (builtins.map
-      ({
-        name,
-        desktopName,
-        exec,
-      }: {
-        name = "wayland-sessions/${name}.desktop";
-        value = {
-          text = ''
-            [Desktop Entry]
-            Name=${
-              if desktopName != null
-              then desktopName
-              else name
-            }
-            Exec=${
-              if exec != null
-              then exec
-              else name
-            }
-            Type=Application
-          '';
-        };
-      })
-      config.wayland.sessions);
+    environment.etc = builtins.listToAttrs (
+      builtins.map (
+        {
+          name,
+          desktopName,
+          exec,
+        }: {
+          name = "wayland-sessions/${name}.desktop";
+          value = {
+            text = ''
+              [Desktop Entry]
+              Name=${
+                if desktopName != null
+                then desktopName
+                else name
+              }
+              Exec=${
+                if exec != null
+                then exec
+                else name
+              }
+              Type=Application
+            '';
+          };
+        }
+      )
+      config.wayland.sessions
+    );
   };
 }

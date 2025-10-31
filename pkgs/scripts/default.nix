@@ -1,6 +1,5 @@
 {writeShellScriptBin, ...}: let
-  mkScript = name: file:
-    writeShellScriptBin name (builtins.readFile file);
+  mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
 in {
   nb = mkScript "nb" ./nix/nb;
   bs = mkScript "bs" ./bin/bs;

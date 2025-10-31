@@ -75,7 +75,6 @@
       enable_floating_snap=0
       snap_distance=30
     '';
-    autostart_sh = ''
-    '';
+    autostart_sh = '''';
   };
 }
