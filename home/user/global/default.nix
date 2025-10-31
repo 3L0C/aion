@@ -5,7 +5,11 @@
   ...
 }: {
   imports =
-    (map lib.custom.relativeToRoot ["modules/home-manager" "modules/common"])
+    (map lib.custom.relativeToRoot [
+      "modules/home-manager"
+      "modules/common"
+      "secrets/home/user"
+    ])
     ++ [
       ../../common/themes/kanagawa.nix
       ../features/cli/common
