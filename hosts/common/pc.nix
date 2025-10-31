@@ -4,6 +4,8 @@
 
     ./optional/boot-quiet.nix
     ./optional/dconf.nix
+    ./optional/greetd.nix
+    ./optional/hardening.nix
     ./optional/keyring.nix
     ./optional/pipewire.nix
     ./optional/wayland.nix
