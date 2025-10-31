@@ -33,7 +33,7 @@
       compinit
       _comp_options+=(globdots) # Include hidden files
     '';
-    initExtra = ''
+    initContent = ''
       # Disable ctrl-s to freeze terminal
       stty stop undef
       autoload -U colors && colors
