@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     brave # Web browser that blocks ads and trackers by default (binary release)
     chromium # A web browser built for speed, simplicity, and security

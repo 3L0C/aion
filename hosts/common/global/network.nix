@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   networking = {
     hostName = config.hostSpec.name;
     networkmanager.enable = true;
@@ -12,7 +15,7 @@
 
   services.resolved = {
     enable = true;
-    domains = [ "~." ];
+    domains = ["~."];
     fallbackDns = [
       "8.8.8.8"
       "8.8.4.4"
@@ -20,5 +23,5 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
+  environment.systemPackages = with pkgs; [networkmanagerapplet];
 }

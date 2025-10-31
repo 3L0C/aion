@@ -1,8 +1,12 @@
-{ config, lib, pkgs, inputs, ... }:
 {
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     enable = true;
-    
+
     settings = {
       monitor = [
         "DP-3, highres@highrr, 0x0, 1"
@@ -41,7 +45,7 @@
         repeat_delay = 300;
         follow_mouse = 1;
         sensitivity = 0;
-        
+
         touchpad = {
           natural_scroll = false;
         };
@@ -62,14 +66,14 @@
         rounding_power = 0;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
-        
+
         shadow = {
           enabled = false;
           range = 4;
           render_power = 3;
           color = "rgba(1a1a1aee)";
         };
-        
+
         blur = {
           enabled = false;
           size = 3;
@@ -79,7 +83,7 @@
       };
       animations = {
         enabled = false;
-        
+
         bezier = [
           "easeOutQuint,0.23,1,0.32,1"
           "easeInOutCubic,0.65,0.05,0.36,1"
@@ -87,7 +91,7 @@
           "almostLinear,0.5,0.5,0.75,1.0"
           "quick,0.15,0,0.1,1"
         ];
-        
+
         animation = [
           "global, 1, 10, default"
           "border, 1, 5.39, easeOutQuint"
@@ -272,7 +276,7 @@
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
-      
+
       listener = [
         {
           timeout = 930;
@@ -285,8 +289,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [ "~/pictures/wp/1640963976704.png" ];
-      wallpaper = [ ",~/pictures/wp/1640963976704.png" ];
+      preload = ["~/pictures/wp/1640963976704.png"];
+      wallpaper = [",~/pictures/wp/1640963976704.png"];
     };
   };
 }

@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.mpv = {
     scripts = [
       pkgs.mpvScripts.mpv-playlistmanager

@@ -1,7 +1,3 @@
-{ config, username, ... }:
-let
-  user = config.users.users.${username};
-in
 {
   environment.etc.crypttab = {
     mode = "0600";

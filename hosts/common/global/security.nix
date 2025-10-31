@@ -1,34 +1,39 @@
-{ pkgs, ... }:
-{
-  security.rtkit.enable = true;
+{pkgs, ...}: {
+  security = {
+    rtkit.enable = true;
 
-  # Enable sudo 
-  security.sudo = { 
-    enable = true; 
-    extraRules = [{
-      commands = [
-        { 
-          command = "${pkgs.systemd}/bin/systemctl suspend";
-          options = [ "NOPASSWD" ];
-        }
+    # Enable sudo
+    sudo = {
+      enable = true;
+      extraRules = [
         {
-          command = "${pkgs.systemd}/bin/reboot";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/poweroff";
-          options = [ "NOPASSWD" ];
+          commands = [
+            {
+              command = "${pkgs.systemd}/bin/systemctl suspend";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "${pkgs.systemd}/bin/reboot";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "${pkgs.systemd}/bin/poweroff";
+              options = ["NOPASSWD"];
+            }
+          ];
+          groups = ["wheel"];
         }
       ];
-      groups = [ "wheel" ];
-    }];
-    extraConfig = with pkgs; '' 
-      Defaults:picloud secure_path="${lib.makeBinPath [
-        systemd
-      ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
-    ''; 
-  };
+      extraConfig = with pkgs; ''
+        Defaults:picloud secure_path="${lib.makeBinPath [
+          systemd
+        ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+      '';
+    };
 
-  security.pam.services.swaylock = { };
-  security.pam.services.hyprlock = { };
+    pam.services = {
+      swaylock = {};
+      hyprlock = {};
+    };
+  };
 }

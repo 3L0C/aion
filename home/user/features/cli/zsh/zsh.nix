@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -14,7 +13,7 @@
 
     history = {
       size = 10000;
-    }; 
+    };
 
     setOptions = [
       "HIST_IGNORE_ALL_DUPS"
@@ -24,7 +23,7 @@
       if [ "$(tty)" = "/dev/tty1" ]; then
         if uwsm check may-start; then
           exec uwsm start -- /run/current-system/sw/bin/Hyprland
-        fi        
+        fi
       fi
     '';
   };

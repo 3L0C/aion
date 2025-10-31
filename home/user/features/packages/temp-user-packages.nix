@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     pamixer # Pulseaudio command line mixer
     foot # Fast, lightweight, and minimalistic Wayland terminal emulator

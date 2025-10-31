@@ -1,6 +1,5 @@
-{ inputs, ... }:
-{
-  imports = [ 
+{...}: {
+  imports = [
     ./split-monitor-workspaces.nix
   ];
 }

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.mpv = {
     scripts = [
       pkgs.mpvScripts.builtins.autocrop

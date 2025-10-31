@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     file # Program that shows the type of files
 

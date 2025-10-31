@@ -1,5 +1,9 @@
-{ pkgs, lib, inputs, ... }:
 {
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     sbctl # For debugging and troubleshooting Secure Boot.
   ];

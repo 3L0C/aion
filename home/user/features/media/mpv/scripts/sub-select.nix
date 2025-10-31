@@ -14,41 +14,41 @@
 
   xdg.configFile = {
     "mpv/script-opts/sub-select.json".text = ''
-        [
-            {
-                "alang": [ "j[ap]n?" ],
-                "slang": [ "eng?", "und", "jpn?" ],
-                "blacklist": [
-                    "sings/songs",
-                    "signs?",
-                    "songs?",
-                    "english %(translation only%)",
-                    "signs & songs",
-                    "s&s"
-                ]
-            },
-            {
-                "alang": "eng?",
-                "slang": "eng?",
-                "whitelist": [ "sign", "song" ]
-            },
-            {
-                "alang": [ "eng?", "no" ],
-                "slang": "no"
-            },
-            {
-                "alang": "*",
-                "slang": "eng?"
-            },
-            {
-                "alang": "*",
-                "slang": "und"
-            },
-            {
-                "alang": "*",
-                "slang": "forced"
-            }
-        ]
+      [
+          {
+              "alang": [ "j[ap]n?" ],
+              "slang": [ "eng?", "und", "jpn?" ],
+              "blacklist": [
+                  "sings/songs",
+                  "signs?",
+                  "songs?",
+                  "english %(translation only%)",
+                  "signs & songs",
+                  "s&s"
+              ]
+          },
+          {
+              "alang": "eng?",
+              "slang": "eng?",
+              "whitelist": [ "sign", "song" ]
+          },
+          {
+              "alang": [ "eng?", "no" ],
+              "slang": "no"
+          },
+          {
+              "alang": "*",
+              "slang": "eng?"
+          },
+          {
+              "alang": "*",
+              "slang": "und"
+          },
+          {
+              "alang": "*",
+              "slang": "forced"
+          }
+      ]
     '';
   };
 }

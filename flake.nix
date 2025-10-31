@@ -50,7 +50,6 @@
     lib = nixpkgs.lib.extend (
       _: _: (import ./lib {inherit (nixpkgs) lib;}) // home-manager.lib
     );
-    username = "user";
     supportedSystems = [
       "x86_64-linux"
     ];

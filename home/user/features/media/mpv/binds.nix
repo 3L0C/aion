@@ -1,4 +1,3 @@
-{ ... }:
 {
   programs.mpv.bindings = {
     # Save and quit

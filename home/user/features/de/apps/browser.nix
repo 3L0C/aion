@@ -1,11 +1,8 @@
-{ inputs, pkgs, ... }:
-{
-  home.packages = (
-    with pkgs; [ 
-      firefox
-      librewolf
-      brave
-      chromium
-    ]
-  );
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    firefox
+    librewolf
+    brave
+    chromium
+  ];
 }

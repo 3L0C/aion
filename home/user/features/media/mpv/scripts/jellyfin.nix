@@ -1,8 +1,4 @@
-{
-  pkgs,
-  secrets,
-  ...
-}: {
+{secrets, ...}: {
   programs.mpv = {
     scriptOpts = {
       jellyfin = {

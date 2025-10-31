@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  writeShellScriptBin,
-  ...
-}: let
+{writeShellScriptBin, ...}: let
   mkScript = name: file:
     writeShellScriptBin name (builtins.readFile file);
 in {

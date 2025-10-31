@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     android-studio # The official Android IDE (Stable branch)
     wlroots_0_19 # Modular Wayland compositor library

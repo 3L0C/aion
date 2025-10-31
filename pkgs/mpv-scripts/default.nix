@@ -7,7 +7,7 @@
   mpv,
   jq,
   socat,
-  perl
+  perl,
 }:
 stdenv.mkDerivation {
   pname = "mpv-scripts";
@@ -19,8 +19,8 @@ stdenv.mkDerivation {
     sha256 = "sha256-zcMjIH1Tb/Aw1Lb6ZtFsoP7Qc+0yvFlt0LkFJ6FwqtM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash jq mpv socat perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash jq mpv socat perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
       # Wrap each script with necessary PATH additions
       wrapProgram "$out/bin/$script_name" \
-        --prefix PATH : ${lib.makeBinPath [ bash jq mpv socat perl ]}
+        --prefix PATH : ${lib.makeBinPath [bash jq mpv socat perl]}
     done
   '';
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     description = "Some scripts to interface with mpv via sockets";
     homepage = "https://github.com/3L0C/mpv-scripts";
     license = licenses.gpl3;
-    maintainers = [ "3L0C" ];
+    maintainers = ["3L0C"];
     platforms = platforms.unix;
   };
 }

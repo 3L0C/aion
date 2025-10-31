@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{pkgs, ...}: {
   fonts = {
     packages = with pkgs; [
       inter # A typeface specially designed for user interfaces
@@ -84,7 +83,7 @@
               <string>Noto Serif CJK JP</string>
             </edit>
           </match>
-          
+
           <match>
             <test name="lang" compare="contains">
               <string>ja</string>
@@ -96,7 +95,7 @@
               <string>Noto Sans CJK JP</string>
             </edit>
           </match>
-          
+
           <match>
             <test name="lang" compare="contains">
               <string>ja</string>
@@ -116,7 +115,7 @@
               <family>sans-serif</family>
             </prefer>
           </alias>
-          
+
           <alias>
             <family>mono</family>
             <prefer>
@@ -134,7 +133,7 @@
               <family>M+ 1c</family>
             </prefer>
           </alias>
-          
+
           <alias>
             <family>JAPANESE-SANS</family>
             <prefer>
@@ -144,7 +143,7 @@
               <family>M+ 1c</family>
             </prefer>
           </alias>
-          
+
           <alias>
             <family>JAPANESE-MONO</family>
             <prefer>

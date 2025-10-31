@@ -1,5 +1,4 @@
-{ inputs, pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.mango.enable = true;
 
   programs.hyprland = {
@@ -10,13 +9,13 @@
     enable = true;
     xdgOpenUsePortal = true;
     config = {
-      common.default = [ "gtk" ];
+      common.default = ["gtk"];
       hyprland.default = [
         "gtk"
         "hyprland"
       ];
     };
 
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }

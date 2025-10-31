@@ -16,12 +16,12 @@ pkgs.mpvScripts.buildLua {
     hash = "sha256-7szlRFGrPS+tC7j3G6FuR/UpKvC3FWqIcHKW2PWFDpo=";
   };
 
-  passthru.updateScript = unstableGitUpdater {  };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "mpv script aimed at saving live streams and clipping online videos without encoding.";
     homepage = "https://github.com/Sagnac/streamsave";
     license = lib.licenses.mit;
-    maintainers = [ "3L0C" ];
+    maintainers = ["3L0C"];
   };
 }

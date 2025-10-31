@@ -9,7 +9,7 @@
     xwayland.enable = true;
   };
   home.packages = with pkgs; [
-    grimblast  # from nixpkgs, not hypr-contrib flake
+    grimblast # from nixpkgs, not hypr-contrib flake
     hyprpicker # from nixpkgs, not flake
     grim
     slurp

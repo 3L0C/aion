@@ -1,7 +1,10 @@
-{ pkgs, ... }:
-{
-  programs.dconf.enable = true;
-  programs.zsh.enable = true;
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [ ];
+{pkgs, ...}: {
+  programs = {
+    dconf.enable = true;
+    zsh.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [];
+    };
+  };
 }

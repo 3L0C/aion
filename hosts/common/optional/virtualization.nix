@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-  users.users.user.extraGroups = [ "libvirtd" ];
+{pkgs, ...}: {
+  users.users.user.extraGroups = ["libvirtd"];
   environment.systemPackages = with pkgs; [
     virt-manager
     virt-viewer

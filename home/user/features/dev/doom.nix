@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.sessionPath = [
     "$HOME/.config/emacs/bin"
   ];
@@ -10,7 +9,7 @@
       genericName = "Text Editor";
       exec = "doomemacs %F";
       terminal = false;
-      categories = [ "Application" "TextEditor" ];
+      categories = ["Application" "TextEditor"];
     };
 
     vdoom = {
@@ -18,7 +17,7 @@
       genericName = "Text Editor";
       exec = "doomemacs --vanilla %F";
       terminal = false;
-      categories = [ "Application" "TextEditor" ];
+      categories = ["Application" "TextEditor"];
     };
   };
 

@@ -1,4 +1,3 @@
-{ inputs, pkgs, ... }:
 {
   hardware = {
     graphics = {

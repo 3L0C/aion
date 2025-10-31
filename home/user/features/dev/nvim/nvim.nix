@@ -1,9 +1,8 @@
-{ ... }:
 {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraConfig = '' 
+    extraConfig = ''
       set clipboard=unnamedplus
     '';
   };

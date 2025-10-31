@@ -1,15 +1,18 @@
-{ inputs, pkgs, ... }:
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
-    settings = { 
+    settings = {
       plugin.split-monitor-workspaces = {
         count = 10;
-	keep_focused = 1;
-	enable_notifications = 0;
-	enable_persistent_workspaces = 0;
+        keep_focused = 1;
+        enable_notifications = 0;
+        enable_persistent_workspaces = 0;
       };
     };
   };

@@ -2,7 +2,7 @@
   lib,
   pkgs,
   fetchFromGitHub,
-  unstableGitUpdater
+  unstableGitUpdater,
 }:
 pkgs.mpvScripts.buildLua {
   pname = "mpv-mpvSockets-smpv";
@@ -16,12 +16,12 @@ pkgs.mpvScripts.buildLua {
     hash = "sha256-E39wj2GasqjWDShrb+tGyOuPZsoFacemZs5a/TFsGqg=";
   };
 
-  passthru.updateScript = unstableGitUpdater {  };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fork of mpvSockets made compatible with umpv and more";
     homepage = "https://github.com/3L0C/mpvSockets-smpv";
     license = lib.licenses.mit;
-    maintainers = [ "3L0C" ];
+    maintainers = ["3L0C"];
   };
 }

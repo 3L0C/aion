@@ -2,7 +2,7 @@
   lib,
   pkgs,
   fetchFromGitHub,
-  unstableGitUpdater
+  unstableGitUpdater,
 }:
 pkgs.mpvScripts.buildLua {
   pname = "mpv-jellyfin";
@@ -22,12 +22,12 @@ pkgs.mpvScripts.buildLua {
                      '\"Username\"'
   '';
 
-  passthru.updateScript = unstableGitUpdater {  };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Script for mpv that turns it into a jellyfin client.";
     homepage = "https://github.com/EmperorPenguin18/mpv-jellyfin";
     license = lib.licenses.unlicense;
-    maintainers = [ "3L0C" ];
+    maintainers = ["3L0C"];
   };
 }

@@ -3,11 +3,11 @@
   pkgs,
 }:
 lib.pipe
-  {
-    inherit (pkgs) callPackage;
-    directory = ./scripts;
-  }
-  [
-    lib.packagesFromDirectoryRecursive
-    lib.recurseIntoAttrs
-  ]
+{
+  inherit (pkgs) callPackage;
+  directory = ./scripts;
+}
+[
+  lib.packagesFromDirectoryRecursive
+  lib.recurseIntoAttrs
+]

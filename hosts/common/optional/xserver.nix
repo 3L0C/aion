@@ -1,4 +1,3 @@
-{ username, ... }:
 {
   services = {
     xserver = {

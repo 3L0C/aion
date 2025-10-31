@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   gtk = {
     enable = true;
     font = {
@@ -8,7 +7,7 @@
     };
     theme = {
       name = "Kanagawa-Dark";
-      package = pkgs.kanagawa-gtk-theme; 
+      package = pkgs.kanagawa-gtk-theme;
     };
     iconTheme = {
       name = "Kanagawa-Dark";

@@ -2,7 +2,7 @@
   lib,
   pkgs,
   fetchFromGitHub,
-  unstableGitUpdater
+  unstableGitUpdater,
 }:
 pkgs.mpvScripts.buildLua {
   pname = "mpv-sub-select";
@@ -16,12 +16,12 @@ pkgs.mpvScripts.buildLua {
     hash = "sha256-+eVga4b7KIBnfrtmlgq/0HNjQVS3SK6YWVXCPvOeOOc=";
   };
 
-  passthru.updateScript = unstableGitUpdater {  };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "An advanced conditional subtitle track selector for mpv player";
     homepage = "https://github.com/CogentRedTester/mpv-sub-select";
     license = lib.licenses.mit;
-    maintainers = [ "3L0C" ];
+    maintainers = ["3L0C"];
   };
 }

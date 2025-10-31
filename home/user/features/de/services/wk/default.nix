@@ -1,5 +1,8 @@
-{ inputs, pkgs, ... }:
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   home.packages = [
     (inputs.wk.packages.${pkgs.system}.wk.override {
       patches = [

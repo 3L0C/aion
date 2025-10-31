@@ -18,48 +18,48 @@ pkgs.mpvScripts.buildLua {
   };
 
   postPatch = ''
-    # Create the script directory structure
-    mv scripts gallery-view
+        # Create the script directory structure
+        mv scripts gallery-view
 
-    # Create main.lua that loads only the enabled components
-    cat > gallery-view/main.lua << 'EOF'
--- mpv-gallery-view main entry point
--- This file loads the enabled components based on nix build configuration
+        # Create main.lua that loads only the enabled components
+        cat > gallery-view/main.lua << 'EOF'
+    -- mpv-gallery-view main entry point
+    -- This file loads the enabled components based on nix build configuration
 
--- Load gallery-thumbgen
-script_dir = mp.get_script_directory()
-mp.commandv("load-script", script_dir .. "/gallery-thumbgen.lua")
-
-${lib.optionalString enablePlaylistView ''
--- Load playlist-view
-mp.commandv("load-script", script_dir .. "/playlist-view.lua")
-''}
-
-${lib.optionalString enableContactSheet ''
--- Load contact-sheet
-mp.commandv("load-script", script_dir .. "/contact-sheet.lua")
-''}
-EOF
-
-    # Copy enabled script files to the directory
-    mv script-modules gallery-view/
+    -- Load gallery-thumbgen
+    script_dir = mp.get_script_directory()
+    mp.commandv("load-script", script_dir .. "/gallery-thumbgen.lua")
 
     ${lib.optionalString enablePlaylistView ''
-    substituteInPlace gallery-view/playlist-view.lua \
-      --replace-fail "~~/script-modules/?.lua;" \
-                     "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
+      -- Load playlist-view
+      mp.commandv("load-script", script_dir .. "/playlist-view.lua")
     ''}
 
     ${lib.optionalString enableContactSheet ''
-    substituteInPlace gallery-view/contact-sheet.lua \
-      --replace-fail "~~/script-modules/?.lua;" \
-                     "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
+      -- Load contact-sheet
+      mp.commandv("load-script", script_dir .. "/contact-sheet.lua")
+    ''}
+    EOF
+
+        # Copy enabled script files to the directory
+        mv script-modules gallery-view/
+
+        ${lib.optionalString enablePlaylistView ''
+      substituteInPlace gallery-view/playlist-view.lua \
+        --replace-fail "~~/script-modules/?.lua;" \
+                       "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
+    ''}
+
+        ${lib.optionalString enableContactSheet ''
+      substituteInPlace gallery-view/contact-sheet.lua \
+        --replace-fail "~~/script-modules/?.lua;" \
+                       "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
     ''}
   '';
 
   scriptPath = "gallery-view";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Gallery-view scripts for mpv";
@@ -73,6 +73,6 @@ EOF
     '';
     homepage = "https://github.com/occivink/mpv-gallery-view";
     license = lib.licenses.unlicense;
-    maintainers = [ "3L0C" ];
+    maintainers = ["3L0C"];
   };
 }
