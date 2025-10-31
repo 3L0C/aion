@@ -13,7 +13,6 @@
     MPC_TMP_FILE = "/tmp/mpc/current-song.txt";
     XINITRC = "${config.xdg.configHome}/x11/xinitrc";
     NOTMUCH_CONFIG = "${config.xdg.configHome}/notmuch-config";
-    GTK2_RC_FILES = "${config.xdg.configHome}/gtk-2.0/gtkrc-2.0";
     WGETRC = "${config.xdg.configHome}/wget/wgetrc";
     INPUTRC = "${config.xdg.configHome}/shell/inputrc";
     GNUPGHOME = "${config.xdg.dataHome}/gnupg";

@@ -108,6 +108,22 @@ in {
       type = types.str;
       description = "Search match highlight";
     };
+    accent = mkOption {
+      type = types.str;
+      description = "General purpose accent/emphasis color";
+    };
+    active = mkOption {
+      type = types.str;
+      description = "Active UI elements (tabs, items, enabled state)";
+    };
+    urgent = mkOption {
+      type = types.str;
+      description = "Urgent attention needed (may differ from error)";
+    };
+    disabled = mkOption {
+      type = types.str;
+      description = "Disabled/inactive UI elements";
+    };
     button = mkOption {
       type = types.str;
       description = "Button color";
@@ -199,6 +215,77 @@ in {
     diffDelete = mkOption {
       type = types.str;
       description = "Diff deletion background";
+    };
+    terminal = mkOption {
+      type = types.submodule {
+        options = {
+          color0 = mkOption {
+            type = types.str;
+            description = "Black (normal)";
+          };
+          color1 = mkOption {
+            type = types.str;
+            description = "Red (normal)";
+          };
+          color2 = mkOption {
+            type = types.str;
+            description = "Green (normal)";
+          };
+          color3 = mkOption {
+            type = types.str;
+            description = "Yellow (normal)";
+          };
+          color4 = mkOption {
+            type = types.str;
+            description = "Blue (normal)";
+          };
+          color5 = mkOption {
+            type = types.str;
+            description = "Magenta (normal)";
+          };
+          color6 = mkOption {
+            type = types.str;
+            description = "Cyan (normal)";
+          };
+          color7 = mkOption {
+            type = types.str;
+            description = "White (normal)";
+          };
+          color8 = mkOption {
+            type = types.str;
+            description = "Black (bright)";
+          };
+          color9 = mkOption {
+            type = types.str;
+            description = "Red (bright)";
+          };
+          color10 = mkOption {
+            type = types.str;
+            description = "Green (bright)";
+          };
+          color11 = mkOption {
+            type = types.str;
+            description = "Yellow (bright)";
+          };
+          color12 = mkOption {
+            type = types.str;
+            description = "Blue (bright)";
+          };
+          color13 = mkOption {
+            type = types.str;
+            description = "Magenta (bright)";
+          };
+          color14 = mkOption {
+            type = types.str;
+            description = "Cyan (bright)";
+          };
+          color15 = mkOption {
+            type = types.str;
+            description = "White (bright)";
+          };
+        };
+      };
+      description = "Terminal ANSI 16-color palette";
     };
     fonts = mkOption {
       type = types.submodule {

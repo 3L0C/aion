@@ -1,19 +1,19 @@
-{
+{config, ...}: {
   programs.waybar = {
     style = ''
-      /* Kanagawa Colors - matching Xresources */
-      @define-color background #181616;
-      @define-color background-light #3a3838;
-      @define-color foreground #DCD7BA;
-      @define-color black #191922;
-      @define-color red #d8616b;
-      @define-color green #98bb6c;
-      @define-color yellow #e6c384;
-      @define-color blue #7FB4CA;
-      @define-color magenta #957fb8;
-      @define-color cyan #A3D4D5;
-      @define-color white #DCD7BA;
-      @define-color orange #e6c384;
+      /* Kanagawa Colors - from themeSpec */
+      @define-color background ${config.themeSpec.background};
+      @define-color background-light ${config.themeSpec.colors.base4};
+      @define-color foreground ${config.themeSpec.foreground};
+      @define-color black ${config.themeSpec.terminal.color0};
+      @define-color red ${config.themeSpec.colors.red};
+      @define-color green ${config.themeSpec.colors.green};
+      @define-color yellow ${config.themeSpec.colors.yellow};
+      @define-color blue ${config.themeSpec.colors.blue};
+      @define-color magenta ${config.themeSpec.colors.magenta};
+      @define-color cyan ${config.themeSpec.colors.cyan};
+      @define-color white ${config.themeSpec.foreground};
+      @define-color orange ${config.themeSpec.colors.orange};
 
       * {
           border: none;

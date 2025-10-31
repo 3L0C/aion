@@ -42,6 +42,22 @@ let
   winterRed = "#43242B";
 
   lightMagenta = "#D8A8E1";
+  termBlack = "#191922";
+  termRed = "#d8616b";
+  termGreen = "#98bb6c";
+  termYellow = "#e6c384";
+  termBlue = "#7FB4CA";
+  termMagenta = "#957fb8";
+  termCyan = "#A3D4D5";
+  termWhite = "#DCD7BA";
+  termBrightBlack = "#525259";
+  termBrightRed = "#e18890";
+  termBrightGreen = "#b1cb90";
+  termBrightYellow = "#ecd2a2";
+  termBrightBlue = "#9fc6d7";
+  termBrightMagenta = "#b4a4cf";
+  termBrightCyan = "#badedf";
+  termBrightWhite = "#C8C093";
 in {
   themeSpec = {
     name = "kanagawa-abyss";
@@ -61,6 +77,10 @@ in {
     selection = waveBlue1; # Deep blue selection background
     cursor = colors.blue; # cursor color
     match = boatYellow2; # Bright yellow for search matches
+    accent = colors.blue; # general purpose accent color
+    active = colors.green; # active/enabled UI elements
+    urgent = samuraiRed; # urgent attention (brighter than error)
+    disabled = colors.grey; # disabled/inactive elements
     button = colors.blue; # buttons
     buttonHover = colors.darkBlue; # button hover state
     menu = colors.base3; # menu background
@@ -84,6 +104,24 @@ in {
     diffAdd = winterGreen; # Dark green background for additions
     diffChange = winterYellow; # Dark yellow background for changes
     diffDelete = winterRed; # Dark red background for deletions
+    terminal = {
+      color0 = termBlack;
+      color1 = termRed;
+      color2 = termGreen;
+      color3 = termYellow;
+      color4 = termBlue;
+      color5 = termMagenta;
+      color6 = termCyan;
+      color7 = termWhite;
+      color8 = termBrightBlack;
+      color9 = termBrightRed;
+      color10 = termBrightGreen;
+      color11 = termBrightYellow;
+      color12 = termBrightBlue;
+      color13 = termBrightMagenta;
+      color14 = termBrightCyan;
+      color15 = termBrightWhite;
+    };
     fonts = {
       mono = "monospace";
       sans = "sans-serif";
