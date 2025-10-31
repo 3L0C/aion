@@ -1,0 +1,246 @@
+# Warn if in nested lf instance
+%[ $LF_LEVEL -eq 1 ] || echo "Warning: You're in a nested lf instance"
+
+# Bindings
+# map ,j   %xdotool key ctrl+b j
+map ,am  animove
+map ,bs  bscript
+map ,ce  cred
+map ,ch  lf_chmod
+map ,cs  push $curl<space>-LJO<space>
+map ,cx  chmodx
+map ,e   $dmacs "$PWD"
+map ,ff  push $nvim<space>""<left>
+map ,fm  fmpv
+map ,gc  push $git<space>clone<space>
+map ,gi  %dmenugitignore
+map ,gI  get_info
+map ,l   $lfrun
+map ,mb  $manga-bulk
+map ,md  %echo $fx >> ~/rezip_dirs.txt
+map ,mm  mangamove
+map ,nc  push $nvim<space>.c<left><left>
+map ,nf  mknf
+map ,ps  py_script
+map ,rf  replace_files
+map ,T   track
+map ,ts  $cd ~/.local/bin/scripts ; nvim tscript
+map ,ut  untar
+map ,yb  yank-basename
+map ,yd  yank-dirname
+map ,yf  yank-filename
+map ,yi  yank-image
+map ,yp  yank-path
+map ,sf  fzf_search
+map /    fzf_jump
+map ?    fzf_dot_jump
+
+map <a-z> $sudo make uninstall && sudo make clean install && renew-dwm
+
+map <esc> candr
+
+map ,
+
+# cmd/functions
+cmd animove ${{
+  [ ! -e folder ] && mkdir folder
+  while read -r file ; do
+    mv "$file" $(pwd)/folder/
+  done < <(printf '%s\n' "$fx")
+
+  lf -remote 'send reload'
+}}
+
+cmd bscript ${{
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "script name: "
+  read ans
+  [ ! -e "$ans" ] && echo "#!/bin/bash" >> "$ans" && chmod +x "$ans" && nvim "$ans"
+}}
+
+cmd candr ${{
+  lf -remote 'send clear'
+  lf -remote 'send reload'
+}}
+
+cmd cred ${{
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "file name: "
+  read ans
+  [ ! -e $ans ] && nvim $ans
+}}
+
+cmd fzf_jump ${{
+    clear; tput cup $(($(tput lines)/10 * 6))
+    res="$(ls | \
+           fzf --bind 'esc:print(esc)+accept,tab:down,btab:up,enter:print(open)+accept,ctrl-space:print(select)+accept' \
+           --reverse --header='Jump to location' --height 60%)"
+    option="$(printf '%s' "$res" | sed '1!d')"
+    res="$(printf '%s' "$res" | sed '1d')"
+    case "$option" in
+        esc) exit 0 ;;
+        open)
+            if [ -d "$res" ]; then
+                lf -remote "send $id cd \"$res\""
+            else
+                lf-opener "$id" "$res" &
+            fi
+            ;;
+        select) lf -remote "send $id select \"$res\"" ;;
+        *) notify-send "lf" "Bad option: '$option'" ;;
+    esac
+    # if [ -n "$res" ]; then
+    #     if [ -d "$res" ]; then
+    #         res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    #         lf -remote "send $id cd \"$res\""
+    #     else
+    #         res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    #         lf-opener "$id" "$res" &
+    #     fi
+    # else
+    #     exit 0
+    # fi
+}}
+
+cmd fzf_dot_jump ${{
+    clear; tput cup $(($(tput lines)/10 * 6))
+    res="$(ls -A | \
+           fzf --bind 'esc:print(esc)+accept,tab:down,btab:up,enter:print(open)+accept,ctrl-space:print(select)+accept' \
+           --reverse --header='Jump to location' --height 60%)"
+    option="$(printf '%s' "$res" | sed '1!d')"
+    res="$(printf '%s' "$res" | sed '1d')"
+    case "$option" in
+        esc) exit 0 ;;
+        open)
+            if [ -d "$res" ]; then
+                lf -remote "send $id cd \"$res\""
+            else
+                lf-opener "$id" "$res" &
+            fi
+            ;;
+        select) lf -remote "send $id select \"$res\"" ;;
+        *) notify-send "lf" "Bad option: '$option'" ;;
+    esac
+}}
+
+cmd fzf_search ${{
+    clear; tput cup $(($(tput lines)/10 * 6))
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+    )"
+    [ -n "$res" ] && lf -remote "send $id select \"$res\""
+}}
+
+cmd lf_chmod ${{
+  printf "Mode Bits: "
+  read ans
+
+  for file in $fx; do
+      chmod $ans "$file"
+  done
+
+  lf -remote 'send reload'
+}}
+
+cmd chmodx ${{
+  for file in "$fx"; do
+  chmod +x $file
+  done
+
+  lf -remote 'send reload'
+}}
+
+cmd fmpv ${{
+  setsid -f mpv $f --x11-name=fmpv -quiet >/dev/null 2>&1 & sleep 0.2 && \
+    xdotool key --clearmodifiers super+K super+f
+}}
+
+cmd get_info ${{
+  # trap 'rm -f "${TMP_DIR}/"*' EXIT
+  TMP_DIR="/tmp/manga_lf"
+  [ ! -d "${TMP_DIR}" ] && mkdir -p "${TMP_DIR}"
+  TMP_FILE="$(mktemp -p "${TMP_DIR}")"
+  echo "$id" > "${TMP_FILE}"
+  # sleep 0.2
+  # exit
+}}
+
+cmd mangamove ${{
+  [ ! -d read ] && mkdir read
+  [ ! -e manga.log ] && touch manga.log
+
+  while read -r file ; do
+    mv "$file" $(pwd)/read/
+    echo "$file" >> manga.log
+  done < <(printf '%s\n' "$fx")
+
+  [ -e manga.log ] && {
+    mv manga.log manga.log.bak
+    sort -u manga.log.bak > manga.log
+    rm manga.log.bak
+  }
+
+  lf -remote 'send reload'
+}}
+
+cmd mknf ${{
+  mkdir folder
+  lf -remote 'send reload'
+}}
+
+cmd py_script ${{
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "Script name: "
+  read ans
+  [ ! -e $ans ] && echo "#!/usr/bin/env python3" > "$ans" && chmod +x "$ans" && nvim "$ans"
+}}
+
+cmd replace_files ${{
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf '%s' "Replace old files? [y/N] "
+  read ans
+  [ $ans = "y" ] && {
+    set +f
+    for file in * ; do
+        [[ ! "$file" =~ \.~1~$ ]] && continue
+        mv "$file" "${file%\.*}"
+    done
+  }
+  exit 0
+}}
+
+cmd track ${{
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "%s\n\t" "$fx"
+  printf "Track? [y/N] "
+  read ans
+  [ $ans = "y" ] && echo "!${fx##*/}" >> .gitignore
+}}
+
+cmd untar ${{
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "%s\n\t" "$fx"
+  printf "Untar? [y/N] "
+  read ans
+  [ $ans = "y" ] && tar xvzf "$fx"
+}}
+
+cmd yank-basename $basename -- "$f" | head -c-1 | wl-copy
+
+cmd yank-dirname $dirname -- "$f" | head -c-1 | wl-copy
+
+cmd yank-filename $printf '%s' "${fx##*/}" | wl-copy
+
+cmd yank-image $wl-copy -t image/"${fx##*.}" < "$fx"
+
+cmd yank-path $printf '%s' "$fx" | wl-copy

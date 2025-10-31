@@ -45,5 +45,4 @@
 
     SFEEDPATH = "${config.xdg.configHome}/sfeed";
   };
-  home.sessionVariables.TMUX_TMPDIR = "\${XDG_RUNTIME_DIR}";
 }
