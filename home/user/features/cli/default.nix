@@ -12,6 +12,8 @@
     ./file-preview.nix
     ./filesystem-tools.nix
     ./media-tools.nix
+    ./network-tools.nix
+    ./search-tools.nix
     ./spelling.nix
     ./utilities.nix
   ];
