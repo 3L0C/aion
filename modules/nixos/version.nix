@@ -1,8 +1,8 @@
 {
-  heimRev,
+  aionRev,
   config,
   ...
 }: {
-  system.configurationRevision = heimRev;
-  system.nixos.label = "${config.system.nixos.version}_${heimRev}";
+  system.configurationRevision = aionRev;
+  system.nixos.label = "${config.system.nixos.version}_${aionRev}";
 }

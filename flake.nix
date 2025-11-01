@@ -80,7 +80,7 @@
             outputs
             secrets
             ;
-          heimRev = self.shortRev or self.dirtyShortRev or "dirty";
+          aionRev = self.shortRev or self.dirtyShortRev or "dirty";
         };
         modules = [
           {nixpkgs.pkgs = pkgsFor.${system};}
