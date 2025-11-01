@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+handle_block() {
+    case $BLOCK_BUTTON in
+        1)
+            mpc prev
+            ;;
+    esac
+}
+
+handle_block >/dev/null 2>&1
+echo "󰒮 "

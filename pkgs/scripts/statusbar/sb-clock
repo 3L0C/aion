@@ -1,0 +1,43 @@
+#!/bin/sh
+
+clock=$(date '+%H')
+
+# case "$clock" in
+# 	"00") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"01") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"02") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"03") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"04") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"05") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"06") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"07") redshift -x >/dev/null 2>&1 ;;
+# 	"08") redshift -x >/dev/null 2>&1 ;;
+# 	"09") redshift -x >/dev/null 2>&1 ;;
+# 	"10") redshift -x >/dev/null 2>&1 ;;
+# 	"11") redshift -x >/dev/null 2>&1 ;;
+# 	"12") redshift -x >/dev/null 2>&1 ;;
+# 	"13") redshift -x >/dev/null 2>&1 ;;
+# 	"14") redshift -x >/dev/null 2>&1 ;;
+# 	"15") redshift -x >/dev/null 2>&1 ;;
+# 	"16") redshift -x >/dev/null 2>&1 ;;
+# 	"17") redshift -x >/dev/null 2>&1 ;;
+# 	"18") redshift -x >/dev/null 2>&1 ;;
+# 	"19") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"20") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"21") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"22") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# 	"23") redshift -P -O 3500 >/dev/null 2>&1 ;;
+# esac
+
+case $BLOCK_BUTTON in
+	1) notify-send "This Month" "$(cal --color=always | sed "s/..7m/<b><span color=\"red\">/;s/..0m/<\/span><\/b>/")" && notify-send "Appointments" "$(calcurse -d3)" ;;
+	2) setsid -f "$TERMINAL" -e calcurse ;;
+	3) notify-send "Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
+- Middle click opens calcurse if installed" ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+date=$(date "+%b %d %H:%M")
+
+printf '| %s ' "$date"
+# date "+%Y %b %d (%a) $icon %H:%M%p"

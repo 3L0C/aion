@@ -1,0 +1,123 @@
+#!/bin/bash
+PLAYLIST_DIR="$XDG_CONFIG_HOME/mpd/playlists"
+
+check_playlist() {
+  [[ "$(find "$PLAYLIST_DIR" -type f -name "*.m3u" -printf '%P\n' | wc -l)" -lt 1 ]] &&
+    PLAYLIST="NONE" ||
+    PLAYLIST="FOUND"
+  [[ "$PLAYLIST" == "NONE" ]] && open_ncmpcpp
+  [[ "$PLAYLIST" == "FOUND" ]] && play_playlist
+  exit
+}
+
+cut_song() {
+  L=0
+  while IFS= read -r -d "" -n 1 CHAR; do
+    [[ "$L" -eq 15 ]] && break
+    printf '%s' "$CHAR"
+    L=$((L + 1))
+  done < <(printf '%s' "$SONG")
+}
+
+filter() {
+  [[ "$STATUS" == "PAUSED" ]] && {
+    printf '|\n'
+    return 0
+  }
+  [[ "$STATUS" == "STOPPED" ]] && {
+    printf '|\n'
+    return 0
+  }
+  SONG_FILE="${MPC_TMP_FILE:-${MPC_TMP_DIR:-/tmp/mpc}/current-song.txt}"
+  SONG="$(head -n1 "$SONG_FILE" | sed 's|tmaster.*/||g')"
+  [[ "${#SONG}" -gt 15 ]] && LONG_MPC=1 || LONG_MPC=0
+  [[ "$LONG_MPC" -eq 1 ]] && return 0
+  SONG="$(cut_song | sed 's/\s\+$//g')"
+  printf '|%s\n' "$SONG"
+}
+
+mpc_status() {
+  [[ "$(mpc)" =~ "volume: n/a   r" ]] && {
+    STATUS="STOPPED"
+    return 0
+  }
+  [[ "$(mpc status %state%)" == "paused" ]] && STATUS="PAUSED" || STATUS="PLAYING"
+}
+
+mpc_toggle() {
+  mpc toggle >/dev/null 2>&1
+  filter
+  exit
+}
+
+open_ncmpcpp() {
+  setsid -f ncmpcpp >/dev/null 2>&1
+}
+
+play_music() {
+  PLAY=$(find "$XDG_CONFIG_HOME"/mpd/playlists -type f -printf '%P\n' | sed 's/\.m3u//g' | dmenu -i -p "Playlist:")
+  [[ -z "$PLAY" ]] && return 0
+  mpc clear
+  mpc random off
+  mpc repeat on
+  mpc load "$PLAY"
+  mpc play
+  mpc random on
+}
+
+play_playlist() {
+  play_music >/dev/null 2>&1
+  filter
+}
+
+roll_text() {
+  POSITION=$(tail -n1 "$SONG_FILE")
+  LENGTH=${#SONG}
+  PADDING=$((LENGTH - 15))
+  [[ "$POSITION" -gt "$PADDING" ]] && POSITION=0
+  printf '|%s\n' "${SONG:$POSITION:15}"
+  POSITION=$((POSITION + 1))
+  sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+}
+
+pidof -x sb-mpdup >/dev/null 2>&1 || setsid -f sb-mpdup >/dev/null 2>&1
+
+case $BLOCK_BUTTON in
+  1)
+    mpc_status >/dev/null 2>&1
+    [[ "STOPPED" == "$STATUS" ]] && mpc-toggle
+    [[ "PLAYING|PAUSED" =~ "$STATUS" ]] && mpc_toggle
+    exit
+    ;;
+  2)
+    filter
+    setsid -f "$TERMINAL" -e ncmpcpp
+    exit
+    ;;
+  3)
+    filter
+    notify-send "mpc - currently-playing" "$(mpc current)"
+    exit
+    ;;
+  4)
+    mpc prev >/dev/null 2>&1
+    filter
+    exit
+    ;;
+  5)
+    mpc next >/dev/null 2>&1
+    filter
+    exit
+    ;;
+  6)
+    mpc stop >/dev/null 2>&1
+    filter
+    exit
+    ;;
+  *)
+    mpc_status >/dev/null 2>&1
+    filter
+    [[ $LONG_MPC -eq 1 ]] && roll_text
+    exit
+    ;;
+esac

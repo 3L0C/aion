@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if ! { pgrep -x "mpv" >/dev/null 2>&1 &&
+    mpv-active-sockets --music --quiet; }; then
+    exit 0
+fi
+
+handle_block() {
+    case $BLOCK_BUTTON in
+        1)
+            mpv-prev --socket "$SOCKET"
+            ;;
+    esac
+}
+
+set_socket() {
+    if mpv-currently-playing --umpv --socket >/dev/null 2>&1; then
+        SOCKET="${MPV_UMPV_SOCKET:-${MPV_SOCKET_DIR:-/tmp/mpvSockets}/umpv_socket}"
+    elif mpv-currently-playing --ampv --socket >/dev/null 2>&1; then
+        SOCKET="${MPV_AMPV_SOCKET:-${MPV_SOCKET_DIR:-/tmp/mpvSockets}/ampv_socket}"
+    elif mpv-currently-playing --unique --socket >/dev/null 2>&1; then
+        SOCKET="$(mpv-currently-playing --unique --socket | head -n1)"
+    fi
+}
+
+set_socket >/dev/null 2>&1
+handle_block >/dev/null 2>&1
+echo "󰒭 "

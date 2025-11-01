@@ -1,0 +1,148 @@
+#!/bin/bash
+
+SOCKET="${MPV_MUSIC_SOCKET:-${MPV_SOCKET_DIR:-/tmp/mpvSockets}/music_socket}"
+if [[ ! -S "${SOCKET}" ]]; then
+  exit 0
+fi
+
+cut_song() {
+  L=0
+  while IFS= read -r -d "" -n 1 CHAR; do
+    [[ "${L}" -eq 15 ]] && break
+    printf '%s' "${CHAR}"
+    L=$((L + 1))
+  done < <(printf '%s' "${SONG}")
+}
+
+roll_text() {
+  POSITION=$(tail -n1 "$SONG_FILE")
+  LENGTH=${#SONG}
+  PADDING=$((LENGTH - 15))
+  [[ "$POSITION" -gt "$PADDING" ]] && POSITION=0
+  printf '| %s ' "${SONG:$POSITION:15}"
+  POSITION=$((POSITION + 1))
+  sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+
+  return 0
+}
+
+mpv_display() {
+  mpv-currently-playing --music --quiet || {
+    printf '| %s ' "mpv-music"
+    return 0
+  }
+  SONG_FILE="$SOCKET.txt"
+  SONG="$(head -n1 "$SONG_FILE")"
+  [[ "$1" == "-u" ]] && {
+    printf '| %s ' "$SONG"
+    return 0
+  }
+  [[ ${#SONG} -gt 15 ]] && LONG_MPV=1 || LONG_MPV=0
+  [[ $LONG_MPV -eq 1 ]] && return 0
+  SONG="$(cut_song | sed 's/\s\+$//g')"
+  printf '| %s ' "$SONG"
+}
+
+case $BLOCK_BUTTON in
+  1)
+    mpv-toggle --music --quiet
+    mpv_display
+    ;;
+  2)
+    mpv-opts --quit --music
+    mpv_display
+    ;;
+  3)
+    notify-send "$(mpv_display -u)"
+    mpv_display
+    ;;
+  4)
+    mpv-prev --music
+    mpv_display
+    ;;
+  5)
+    mpv-next --music
+    mpv_display
+    ;;
+  6)
+    yt-opts "$(mpv-get-property --music "path")"
+    mpv_display
+    ;;
+  *)
+    mpv_display
+    [[ $LONG_MPV -eq 1 ]] && roll_text
+    ;;
+esac
+
+exit 0
+
+cut_song() {
+  PRINT_WIDTH=0
+  while IFS= read -r -d "" -n 1 CHAR; do
+    printf '%s' "$CHAR"
+    CHAR_WIDTH="$(wc -L <<<"$CHAR")"
+    PRINT_WIDTH=$((PRINT_WIDTH + CHAR_WIDTH))
+    [[ "$PRINT_WIDTH" -ge 16 ]] && {
+      break
+    }
+  done < <(printf '%s' "$1")
+}
+
+handle_block() {
+  case $BLOCK_BUTTON in
+    1)
+      mpv-toggle --music --quiet
+      ;;
+    2)
+      mpv-opts --quit --music
+      ;;
+    3)
+      notify-send "$(mpv_display)"
+      ;;
+    4)
+      mpv-prev --music
+      ;;
+    5)
+      mpv-next --music
+      ;;
+    6)
+      yt-opts "$(mpv-get-property --music "path")"
+      ;;
+    *) ;;
+  esac
+}
+
+mpv_display() {
+  [[ -z "$SOCKET" ]] && {
+    SONG="mpv"
+    return 0
+  }
+  SONG_FILE="$SOCKET.txt"
+  SONG="$(head -n1 "$SONG_FILE")"
+  [[ "${#SONG}" -gt 16 ]] && LONG_MPV=1
+  [[ "$LONG_MPV" -eq 1 ]] && return 0
+  SONG="$(cut_song "$SONG" | sed 's/\s\+$//g') - mpv-music"
+}
+
+roll_text() {
+  POSITION=$(tail -n1 "$SONG_FILE")
+  SONG_LEN="$(wc -L <<<"${SONG:$POSITION}")"
+  [[ "$SONG_LEN" -lt 16 ]] && POSITION=0
+  SONG="$(cut_song "${SONG:$POSITION:16}") - mpv-music"
+  POSITION=$((POSITION + 2))
+  sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+  return 0
+}
+
+set_socket() {
+  SOCKET="${MPV_MUSIC_SOCKET:-${MPV_SOCKET_DIR:-/tmp/mpvSockets}/music_socket}"
+  if [[ ! -S "${SOCKET}" ]]; then
+    exit 0
+  fi
+}
+
+set_socket >/dev/null 2>&1
+handle_block
+mpv_display
+[[ "$LONG_MPV" -eq 1 ]] && roll_text
+printf "| %s \n" "$SONG"

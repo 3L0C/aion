@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# This script is the SUDO_ASKPASS variable, meaning that it will be used as a
+# password prompt if needed.
+
+delcare -a winflag
+
+window_id="$(xdotool getactivewindow)"
+
+[[ -n "$window_id" ]] && winflag+=("-w" "$window_id")
+dmenu "${winflag[@]}" -fn Monospace-18 -P -p "$1" <&- && echo

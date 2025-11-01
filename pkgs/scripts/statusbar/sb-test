@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case "$BLOCK_BUTTON" in
+    1)
+        notify-send "test"
+        ;;
+    *)
+        notify-send "[$BLOCK_BUTTON]"
+        echo "[$BLOCK_BUTTON]"
+        ;;
+esac
+# echo "[${BLOCK_BUTTON:-NONE}]"

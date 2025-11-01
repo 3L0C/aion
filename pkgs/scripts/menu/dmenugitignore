@@ -1,0 +1,243 @@
+#!/usr/bin/env bash
+
+export GITIGNORE
+export GITIGNORE_OLD
+export GITIGNORE_TMP
+declare -a ITEMS_TMP
+
+cleanup() {
+  [[ "$(cat "${GITIGNORE_OLD}")" == "###" ]] && rm "${GITIGNORE_OLD}"
+  [[ "${STAR}" -ne 1 ]] && sed -i "1 a *" "${GITIGNORE}"
+  [[ "${NEW_ITEM}" -ne 1 ]] && rm "${GITIGNORE_OLD}"
+}
+
+compare_files() {
+  while read -r TEMP; do
+    MATCH=0
+    while read -r OLD; do
+      [[ "${OLD}" == "*" ]] && continue
+      if [[ "${TEMP}" == "${OLD:1}" ]]; then
+        printf '%s\n' "${OLD}" >>"${GITIGNORE}"
+        MATCH=1
+        continue
+      fi
+      if [[ "${TEMP}" == ".gitignore-old" ]] || [[ "${TEMP}" == ".gitignore-very-old" ]]; then
+        printf '%s\n' "#${TEMP}" >>"${GITIGNORE}"
+        MATCH=1
+        break
+      fi
+    done <"${GITIGNORE_OLD}"
+    if [[ "${MATCH}" -eq 0 ]]; then
+      NEW_ITEM=1
+      case "$(printf '%s\n' "Track" "Ignore" | dmenu -i -p "New item -- ${DIR}/${TEMP} :")" in
+        Track)
+          printf '%s\n' "!${TEMP}" >>"${GITIGNORE}"
+          continue
+          ;;
+        Ignore)
+          printf '%s\n' "#${TEMP}" >>"${GITIGNORE}"
+          continue
+          ;;
+        *)
+          printf '%s\n' "#${TEMP}" >>"${GITIGNORE}"
+          continue
+          ;;
+      esac
+    fi
+  done < <(printf '%s\n' "${ITEMS_TMP[@]}")
+  while read -r OLD; do
+    FOUND=0
+    if [[ "${OLD}" == "*" ]]; then
+      sed -i "1 a ${OLD}" "${GITIGNORE}"
+      STAR=1
+      continue
+    fi
+    while read -r TEMP; do
+      if [[ "${TEMP}" == "${OLD:1}" ]]; then
+        FOUND=1
+        break
+      fi
+    done < <(printf '%s\n' "${ITEMS_TMP[@]}")
+    if [[ "${FOUND}" -eq 0 ]] && [[ ! "${OLD}" =~ "###" ]]; then
+      sed -i "1 a ### < ${OLD} > deleted since last update ###" "${GITIGNORE}"
+    fi
+  done <"${GITIGNORE_OLD}"
+}
+
+get_dir() {
+  if [[ "${HOME}" =~ "${PWD}" ]]; then
+    if [[ "${USE_HOME}" -ne 1 ]]; then
+      send_prog -e "Error:" "Please run this script in a directory other than ${HOME} or use the -H flag"
+      usage
+      return 1
+    else
+      DIR="${PWD}"
+    fi
+  else
+    DIR="${PWD}"
+  fi
+}
+
+get_opts() {
+  while :; do
+    if [[ $# -gt 0 ]]; then
+      case "${1}" in
+        -d | --debug)
+          DEBUG=1
+          shift
+          ;;
+        -D | --directory)
+          shift
+          case "${1}" in
+            /*)
+              if [[ ! -d "${1}" ]]; then
+                send_prog -e "Error" "${1} dose not appear to be a directory"
+                usage
+                return 1
+              fi
+              DIR="${1}"
+              shift
+              ;;
+            -h | --help)
+              usage
+              return 1
+              ;;
+            *)
+              send_prog -e "Error" "${1} is ethier a relative path or an invalid option"
+              usage
+              return 1
+              ;;
+          esac
+          ;;
+        -H | --home)
+          USE_HOME=1
+          shift
+          ;;
+        *)
+          printf 'Unknown option passed: %s\n' "$1" >&2
+          return 1
+          ;;
+      esac
+    else
+      break
+    fi
+  done
+}
+
+opts_handler() {
+  case "${DIR:-NO_DIR}" in
+    NO_DIR)
+      get_dir || return 1
+      cd "${DIR}" || return 1
+      set_vars || return 1
+      prep_dir || return 1
+      compare_files || return 1
+      cleanup || return 1
+      send_prog -p "dmenugitignore" "${DIR} updated"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+prep_dir() {
+  [[ ! -e "${GITIGNORE}" ]] && printf '%s\n' "###" >"${GITIGNORE}"
+  for THING in .* *; do
+    case "${THING}" in
+      \* | . | ..)
+        continue
+        ;;
+      *)
+        ITEMS_TMP+=("${THING}")
+        ;;
+    esac
+  done
+  [[ -e "${GITIGNORE_OLD}" ]] && mv "${GITIGNORE_OLD}" "${DIR}/.gitignore-very-old"
+  mv "${GITIGNORE}" "${GITIGNORE_OLD}"
+  printf '%s\n' "### Updated on $(date) ###" >"${GITIGNORE}"
+}
+
+send_prog() {
+  case "${DEBUG}" in
+    1)
+      case "$1" in
+        -e)
+          B="${R}"
+          shift
+          ;;
+        -p)
+          B="${G}"
+          shift
+          ;;
+        *)
+          echo "NO OPTION"
+          return 1
+          ;;
+      esac
+      FIRST="${1}"
+      shift
+      printf "${B}%s\n%s${E}\n" "${FIRST}" "${*}"
+      ;;
+    *)
+      case "$1" in
+        -e)
+          shift
+          notify-send -u critical "$1" "$2"
+          ;;
+        -p)
+          shift
+          notify-send "$1" "$2"
+          ;;
+        *)
+          notify-send -u critical "Error" "No option given"
+          return 1
+          ;;
+      esac
+      ;;
+  esac
+}
+
+set_vars() {
+  GITIGNORE="${DIR}/.gitignore"
+  GITIGNORE_OLD="${DIR}/.gitignore-old"
+  GITIGNORE_TMP="${DIR}/.$(echo ${RANDOM} | md5sum | head -c 20)"
+}
+
+usage() {
+  cat <<EOF
+  Usage:  dmenugitignore [OPTIONS]
+
+  Options:
+    -d, --debug             By default dmenugitignore uses notify-send to communicate
+                            progress or errors. Use this flag to get all output to
+                            the terminal.
+    -D, --directory [PATH]  dmenugitignore uses the working directory where it was run.
+                            If you want to update a different directory use this flag.
+    -h, --help              Display this message and exit.
+    -H, --home              Allow usage when the current directory is the \$HOME dir.
+
+  Description:
+    dmenugitignore will take all files and folders in the current or given
+    directory and create a gitignore file listing them. If there is no
+    gitignore file already created then you will be prompted on how to handle
+    the file via dmenu. Pressing ESC is the same as choosing "Ignore". If a
+    gitignore file already exists it will reuse the settings for items found
+    there. If there is a new file or directory not found in the old file you
+    will be prompted on how to handle the file via dmenu. The newly generated
+    gitignore file will include new files and leave remarks about files that
+    have been deleted since the last time it was run.
+
+EOF
+}
+
+main() {
+  export R="\e[0;31m"
+  export G="\e[0;32m"
+  export E="\e[0m"
+
+  get_opts "${@}" || return 1
+  opts_handler || return 1
+}
+
+main "${@}" && exit 0 || exit 1

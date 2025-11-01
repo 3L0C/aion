@@ -1,0 +1,268 @@
+#!/bin/bash
+
+mpv_music_cut_song() {
+    L=0
+    while IFS= read -r -d "" -n 1 CHAR; do
+        [[ "${L}" -eq 15 ]] && break
+        printf '%s' "${CHAR}"
+        L=$((L + 1))
+    done < <(printf '%s' "${SONG}")
+}
+
+mpv_music_roll_text() {
+    POSITION=$(tail -n1 "$SONG_FILE")
+    LENGTH=${#SONG}
+    PADDING=$((LENGTH - 15))
+    [[ "$POSITION" -gt "$PADDING" ]] && POSITION=0
+    printf '[%s]' "${SONG:$POSITION:15}"
+    POSITION=$((POSITION + 1))
+    sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+
+    return 0
+}
+
+mpv_music_mpv_display() {
+    mpv-currently-playing --music --quiet || {
+        printf '[%s]' "mpv-music"
+        return 0
+    }
+    SONG_FILE="$MPV_MUSIC__SOCKET.txt"
+    SONG="$(head -n1 "$SONG_FILE")"
+    [[ "$1" == "-u" ]] && {
+        printf '[%s]' "$SONG"
+        return 0
+    }
+    [[ ${#SONG} -gt 15 ]] && LONG_MPV=1 || LONG_MPV=0
+    [[ $LONG_MPV -eq 1 ]] && return 0
+    SONG="$(cut_song | sed 's/\s\+$//g')"
+    printf '[%s]' "$SONG"
+}
+
+MPV_MUSIC__SOCKET="${MPV_MUSIC_SOCKET:-${MPV_SOCKET_DIR:-/tmp/mpvSockets}/music_socket}"
+if [[ -S "${MPV_MUSIC__SOCKET}" ]]; then
+    case $BLOCK_BUTTON in
+        1)
+            mpv-toggle --music
+            mpv_music_mpv_display
+            ;;
+        2)
+            mpv-opts --quit --music
+            mpv_music_mpv_display
+            ;;
+        3)
+            notify-send "$(mpv_music_mpv_display -u)"
+            mpv_music_mpv_display
+            ;;
+        4)
+            mpv-prev --music
+            mpv_music_mpv_display
+            ;;
+        5)
+            mpv-next --music
+            mpv_music_mpv_display
+            ;;
+        6)
+            yt-opts "$(mpv-get-property --music "path")"
+            mpv_music_mpv_display
+            ;;
+        *)
+            mpv_music_mpv_display
+            [[ $LONG_MPV -eq 1 ]] && mpv_music_roll_text
+            ;;
+    esac
+fi
+
+mpv_set_socket() {
+    if mpv-currently-playing --umpv --socket >/dev/null 2>&1; then
+        MPV__SOCKET="${MPV_UMPV_SOCKET:-${MPV_SOCKET_DIR:-/tmp/mpvSockets}/umpv_socket}"
+    elif mpv-currently-playing --unique --socket >/dev/null 2>&1; then
+        MPV__SOCKET="$(mpv-currently-playing --unique --socket | head -n1)"
+    fi
+}
+
+mpv_cut_song() {
+    L=0
+    while IFS= read -r -d "" -n 1 CHAR; do
+        [[ "${L}" -eq 15 ]] && break
+        printf '%s' "${CHAR}"
+        L=$((L + 1))
+    done < <(printf '%s' "${SONG}")
+}
+
+mpv_roll_text() {
+    POSITION=$(tail -n1 "$SONG_FILE")
+    LENGTH=${#SONG}
+    PADDING=$((LENGTH - 15))
+    [[ "$POSITION" -gt "$PADDING" ]] && POSITION=0
+    printf '[%s]' "${SONG:$POSITION:15}"
+    POSITION=$((POSITION + 1))
+    sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+
+    return 0
+}
+
+mpv_mpv_display() {
+    [[ -z "$MPV__SOCKET" ]] && {
+        printf '[%s]' "mpv"
+        return 0
+    }
+    SONG_FILE="$MPV__SOCKET.txt"
+    SONG="$(head -n1 "$SONG_FILE")"
+    [[ "$1" == "-u" ]] && {
+        printf '[%s]' "$SONG"
+        return 0
+    }
+    [[ ${#SONG} -gt 15 ]] && LONG_MPV=1 || LONG_MPV=0
+    [[ $LONG_MPV -eq 1 ]] && return 0
+    SONG="$(cut_song | sed 's/\s\+$//g')"
+    printf '[%s]' "$SONG"
+}
+
+if { pgrep -x "mpv" >/dev/null 2>&1 && mpv-active-sockets --music --quiet; }; then
+    mpv_set_socket
+
+    case $BLOCK_BUTTON in
+        1)
+            mpv-toggle --socket "${MPV__SOCKET}" || mpv-toggle --umpv || mpv-toggle --socket "$(mpv-active-sockets --unique | head -n1)"
+            mpv_mpv_display
+            ;;
+        2)
+            mpv-opts --quit --socket "${MPV__SOCKET}"
+            mpv_set_socket
+            mpv_mpv_display
+            ;;
+        3)
+            notify-send "$(mpv_mpv_display -u)"
+            mpv_mpv_display
+            ;;
+        4)
+            mpv-prev --socket "${MPV__SOCKET}"
+            mpv_mpv_display
+            ;;
+        5)
+            mpv-next --socket "${MPV__SOCKET}"
+            mpv_mpv_display
+            ;;
+        *)
+            if [[ -z "$MPV__SOCKET" ]]; then
+                mpv_mpv_display
+            else
+                mpv_mpv_display
+                [[ $LONG_MPV -eq 1 ]] && mpv_roll_text
+            fi
+            ;;
+    esac
+fi
+
+PLAYLIST_DIR="$XDG_CONFIG_HOME/mpd/playlists"
+
+music_check_playlist() {
+    [[ "$(find "$PLAYLIST_DIR" -type f -name "*.m3u" -printf '%P\n' | wc -l)" -lt 1 ]] &&
+        PLAYLIST="NONE" ||
+        PLAYLIST="FOUND"
+    [[ "$PLAYLIST" == "NONE" ]] && open_ncmpcpp
+    [[ "$PLAYLIST" == "FOUND" ]] && play_playlist
+}
+
+music_cut_song() {
+    L=0
+    while IFS= read -r -d "" -n 1 CHAR; do
+        [[ "$L" -eq 15 ]] && break
+        printf '%s' "$CHAR"
+        L=$((L + 1))
+    done < <(printf '%s' "$SONG")
+}
+
+music_filter() {
+    [[ "$STATUS" == "PAUSED" ]] && {
+        printf '[Paused]\n'
+        return 0
+    }
+    [[ "$STATUS" == "STOPPED" ]] && {
+        printf '[mpc]\n'
+        return 0
+    }
+    SONG_FILE="${MPC_TMP_FILE:-${MPC_TMP_DIR:-/tmp/mpc}/current-song.txt}"
+    SONG="$(head -n1 "$SONG_FILE" | sed 's|tmaster.*/||g')"
+    [[ "${#SONG}" -gt 15 ]] && LONG_MPC=1 || LONG_MPC=0
+    [[ "$LONG_MPC" -eq 1 ]] && return 0
+    SONG="$(cut_song | sed 's/\s\+$//g')"
+    printf '[%s]\n' "$SONG"
+}
+
+music_mpc_status() {
+    [[ "$(mpc)" =~ "volume: n/a   r" ]] && {
+        STATUS="STOPPED"
+        return 0
+    }
+    [[ "$(mpc status %state%)" == "paused" ]] && STATUS="PAUSED" || STATUS="PLAYING"
+}
+
+music_mpc_toggle() {
+    mpc toggle >/dev/null 2>&1
+    filter
+    exit
+}
+
+music_open_ncmpcpp() { setsid -f ncmpcpp >/dev/null 2>&1; }
+
+music_play_music() {
+    PLAY=$(find "$XDG_CONFIG_HOME"/mpd/playlists -type f -printf '%P\n' | sed 's/\.m3u//g' | dmenu -i -p "Playlist:")
+    [[ -z "$PLAY" ]] && return 0
+    mpc clear
+    mpc random off
+    mpc repeat on
+    mpc load "$PLAY"
+    mpc play
+    mpc random on
+}
+
+music_play_playlist() {
+    play_music >/dev/null 2>&1
+    filter
+}
+
+music_roll_text() {
+    POSITION=$(tail -n1 "$SONG_FILE")
+    LENGTH=${#SONG}
+    PADDING=$((LENGTH - 15))
+    [[ "$POSITION" -gt "$PADDING" ]] && POSITION=0
+    printf '[%s]\n' "${SONG:$POSITION:15}"
+    POSITION=$((POSITION + 1))
+    sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+}
+
+pidof -x sb-mpdup >/dev/null 2>&1 || setsid -f sb-mpdup >/dev/null 2>&1
+
+case $BLOCK_BUTTON in
+    1)
+        music_mpc_status >/dev/null 2>&1
+        [[ "STOPPED" == "$STATUS" ]] && music_check_playlist
+        [[ "PLAYING|PAUSED" =~ "$STATUS" ]] && music_mpc_toggle
+        ;;
+    2)
+        music_filter
+        setsid -f "$TERMINAL" -e ncmpcpp
+        ;;
+    3)
+        music_filter
+        notify-send "mpc - currently-playing" "$(mpc current)"
+        ;;
+    4)
+        mpc prev >/dev/null 2>&1
+        music_filter
+        ;;
+    5)
+        mpc next >/dev/null 2>&1
+        music_filter
+        ;;
+    6)
+        mpc stop >/dev/null 2>&1
+        music_filter
+        ;;
+    *)
+        music_mpc_status >/dev/null 2>&1
+        music_filter
+        [[ $LONG_MPC -eq 1 ]] && music_roll_text
+        ;;
+esac

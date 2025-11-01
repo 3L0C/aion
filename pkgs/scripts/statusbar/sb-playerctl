@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+ensure_daemon() {
+    pidof playerctld || setsid -f playerctld daemon
+}
+
+player_status() {
+    readarray -t PLAYER_INSTANCES < <(playerctl --list-all)
+
+    PLAYER_TARGET="%any"
+    PLAYER_STATUS=0
+
+    for player in "${PLAYER_INSTANCES[@]}"; do
+        if [[ "$(playerctl --player "$player" status)" =~ ^Playing$ ]]; then
+            PLAYER_TARGET="$player"
+            PLAYER_STATUS=1
+            return
+        fi
+    done
+}
+
+handle_block_button() {
+    case $BLOCK_BUTTON in
+        # left mouse
+        1) playerctl --player "$PLAYER_TARGET" play-pause;;
+        # middle mouse
+        2) ;;
+        # right click
+        3) ;;
+        # mousewheel down
+        4) ;;
+        # mousewheel up
+        5) ;;
+        *) ;;
+    esac
+}
+
+display_status() {
+    if [[ "$PLAYER_STATUS" -eq 1 ]]; then
+        playerctl metadata --player "$PLAYER_TARGET" --format '| {{trunc(title, 15)}} '
+    else
+        printf '| mpris '
+    fi
+}
+
+main() {
+    ensure_daemon >/dev/null 2>&1
+    player_status
+    handle_block_button
+    display_status
+}
+
+main

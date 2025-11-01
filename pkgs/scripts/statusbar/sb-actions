@@ -1,0 +1,68 @@
+#!/bin/sh
+
+play_music() {
+  PLAY=$(find $XDG_CONFIG_HOME/mpd/playlists -type f -printf '%P\n' | sed 's/\.m3u//g' | dmenu -i -p "Playlist:")
+  case "${PLAY:-NO_SELECTION}" in
+    NO_SELECTION) ;;
+    *)
+      mpc clear &&
+        mpc load "$PLAY" >/dev/null 2>&1 &&
+        mpc random off >/dev/null 2>&1 &&
+        mpc repeat on >/dev/null 2>&1 &&
+        mpc play >/dev/null 2>&1 &&
+        mpc random on >/dev/null 2>&1
+      ;;
+  esac
+}
+
+case $BLOCK_BUTTON in
+  1)
+    OPEN=$(printf "Music\\nWindows\\nmpv-options\\nBrowser\\nPcmanfm\\nSysact\\nExit" | dmenu -i -p "Open:")
+    case "$OPEN" in
+      Music)
+        play_music
+        ;;
+      Windows)
+        dmenuwindows
+        ;;
+      mpv-options)
+        mpv-options
+        ;;
+      Browser)
+        if pidof -qx $BROWSER; then
+          wmctrl -xa "$BROWSER"
+        else
+          setsid -f "$BROWSER"
+        fi
+        ;;
+      Pcmanfm)
+        setsid -f pcmanfm
+        ;;
+      Sysact)
+        setsid -f sysact
+        ;;
+      Exit) ;;
+      *) ;;
+    esac
+    ;;
+  2)
+    notify-send "Action module" "\- Open useful programs.
+- Left click to pick options
+- Middle click shows this box.
+- Right click to pick a playlist
+- Scroll up to manipulate windows
+- Scroll down for system control"
+    ;;
+  3)
+    play_music
+    ;;
+  4)
+    dmenuwindows
+    ;;
+  5)
+    setsid -f sysact
+    ;;
+  *) ;;
+esac
+
+printf ' | %s\n' "+"

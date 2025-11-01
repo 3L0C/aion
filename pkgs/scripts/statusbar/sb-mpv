@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+if pidof "mpv" >/dev/null 2>&1 && ! mpv-active-sockets --music --quiet; then
+    exit 0
+fi
+
+cut_song() {
+    PRINT_WIDTH=0
+    while IFS= read -r -d "" -n 1 CHAR; do
+        printf '%s' "$CHAR"
+        CHAR_WIDTH="$(wc -L <<<"$CHAR")"
+        PRINT_WIDTH=$((PRINT_WIDTH + CHAR_WIDTH))
+        [[ "$PRINT_WIDTH" -ge 16 ]] && {
+            break
+        }
+    done < <(printf '%s' "$1")
+}
+
+handle_block() {
+    case $BLOCK_BUTTON in
+        1)
+            if [[ -n "$SOCKET" ]]; then
+                echo "$SOCKET"
+                mpv-toggle --quiet --socket "$SOCKET"
+            else
+                mpv-toggle --quiet
+            fi
+            ;;
+        2)
+            mpv-opts --quit --socket "$SOCKET"
+            set_socket
+            ;;
+        3)
+            # notify-send "$(mpv_display -u)"
+            [[ -z "$SOCKET" ]] && return 0
+            PID="$(mpv-get-property "$SOCKET" 'pid')"
+            mpv-opts --pid "$PID" --focus
+            ;;
+        4)
+            mpv-prev --socket "$SOCKET"
+            ;;
+        5)
+            mpv-next --socket "$SOCKET"
+            ;;
+        *) ;;
+    esac
+}
+
+mpv_display() {
+    [[ -z "$SOCKET" ]] && {
+        SONG="mpv"
+        return 0
+    }
+    SONG_FILE="$SOCKET.txt"
+    SONG="$(head -n1 "$SONG_FILE")"
+    [[ "${#SONG}" -gt 16 ]] && LONG_MPV=1
+    [[ "$LONG_MPV" -eq 1 ]] && return 0
+    SONG="$(cut_song "$SONG" | sed 's/\s\+$//g') - mpv"
+}
+
+roll_text() {
+    POSITION=$(tail -n1 "$SONG_FILE")
+    SONG_LEN="$(wc -L <<<"${SONG:$POSITION}")"
+    [[ "$SONG_LEN" -lt 16 ]] && POSITION=0
+    SONG="$(cut_song "${SONG:$POSITION:16}") - mpv"
+    POSITION=$((POSITION + 2))
+    sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+    return 0
+}
+
+set_socket() {
+    SOCKET="$(mpv-currently-playing --umpv --socket)"
+    [[ -z "$SOCKET" ]] && SOCKET="$(mpv-currently-playing --ampv --socket)"
+    [[ -z "$SOCKET" ]] && SOCKET="$(mpv-currently-playing --socket | head -n1)"
+}
+
+set_socket >/dev/null 2>&1
+handle_block
+mpv_display
+[[ "$LONG_MPV" -eq 1 ]] && roll_text
+printf "| %s \n" "$SONG"

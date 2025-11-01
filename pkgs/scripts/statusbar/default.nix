@@ -1,0 +1,43 @@
+{writeShellScriptBin}: let
+  mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
+in {
+  sb-actions = mkScript "sb-actions" ./sb-actions;
+  sb-battery = mkScript "sb-battery" ./sb-battery;
+  sb-clock = mkScript "sb-clock" ./sb-clock;
+  sb-cpu = mkScript "sb-cpu" ./sb-cpu;
+  sb-cpubars = mkScript "sb-cpubars" ./sb-cpubars;
+  sb-disk = mkScript "sb-disk" ./sb-disk;
+  sb-doppler = mkScript "sb-doppler" ./sb-doppler;
+  sb-forecast = mkScript "sb-forecast" ./sb-forecast;
+  sb-help-icon = mkScript "sb-help-icon" ./sb-help-icon;
+  sb-internet = mkScript "sb-internet" ./sb-internet;
+  sb-iplocate = mkScript "sb-iplocate" ./sb-iplocate;
+  sb-kbselect = mkScript "sb-kbselect" ./sb-kbselect;
+  sb-mailbox = mkScript "sb-mailbox" ./sb-mailbox;
+  sb-media-monitor = mkScript "sb-media-monitor" ./sb-media-monitor;
+  sb-memory = mkScript "sb-memory" ./sb-memory;
+  sb-moonphase = mkScript "sb-moonphase" ./sb-moonphase;
+  sb-mpdup = mkScript "sb-mpdup" ./sb-mpdup;
+  sb-mpv = mkScript "sb-mpv" ./sb-mpv;
+  sb-mpv-music = mkScript "sb-mpv-music" ./sb-mpv-music;
+  sb-mpv-music-bak = mkScript "sb-mpv-music-bak" ./sb-mpv-music-bak;
+  sb-mpv-next = mkScript "sb-mpv-next" ./sb-mpv-next;
+  sb-mpv-play = mkScript "sb-mpv-play" ./sb-mpv-play;
+  sb-mpv-prev = mkScript "sb-mpv-prev" ./sb-mpv-prev;
+  sb-music = mkScript "sb-music" ./sb-music;
+  sb-music-bak = mkScript "sb-music-bak" ./sb-music.bak;
+  sb-music-next = mkScript "sb-music-next" ./sb-music-next;
+  sb-music-play = mkScript "sb-music-play" ./sb-music-play;
+  sb-music-prev = mkScript "sb-music-prev" ./sb-music-prev;
+  sb-nettraf = mkScript "sb-nettraf" ./sb-nettraf;
+  sb-news = mkScript "sb-news" ./sb-news;
+  sb-pacpackages = mkScript "sb-pacpackages" ./sb-pacpackages;
+  sb-playerctl = mkScript "sb-playerctl" ./sb-playerctl;
+  sb-popupgrade = mkScript "sb-popupgrade" ./sb-popupgrade;
+  sb-price = mkScript "sb-price" ./sb-price;
+  sb-tasks = mkScript "sb-tasks" ./sb-tasks;
+  sb-test = mkScript "sb-test" ./sb-test;
+  sb-torrent = mkScript "sb-torrent" ./sb-torrent;
+  sb-volume = mkScript "sb-volume" ./sb-volume;
+  sb-yt-monitor = mkScript "sb-yt-monitor" ./sb-yt-monitor;
+}

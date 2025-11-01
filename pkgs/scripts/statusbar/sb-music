@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+cut_song() {
+  PRINT_WIDTH=0
+  while IFS= read -r -d "" -n 1 CHAR; do
+    printf '%s' "$CHAR"
+    CHAR_WIDTH="$(wc -L <<<"$CHAR")"
+    PRINT_WIDTH=$((PRINT_WIDTH + CHAR_WIDTH))
+    [[ "$PRINT_WIDTH" -ge 16 ]] && {
+      break
+    }
+  done < <(printf '%s' "$1")
+}
+
+filter() {
+  if [[ "$MPC_PLAYING" -ne 1 ]]; then
+    MPC_SONG="mpc"
+    return 0
+  fi
+  SONG_FILE="${MPC_TMP_FILE:-${MPC_TMP_DIR:-/tmp/mpc}/current-song.txt}"
+  MPC_SONG="$(head -n1 "$SONG_FILE" | sed 's|tmaster.*/||g')"
+  [[ "${#MPC_SONG}" -gt 16 ]] && LONG_MPC=1
+  [[ "$LONG_MPC" -eq 1 ]] && return 0
+  MPC_SONG="$(cut_song "$MPC_SONG" | sed 's/\s\+$//g') - mpc"
+}
+
+mpc_status() {
+  if [[ "$(mpc)" =~ "volume: n/a   r" ]]; then
+    MPC_STOPPED=1
+  elif [[ "$(mpc status %state%)" == "paused" ]]; then
+    MPC_PAUSED=1
+  else
+    MPC_PLAYING=1
+  fi
+}
+
+mpc_toggle() {
+  mpc toggle >/dev/null 2>&1
+}
+
+roll_text() {
+  POSITION=$(tail -n1 "$SONG_FILE")
+  MPC_LEN="$(wc -L <<<"${MPC_SONG:$POSITION}")"
+  [[ "$MPC_LEN" -lt 16 ]] && POSITION=0
+  MPC_SONG="$(cut_song "${MPC_SONG:$POSITION:16}") - mpc"
+  POSITION=$((POSITION + 2))
+  sed -i "\$s/.*/$POSITION/" "$SONG_FILE" >/dev/null 2>&1
+}
+
+pidof -x sb-mpdup >/dev/null 2>&1 || setsid -f sb-mpdup >/dev/null 2>&1
+
+mpc_status >/dev/null 2>&1
+
+case $BLOCK_BUTTON in
+  1)
+    [[ "$MPC_STOPPED" -eq 1 ]] && media-toggle
+    [[ "$MPC_STOPPED" -ne 1 ]] && mpc_toggle
+    ;;
+  2)
+    setsid -f "$TERMINAL" -e ncmpcpp
+    ;;
+  3)
+    songinfo
+    ;;
+  4)
+    mpc prev >/dev/null 2>&1
+    ;;
+  5)
+    mpc next >/dev/null 2>&1
+    ;;
+  6)
+    mpc stop >/dev/null 2>&1
+    ;;
+  *) ;;
+esac
+
+filter
+[[ $LONG_MPC -eq 1 ]] && roll_text
+printf "| %s " "$MPC_SONG"

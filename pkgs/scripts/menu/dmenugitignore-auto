@@ -1,0 +1,131 @@
+#!/bin/bash
+export GITREPODIR
+export GITREPOTREE
+export BRANCH
+
+usage() {
+  cat <<EOF
+  Usage:  dmenugitignore-auto [OPTIONS]
+
+  Options:
+    -b, --branch        update the files tracked in a certain branch.
+                        useful if you maintian mutliple branches on one system.
+                        default is master.
+
+    -d, --dir           path to the git dir whose .gitignore files you want to update.
+                        must be a valid git dir. default is \$HOME/.cfg
+                        e.g.  --git-dir=\$HOME/.cfg
+                        NOTE the lack of trailing "/"
+
+    -t, --tree          working tree for the git repo, default is \$HOME
+                        e.g.  --work-tree=/path/to/working/tree
+                        NOTE the lack of trailing "/"
+
+    -h, --help          Show this help message and exit.
+
+  Description:
+    dmenugitignore-auto finds all the .gitignore files in the given repo that
+    presently exist. the default use case is for dotfiles that are maintained as
+    a bare git repo. use options -b, -d, and -t as needed to update the proper
+    repo and branch
+EOF
+}
+
+send_prog() {
+  case "$1" in
+    -e)
+      B="${R}"
+      shift
+      ;;
+    -p)
+      B="${G}"
+      shift
+      ;;
+    *)
+      echo "NO OPTION"
+      return 1
+      ;;
+  esac
+
+  echo -e "${B}${*}${E}"
+}
+
+check_ops() {
+  while :; do
+    case "$1" in
+      --*)
+        usage
+        return 1
+        ;;
+      *)
+        return 0
+        ;;
+    esac
+  done
+}
+
+get_opts() {
+  while :; do
+    case "${1:-NO_OPTION}" in
+      -b | --branch)
+        shift
+        check_ops "${@}" || return 1
+        BRANCH="$1"
+        shift
+        ;;
+      -d | --dir)
+        shift
+        check_ops "${@}" || return 1
+        GITREPODIR="${2%/}"
+        shift
+        ;;
+      -h | --help)
+        usage
+        return 1
+        ;;
+      -t | --tree)
+        shift
+        check_ops "${@}" || return 1
+        GITREPOTREE="${2%/}"
+        shift
+        ;;
+      NO_OPTION)
+        return 0
+        ;;
+      *)
+        send_prog -e "Error" "Unknown option(s): $*"
+        usage
+        return 1
+        ;;
+    esac
+  done
+}
+
+set_defaults() {
+  [[ -z "$GITREPODIR" ]] && GITREPODIR="$HOME/.git/"
+  [[ -z "$GITREPOTREE" ]] && GITREPOTREE="$HOME"
+  [[ -z "$BRANCH" ]] && BRANCH="master"
+}
+
+autoupdater() {
+  cd / || return 1
+  while read -r FILES; do
+    TO_UPDATE="${GITREPOTREE}/${FILES%/.gitignore}"
+    if [[ -d "${TO_UPDATE}" ]] && [[ "${TO_UPDATE}" != "$HOME" ]]; then
+      cd "${TO_UPDATE}" || return 1
+      dmenugitignore
+    fi
+  done < <(/usr/bin/git --git-dir="${GITREPODIR}" --work-tree="${GITREPOTREE}" ls-tree -r "${BRANCH}" --name-only | sed '/\.gitignore/!d')
+}
+
+main() {
+  export R="\e[0;31m"
+  export G="\e[0;32m"
+  export E="\e[0m"
+
+  get_opts "$@" || return 1
+  set_defaults
+  { autoupdater && notify-send "Success" "dmenugitignore-auto completed successfully."; } || { send_prog -e "Error updating." && return 1; }
+}
+
+main "$@" && exit 0 || exit 1
