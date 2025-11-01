@@ -8,7 +8,7 @@ in {
   mountcifs = mkScript "dmenumountcifs" ./dmenumountcifs;
   umount = mkScript "dmenuumount" ./dmenuumount;
   pass = mkScript "dmenupass" ./dmenupass;
-  playlist = mkScript "dmenuplaylist" ./dmenuplaylist;
+
   record = mkScript "dmenurecord" ./dmenurecord;
   unicode = mkScript "dmenuunicode" ./dmenuunicode;
   displayselect = mkScript "displayselect" ./displayselect;
