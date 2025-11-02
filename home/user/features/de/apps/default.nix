@@ -1,23 +1,22 @@
 {
   imports = [
-    ./android.nix
+    ./mpv
+
     ./android-studio.nix
-    ./browser.nix
     ./discord.nix
-    ./gaming.nix
+    ./dunst.nix
     ./gimp.nix
-    ./kde-apps.nix
     ./kdenlive.nix
     ./keepassxc.nix
-    ./media-players.nix
-    ./music-players.nix
+    ./kitty.nix
+    ./lutris.nix
+    ./mullvad.nix
     ./obs.nix
     ./office.nix
     ./qbittorrent.nix
-    ./security.nix
-    ./system-tools.nix
+    ./rofi.nix
+    ./sioyek.nix
     ./thunderbird.nix
-    ./virtualization.nix
-    ./wine.nix
+    ./vlc.nix
   ];
 }

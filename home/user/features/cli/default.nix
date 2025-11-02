@@ -1,20 +1,8 @@
 {
   imports = [
     ./common
-    ./git
-    ./lf
-    ./tmux
+    ./scripts
+    ./tools
     ./zsh
-    ./audio-control.nix
-    ./compression.nix
-    ./core-utils.nix
-    ./downloaders.nix
-    ./file-preview.nix
-    ./filesystem-tools.nix
-    ./media-tools.nix
-    ./network-tools.nix
-    ./search-tools.nix
-    ./spelling.nix
-    ./utilities.nix
   ];
 }

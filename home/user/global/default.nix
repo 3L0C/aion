@@ -13,9 +13,6 @@
     ++ [
       ../../common/themes/kanagawa.nix
       ../features/cli/common
-      ../features/cli/git
-      ../features/cli/lf
-      ../features/cli/tmux
       ../features/cli/zsh
     ];
 

@@ -1,9 +1,9 @@
-{inputs, ...}: {
+{
   imports = [
-    ./hyprland.nix
-    ./hyprlock.nix
-    ./master.nix
-    ./plugins
-    inputs.hyprland.homeManagerModules.default
+    ./hypr-ecosystem
+    ./components
+    ./hyprland_base.nix
+    ./hyprland_bindings.nix
+    ./hyprland_settings.nix
   ];
 }

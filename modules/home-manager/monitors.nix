@@ -43,11 +43,7 @@
       workspaces = mkOption {
         type = types.listOf types.str;
         default = [];
-        example = [
-          "1"
-          "2"
-          "3"
-        ];
+        example = ["1" "2" "3"];
       };
       extraArgs = mkOption {
         type = types.nullOr types.str;

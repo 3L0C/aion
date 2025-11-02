@@ -11,6 +11,6 @@
     ];
 
     initrd.verbose = false;
-    loader.timeout = 0;
+    loader.timeout = 3;
   };
 }

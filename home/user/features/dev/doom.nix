@@ -61,5 +61,6 @@
     # :lang web
     stylelint
     nodePackages.js-beautify
+    mermaid-cli
   ];
 }

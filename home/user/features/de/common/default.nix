@@ -1,7 +1,23 @@
-{
+{pkgs, ...}: {
   imports = [
-    ./appearance-tools.nix
-    ./gtk.nix
-    ./xdg-mimes.nix
+    ./tools
+    ./wk
+
+    ./browsers.nix
+    ./document-viewers.nix
+    ./filemanagers.nix
+    ./gnome-apps.nix
+    ./kde-apps.nix
+    ./music-players.nix
+    ./security.nix
+    ./stylix.nix
+    ./virtualization.nix
+    ./wayland.nix
+    ./wine.nix
+    ./xdg.nix
+  ];
+
+  home.packages = with pkgs; [
+    overskride
   ];
 }

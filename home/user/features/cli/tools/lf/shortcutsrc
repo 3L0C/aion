@@ -1,0 +1,131 @@
+# LF directory shortcuts/bookmarks
+# Updated to use standard capitalized XDG directories
+
+# ~/Documents/books
+map gb.  cd ~/Documents/books
+map gbc  cd ~/Documents/books/coding
+map gbl  cd ~/Documents/books/Linux
+map gbm  cd ~/Documents/books/misc
+map gbs  cd ~/Documents/books/school
+
+# ~/dots/.config (legacy dotfiles)
+map gc.  cd ~/dots/.config
+map gca  cd ~/dots/.config/ani-man
+map gcd  cd ~/dots/.config/dfeed
+map gcD  cd ~/dots/.config/systemd
+map gcEl $$EDITOR "$HOME/dots/.config/lf/lfrc"
+map gcEm $$EDITOR "$HOME/dots/.config/lf/myrc"
+map gcEs $$EDITOR "$HOME/dots/.config/lf/shortrc"
+map gcf  cd ~/dots/.config/sfeed
+map gcg  cd ~/dots/.config/gallery-dl
+map gch  cd ~/dots/.config/hypr
+map gci  cd ~/dots/.config/tridactyl
+map gck  cd ~/dots/.config/kmonad
+map gcl  cd ~/dots/.config/lf
+map gcm  cd ~/dots/.config/mpv
+map gcM  cd ~/dots/.config/mlm
+map gcq  cd ~/dots/.config/qmk/maps
+map gcQ  cd ~/dots/.config/qutebrowser
+map gcs  cd ~/dots/.config/shell
+map gct  cd ~/dots/.config/tmux
+map gcv  cd ~/dots/.config/nvim
+map gcV  cd ~/dots/.config/vmt
+map gcw  cd ~/dots/.config/wkx
+map gcx  cd ~/dots/.config/x11
+map gcy  cd ~/dots/.config/yt-dlp
+map gcz  cd ~/dots/.config/zsh
+
+# ~/.emacs.d or ~/.doom.d
+map ge.  cd ~/.config/emacs
+map ged  cd ~/.config/doom
+
+# ~/.local
+map gl.  cd ~/.local
+map glb  cd ~/.local/bin
+map gld  cd ~/.local/src/dwm
+map glm  cd ~/.local/src/dmenu
+map gln  cd ~/.local/share/nvim/swap
+map glp  cd ~/.local/bin/scripts
+map glr  cd ~/.local/src
+map gls  cd ~/.local/src/st
+
+# ~/Documents
+map gd.  cd ~/Documents
+map gda  cd ~/Documents/Archives
+map gdb  cd ~/Documents/books
+map gdc  cd ~/Documents/college
+map gdt  cd ~/Documents/tank
+
+# ~/Documents/manga
+map gma cd ~/Documents/manga
+map gms cd ~/mnt/share/tank/backup/syncthing/Tachiyomi-manga
+
+# ~/mnt
+map gn.  cd ~/mnt
+map gnb  cd ~/mnt/backup
+map gnd. cd ~/mnt/share
+map gnh  cd ~/mnt/share/toshext
+map gnm  cd ~/mnt/share/tank
+map gnn  cd ~/mnt/share/sandisk
+map gns  cd ~/mnt/share/samhdd
+map gnt  cd ~/mnt/tmp
+map gnu. cd ~/mnt/usb
+map gnu1 cd ~/mnt/usb/1
+map gnu2 cd ~/mnt/usb/2
+map gnu3 cd ~/mnt/usb/3
+map gn2  cd ~/mnt/share/wd2t
+map gn5  cd ~/mnt/share/wd5t
+
+# ~/Music (capitalized)
+map gm.  cd ~/Music/tank
+map gmn  cd ~/Music/tank/newpipe
+map gmo  cd ~/Music/tank/non-vaporwave
+map gmS  cd ~/Music/tank/spotify
+map gmv  cd ~/Music/tank/vaporwave
+map gmw  cd ~/Music/tank/wsg-worthy
+map gmy  cd ~/Music/tank/youtube
+
+# ~/Pictures (capitalized)
+map gp.  cd ~/Pictures
+map gpa  cd ~/Pictures/shared/anime-related
+map gpe  cd ~/Pictures/ewiki/
+map gw.  cd ~/Pictures/shared/walls
+
+# ~/programs (not an XDG dir)
+map gpc cd ~/programs/C
+map gpp cd ~/programs/python
+
+# ~/qmk_firmware
+map gqb cd ~/qmk_firmware/keyboards/handwired/dactyl_manuform/5x7/keymaps/johndovern
+
+# ~/repos
+map gr.  cd ~/repos
+map gra  cd ~/repos/ani-man
+map grA  cd ~/.local/bin/scripts/Arch-FDE
+map grb  cd ~/repos/basic-arch
+map grn  cd ~/repos/NARDS
+map grm  cd ~/repos/mpvSockets-umpv
+map grM  cd ~/repos/manga-man
+map grr  cd ~/repos/reverse-gitignore
+map grs  cd ~/repos/mpv-sockets
+map grv  cd ~/repos/vmt
+
+# Trash
+map gt   cd ~/.local/share/Trash
+
+# ~/Videos (capitalized)
+map gv.  cd ~/Videos
+map gva  cd ~/Videos/anime
+map gvA  cd ~/Videos/webms/anime-webms
+map gve  cd ~/Videos/webms/webms
+map gvp  cd ~/Videos/webms/youtube/playlists
+map gvs  cd ~/Videos/webms/webms-to-sort
+map gvt  cd ~/mnt/share/tank/media/0_0
+map gvw  cd ~/Videos/webms
+map gvy  cd ~/Videos/webms/youtube
+
+# zsh
+map gzc  cd ~/.cache/zsh
+
+# home
+map gh   cd ~/

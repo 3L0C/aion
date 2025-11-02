@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-mpv --idle=yes \
-    --loop-playlist=no \
-    --keep-open=no \
-    --msg-level=homehub=debug \
-    "$@"

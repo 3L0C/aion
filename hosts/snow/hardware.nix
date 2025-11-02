@@ -1,21 +1,23 @@
 {
   config,
+  inputs,
   lib,
-  modulesPath,
   ...
 }: {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
   boot = {
     initrd = {
       availableKernelModules = [
-        "nvme"
         "xhci_pci"
         "ahci"
-        "usb_storage"
+        "nvme"
         "usbhid"
+        "usb_storage"
       ];
       kernelModules = [
         "dm-snapshot"
@@ -30,7 +32,9 @@
         };
       };
     };
-    kernelModules = ["kvm-amd"];
+    kernelModules = [
+      "kvm-amd"
+    ];
     extraModulePackages = [];
   };
   fileSystems."/" = {
@@ -51,10 +55,11 @@
     {device = "/dev/disk/by-label/NIXSWAP";}
   ];
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nix.settings.max-jobs = 16;
   hardware = {
     enableAllFirmware = true; # Helps with compatibility
     xone.enable = true; # Enable the xone driver for xbox one, etc. accessories
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 }

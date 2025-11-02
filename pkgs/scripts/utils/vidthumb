@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO make this a proper package
 
 if ! [ -f "$1" ]; then
 	exit 1

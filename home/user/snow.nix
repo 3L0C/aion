@@ -1,24 +1,29 @@
-{...}: {
+{
   imports = [
     ./global
+
     ./features/cli
-    ./features/de/common
-    ./features/de/apps
-    ./features/de/file-thumbnails.nix
-    ./features/de/hyprland-heim
-    ./features/de/launcher
-    ./features/de/mango
-    ./features/de/notifications
-    ./features/de/services/uwsm.nix
-    ./features/de/services/waybar
-    ./features/de/services/wk
-    ./features/de/terminal
-    ./features/de/wayland-tools.nix
-    ./features/de/xdg-integration.nix
+    ./features/de
     ./features/dev
-    ./features/media/mpv
-    ./features/media/music.nix
-    ./features/packages
-    ./features/scripts
+  ];
+  monitors = [
+    {
+      name = "DP-3";
+      width = 2560;
+      height = 1440;
+      refreshRate = 240;
+      workspaces = ["1" "2" "3" "4" "5" "6" "7"];
+      primary = true;
+      position = "0x0";
+    }
+    {
+      name = "HDMI-A-1";
+      width = 1920;
+      height = 1080;
+      refreshRate = 240;
+      workspaces = ["8" "9" "10"];
+      primary = false;
+      position = "2560x0";
+    }
   ];
 }

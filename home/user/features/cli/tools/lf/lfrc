@@ -1,0 +1,195 @@
+# lf settings
+# Bindings
+map a    push A<a-b> # after extension
+map A    rename # at the very end
+map b    $setbg $f
+map B    bulkrename
+map c    push A<c-u> # new rename
+map C    copyto
+map dd   cut
+map D    trash
+map E    extract
+map gg   top
+# map J    $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+map i    push A<a-b><a-b><a-f> # before extension
+map I    push A<c-a> # at the very beginning
+map L    $nvim -M $fx
+map M    moveto
+# map o    $setsid -f mimeopen $f >/dev/null 2>&1
+map O    $setsid -f st -e mimeopen --ask $f
+map q    lf_close
+map t    file_type
+map u    clear
+map U    unselect
+map v    $less $fx
+map V    invert
+map W    $$SHELL
+map x    $$f
+map X    !$f
+
+map <c-e> down
+map <c-f> $lf -remote "send $id select '$(fzf)'"
+map +     push $mkdir<space>""<left>
+map <c-r> reload
+map <c-s> set hidden!
+map <c-y> up
+
+map <enter> shell
+
+map d
+map gh
+
+# cmds/functions
+
+cmd trash ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "Move to trash, or delete? [y/d/f/N]"
+    read ans
+    case "$ans" in
+        y|t) trash-put $fx ;;
+        d) rm -r $fx ;;
+        f)
+        tput bold
+            set -f
+        printf '\t%s' "Are you sure? [y/N]"
+        read ans2
+        case "$ans2" in
+            y|d|f)  rm -rf $fx ;;
+            *) ;;
+        esac
+        ;;
+        *) ;;
+    esac
+}}
+
+cmd lf_close ${{
+    lf -remote "send $id quit"
+}}
+
+cmd lf_enter ${{
+    if ! tmux new $SHELL; then
+        $SHELL
+    fi
+}}
+
+cmd file_type %{{
+    echo $(file --mime-type "$(readlink -f $fx)" -bL)
+}}
+
+cmd open ${{
+    case $(file --mime-type "$(readlink -f $fx)" -bL) in
+        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript| \
+        application/zip|application/x-tar|application/epub*)
+            setsid -f sioyek --new-window $fx >/dev/null 2>&1 &
+            ;;
+        text/*)
+            nvim $fx
+            ;;
+        application/json)
+            $EDITOR $fx
+            ;;
+        image/x-xcf)
+            setsid -f gimp $f >/dev/null 2>&1 &
+            ;;
+        image/svg+xml)
+            display -- $f
+            ;;
+        image/*)
+            rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | setsid -f nsxiv -aio 2>/dev/null | lf-select &
+            ;;
+        audio/*)
+            setsid -f mpv $fx >/dev/null 2>&1 &
+            ;;
+        video/*)
+            setsid -f mpv $fx -quiet >/dev/null 2>&1 &
+            ;;
+        application/vnd.openxmlformats*)
+            setsid -f libreoffice $fx >/dev/null 2>&1 &
+            ;;
+        application/pdf|application/vnd*)
+            setsid -f zathura $fx >/dev/null 2>&1 &
+            ;;
+        application/pgp-encrypted)
+            $EDITOR $fx
+            ;;
+        application/x-7z-compressed)
+            setsid -f zathura $fx >/dev/null 2>&1 &
+            ;;
+        application/x-executable)
+            setsid -f $fx >/dev/null 2>&1 &
+            ;;
+        *)
+            for f in $fx; do
+                setsid -f $OPENER $f >/dev/null 2>&1 &
+            done
+            ;;
+    esac
+}}
+
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+
+cmd extract ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "extract?[y/N]"
+    read ans
+    [ $ans = "y" ] && aunpack $fx
+}}
+
+cmd delete ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "delete?[y/N]"
+    read ans
+    [ $ans = "y" ] && rm -rf -- $fx && lf -remote 'send reload'
+}}
+
+cmd moveto ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    clear; echo "Move to where?"
+    dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+    for x in $fx; do
+        eval mv -iv \"$x\" \"$dest\"
+    done &&
+    notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+}}
+
+cmd copyto ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    clear; echo "Copy to where?"
+    dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+    for x in $fx; do
+        eval cp -ivr \"$x\" \"$dest\"
+    done &&
+    notify-send "📋 File(s) copied." "File(s) copied to $dest."
+}}
+
+cmd setbg "$1"
+cmd bulkrename $vidir
+
+# Basic vars
+# set ratios 1:2:3
+# set shell bash
+# set shellopts '-eu'
+# set ifs "\n"
+# set filesep "\n"
+# set scrolloff 10
+# set period 1
+# set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
+# set mouse on
+# set cursorpreviewfmt "\033[7m"
+
+# ctpv
+# set previewer ctpv
+# set cleaner ctpvclear
+# &ctpv -s $id
+# &ctpvquit $id
+
+# Vars that depend on environmental variables
+#$lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"

@@ -1,44 +1,35 @@
 {
   config,
-  lib,
   pkgs,
-  inputs,
-  secrets,
   ...
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-    inputs.mango.nixosModules.mango
-  ];
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    extraSpecialArgs = {
-      inherit inputs lib secrets;
-      inherit (config) hostSpec;
-    };
-    users.user = import ../../../../home/user/${config.hostSpec.name}.nix;
-    backupFileExtension = "hm-backup";
-  };
+  home-manager.users.user =
+    import ../../../../home/user/${config.hostSpec.name}.nix;
   programs.zsh.enable = true;
+  users.groups.user = {};
   users.users.user = {
+    packages = [pkgs.home-manager];
     isNormalUser = true;
-    description = "user";
+    shell = pkgs.zsh;
+    group = "user";
+    uid = 1000;
     extraGroups =
       [
-        "networkmanager"
         "wheel"
       ]
       ++ ifTheyExist [
         "audio"
-        "video"
         "docker"
         "libvirtd"
+        "media"
+        "network"
+        "video"
       ];
-    shell = pkgs.zsh;
   };
 
-  nix.settings.allowed-users = ["user"];
+  security.pam.services = {
+    hyprlock = {};
+  };
 }

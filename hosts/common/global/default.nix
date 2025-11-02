@@ -9,15 +9,16 @@
       "modules/common"
     ])
     ++ [
-      ./nix.nix
+      ./home-manager.nix
+
+      ./bootloader.nix
+      ./fonts.nix
+      ./hardening.nix
       ./locale.nix
       ./network.nix
+      ./nix.nix
       ./security.nix
-      ./fonts.nix
-      ./program.nix
-      ./services.nix
       ./udev.nix
-      ./bootloader.nix
     ];
   environment.systemPackages = with pkgs; [
     pciutils

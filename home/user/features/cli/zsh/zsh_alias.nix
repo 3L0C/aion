@@ -9,8 +9,6 @@
     mv = "mv -iv";
     rm = "rm -vI";
     mkd = "mkdir -pv";
-    ls = "ls -hN --color=auto --group-directories-first";
-    ll = "ls -Al";
     grep = "grep --color=auto";
     diff = "diff --color=auto";
     ip = "ip -c";

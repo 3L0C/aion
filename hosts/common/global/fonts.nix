@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   fonts = {
     packages = with pkgs; [
-      inter # A typeface specially designed for user interfaces
+      inter-nerdfont # A typeface specially designed for user interfaces
       noto-fonts # Google Noto TTF fonts
       noto-fonts-cjk-sans # Google Noto CJK Sans fonts
       noto-fonts-cjk-serif # Google Noto CJK Serif fonts
@@ -34,7 +34,7 @@
       useEmbeddedBitmaps = true;
       defaultFonts = {
         serif = [
-          "Inter"
+          "Inter Nerd Font"
           "Roboto"
           "Noto Serif"
           "FreeSerif"
@@ -44,7 +44,7 @@
           "Noto Color Emoji"
         ];
         sansSerif = [
-          "Inter"
+          "Inter Nerd Font"
           "Roboto"
           "Noto Sans"
           "FreeSans"

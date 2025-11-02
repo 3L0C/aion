@@ -2,21 +2,22 @@
   imports = [
     ./global
 
+    ./optional/bluetooth.nix
     ./optional/boot-quiet.nix
     ./optional/dconf.nix
-    ./optional/greetd.nix
-    ./optional/hardening.nix
-    ./optional/keyring.nix
-    ./optional/pipewire.nix
-    ./optional/wayland.nix
     ./optional/flatpak.nix
+    ./optional/fixes
+    ./optional/graphics.nix
+    ./optional/greetd.nix
+    ./optional/hyprland.nix
+    ./optional/keyring.nix
+    ./optional/mango.nix
     ./optional/nh.nix
+    ./optional/pipewire.nix
     ./optional/steam.nix
     ./optional/virtualization.nix
     ./optional/vpn.nix
-    ./optional/graphics.nix
-    ./optional/bluetooth.nix
-    ./optional/fixes
+    ./optional/wayland.nix
   ];
   assertions = [
     {

@@ -14,6 +14,7 @@ in {
       default_session = {
         command = ''
           ${lib.getExe pkgs.tuigreet} \
+          --greeting 'wake up...' \
           --time --time-format '%Y-%m-%d %H:%M:%S' \
           --remember --remember-session \
           --asterisks \
