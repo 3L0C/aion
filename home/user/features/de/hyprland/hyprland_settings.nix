@@ -7,9 +7,7 @@
   hyprctl = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl";
   waybar = "${lib.getExe pkgs.waybar}";
 in {
-  xdg.configFile."uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   wayland.windowManager.hyprland = {
-    systemd.variables = ["--all"];
     settings = {
       exec-once = [
         "uwsm finalize"

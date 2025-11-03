@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     wf-recorder # Utility program for screen recording of wlroots-based compositors
     wl-clipboard # Command-line copy/paste utilities for Wayland
@@ -16,8 +20,12 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
-  xdg.configFile."electron-flags.conf".text = ''
-    --enable-features=UseOzonePlatform
-    --ozone-platform=wayland
-  '';
+  xdg.configFile = {
+    "electron-flags.conf".text = ''
+      --enable-features=UseOzonePlatform
+      --ozone-platform=wayland
+    '';
+
+    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+  };
 }
