@@ -8,6 +8,7 @@ in {
   home-manager.users.user =
     import ../../../../home/user/${config.hostSpec.name}.nix;
   programs.zsh.enable = true;
+  programs.nh.flake = "${config.users.users.user.home}/aion";
   users.groups.user = {};
   users.users.user = {
     packages = [pkgs.home-manager];
