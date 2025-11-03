@@ -1,29 +1,21 @@
 {pkgs, ...}: {
-  gtk = {
+  gtk = let
+    commonExtraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+      gtk-decoration-layout = "appmenu";
+      gtk-enable-event-sounds = 0;
+      gtk-enable-input-feedback-sounds = 0;
+      gtk-error-bell = 0;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
+    };
+  in {
     enable = true;
-    font = {
-      name = "sans";
-      size = 12;
-    };
-    theme = {
-      name = "Kanagawa-Dark";
-      package = pkgs.kanagawa-gtk-theme;
-    };
-    iconTheme = {
-      name = "Kanagawa-Dark";
-      package = pkgs.kanagawa-icon-theme; # { color = "dark"; };
-    };
-    cursorTheme = {
-      name = "phinger-cursors-dark";
-      package = pkgs.phinger-cursors;
-      size = 24;
-    };
+
+    gtk3.extraConfig = commonExtraConfig;
+    gtk4.extraConfig = commonExtraConfig;
   };
 
-  home.pointerCursor = {
-    name = "phinger-cursors-dark";
-    package = pkgs.phinger-cursors;
-    size = 24;
-    gtk.enable = true;
-  };
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 }

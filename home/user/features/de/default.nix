@@ -3,6 +3,5 @@
     ./common
     ./hyprland
     ./apps
-    ./mango
   ];
 }

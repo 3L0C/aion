@@ -11,7 +11,6 @@
     ./optional/greetd.nix
     ./optional/hyprland.nix
     ./optional/keyring.nix
-    ./optional/mango.nix
     ./optional/nh.nix
     ./optional/pipewire.nix
     ./optional/steam.nix

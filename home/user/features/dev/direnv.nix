@@ -11,7 +11,7 @@
         warn_timeout = 0;
       };
       whitelist.prefix = [
-        "${config.home.homeDirectory}/nixos-config"
+        "${config.home.homeDirectory}/aion/"
         "${config.home.homeDirectory}/programs/"
         "${config.home.homeDirectory}/repos/"
       ];
