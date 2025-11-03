@@ -1,11 +1,16 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    pistol # General purpose file previewer
-    kitty # Fast, feature-rich, GPU based terminal emulator
-    custom.scripts.vidthumb # Video thumbnail generator
-    ffmpegthumbnailer # Lightweight video thumbnailer
-    jq # Lightweight and flexible command-line JSON processor
-  ];
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  home.packages = with pkgs;
+    [
+      pistol # General purpose file previewer
+      kitty # Fast, feature-rich, GPU based terminal emulator
+      ffmpegthumbnailer # Lightweight video thumbnailer
+      jq # Lightweight and flexible command-line JSON processor
+    ]
+    ++ (builtins.filter lib.isDerivation (builtins.attrValues custom.scripts.lf));
 
   programs.lf = {
     enable = true;
@@ -47,7 +52,8 @@
             draw "$file"
             ;;
           video/*)
-            draw "$(${pkgs.custom.scripts.vidthumb}/bin/vidthumb "$file")"
+            # vidthumb is from pkgs.custom.scripts.lf
+            draw "$(${pkgs.custom.scripts.lf.vidthumb}/bin/vidthumb "$file")"
             ;;
         esac
 

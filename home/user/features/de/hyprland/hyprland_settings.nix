@@ -12,7 +12,8 @@ in {
     systemd.variables = ["--all"];
     settings = {
       exec-once = [
-        "uwsm app -- ${waybar} -c ~/.config/waybar/hyprland-config.json"
+        "uwsm finalize"
+        "${waybar} -c ~/.config/waybar/hyprland-config.json"
         "${hyprctl} setcursor ${config.stylix.cursor.name} ${toString config.stylix.cursor.size}"
         "${hyprctl} dispatch workspace 1" # Focus the first workspace on startup
       ];

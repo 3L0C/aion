@@ -1,7 +1,7 @@
 {
   imports = [
     ./common
-    ./scripts
+    ./nix-tools.nix
     ./tools
     ./zsh
   ];

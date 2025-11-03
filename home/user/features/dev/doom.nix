@@ -28,6 +28,9 @@
   };
 
   home.packages = with pkgs; [
+    # Doom Emacs launcher script
+    custom.scripts.doomemacs
+
     # :tools lsp
     nodejs
 
@@ -61,6 +64,8 @@
     # :lang web
     stylelint
     nodePackages.js-beautify
+    cmake
+    gnumake
     mermaid-cli
   ];
 }

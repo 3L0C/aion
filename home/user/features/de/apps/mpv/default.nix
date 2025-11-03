@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   programs.mpv.enable = true;
 
   imports = [
@@ -6,5 +6,10 @@
 
     ./binds.nix
     ./config.nix
+  ];
+
+  # MPV helper scripts
+  home.packages = with pkgs.custom.scripts; [
+    hmpv # MPV helper (WIP)
   ];
 }

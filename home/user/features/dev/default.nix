@@ -4,6 +4,7 @@
 
     ./ai-tools.nix
     ./debugging.nix
+    ./direnv.nix
     ./doom.nix
     ./emacs.nix
     ./latex.nix

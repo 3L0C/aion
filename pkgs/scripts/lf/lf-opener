@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+id="${1:?need an id}"
+res="${2:?need something to open}"
+
+lf -remote "send $id select \"$res\""
+lf -remote "send $id reload"
+lf -remote "send $id open"

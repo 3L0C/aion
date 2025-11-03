@@ -10,4 +10,6 @@ in {
   opout = mkScript "opout" ./opout;
   rotdir = mkScript "rotdir" ./rotdir;
   samedir = mkScript "samedir" ./samedir;
+  lf-opener = mkScript "lf-opener" ./lf-opener;
+  vidthumb = mkScript "vidthumb" ./vidthumb;
 }
