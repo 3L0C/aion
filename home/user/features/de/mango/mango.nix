@@ -209,7 +209,7 @@ in {
       wl-clip-persist --clipboard regular &
       waybar -c ~/.config/waybar/mango-config.json -s ~/.config/waybar/mango-style.css &
       tmux new-session -s x-server -d &
-      setsid -f wpctl-settings &
+
       /usr/lib/xdg-desktop-portal-wlr &
     '';
   };
