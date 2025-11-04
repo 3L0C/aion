@@ -8,6 +8,7 @@
     systemd.enable = false;
     xwayland.enable = true;
   };
+  services.hyprpolkitagent.enable = true;
 
   xdg.portal = let
     xdph = pkgs.xdg-desktop-portal-hyprland.override {
