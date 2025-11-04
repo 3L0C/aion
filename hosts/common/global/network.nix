@@ -22,7 +22,7 @@
   };
   services.resolved = {
     enable = true;
-    dnssec = "true"; # Enable DNSSEC validation
+    dnssec = "allow-downgrade"; # Allow DNSSEC but fallback on validation errors
     domains = ["~."]; # Use for all domains
     dnsovertls = "true"; # Enable DNS-over-TLS (encrypted DNS queries)
     fallbackDns = [
