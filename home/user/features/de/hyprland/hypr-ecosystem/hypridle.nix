@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -31,6 +32,15 @@ in {
           on-resume = "${hyprctl} dispatch dpms on";
         }
       ];
+    };
+  };
+  systemd.user.services.hypridle = {
+    Unit = {
+      PartOf = ["hyprland-session.target"];
+      After = ["hyprland-session.target"];
+    };
+    Install = {
+      WantedBy = lib.mkForce ["wayland-session@Hyprland.desktop.target"];
     };
   };
 }

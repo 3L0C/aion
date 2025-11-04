@@ -1,11 +1,34 @@
 {
+  config,
   lib,
   pkgs,
   ...
-}: {
+}: let
+  waybar = lib.getExe config.programs.waybar.package;
+in {
   programs.waybar = {
     enable = true;
     systemd.enable = false;
+  };
+  systemd.user.services.waybar-hyprland = {
+    Unit = {
+      Description = "Waybar status bar (Hyprland)";
+      Documentation = "https://github.com/Alexays/Waybar/wiki";
+      PartOf = ["hyprland-session.target"];
+      After = ["hyprland-session.target"];
+    };
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/hyprland-config.json";
+      ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+      Restart = "on-failure";
+      KillMode = "mixed";
+    };
+
+    Install = {
+      WantedBy = lib.mkForce ["wayland-session@Hyprland.desktop.target"];
+    };
   };
 
   xdg.configFile."waybar/hyprland-config.json".text = builtins.toJSON {

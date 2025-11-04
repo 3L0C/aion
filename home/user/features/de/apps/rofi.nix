@@ -11,7 +11,7 @@
     };
 
     font = lib.mkForce "${config.stylix.fonts.monospace.name} ${toString config.stylix.fonts.sizes.popups}";
-    terminal = "${pkgs.kitty}/bin/kitty";
+    terminal = "${lib.getExe pkgs.kitty}";
     # Basic configuration
     extraConfig = {
       modi = "drun,run,ssh";

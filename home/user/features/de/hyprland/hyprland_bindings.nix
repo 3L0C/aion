@@ -8,7 +8,7 @@
   rofi = "${config.programs.rofi.package}/bin/rofi";
   kitty = "${pkgs.kitty}/bin/kitty";
   jq = "${pkgs.jq}/bin/jq";
-  terminal = "uwsm-app ${kitty}";
+  terminal = "uwsm app -- ${kitty}";
   ncmpcpp = "${pkgs.ncmpcpp}/bin/ncmpcpp";
 
   mod = "SUPER";
