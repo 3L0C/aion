@@ -5,11 +5,11 @@
 
   systemd.user.services.wpaperd = {
     Unit = {
-      PartOf = ["river-session.target"];
-      After = ["river-session.target"];
+      PartOf = ["wayland-session@River.target"];
+      After = ["wayland-session@River.target"];
     };
     Install = {
-      WantedBy = lib.mkForce ["river-session.target"];
+      WantedBy = lib.mkForce ["wayland-session@River.target"];
     };
   };
 }

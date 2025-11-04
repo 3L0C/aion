@@ -13,6 +13,7 @@
     ./optional/keyring.nix
     ./optional/nh.nix
     ./optional/pipewire.nix
+    ./optional/river.nix
     ./optional/steam.nix
     ./optional/virtualization.nix
     ./optional/vpn.nix

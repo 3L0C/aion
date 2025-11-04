@@ -8,7 +8,7 @@
     focus-follows-cursor = "normal"; # disabled|normal|always
 
     hide-cursor = {
-      timeout = 5; # timeout timeout
+      timeout = 5000; # timeout timeout
       when-typing = "enabled"; # when-typing enabled|disabled
     };
     set-cursor-warp = "on-output-change"; # disabled|on-output-change|on-focus-change

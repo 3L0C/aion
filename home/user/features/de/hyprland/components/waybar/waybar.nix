@@ -14,8 +14,8 @@ in {
     Unit = {
       Description = "Waybar status bar (Hyprland)";
       Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = ["hyprland-session.target"];
-      After = ["hyprland-session.target"];
+      PartOf = ["wayland-session@Hyprland.target"];
+      After = ["wayland-session@Hyprland.target"];
     };
 
     Service = {
@@ -27,7 +27,7 @@ in {
     };
 
     Install = {
-      WantedBy = lib.mkForce ["wayland-session@Hyprland.desktop.target"];
+      WantedBy = lib.mkForce ["wayland-session@Hyprland.target"];
     };
   };
 
