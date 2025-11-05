@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   programs = {
-    river-classic.enable = true;
+    river-classic = {
+      enable = true;
+      package = pkgs.river-uwsm;
+    };
 
     gdk-pixbuf.modulePackages = [pkgs.librsvg];
 

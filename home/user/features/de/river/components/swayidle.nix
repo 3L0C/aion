@@ -9,7 +9,7 @@
 in {
   services.swayidle = {
     enable = true;
-    systemdTarget = "wayland-session@River.target";
+    systemdTarget = "wayland-session@river.target";
 
     events = [
       {
@@ -36,12 +36,12 @@ in {
   };
   systemd.user.services.swayidle = {
     Unit = {
-      systemdTarget = "wayland-session@River.target";
-      PartOf = ["wayland-session@River.target"];
-      After = ["wayland-session@River.target"];
+      systemdTarget = "wayland-session@river.target";
+      PartOf = ["wayland-session@river.target"];
+      After = ["wayland-session@river.target"];
     };
     Install = {
-      WantedBy = lib.mkForce ["wayland-session@River.target"];
+      WantedBy = lib.mkForce ["wayland-session@river.target"];
     };
   };
 }

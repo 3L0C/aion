@@ -10,8 +10,8 @@ in {
     Unit = {
       Description = "Waybar status bar (River)";
       Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = ["wayland-session@River.target"];
-      After = ["wayland-session@River.target"];
+      PartOf = ["wayland-session@river.target"];
+      After = ["wayland-session@river.target"];
     };
 
     Service = {
@@ -23,7 +23,7 @@ in {
     };
 
     Install = {
-      WantedBy = lib.mkForce ["wayland-session@River.target"];
+      WantedBy = lib.mkForce ["wayland-session@river.target"];
     };
   };
   xdg.configFile."waybar/river-config.json".text = builtins.toJSON {
@@ -39,7 +39,6 @@ in {
       "river/tags" # Replaces hyprland/workspaces
       "river/mode" # Replaces hyprland/submap
       "river/layout" # Replaces custom/layout
-      "river/window" # Replaces hyprland/window
     ];
 
     modules-right = [
@@ -63,11 +62,6 @@ in {
       format = "{}";
       tooltip = false;
     };
-    "river/window" = {
-      format = "{title}";
-      max-length = 50;
-      tooltip = false;
-    };
     pulseaudio = {
       format = "| {volume}% ";
       format-muted = "| MUTED";
@@ -79,7 +73,9 @@ in {
     };
 
     temperature = {
-      hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon4/temp1_input";
+      hwmon-path-is-chip = true;
+      hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+      input-filename = "temp1_input";
       interval = 10;
       format = "| {temperatureC}°C ";
       tooltip = false;

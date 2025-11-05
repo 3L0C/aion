@@ -7,4 +7,4 @@ result-*
 nixpkgs/**
 
 # Personal task tracking
-todo.org
+*.org
