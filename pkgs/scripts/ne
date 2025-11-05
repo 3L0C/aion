@@ -1,0 +1,576 @@
+#!/usr/bin/env bash
+# ne - Nix Eval helper for quick flake introspection
+# Makes common nix eval patterns easy and ergonomic
+
+set -euo pipefail
+
+# ==============================================================================
+# CONFIGURATION & COLORS
+# ==============================================================================
+
+# Colors
+readonly RED='\033[0;31m'
+readonly BLUE='\033[0;34m'
+readonly YELLOW='\033[0;33m'
+readonly GREEN='\033[0;32m'
+readonly GRAY='\033[0;90m'
+readonly NC='\033[0m' # No Color
+
+# Default values
+MODE="config"           # config, options, home, home-options, pkgs
+HOST=""                 # Auto-detect if empty
+FLAKE="."              # Current directory
+OUTPUT_FORMAT="auto"    # auto, json, raw
+APPLY=""               # Custom apply expression
+JQ_FILTER="."          # JQ filter to apply
+QUIET=false
+VERBOSE=false
+SHOW_TRACE=false
+DRY_RUN=false
+
+# Helper flags
+GET_KEYS=false
+GET_VALUES=false
+GET_LENGTH=false
+
+# ==============================================================================
+# LOGGING & ERROR HANDLING
+# ==============================================================================
+
+error() {
+    echo -e "${RED}Error:${NC} $1" >&2
+    exit 1
+}
+
+warn() {
+    echo -e "${YELLOW}Warning:${NC} $1" >&2
+}
+
+verbose() {
+    if [[ "$VERBOSE" == "true" ]]; then
+        echo -e "${GRAY}[ne]${NC} $1" >&2
+    fi
+}
+
+success() {
+    echo -e "${GREEN}✓${NC} $1" >&2
+}
+
+# ==============================================================================
+# HELP & EXAMPLES
+# ==============================================================================
+
+usage() {
+    cat << EOF
+Usage: ne [OPTIONS] <path>
+
+Quick Nix evaluation helper for flake configurations.
+
+SELECTION FLAGS (mutually exclusive):
+    -c, --config              NixOS configuration (default)
+    -o, --options             NixOS options
+    -h, --home                Home-manager configuration
+        --home-options        Home-manager options
+    -p, --pkgs                Packages in scope
+
+OUTPUT FLAGS:
+    -j, --json                JSON output (auto-pipe to jq)
+    -r, --raw                 Raw string output
+        --jq FILTER           Apply jq filter
+
+PROCESSING FLAGS:
+        --keys                Get attribute names (builtins.attrNames)
+        --values              Get attribute values
+        --length              Count items (builtins.length)
+        --apply EXPR          Apply custom Nix expression
+
+TARGET FLAGS:
+    -H, --host NAME           Specify host (default: auto-detect)
+        --flake PATH          Flake path (default: .)
+
+OTHER:
+    -q, --quiet               Suppress stderr
+    -v, --verbose             Show command being run
+        --dry-run             Show command without running
+        --show-trace          Enable Nix trace
+        --examples            Show usage examples
+        --help                Show this help
+
+EXAMPLES:
+    ne programs.river-uwsm.enable
+    ne -j environment.sessionVariables
+    ne -o programs.hyprland --keys --json | sort
+    ne -h wayland.windowManager.river.enable
+
+    Use --examples for more detailed examples.
+
+TROUBLESHOOTING:
+    Host not found?     Try: ne --dry-run -v programs.foo
+    Path not found?     Try: ne -o programs --keys
+    Cryptic nix error?  Try: ne --show-trace programs.foo
+
+EOF
+    exit 0
+}
+
+examples() {
+    cat << 'EOF'
+╔════════════════════════════════════════════════════════════════════════════╗
+║                        ne - Usage Examples                                 ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+┌─ BASIC USAGE ──────────────────────────────────────────────────────────────┐
+│ Check if an option is enabled                                              │
+│   ne programs.river-uwsm.enable                                            │
+│   → true                                                                   │
+│                                                                            │
+│ Get hostname                                                               │
+│   ne networking.hostName                                                   │
+│   → "snow"                                                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ WORKING WITH JSON ────────────────────────────────────────────────────────┐
+│ Pretty-print JSON configuration                                            │
+│   ne -j programs.uwsm.waylandCompositors                                   │
+│                                                                            │
+│ Filter with jq                                                             │
+│   ne -j environment.sessionVariables \                                     │
+│      --jq 'with_entries(select(.key | contains("WAYLAND")))'               │
+│                                                                            │
+│ Get just the keys                                                          │
+│   ne -j environment.sessionVariables --jq 'keys | sort'                    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ EXPLORING OPTIONS ────────────────────────────────────────────────────────┐
+│ List all options for a program                                             │
+│   ne -o programs.hyprland --keys --json | sort                             │
+│                                                                            │
+│ Get option description (shows type, default, etc)                          │
+│   ne -o programs.river-uwsm.package                                        │
+│                                                                            │
+│ Check what options are available                                           │
+│   ne -o programs --keys --json | jq -r '.[]' | grep river                  │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ HOME-MANAGER ─────────────────────────────────────────────────────────────┐
+│ Check home-manager option                                                  │
+│   ne -h wayland.windowManager.river.enable                                 │
+│                                                                            │
+│ Count home packages                                                        │
+│   ne -h home.packages --length                                             │
+│                                                                            │
+│ List home packages (first 10)                                              │
+│   ne -j -h home.packages --apply 'pkgs: map (p: p.name) pkgs | take 10'    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ ADVANCED USAGE ───────────────────────────────────────────────────────────┐
+│ Custom Nix expression                                                      │
+│   ne -j environment.systemPackages \                                       │
+│      --apply 'pkgs: map (p: p.name) pkgs | filter (p: hasPrefix "nix" p)'  │
+│                                                                            │
+│ Different host                                                             │
+│   ne -H laptop programs.hyprland.enable                                    │
+│                                                                            │
+│ Debug what command would run                                               │
+│   ne --dry-run -v programs.foo                                             │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ COMMON WORKFLOWS ─────────────────────────────────────────────────────────┐
+│ "What services are enabled?"                                               │
+│   ne -j systemd.user.services --keys | grep -i waybar                      │
+│                                                                            │
+│ "What's the package path?"                                                 │
+│   ne programs.hyprland.package                                             │
+│   → /nix/store/...-hyprland-0.51.0                                         │
+│                                                                            │
+│ "Which Wayland compositors are configured?"                                │
+│   ne -j programs.uwsm.waylandCompositors --jq 'keys'                       │
+│                                                                            │
+│ "What environment variables are set?"                                      │
+│   ne -j environment.sessionVariables --jq 'to_entries | sort_by(.key)'     │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TIPS & TRICKS ────────────────────────────────────────────────────────────┐
+│ • Use -v to see the actual nix eval command                                │
+│ • Use --dry-run to test without evaluating                                 │
+│ • Pipe to grep/sort/uniq for filtering                                     │
+│ • Use --keys to discover available options                                 │
+│ • Combine with watch for monitoring: watch -n1 'ne programs.foo'           │
+└────────────────────────────────────────────────────────────────────────────┘
+
+For more help: ne --help
+EOF
+    exit 0
+}
+
+# ==============================================================================
+# VALIDATION & DEPENDENCIES
+# ==============================================================================
+
+# Check required dependencies
+check_dependencies() {
+    if ! command -v nix >/dev/null 2>&1; then
+        error "nix command not found. Please install Nix."
+    fi
+
+    if [[ "$OUTPUT_FORMAT" == "json" ]] && ! command -v jq >/dev/null 2>&1; then
+        warn "jq not found - JSON output will not be pretty-printed"
+    fi
+}
+
+# List available hosts from flake
+list_hosts() {
+    nix eval "$FLAKE#nixosConfigurations" \
+        --apply 'configs: builtins.attrNames configs' \
+        --json 2>/dev/null | jq -r '.[]' | tr '\n' ', ' | sed 's/,$//' || echo "unknown"
+}
+
+# Validate that host exists in flake
+validate_host() {
+    local host=$1
+
+    verbose "Validating host: $host"
+
+    if ! nix eval "$FLAKE#nixosConfigurations" \
+        --apply "configs: builtins.hasAttr \"$host\" configs" \
+        2>/dev/null | grep -q true; then
+
+        local available
+        available=$(list_hosts)
+        error "Host '$host' not found in flake.\n\nAvailable hosts: $available\n\nUse: ne -H <hostname> <path>"
+    fi
+
+    verbose "Host validated: $host"
+}
+
+# Validate path doesn't have common mistakes
+validate_path() {
+    local path=$1
+
+    # Check for common mistake: including "config." prefix
+    if [[ "$path" == config.* ]]; then
+        warn "Path starts with 'config.' - this is likely wrong"
+        warn "Example: use 'programs.foo' not 'config.programs.foo'"
+        warn "Continuing anyway..."
+    fi
+}
+
+# ==============================================================================
+# TARGET BUILDERS
+# ==============================================================================
+
+build_nixos_config_target() {
+    echo "$FLAKE#nixosConfigurations.$HOST.config.$PATH_ARG"
+}
+
+build_nixos_options_target() {
+    echo "$FLAKE#nixosConfigurations.$HOST.options.$PATH_ARG"
+}
+
+build_home_config_target() {
+    local user
+    user=$(detect_home_user)
+    echo "$FLAKE#homeConfigurations.\"$user@$HOST\".config.$PATH_ARG"
+}
+
+build_home_options_target() {
+    local user
+    user=$(detect_home_user)
+    echo "$FLAKE#homeConfigurations.\"$user@$HOST\".options.$PATH_ARG"
+}
+
+build_pkgs_target() {
+    echo "$FLAKE#nixosConfigurations.$HOST.pkgs.$PATH_ARG"
+}
+
+# Mode registry - makes adding new modes easy
+declare -A MODE_BUILDERS=(
+    [config]="build_nixos_config_target"
+    [options]="build_nixos_options_target"
+    [home]="build_home_config_target"
+    [home-options]="build_home_options_target"
+    [pkgs]="build_pkgs_target"
+)
+
+# Build the nix eval target based on mode
+build_target() {
+    local builder_func="${MODE_BUILDERS[$MODE]}"
+
+    if [[ -z "$builder_func" ]]; then
+        error "Unknown mode: $MODE"
+    fi
+
+    verbose "Using builder: $builder_func"
+    "$builder_func"
+}
+
+# ==============================================================================
+# AUTO-DETECTION
+# ==============================================================================
+
+# Auto-detect hostname
+detect_host() {
+    hostname -s 2>/dev/null || hostname
+}
+
+# Detect home-manager user from flake
+detect_home_user() {
+    local configs
+    configs=$(nix eval "$FLAKE#homeConfigurations" --apply 'configs: builtins.attrNames configs' --json 2>/dev/null | jq -r '.[]' | head -1)
+    if [[ -n "$configs" ]]; then
+        echo "$configs" | cut -d'@' -f1
+        return
+    fi
+    echo "$USER"
+}
+
+# ==============================================================================
+# COMMAND EXECUTION
+# ==============================================================================
+
+# Execute nix eval with better error handling
+execute_nix_eval() {
+    local output
+    local exit_code
+    local stderr_file
+
+    stderr_file=$(mktemp)
+    trap 'rm -f "$stderr_file"' RETURN
+
+    verbose "Executing: ${CMD[*]}"
+
+    # Run command and capture exit code
+    if [[ "$QUIET" == "true" ]]; then
+        output=$("${CMD[@]}" 2>/dev/null) || exit_code=$?
+    else
+        output=$("${CMD[@]}" 2>"$stderr_file") || exit_code=$?
+    fi
+
+    # Handle success
+    if [[ -z "${exit_code:-}" ]]; then
+        echo "$output"
+        return 0
+    fi
+
+    # Handle errors with helpful messages
+    local stderr_content
+    stderr_content=$(cat "$stderr_file" 2>/dev/null || echo "")
+
+    if echo "$stderr_content" | grep -q "does not provide attribute"; then
+        error "Path not found: $PATH_ARG\n\n${RED}Suggestion:${NC}\n  ne -o ${PATH_ARG%%.*} --keys --json | grep ${PATH_ARG##*.}\n  ne -v $PATH_ARG  # See full command"
+    elif echo "$stderr_content" | grep -q "path.*does not exist"; then
+        error "File not tracked by git.\n\n${RED}Fix:${NC}\n  git add <your-new-file>\n  git add -N <file>  # Intent to add (doesn't stage content)"
+    elif echo "$stderr_content" | grep -q "Host.*not found"; then
+        local available
+        available=$(list_hosts)
+        error "Host not found.\n\n${RED}Available hosts:${NC} $available\n\n${RED}Fix:${NC}\n  ne -H <hostname> $PATH_ARG"
+    else
+        # Show original error
+        [[ -n "$stderr_content" ]] && echo "$stderr_content" >&2
+        exit "$exit_code"
+    fi
+}
+
+# Process output based on format
+process_output() {
+    local output="$1"
+
+    case "$OUTPUT_FORMAT" in
+        json)
+            if command -v jq >/dev/null 2>&1; then
+                echo "$output" | jq "$JQ_FILTER"
+            else
+                echo "$output"
+            fi
+            ;;
+        *)
+            echo "$output"
+            ;;
+    esac
+}
+
+# ==============================================================================
+# ARGUMENT PARSING
+# ==============================================================================
+
+POSITIONAL_ARGS=()
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--home)
+            MODE="home"
+            shift
+            ;;
+        --home-options)
+            MODE="home-options"
+            shift
+            ;;
+        -c|--config)
+            MODE="config"
+            shift
+            ;;
+        -o|--options)
+            MODE="options"
+            shift
+            ;;
+        -p|--pkgs)
+            MODE="pkgs"
+            shift
+            ;;
+        -j|--json)
+            OUTPUT_FORMAT="json"
+            shift
+            ;;
+        -r|--raw)
+            OUTPUT_FORMAT="raw"
+            shift
+            ;;
+        --jq)
+            JQ_FILTER="$2"
+            OUTPUT_FORMAT="json"
+            shift 2
+            ;;
+        --keys)
+            GET_KEYS=true
+            shift
+            ;;
+        --values)
+            GET_VALUES=true
+            shift
+            ;;
+        --length)
+            GET_LENGTH=true
+            shift
+            ;;
+        --apply)
+            APPLY="$2"
+            shift 2
+            ;;
+        -H|--host)
+            HOST="$2"
+            shift 2
+            ;;
+        --flake)
+            FLAKE="$2"
+            shift 2
+            ;;
+        -q|--quiet)
+            QUIET=true
+            shift
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        --dry-run)
+            DRY_RUN=true
+            VERBOSE=true
+            shift
+            ;;
+        --show-trace)
+            SHOW_TRACE=true
+            shift
+            ;;
+        --examples)
+            examples
+            ;;
+        --help)
+            usage
+            ;;
+        -*)
+            error "Unknown option: $1\nUse --help for usage information"
+            ;;
+        *)
+            POSITIONAL_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}"
+
+# ==============================================================================
+# MAIN EXECUTION
+# ==============================================================================
+
+main() {
+    # 1. Check dependencies
+    check_dependencies
+
+    # 2. Validate we have a path argument
+    if [[ $# -eq 0 ]]; then
+        error "Missing path argument.\n\nExamples:\n  ne programs.river-uwsm.enable\n  ne -j environment.sessionVariables\n\nUse --help for more information or --examples for detailed examples"
+    fi
+
+    PATH_ARG="$1"
+
+    # 3. Auto-detect host if not specified
+    if [[ -z "$HOST" ]]; then
+        HOST=$(detect_host)
+        verbose "Auto-detected host: $HOST"
+    fi
+
+    # 4. Validate inputs
+    validate_host "$HOST"
+    validate_path "$PATH_ARG"
+
+    # 5. Build target
+    TARGET=$(build_target)
+    verbose "Target: $TARGET"
+
+    # 6. Build the apply expression if needed
+    if [[ "$GET_KEYS" == "true" ]]; then
+        APPLY="x: builtins.attrNames x"
+        OUTPUT_FORMAT="json"
+    elif [[ "$GET_VALUES" == "true" ]]; then
+        APPLY="x: builtins.attrValues x"
+        OUTPUT_FORMAT="json"
+    elif [[ "$GET_LENGTH" == "true" ]]; then
+        APPLY="x: builtins.length x"
+    fi
+
+    # 7. Build the nix eval command
+    CMD=(nix eval "$TARGET")
+
+    if [[ -n "$APPLY" ]]; then
+        CMD+=(--apply)
+        CMD+=("$APPLY")
+    fi
+
+    # Add output format
+    if [[ "$OUTPUT_FORMAT" == "json" ]]; then
+        CMD+=(--json)
+    elif [[ "$OUTPUT_FORMAT" == "raw" ]]; then
+        CMD+=(--raw)
+    fi
+
+    # Add show-trace if requested
+    if [[ "$SHOW_TRACE" == "true" ]]; then
+        CMD+=(--show-trace)
+    fi
+
+    # 8. Show command if verbose
+    if [[ "$VERBOSE" == "true" ]]; then
+        echo -e "${BLUE}Command:${NC} ${CMD[*]}" >&2
+    fi
+
+    # 9. Dry run check
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo -e "${BLUE}Would run:${NC}"
+        echo "  ${CMD[*]}"
+        echo ""
+        echo -e "${BLUE}Target:${NC} $TARGET"
+        echo -e "${BLUE}Mode:${NC} $MODE"
+        echo -e "${BLUE}Host:${NC} $HOST"
+        [[ -n "$APPLY" ]] && echo -e "${BLUE}Apply:${NC} $APPLY"
+        exit 0
+    fi
+
+    # 10. Execute and process output
+    output=$(execute_nix_eval)
+    process_output "$output"
+}
+
+# Only run main if not being sourced (allows testing)
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

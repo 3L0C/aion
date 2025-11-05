@@ -6,6 +6,7 @@
 in {
   hypr-layout = mkScript "hypr-layout" ./hyprland/layout.sh;
   nb = mkScript "nb" ./nix/nb;
+  ne = mkScript "ne" ./ne;
   doomemacs = mkScript "doomemacs" ./doom/doomemacs;
   dns-recovery = mkScript "dns-recovery" ./system/dns-recovery;
   hmpv = mkScript "hmpv" ./wip/hmpv;
