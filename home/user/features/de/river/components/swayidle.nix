@@ -34,14 +34,5 @@ in {
       }
     ];
   };
-  systemd.user.services.swayidle = {
-    Unit = {
-      systemdTarget = "wayland-session@river.target";
-      PartOf = ["wayland-session@river.target"];
-      After = ["wayland-session@river.target"];
-    };
-    Install = {
-      WantedBy = lib.mkForce ["wayland-session@river.target"];
-    };
-  };
+  systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSession "river" {};
 }

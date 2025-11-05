@@ -5,14 +5,11 @@
 }: {
   wayland.windowManager.river = {
     enable = true;
-    xwayland.enable = true;
+    package = null;
     systemd = {
       enable = false; # UWSM handles systemd integration
     };
-  };
-  xdg.portal = {
-    extraPortals = [pkgs.xdg-desktop-portal-wlr];
-    configPackages = [pkgs.river-classic];
+    xwayland.enable = true;
   };
   xdg.configFile."xdg-desktop-portal-wlr/config.ini".text = ''
     [screencast]

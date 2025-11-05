@@ -30,10 +30,11 @@ in {
           install ${./schemes}/*.yaml $out/share/themes/
         '';
     });
-    river-uwsm = prev.river-classic.overrideAttrs (oldAttrs: {
+    river-classic-no-session = prev.river-classic.overrideAttrs (oldAttrs: {
       postInstall =
         (oldAttrs.postInstall or "")
         + ''
+          # Remove the plain river.desktop session file
           rm -f $out/share/wayland-sessions/river.desktop
         '';
     });

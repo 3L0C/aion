@@ -6,12 +6,10 @@
 }: let
   waybar = lib.getExe config.programs.waybar.package;
 in {
-  systemd.user.services.waybar-river = {
+  systemd.user.services.waybar-river = lib.custom.mkWaylandService "river" {
     Unit = {
       Description = "Waybar status bar (River)";
       Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = ["wayland-session@river.target"];
-      After = ["wayland-session@river.target"];
     };
 
     Service = {
@@ -20,10 +18,6 @@ in {
       ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
       Restart = "on-failure";
       KillMode = "mixed";
-    };
-
-    Install = {
-      WantedBy = lib.mkForce ["wayland-session@river.target"];
     };
   };
   xdg.configFile."waybar/river-config.json".text = builtins.toJSON {

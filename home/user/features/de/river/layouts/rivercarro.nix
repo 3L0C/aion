@@ -4,10 +4,22 @@
   ...
 }: let
   mod = "Super";
-  rivercarro = "${lib.getExe pkgs.rivercarro}";
   layoutmsg = msg: "send-layout-cmd rivercarro \"${msg}\"";
 in {
   home.packages = [pkgs.rivercarro];
+  systemd.user.services.rivercarro = lib.custom.mkWaylandService "river" {
+    Unit = {
+      Description = "Rivercarro layout daemon for River";
+      Documentation = "https://sr.ht/~novakane/rivercarro/";
+    };
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${lib.getExe pkgs.rivercarro} -inner-gaps 10 -outer-gaps 10 -main-location left -main-count 1 -main-ratio 0.6 -per-tag -no-smart-gaps";
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+  };
 
   wayland.windowManager.river = {
     settings = {
@@ -21,16 +33,6 @@ in {
     };
 
     extraConfig = lib.mkAfter ''
-      ${rivercarro} \
-          -inner-gaps 10 \
-          -outer-gaps 10 \
-          -main-location left \
-          -main-count 1 \
-          -main-ratio 0.6 \
-          -per-tag \
-          -no-smart-gaps \
-          &
-
       # Notify UWSM that River is ready
       uwsm finalize
     '';
