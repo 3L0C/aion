@@ -7,8 +7,7 @@
     enable = true;
     xwayland.enable = true;
     systemd = {
-      enable = true;
-      variables = ["-all"];
+      enable = false; # UWSM handles systemd integration
     };
   };
   xdg.portal = {

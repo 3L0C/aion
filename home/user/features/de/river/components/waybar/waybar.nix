@@ -10,8 +10,8 @@ in {
     Unit = {
       Description = "Waybar status bar (River)";
       Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = ["river-session.target"];
-      After = ["river-session.target"];
+      PartOf = ["wayland-session@River.target"];
+      After = ["wayland-session@River.target"];
     };
 
     Service = {
@@ -23,7 +23,7 @@ in {
     };
 
     Install = {
-      WantedBy = lib.mkForce ["river-session.target"];
+      WantedBy = lib.mkForce ["wayland-session@River.target"];
     };
   };
   xdg.configFile."waybar/river-config.json".text = builtins.toJSON {

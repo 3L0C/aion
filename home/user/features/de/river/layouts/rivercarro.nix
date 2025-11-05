@@ -20,7 +20,7 @@ in {
       };
     };
 
-    extraConfig = lib.mkForce ''
+    extraConfig = lib.mkAfter ''
       ${rivercarro} \
           -inner-gaps 10 \
           -outer-gaps 10 \
@@ -30,6 +30,9 @@ in {
           -per-tag \
           -no-smart-gaps \
           &
+
+      # Notify UWSM that River is ready
+      uwsm finalize
     '';
   };
 }

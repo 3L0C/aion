@@ -8,13 +8,13 @@
   rofi = "${config.programs.rofi.package}/bin/rofi";
   kitty = "${pkgs.kitty}/bin/kitty";
   jq = "${pkgs.jq}/bin/jq";
-  terminal = "uwsm app -- ${kitty}";
+  terminal = "uwsm-app -- ${kitty}";
   ncmpcpp = "${pkgs.ncmpcpp}/bin/ncmpcpp";
 
   mod = "SUPER";
   modShift = "SUPER_SHIFT";
   modMeh = "SHIFT_ALT_CTRL";
-  menu = "uwsm app -- ${rofi} -show drun -monitor \"$(${hyprctl} monitors -j | ${jq} -r '.[] | select(.focused) | .name')\"";
+  menu = "uwsm-app -- ${rofi} -show drun -monitor \"$(${hyprctl} monitors -j | ${jq} -r '.[] | select(.focused) | .name')\"";
 
   workspaces = {
     "1" = "1";
@@ -33,11 +33,11 @@ in {
     bind =
       [
         "${modShift}, Q, exec, loginctl terminate-user \"\""
-        "${mod}, RETURN, exec, uwsm app -- ${kitty} tmux"
+        "${mod}, RETURN, exec, uwsm-app -- ${kitty} tmux"
         "${mod}, R, exec, ${menu}"
-        "${mod}, COMMA, exec, uwsm app -- wk --debug"
-        "${mod}, O, exec, uwsm app -- wk --press 'o'"
-        "${mod}, E, exec, uwsm app -- wk --press 'e'"
+        "${mod}, COMMA, exec, uwsm-app -- wk --debug"
+        "${mod}, O, exec, uwsm-app -- wk --press 'o'"
+        "${mod}, E, exec, uwsm-app -- wk --press 'e'"
         "${modMeh}, J, focusmonitor, l"
         "${modMeh}, K, focusmonitor, r"
         "${mod}, J, layoutmsg, cyclenext"
@@ -60,7 +60,7 @@ in {
         "${mod}, H, workspace, m-1"
         "${mod}, L, workspace, m+1"
         "${mod}, B, exec, killall -SIGUSR2 waybar"
-        "${mod}, S, exec, uwsm app -- wk --press 'os'"
+        "${mod}, S, exec, uwsm-app -- wk --press 'os'"
         "${modShift}, F, togglefloating,"
       ]
       ++ (lib.mapAttrsToList (n: key: "${mod}, ${key}, workspace, ${n}") workspaces)
@@ -74,10 +74,10 @@ in {
     bindl = [
       ", XF86AudioNext, exec, mpc next"
       ", XF86AudioPrev, exec, mpc prev"
-      ", XF86AudioPlay, exec, uwsm app -- media-toggle"
+      ", XF86AudioPlay, exec, uwsm-app -- media-toggle"
       ", XF86AudioRewind, exec, mpc seek -10"
       ", XF86AudioForward, exec, mpc seek +10"
-      ", XF86AudioMedia, exec, uwsm app -- ${terminal} -e ${ncmpcpp}"
+      ", XF86AudioMedia, exec, uwsm-app -- ${terminal} -e ${ncmpcpp}"
     ];
     bindm = [
       "${mod}, mouse:272, movewindow"

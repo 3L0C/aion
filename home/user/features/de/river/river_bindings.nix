@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
@@ -13,7 +12,7 @@
   _terminal = "${kitty}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   launcher = "uwsm-app -- ${rofi} -show drun";
-  menu = "uwsm-app -- ${lib.getExe inputs.wk.packages.${pkgs.system}.wk}";
+  menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched}";
 in {
   wayland.windowManager.river.settings = {
     declare-mode = ["normal" "locked"];

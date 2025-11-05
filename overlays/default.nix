@@ -1,4 +1,9 @@
-{inputs, ...}: {
+{inputs, ...}: let
+  addPatches = pkg: patches:
+    pkg.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or []) ++ patches;
+    });
+in {
   stable = final: _prev: {
     stable = import inputs.nixpkgs-stable {
       inherit (final) system;
@@ -9,6 +14,12 @@
   };
   custom-packages = final: _prev: {
     custom = import ../pkgs {pkgs = final;};
+  };
+  wk-overlay = final: _prev: {
+    wk-patched = addPatches inputs.wk.packages.${final.system}.wk [
+      ./wk-patches/config.patch
+      ./wk-patches/key_chords.patch
+    ];
   };
   modifications = _final: prev: {
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
