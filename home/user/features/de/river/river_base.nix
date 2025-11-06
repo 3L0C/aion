@@ -19,6 +19,7 @@
   home.packages = with pkgs; [
     custom.river-shifttags # A small utility for river to help rotate the focused tags
     grim # Screenshot tool
+    river-bedload # Display information about river in json in the STDOUT
     slurp # Area selection for screenshots/screensharing
   ];
 }
