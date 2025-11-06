@@ -31,14 +31,16 @@ in {
     no-center = true;
     modules-left = [
       "river/tags" # Replaces hyprland/workspaces
-      "river/mode" # Replaces hyprland/submap
       "river/layout" # Replaces custom/layout
     ];
 
     modules-right = [
+      "custom/sb-playerctl"
+      "custom/sb-mpv"
       "pulseaudio"
       "temperature"
       "memory"
+      "custom/sb-internet"
       "clock"
       "idle_inhibitor"
       "tray"
@@ -47,15 +49,37 @@ in {
       num-tags = 9;
       tag-labels = ["1" "2" "3" "4" "5" "6" "7" "8" "9"];
       disable-click = false;
-    };
-    "river/mode" = {
-      format = "<span style=\"italic\">{}</span>";
-      tooltip = false;
+      hide-vacant = true;
     };
     "river/layout" = {
-      format = "{}";
+      format = "[]=";
       tooltip = false;
     };
+    "river/window" = {
+      format = "{title}";
+      max-length = 100;
+      tooltip = false;
+    };
+    "custom/sb-playerctl" = {
+      format = "{}";
+      exec = "sb-playerctl";
+      interval = 1;
+      on-click = "BLOCK_BUTTON=1 sb-playerctl";
+      tooltip = false;
+    };
+
+    "custom/sb-mpv" = {
+      format = "{}";
+      exec = "sb-mpv";
+      on-click = "BLOCK_BUTTON=1 sb-mpv";
+      on-click-middle = "BLOCK_BUTTON=2 sb-mpv";
+      on-click-right = "BLOCK_BUTTON=3 sb-mpv";
+      on-scroll-down = "BLOCK_BUTTON=4 sb-mpv";
+      on-scroll-up = "BLOCK_BUTTON=5 sb-mpv";
+      interval = 1;
+      tooltip = false;
+    };
+
     pulseaudio = {
       format = "| {volume}% ";
       format-muted = "| MUTED";
@@ -67,9 +91,7 @@ in {
     };
 
     temperature = {
-      hwmon-path-is-chip = true;
-      hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
-      input-filename = "temp1_input";
+      hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
       interval = 10;
       format = "| {temperatureC}°C ";
       tooltip = false;
@@ -77,8 +99,18 @@ in {
 
     memory = {
       format = "| {used:0.1f}G ";
-      interval = 10;
+      interval = 1;
       on-click = "kitty -e htop";
+      tooltip = false;
+    };
+
+    "custom/sb-internet" = {
+      format = "{}";
+      exec = "sb-internet";
+      interval = 5;
+      on-click = "BLOCK_BUTTON=1 sb-internet";
+      on-click-middle = "BLOCK_BUTTON=2 sb-internet";
+      on-click-right = "BLOCK_BUTTON=3 sb-internet";
       tooltip = false;
     };
 
