@@ -14,7 +14,7 @@
   playerctl = "${lib.getExe pkgs.playerctl}";
   river-shifttags = "${lib.getExe pkgs.custom.river-shifttags}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
-  launcher = "uwsm-app -- ${rofi} -show drun -run-command 'uwsm-app -- {cmd}'";
+  launcher = "uwsm-app -- ${rofi} -show drun -run-command '\\''uwsm-app -- {cmd}'\\''";
   menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched}";
   terminal = "uwsm-app -- ${kitty}";
   mediaKeyBinds = {
@@ -37,9 +37,9 @@ in {
         "${modShift} Return" = "spawn '${terminal}'";
         "${mod} R" = "spawn '${launcher}'";
         "${mod} Comma" = "spawn '${menu}'";
-        "${mod} O" = "spawn '${menu} --press \'o\''";
-        "${mod} E" = "spawn '${menu} --press \'e\''";
-        "${mod} S" = "spawn '${menu} --press \'os\''";
+        "${mod} O" = "spawn '${menu} --press '\\''o'\\'''";
+        "${mod} E" = "spawn '${menu} --press '\\''e'\\'''";
+        "${mod} S" = "spawn '${menu} --press '\\''os'\\'''";
         "${mod} Q" = "close";
         "${modShift} Q" = "spawn '${loginctl} terminate-user \"\"'";
         "${meh} J" = "focus-output next";
