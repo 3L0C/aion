@@ -44,6 +44,7 @@ in {
         "${modShift} Q" = "spawn '${loginctl} terminate-user \"\"'";
         "${meh} J" = "focus-output next";
         "${meh} K" = "focus-output previous";
+        "${meh} Space" = "focus-output next";
         "${mod} J" = "focus-view next";
         "${mod} K" = "focus-view previous";
         "${modShift} L" = "send-to-output next";
