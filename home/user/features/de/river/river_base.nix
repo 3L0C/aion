@@ -17,7 +17,8 @@
     chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
   '';
   home.packages = with pkgs; [
-    slurp # Area selection for screenshots/screensharing
+    custom.river-shifttags # A small utility for river to help rotate the focused tags
     grim # Screenshot tool
+    slurp # Area selection for screenshots/screensharing
   ];
 }
