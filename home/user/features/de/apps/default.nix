@@ -3,7 +3,6 @@
     ./mpv
 
     ./android-studio.nix
-    ./discord.nix
     ./dunst.nix
     ./gimp.nix
     ./kdenlive.nix
