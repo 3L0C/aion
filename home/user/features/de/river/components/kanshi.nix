@@ -1,0 +1,49 @@
+{
+  config,
+  lib,
+  ...
+}: let
+  monitorToKanshiOutput = monitor:
+    lib.filterAttrs (_: v: v != null) {
+      criteria = monitor.name;
+      status =
+        if monitor.enabled
+        then "enable"
+        else "disable";
+      mode = "${toString monitor.width}x${toString monitor.height}@${toString monitor.refreshRate}Hz";
+      position = "${toString monitor.x},${toString monitor.y}";
+      scale =
+        if monitor.scale != "auto"
+        then (lib.strings.toFloat monitor.scale)
+        else null;
+    };
+  allMonitorsProfile = {
+    profile = {
+      name = "all";
+      outputs = map monitorToKanshiOutput config.monitors;
+    };
+  };
+
+  # Create individual profile for each monitor (fallback)
+  mkSingleMonitorProfile = monitor: {
+    profile = {
+      inherit (monitor) name;
+      outputs = [(monitorToKanshiOutput monitor)];
+    };
+  };
+  singleMonitorProfiles = map mkSingleMonitorProfile config.monitors;
+in {
+  services.kanshi = {
+    enable = true;
+    systemdTarget = "wayland-session@river.target";
+
+    settings =
+      [allMonitorsProfile]
+      ++ singleMonitorProfiles;
+  };
+  systemd.user.services.kanshi = {
+    Install = {
+      WantedBy = lib.mkForce ["wayland-session@river.target"];
+    };
+  };
+}

@@ -24,13 +24,23 @@
         example = 1080;
       };
       refreshRate = mkOption {
-        type = types.int;
-        default = 60;
+        type = types.float;
+        default = 60.0;
       };
       position = mkOption {
         type = types.str;
         default = "auto";
         example = "1920x0";
+      };
+      x = mkOption {
+        type = types.int;
+        default = 0;
+        example = 1080;
+      };
+      y = mkOption {
+        type = types.int;
+        default = 0;
+        example = 1920;
       };
       scale = mkOption {
         type = types.str;
