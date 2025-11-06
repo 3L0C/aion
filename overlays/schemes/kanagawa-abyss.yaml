@@ -3,19 +3,19 @@ name: "Kanagawa Abyss"
 author: "Tommaso Laurenzi (https://github.com/rebelot)"
 variant: "dark"
 palette:
-  base00: "#0d0c0c"
-  base01: "#1D1C19"
-  base02: "#282727"
-  base03: "#737c73"
-  base04: "#a6a69c"
-  base05: "#c5c9c5"
-  base06: "#7a8382"
-  base07: "#c5c9c5"
-  base08: "#C34043"
-  base09: "#FFA066"
-  base0A: "#C0A36E"
-  base0B: "#76946A"
-  base0C: "#6A9589"
-  base0D: "#7E9CD8"
-  base0E: "#957FB8"
-  base0F: "#D27E99"
+  base00: "#181616" # Black (Background)         | Default Background |
+  base01: "#1D1C19" # (Darkest Gray)             | Lighter Background (Used for status bars) |
+  base02: "#282727" # (Dark Gray)                | Selection Background |
+  base03: "#393836" # Bright Black (Gray)        | Comments, Invisibles, Line Highlighting |
+  base04: "#727169" # (Light Gray)               | Dark Foreground (Used for status bars) |
+  base05: "#DCD7BA" # White                      | Default Foreground, Caret, Delimiters, Operators |
+  base06: "#C8C093" # (Lighter White)            | Light Foreground |
+  base07: "#717C7C" # Bright White               | The Lightest Foreground |
+  base08: "#FF5D62" # Red and Bright Red         | Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted |
+  base09: "#FFA066" # (Orange)                   | Integers, Boolean, Constants, XML Attributes, Markup Link Url |
+  base0A: "#E6C384" # Yellow and Bright Yellow   | Classes, Markup Bold, Search Text Background |
+  base0B: "#98BB6C" # Green and Bright Green     | Strings, Inherited Class, Markup Code, Diff Inserted |
+  base0C: "#A3D4D5" # Cyan and Bright Cyan       | Support, Regular Expressions, Escape Characters, Markup Quotes |
+  base0D: "#7FB4CA" # Blue and Bright Blue       | Functions, Methods, Attribute IDs, Headings |
+  base0E: "#957FB8" # Magenta and Bright Magenta | Keywords, Storage, Selector, Markup Italic, Diff Changed |
+  base0F: "#D27E99" # (Dark Red or Brown)        | Deprecated, Opening/Closing Embedded Language Tags, e.g. `<?php ?>` |
