@@ -45,7 +45,7 @@ in {
       default-layout = lib.mkForce "wideriver"; # namespace
 
       map.normal = {
-        "${mod} Y" = layoutmsg "--layout left --stack diminish";
+        "${mod} Y" = layoutmsg "--layout left --stack dwindle";
         "${mod} I" = layoutmsg "--layout monocle";
         "${mod} T" = layoutmsg "--layout top --stack even";
       };
