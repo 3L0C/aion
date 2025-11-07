@@ -9,7 +9,6 @@
     ./gnome-apps.nix
     ./kde-apps.nix
     ./music-players.nix
-    ./nix-flatpak.nix
     ./security.nix
     ./stylix.nix
     ./virtualization.nix
