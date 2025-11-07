@@ -41,6 +41,7 @@ in {
     rule-add = {
       "-app-id" = generateSsdRules ssdAppIds;
       "-title" = generateSsdRules ssdTitles;
+      "" = "ssd";
     };
   };
 }

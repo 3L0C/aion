@@ -51,6 +51,8 @@ in {
         "${modShift} H" = "send-to-output previous";
         "${mod} L" = "spawn '${river-shifttags} --occupied'";
         "${mod} H" = "spawn '${river-shifttags} --shift -1 --occupied'";
+        "${mod} Tab" = "spawn '${river-shifttags}'";
+        "${modShift} Tab" = "spawn '${river-shifttags} --shift -1'";
         "${modShift} J" = "swap next";
         "${modShift} K" = "swap previous";
         "${modShift} Space" = "toggle-float";

@@ -1,5 +1,5 @@
 {
   imports = [
-    ./layouts/rivercarro.nix
+    ./layouts/wideriver.nix
   ];
 }

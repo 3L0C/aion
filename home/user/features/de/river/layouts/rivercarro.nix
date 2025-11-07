@@ -15,7 +15,16 @@ in {
 
     Service = {
       Type = "simple";
-      ExecStart = "${lib.getExe pkgs.rivercarro} -inner-gaps 10 -outer-gaps 10 -main-location left -main-count 1 -main-ratio 0.6 -per-tag -no-smart-gaps";
+      ExecStart = toString [
+        "${lib.getExe pkgs.rivercarro}"
+        "-inner-gaps 10"
+        "-outer-gaps 20"
+        "-main-location left"
+        "-main-count 1"
+        "-main-ratio 0.6"
+        "-per-tag"
+        "-no-smart-gaps"
+      ];
       Restart = "on-failure";
       RestartSec = "3s";
     };
@@ -31,10 +40,5 @@ in {
         "${mod} T" = layoutmsg "main-location top";
       };
     };
-
-    extraConfig = lib.mkAfter ''
-      # Notify UWSM that River is ready
-      uwsm finalize
-    '';
   };
 }
