@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-SzzFnhbDi9jKS/rjsWyIfUkX4wP1TRs/y4N+El/OW4U=";
   };
 
+  patches = [
+    ./patches/add-send-view-mode.patch
+  ];
+
   nativeBuildInputs = [
     pkg-config
     wayland-scanner
@@ -45,6 +49,9 @@ stdenv.mkDerivation rec {
     longDescription = ''
       river-shifttags enables navigation between tags for the river Wayland compositor.
       It can rotate multiple focused tags simultaneously and has an option to skip unoccupied tags.
+
+      This package includes a patch adding --send-view mode to move the focused view to
+      rotated tags instead of switching focused tags.
     '';
     homepage = "https://gitlab.com/akumar-xyz/river-shifttags";
     license = licenses.gpl3Plus;

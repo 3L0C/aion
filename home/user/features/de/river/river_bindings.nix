@@ -53,6 +53,10 @@ in {
         "${mod} H" = "spawn '${river-shifttags} --shift -1 --occupied'";
         "${mod} Tab" = "spawn '${river-shifttags}'";
         "${modShift} Tab" = "spawn '${river-shifttags} --shift -1'";
+        "${meh} L" = "spawn '${river-shifttags} --send-view --occupied'";
+        "${meh} H" = "spawn '${river-shifttags} --send-view --shift -1 --occupied'";
+        "${meh} Tab" = "spawn '${river-shifttags} --send-view'";
+        "${meh}+Shift Tab" = "spawn '${river-shifttags} --send-view --shift -1'";
         "${modShift} J" = "swap next";
         "${modShift} K" = "swap previous";
         "${modShift} Space" = "toggle-float";

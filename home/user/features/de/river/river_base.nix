@@ -22,7 +22,7 @@
     chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
   '';
   home.packages = with pkgs; [
-    custom.river-shifttags # A small utility for river to help rotate the focused tags
+    custom.river-shifttags # Utility to rotate focused tags or send views to rotated tags (patched with --send-view)
     grim # Screenshot tool
     lswt # Command that lists Wayland toplevels
     river-bedload # Display information about river in json in the STDOUT

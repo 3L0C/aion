@@ -1,0 +1,67 @@
+diff --git a/river-shifttags.c b/river-shifttags.c
+index 7ba853d..f10a1bf 100644
+--- a/river-shifttags.c
++++ b/river-shifttags.c
+@@ -26,6 +26,7 @@ int shifts = 1;
+ int num_tags = 9;
+ int start_tag = 0;
+ bool occupied_only = false;
++bool send_view = false;
+
+ /* Globals */
+ uint32_t occupied_tags = 0;
+@@ -57,6 +58,8 @@ const char usage[] =
+   "                      (default: 9)\n"
+   "   --start VALUE      First tag to rotate from. (starts with 0)\n"
+   "                      (default: 0)\n"
++  "   --send-view        Send focused view to rotated tags instead of\n"
++  "                      switching focused tags.\n"
+   "   --occupied         Skip unoccupied tags.\n"
+   "   --help             print this message and exit.\n"
+   "\n"
+@@ -164,14 +167,18 @@ snap_to_occupied(uint32_t new_tagmask,
+ static void
+ set_tagmask(struct zriver_control_v1* river_controller, uint32_t new_tagmask)
+ {
++    const char* command = send_view ? "set-view-tags" : "set-focused-tags";
++
+     size_t buf_size =
+       (size_t)snprintf(NULL, 0, "%u", new_tagmask) + 1; // account for null byte
+     char* tags_str = malloc(sizeof(char) * buf_size);
+     sprintf(tags_str, "%u", new_tagmask);
+
+-    zriver_control_v1_add_argument(river_controller, "set-focused-tags");
++    zriver_control_v1_add_argument(river_controller, command);
+     zriver_control_v1_add_argument(river_controller, tags_str);
+     zriver_control_v1_run_command(river_controller, seat);
++    free(tags_str);
++
+     wl_display_flush(wl_display);
+ }
+
+@@ -263,13 +270,14 @@ main(int argc, char* argv[])
+     /*
+      * Parse options and parameters
+      */
+-    enum { HELP, SHIFT_VALUE, START_TAG, NUM_TAGS, OCCUPIED };
++    enum { HELP, SHIFT_VALUE, START_TAG, NUM_TAGS, OCCUPIED, SEND_VIEW };
+     static struct option opts[] = {
+         { "help", no_argument, NULL, HELP },
+         { "occupied", no_argument, NULL, OCCUPIED },
+         { "shifts", required_argument, NULL, SHIFT_VALUE },
+         { "num-tags", required_argument, NULL, NUM_TAGS },
+         { "start", required_argument, NULL, START_TAG },
++        { "send-view", no_argument, NULL, SEND_VIEW },
+         { NULL, 0, NULL, 0 },
+     };
+
+@@ -291,6 +299,9 @@ main(int argc, char* argv[])
+         case OCCUPIED:
+             occupied_only = true;
+             break;
++        case SEND_VIEW:
++            send_view = true;
++            break;
+         default:
+             return EXIT_FAILURE;
+         }
