@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./autocrop.nix
+    ./filename.nix
     ./gallery-view.nix
     ./jellyfin.nix # Requires secrets - unlock git-crypt first
     ./modernz.nix
