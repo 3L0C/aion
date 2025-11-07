@@ -24,6 +24,7 @@
     custom.river-shifttags # Utility to rotate focused tags or send views to rotated tags (patched with --send-view)
     grim # Screenshot tool
     lswt # Command that lists Wayland toplevels
+    ristate # River-status client written in Rust
     river-bedload # Display information about river in json in the STDOUT
     slurp # Area selection for screenshots/screensharing
     wayshot # Native, blazing-fast screenshot tool for wlroots based compositors such as sway and river
