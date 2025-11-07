@@ -10,8 +10,7 @@
       enable = false; # UWSM handles systemd integration
     };
     xwayland.enable = true;
-
-    extraConfig = lib.mkAfter ''
+    extraConfig = ''
       # Notify UWSM that River is ready
       uwsm finalize
     '';
@@ -28,5 +27,6 @@
     river-bedload # Display information about river in json in the STDOUT
     slurp # Area selection for screenshots/screensharing
     wayshot # Native, blazing-fast screenshot tool for wlroots based compositors such as sway and river
+    wev # Wayland event viewer
   ];
 }

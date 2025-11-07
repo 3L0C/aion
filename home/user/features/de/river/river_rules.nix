@@ -1,4 +1,9 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   ssdAppIds = [
     "org.gnome.*"
     "thunar"
@@ -30,18 +35,26 @@
     "Picture-in-Picture"
     "*LibreWolf"
   ];
-  generateSsdRules = ids:
-    lib.listToAttrs (map (id: {
-        name = "'${id}'";
-        value = "ssd";
-      })
-      ids);
+  generateAppIdRules = ids:
+    lib.concatMapStringsSep "\n" (id: "${riverctl} rule-add -app-id '${id}' ssd") ids;
+  generateTitleRules = titles:
+    lib.concatMapStringsSep "\n" (title: "${riverctl} rule-add -title '${title}' ssd") titles;
+  rulesScript = pkgs.writeShellScript "river-rules" ''
+    ${generateAppIdRules ssdAppIds}
+    ${generateTitleRules ssdTitles}
+    ${riverctl} rule-add ssd
+  '';
 in {
-  wayland.windowManager.river.settings = {
-    rule-add = {
-      "-app-id" = generateSsdRules ssdAppIds;
-      "-title" = generateSsdRules ssdTitles;
-      "" = "ssd";
+  systemd.user.services.river-rules = lib.custom.mkWaylandService "river" {
+    Unit = {
+      Description = "River compositor window rules";
+      Documentation = "man:riverctl(1)";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = rulesScript;
+      RemainAfterExit = true;
     };
   };
 }
