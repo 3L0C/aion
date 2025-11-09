@@ -17,11 +17,17 @@
     "kernel.io_uring_disabled" = 0; # MUST BE 0 - Wine/Proton/DXVK require io_uring
     "kernel.perf_event_paranoid" = 2; # Allow performance monitoring (MangoHud, etc.)
     "kernel.unprivileged_bpf_disabled" = 0; # Allow for compatibility
-    "kernel.core_pattern" = "core.%e.%p.%t"; # Enable core dumps with metadata (executable, PID, timestamp)
+
     "dev.tty.ldisc_autoload" = 0; # Disable TTY line discipline autoload
     "net.core.bpf_jit_harden" = 2; # Harden BPF JIT compiler
   };
 
   # Prevent root login on any TTY
   environment.etc.securetty.text = "";
+  systemd.coredump.extraConfig = ''
+    Storage=external
+    ProcessSizeMax=2G
+    ExternalSizeMax=2G
+    MaxUse=5G
+  '';
 }
