@@ -33,6 +33,7 @@
 
     # :tools lsp
     nodejs
+    clang
 
     # :lang haskell
     haskell-language-server
