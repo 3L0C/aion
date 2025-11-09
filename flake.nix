@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    river-swap = {
+      url = "git+file:/home/user/programs/Personal/river-swap-dev?rev=5e155918cdd5bd2b539a081cb341124494f9567f";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   mod = "Super";
   meh = "Shift+Control+Alt";
   modShift = "${mod}+Shift";
@@ -13,7 +12,9 @@
   loginctl = "${lib.getExe' pkgs.systemd "loginctl"}";
   pamixer = "${lib.getExe pkgs.pamixer}";
   playerctl = "${lib.getExe pkgs.playerctl}";
+  riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   river-shifttags = "${lib.getExe pkgs.custom.river-shifttags}";
+  river-swap = "${lib.getExe pkgs.river-swap}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   launcher = "uwsm-app -- ${rofi} -show drun -run-command '\\''uwsm-app -- {cmd}'\\''";
   menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched}";
@@ -31,7 +32,7 @@
       ''${modShift} Q spawn '${loginctl} terminate-user ""' ''
       "${meh} J focus-output next"
       "${meh} K focus-output previous"
-      "${meh} Space focus-output next"
+      "${meh} Space spawn '${river-swap}'"
       "${mod} J focus-view next"
       "${mod} K focus-view previous"
       "${meh} L send-to-output next"

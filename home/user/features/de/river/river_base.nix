@@ -21,6 +21,7 @@
     chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
   '';
   home.packages = with pkgs; [
+    river-swap # Monitor swapping utility (from flake input via overlay)
     custom.river-shifttags # Utility to rotate focused tags or send views to rotated tags (patched with --send-view)
     grim # Screenshot tool
     lswt # Command that lists Wayland toplevels
