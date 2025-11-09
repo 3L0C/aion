@@ -6,7 +6,7 @@
 in {
   stable = final: _prev: {
     stable = import inputs.nixpkgs-stable {
-      inherit (final) system;
+      inherit (final.stdenv.hostPlatform) system;
       config = {
         allowUnfree = true;
       };
@@ -16,13 +16,13 @@ in {
     custom = import ../pkgs {pkgs = final;};
   };
   wk-overlay = final: _prev: {
-    wk-patched = addPatches inputs.wk.packages.${final.system}.wk [
+    wk-patched = addPatches inputs.wk.packages.${final.stdenv.hostPlatform.system}.wk [
       ./wk-patches/config.patch
       ./wk-patches/key_chords.patch
     ];
   };
   river-swap-overlay = final: _prev: {
-    inherit (inputs.river-swap.packages.${final.system}) river-swap;
+    inherit (inputs.river-swap.packages.${final.stdenv.hostPlatform.system}) river-swap;
   };
   modifications = _final: prev: {
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {

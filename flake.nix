@@ -7,7 +7,7 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -124,7 +124,7 @@
     devShells = forEachSystem (pkgs: {
       default = import ./shell.nix {
         inherit pkgs;
-        checks = self.checks.${pkgs.system};
+        checks = self.checks.${pkgs.stdenv.hostPlatform.system};
       };
     });
     nixosConfigurations = lib.listToAttrs [
