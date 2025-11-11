@@ -1,0 +1,104 @@
+# Hyprland-specific window and workspace management
+
+# Client binds (workspace/window navigation)
+c "Client"
+{
+    l "Tag Right" +keep %{{hyprctl dispatch split-movetoworkspacesilent m+1}}
+    L "Mon Right" %{{hyprctl dispatch movewindow mon:1 silent}}
+    h "Tag Left" +keep %{{hyprctl dispatch split-movetoworkspacesilent m-1}}
+    H "Mon Left" %{{hyprctl dispatch movewindow mon:0 silent}}
+    # Tag & follow prefix
+    m "Tag & follow"
+    {
+        ... "Tag %(index+1)" +keep %{{hyprctl dispatch split-movetoworkspace %(index+1)}}
+    }
+    q "Quit" %{{sleep 0.1 ; hyprctl dispatch killactive}}
+    # Tag prefix
+    t "Tag" +keep
+    {
+        ... "Tag %(index+1)" %{{hyprctl dispatch split-movetoworkspacesilent %(index+1)}}
+    }
+}
+
+# Window manipulation
+w "Window" +keep
+{
+    h "Go tag left" %{{hyprctl dispatch split-workspace m-1}}
+    l "Go tag right" %{{hyprctl dispatch split-workspace m+1}}
+    # Tag prefix
+    t "Tag" +keep
+    {
+        ... "View tag %(index+1)" %{{hyprctl dispatch split-workspace %(index+1)}}
+    }
+}
+
+# Override quit to include client quit with Hyprland
+q "Quit"
+{
+    c "Client" %{{sleep 0.1 ; hyprctl dispatch killactive}}
+}
+
+# Override Emacs with Hyprland workspace hook
+e "Emacs" ^before %{{hyprctl dispatch split-workspace 2}}
+{
+}
+
+# Override applications with Hyprland workspace hooks
+b "Browser"
+{
+    m "Mullvad-exclude"
+    {
+        c "Exclude Chromium" %{{hyprctl dispatch split-workspace 4 ; mullvad-exclude chromium}}
+    }
+}
+
+o "Open"
+{
+    # dfeed prefix with workspace hook
+    f "dfeed" ^before %{{hyprctl dispatch split-workspace 5}}
+    {
+    }
+    # Manga options with workspace hook
+    m "Manga" ^before %{{hyprctl dispatch split-workspace 5}}
+    {
+    }
+    # Other programs with workspace navigation
+    o "Other programs"
+    {
+        m "OpenMW" ^before %{{hyprctl dispatch split-workspace 4}} %{{openmw-launcher}}
+        s "Steam" %{{hyprctl dispatch split-workspace 4; mullvad-exclude steam}}
+    }
+    # Screenshot with window support
+    s "Screenshot"
+    {
+        a "Anime"
+        {
+            w "Current window" %{{grim-to --window --output "$HOME/pictures/shared/to-sort/to-sort_anime"}}
+        }
+        c "Copy Shot"
+        {
+            c "Current window" %{{grim -g "$(hyprctl activewindow -j | jq -r '"\\(.at[0]),\\(.at[1]) \\(.size[0])x\\(.size[1])"')" - | wl-copy -t image/png}}
+        }
+        m "Manga"
+        {
+            w "Current window" %{{grim-to --window --output "$HOME/pictures/shared/to-sort/to-sort_manga"}}
+        }
+        w "Current window" %{{grim -g "$(hyprctl activewindow -j | jq -r '"\\(.at[0]),\\(.at[1]) \\(.size[0])x\\(.size[1])"')" pic-window-"$(date '+%y%m%d-%H%M-%S').png"}}
+    }
+}
+
+# vmt with workspace hook
+v "vmt" ^before %{{hyprctl dispatch split-workspace 5}}
+{
+}
+
+# dfeed with workspace hooks for tech submenu
+f "dfeed"
+{
+    s "Seasonal" %{{hyprctl dispatch split-workspace 5 ; dfeed --filter-output seasonal_anime --invert --feed anime_torrents}}
+    t "Tech"
+    {
+        l "List feed" %{{hyprctl dispatch split-workspace 5; dfeed}}
+        p "Pick feeds" %{{hyprctl dispatch split-workspace 5; dfeed --pick-filters}}
+    }
+}

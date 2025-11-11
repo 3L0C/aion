@@ -1,0 +1,6 @@
+# River entry point for WK
+# This file is used when launching wk from River
+# It includes common bindings and River-specific window management
+
+:include "main_key_chords.wks"
+:include "river/window-management.wks"

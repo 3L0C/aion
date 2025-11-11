@@ -13,36 +13,37 @@
   pamixer = "${lib.getExe pkgs.pamixer}";
   playerctl = "${lib.getExe pkgs.playerctl}";
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
-  river-shifttags = "${lib.getExe pkgs.custom.river-shifttags}";
-  river-swap = "${lib.getExe pkgs.river-swap}";
+  riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   launcher = "uwsm-app -- ${rofi} -show drun -run-command '\\''uwsm-app -- {cmd}'\\''";
   menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched}";
   terminal = "uwsm-app -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
+      "${mod} Z spawn '${riverdo} toggle-float delay 50 move-to top-left 0 resize-to 35%x35% move-to bottom-right 20 stick --tags occupied'"
       "${mod} Return spawn '${terminal} tmux'"
       "${modShift} Return spawn '${terminal}'"
       "${mod} R spawn '${launcher}'"
       "${mod} Comma spawn '${menu}'"
       ''${mod} O spawn "${menu} --press 'o'"''
       ''${mod} E spawn "${menu} --press 'e'"''
-      ''${mod} S spawn "${menu} --press 'os'"''
       "${mod} Q close"
       ''${modShift} Q spawn '${loginctl} terminate-user ""' ''
       "${meh} J focus-output next"
       "${meh} K focus-output previous"
-      "${meh} Space spawn '${river-swap}'"
+      "${meh} Space spawn '${riverdo} swap-outputs'"
       "${mod} J focus-view next"
       "${mod} K focus-view previous"
       "${meh} L send-to-output next"
       "${meh} H send-to-output previous"
-      "${mod} L spawn '${river-shifttags} --occupied'"
-      "${mod} H spawn '${river-shifttags} --shifts -1 --occupied'"
-      "${mod} Tab spawn '${river-shifttags}'"
-      "${modShift} ISO_Left_Tab spawn '${river-shifttags} --shifts -1'"
-      "${modShift} L spawn '${river-shifttags} --send-view'"
-      "${modShift} H spawn '${river-shifttags} --send-view --shifts -1'"
+      "${mod} L spawn '${riverdo} shift-tag next --occupied'"
+      "${mod} H spawn '${riverdo} shift-tag previous --occupied'"
+      "${mod} Tab spawn '${riverdo} shift-tag +1'"
+      "${modShift} Tab spawn '${riverdo} shift-tag -1'"
+      "${modShift} L spawn '${riverdo} shift-view next --occupied'"
+      "${modShift} H spawn '${riverdo} shift-view previous --occupied'"
+      "${mod} S spawn '${riverdo} stick --tags occupied'"
+      "${modShift} S spawn '${riverdo} unstick'"
       "${modShift} J swap next"
       "${modShift} K swap previous"
       "${modShift} Space toggle-float"

@@ -1,0 +1,25 @@
+# Main WK configuration - common bindings for all desktop environments
+# This file includes DE-agnostic bindings
+# DE-specific entry points (hyprland_key_chords.wks, river_key_chords.wks)
+# include this file and then add their own DE-specific overrides
+
+# Preprocessor configuration
+:font "JetBrainsMono Nerd Font, 14"
+:fg-color "#DCD7BA"
+:bg-color "#1F1F28"
+:bd-color "#54546D"
+:menu-width 80
+:delay 250
+:uwsm true
+
+# Implicit array keys (custom layout: colemak-dh home row)
+# Default was: asdfghjkl;
+# Custom: xcdrstwfp (colemak-dh home row keys)
+
+# Include common bindings (DE-agnostic)
+:include "common/applications.wks"
+:include "common/development.wks"
+:include "common/media.wks"
+:include "common/utilities.wks"
+:include "common/system.wks"
+:include "common/screenshots.wks"

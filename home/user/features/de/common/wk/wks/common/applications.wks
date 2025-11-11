@@ -1,0 +1,59 @@
+# Browser binds
+b "Browser"
+{
+    b "Open Brave" %{{brave}}
+    f "Open Firefox " %{{firefox}}
+    l "Open Librewolf " %{{librewolf}}
+    # Mullvad-exclude browser
+    m "Mullvad-exclude"
+    {
+        b "Exclude Brave" %{{mullvad-exclude brave}}
+        c "Exclude Chromium" %{{mullvad-exclude chromium}}
+        f "Exclude Firefox" %{{mullvad-exclude firefox}}
+        l "Exclude Librewolf" %{{mullvad-exclude librewolf}}
+    }
+    # Sites prefixes
+    s "Open sites"
+    {
+        c "Codeberg " %{{librewolf "https://www.codeberg.org"}}
+        e "ESL_CSGO " %{{librewolf "https://www.twitch.tv/esl_csgo/videos?filter=archives&sort=time"}}
+        y "Youtube " %{{librewolf "https://vid.puffyan.us/feed/popular"}}
+    }
+}
+
+# Open programs
+o "Open"
+{
+    b "dbrowse"
+    {
+        b "Books" %{{dbrowse -n "$XDG_DOCUMENTS_DIR/books"}}
+        c "Config" %{{dbrowse -e "$XDG_CONFIG_HOME"}}
+        d "Documents" %{{dbrowse -n "$XDG_DOCUMENTS_DIR"}}
+        l "Learning" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms/youtube/playlists/learning"}}
+        m "Music" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms/youtube/playlists/music"}}
+        n "Downloads" %{{dbrowse -n "$XDG_DOWNLOAD_DIR"}}
+        p "Pictures" %{{dbrowse -n "$XDG_PICTURES_DIR"}}
+        r "Drives" %{{dbrowse -n "/mnt/drives"}}
+        v "Videos" %{{dbrowse -n "$XDG_VIDEOS_DIR"}}
+        w "webms" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms"}}
+        y "YouTube Playlists" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms/youtube/playlists"}}
+    }
+    d "dmenu" %{{dmenu_run}}
+    e "Emacs" %{{emacsclient -c -a ''}}
+    g "gpt4all" %{{gpt4all-chat}}
+    h "htop" %{{kitty htop}}
+    l "lf" %{{kitty --name lf_run lf}}
+    k "KeePass" %{{keepasshide}}
+    n "ncmpcpp" %{{kitty ncmpcpp}}
+    # Other programs
+    o "Other programs"
+    {
+        l "Lutris" %{{lutris}}
+        m "OpenMW" %{{openmw-launcher}}
+        p "Playlist" %{{dmenuplaylist --list}}
+        s "Steam" %{{mullvad-exclude steam}}
+    }
+    p "Pulsemixer" %{{kitty --class pulsemixer pulsemixer}}
+    r "DrRacket" %{{drracket}}
+    t "Thunderbird" %{{thunderbird}}
+}

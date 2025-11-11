@@ -20,4 +20,8 @@
     spiceUSBRedirection.enable = true;
   };
   services.spice-vdagentd.enable = true;
+  networking.firewall = {
+    trustedInterfaces = ["virbr0"];
+    checkReversePath = false;
+  };
 }

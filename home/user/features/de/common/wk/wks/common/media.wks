@@ -1,0 +1,108 @@
+# mpv binds
+m "mpv"
+{
+    d "Float" %{{mpv-opts --float}}
+    f "Focus" %{{mpv-opts --focus}}
+    l "Seek +10s" +keep %{{mpv-seek -c 10}}
+    L "Seek +60s" +keep %{{mpv-seek -c 60}}
+    h "Seek -10s" +keep %{{mpv-seek -c -10}}
+    H "Seek -60s" +keep %{{mpv-seek -c -60}}
+    m "Move right" %{{mpv-opts --move}}
+    M "Move left" %{{mpv-opts --move 0}}
+    n "Next" +keep %{{mpv-next}}
+    # Opts prefix
+    o "mpv opts"
+    {
+        f "Fullscreen" %{{mpv-opts --full-screen}}
+        # Download prefix
+        d "Download options"
+        {
+            a "Audio for webms" %{{mpv-opts --press "alt+a"}}
+            A "Audio" %{{mpv-opts --press "alt+A"}}
+            p "Audio playlist" %{{mpv-opts --press "alt+p"}}
+            P "Video playlist" %{{mpv-opts --press "alt+P"}}
+            u "YouTube playlist" %{{mpv-opts --press "alt+u"}}
+            v "Video" %{{mpv-opts --press "alt+v"}}
+            w "Webm" %{{mpv-opts --press "alt+w"}}
+            W "Webm playlist" %{{mpv-opts --press "alt+W"}}
+            x "Rip webm audio" %{{mpv-opts --press "alt+x"}}
+        }
+        l "mpv-last" %{{mpv-last}}
+        # Pick prefix
+        p "Pick mpv"
+        {
+            p "Playlist" %{{mpv-playlist --pick --shuffle}}
+            # Seek prefix
+            s "Seek"
+            {
+                l "Seek +10s" +keep %{{mpv-seek 10}}
+                L "Seek +60s" +keep %{{mpv-seek 60}}
+                h "Seek -10s" +keep %{{mpv-seek -10}}
+                H "Seek -60s" +keep %{{mpv-seek -60}}
+                n "Next" %{{mpv-next --pick}}
+                p "Prev" %{{mpv-prev --pick}}
+            }
+            # Toggle prefix
+            t "Toggle"
+            {
+                m "Toggle music" %{{mpv-toggle --music}}
+                t "Toggle pick" %{{mpv-toggle --pick}}
+                u "Toggle umpv" %{{mpv-toggle --umpv}}
+            }
+        }
+        # Press prefix
+        P "Press keys" +keep
+        {
+            L "Press L" %{{mpv-opts --press "L"}}
+            Q "Press Q" %{{mpv-opts --press "Q"}}
+            RET "Press RET" %{{mpv-opts --press "enter"}}
+            C-RET "Press C-RET" %{{mpv-opts --press "ctrl+enter"}}
+        }
+        s "Sticky" %{{mpv-opts --sticky}}
+        S "Shuffle" %{{mpv-opts --shuffle}}
+    }
+    p "Prev" +keep %{{mpv-prev}}
+    q "quit pick" %{{mpv-quit}}
+    Q "Press Q" %{{mpv-opts --press "Q"}}
+    t "Smart toggle" %{{mpv-toggle}}
+    # Playlist prefix
+    y "Playlists"
+    {
+        g "ygyl" %{{mpv-playlist --start-right --float-win --shuffle "$HOME/.config/mpv/playlists/groove.m3u"}}
+        l "last" %{{mpv-last}}
+        o "anime groove" %{{mpv-playlist --start-right --float-win --shuffle "$HOME/.config/mpv/playlists/groovy.m3u"}}
+        p "0_0" %{{mpv-playlist --shuffle --0_0}}
+    }
+}
+
+# Music prefix
+n "ncmpcpp" +keep
+{
+    c "Clear mpc" %{{mpc clear}}
+    d "Display Song" %{{songinfo}}
+    h "Seek -5" %{{mpc seek "-5"}}
+    l "Seek +5" %{{mpc seek "+5"}}
+    n "Next song" %{{mpc next}}
+    p "Prev song" %{{mpc prev}}
+    o "Open mpc" +ignore %{{kitty ncmpcpp}}
+    # Playlist prefix
+    y "Playlist"
+    {
+        e "Everything" %{{mpc-playlists "%(desc)"}}
+        j "Japanese Disco Edits" %{{mpc-playlists "%(desc)"}}
+        # l "Vocaloid" %{{mpc-playlists "vocaloid"}}
+        m "Mish Mash" %{{mpc-playlists "%(desc)"}}
+        n "Newpipe" %{{mpc-playlists "%(desc)"}}
+        o "Non-Vaporwave" %{{mpc-playlists "%(desc)"}}
+        s "Spotify Rip" %{{mpc-playlists "%(desc)"}}
+        t "Too Many Vocaloid Songs" %{{mpc-playlists "%(desc)"}}
+        v "Vaporwave" %{{mpc-playlists "%(desc)"}}
+        # v "Vocaloid Classics" %{{mpc-playlists "Vocaloid_Classics"}}
+    }
+}
+
+# umpv binds
+u "umpv"
+{
+    o "Open blank" %{{umpv}}
+}

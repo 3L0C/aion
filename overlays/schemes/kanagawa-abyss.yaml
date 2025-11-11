@@ -5,8 +5,8 @@ variant: "dark"
 palette:
   base00: "#181616" # Black (Background)         | Default Background |
   base01: "#1D1C19" # (Darkest Gray)             | Lighter Background (Used for status bars) |
-  base02: "#282727" # (Dark Gray)                | Selection Background |
-  base03: "#393836" # Bright Black (Gray)        | Comments, Invisibles, Line Highlighting |
+  base02: "#393836" # (Dark Gray)                | Selection Background |
+  base03: "#4A4947" # Bright Black (Gray)        | Comments, Invisibles, Line Highlighting |
   base04: "#727169" # (Light Gray)               | Dark Foreground (Used for status bars) |
   base05: "#DCD7BA" # White                      | Default Foreground, Caret, Delimiters, Operators |
   base06: "#C8C093" # (Lighter White)            | Light Foreground |

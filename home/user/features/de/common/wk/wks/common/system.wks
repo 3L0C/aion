@@ -1,0 +1,45 @@
+# Quit prefix
+q "Quit"
+{
+    m "mpv" %{{mpv-opts --quit}}
+    n "mpc" %{{mpc stop ; mpc clear}}
+}
+
+# System binds
+s "System"
+{
+    # Binds that I want to be sure before pressing
+    D "Dangerous"
+    {
+        d "Display off" %{{sysact "%(desc)"}}
+        l "Leave dwm" %{{sysact "%(desc)"}}
+        r "Reboot" %{{sysact "%(desc)"}}
+        s "Shutdown" %{{sysact "%(desc)"}}
+        S "Safe Shutdown" %{{sysact "%(desc)"}}
+    }
+    l "Lock" %{{sleep 0.1 ; sysact "%(desc)"}}
+    r "Renew dwm" %{{sysact "%(desc)"}}
+    s "Sleep" %{{sysact "%(desc)"}}
+}
+
+# Toggle prefix
+t "Toggle"
+{
+    a "Pause all" %{{mpc pause ; pauseallmpv}}
+    # Toggle prefix
+    b "Toggle Bluetooth"
+    {
+        a "AirPods connect" %{{dmenubluetooth -r -a}}
+        A "AirPods disconnect" %{{dmenubluetooth -d -a}}
+        o "Old AirPods connect" %{{dmenubluetooth -r -o}}
+        O "Old AirPods disconnect" %{{dmenubluetooth -d -o}}
+        p "AirPro connect" %{{dmenubluetooth -r -p}}
+        P "AirPro connect" %{{dmenubluetooth -d -p}}
+        s "Sony connect" %{{dmenubluetooth -r -s}}
+        S "Sony disconnect" %{{dmenubluetooth -d -s}}
+        t "Toggle Bluetooth" %{{dmenubluetooth -t}}
+    }
+    m "mpv" %{{mpv-toggle}}
+    n "mpc" %{{media-toggle mpc}}
+    u "umpv" %{{mpv-toggle --umpv}}
+}

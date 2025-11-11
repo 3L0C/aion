@@ -21,8 +21,8 @@ in {
       ./wk-patches/key_chords.patch
     ];
   };
-  river-swap-overlay = final: _prev: {
-    inherit (inputs.river-swap.packages.${final.stdenv.hostPlatform.system}) river-swap;
+  riverdo-overlay = final: _prev: {
+    inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };
   modifications = _final: prev: {
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {

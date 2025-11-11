@@ -1,0 +1,6 @@
+# Hyprland entry point for WK
+# This file is used when launching wk from Hyprland
+# It includes common bindings and Hyprland-specific window management
+
+:include "main_key_chords.wks"
+:include "hyprland/window-management.wks"

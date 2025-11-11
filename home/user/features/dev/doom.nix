@@ -62,6 +62,10 @@
     # :lang sh
     shellcheck
 
+    # :lang zig
+    zls
+    zig
+
     # :lang web
     stylelint
     nodePackages.js-beautify

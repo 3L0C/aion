@@ -790,7 +790,7 @@
         "type": "github"
       }
     },
-    "river-swap": {
+    "riverdo": {
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
@@ -798,18 +798,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1762644764,
-        "narHash": "sha256-FAFiqFn/epLuvr0UGw7vmtBXUxqpwIS0jVCX0b/uWsU=",
+        "lastModified": 1762770900,
+        "narHash": "sha256-mybRG0fjULPL39XDsJc3gkvNvbcpVHw9kd4Xhq7Z1GQ=",
         "ref": "refs/heads/main",
-        "rev": "5e155918cdd5bd2b539a081cb341124494f9567f",
+        "rev": "7c67c06cb56f73eae7e2099bd771c775f7c87f7d",
         "revCount": 1,
         "type": "git",
-        "url": "file:/home/user/programs/Personal/river-swap-dev"
+        "url": "file:/home/user/programs/Personal/riverdo-dev"
       },
       "original": {
-        "rev": "5e155918cdd5bd2b539a081cb341124494f9567f",
+        "rev": "7c67c06cb56f73eae7e2099bd771c775f7c87f7d",
         "type": "git",
-        "url": "file:/home/user/programs/Personal/river-swap-dev"
+        "url": "file:/home/user/programs/Personal/riverdo-dev"
       }
     },
     "root": {
@@ -825,7 +825,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
-        "river-swap": "river-swap",
+        "riverdo": "riverdo",
         "stylix": "stylix",
         "wk": "wk",
         "zen-browser": "zen-browser"

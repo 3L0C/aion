@@ -1,0 +1,54 @@
+# Screenshot prefix (generic - can be overridden by DE-specific versions)
+o "Open"
+{
+    # Screenshot prefix
+    s "Screenshot"
+    {
+        # Copy prefix
+        a "Anime"
+        {
+            f "Full screen" %{{grim-to --full-screen --output "$HOME/pictures/shared/to-sort/to-sort_anime"}}
+            s "Selected area" %{{grim-to --selected --output "$HOME/pictures/shared/to-sort/to-sort_anime"}}
+        }
+        c "Copy Shot"
+        {
+            f "Full screen" %{{grim - | wl-copy -t image/png}}
+            s "Selected area" %{{grim -g "$(slurp)" - | wl-copy -t image/png}}
+        }
+        f "Full screen" %{{grim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send "Screenshot of desktop taken"}}
+        m "Manga"
+        {
+            f "Full screen" %{{grim-to --full-screen --output "$HOME/pictures/shared/to-sort/to-sort_manga"}}
+            s "Selected area" %{{grim-to --selected --output "$HOME/pictures/shared/to-sort/to-sort_manga"}}
+        }
+        s "Selected area" %{{grim -g "$(slurp)" pic-selected-"$(date '+%y%m%d-%H%M-%S').png"}}
+        t "Save to"
+        {
+            f "Full screen" %{{maim-to --full-screen}}
+            s "Selected area" %{{maim-to --selected}}
+            w "Current window" %{{maim-to --window}}
+        }
+    }
+}
+
+# Manga binds (in open menu)
+o "Open"
+{
+    # dfeed prefix
+    f "dfeed"
+    {
+        s "Seasonal" %{{dfeed --filter-output seasonal_anime --invert --feed anime_torrents}}
+        l "List feed" %{{dfeed}}
+        p "Pick feed" %{{dfeed --pick}}
+    }
+    # Manga options
+    m "Manga"
+    {
+        d "Download" %{{kitty tmux new 'mlm --add "$(xclip -o -selection clipboard)"; date "+%Y%m%d-%H%M%S"; exec zsh -i'}}
+        l "Latest" %{{mlm -l}}
+        n "New latest" %{{mlm -ln}}
+        r "Read" %{{mlm -r}}
+        s "Last updated" %{{mlm -rn}}
+        u "Update" %{{kitty tmux new 'mlm --download-new; exec zsh -i'}}
+    }
+}

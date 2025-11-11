@@ -1,0 +1,25 @@
+# Emacs binds
+e "Emacs"
+{
+    e "Open blank" %{{doomemacs --blank}}
+    # Emacs projects prefix
+    p "Projects" +inherit
+    {
+        # C projects
+        c "C projects" +inherit
+        {
+            c "Projects dir" %{{emacs "~/programs/C"}}
+            d "dwm" %{{emacs "~/.local/src/dwm"}}
+            m "dmenu" %{{emacs "~/.local/src/dmenu"}}
+        }
+        # Python projects
+        p "Python projects" +inherit
+        {
+            v "vmt-dev" %{{emacs "~/programs/python/Personal/vmt-dev"}}
+            w "wkx-dev" %{{emacs "~/programs/python/Personal/wkx-dev"}}
+            z "znp-dev" %{{emacs "~/programs/python/Personal/znp-dev"}}
+        }
+        w "wkx" %{{emacs "~/.config/wkx/bindsrc"}}
+    }
+    r "Roam" +ignore %{{emacsclient -c -a '' "$HOME/ewiki/20230620214854-startpage.org"}}
+}

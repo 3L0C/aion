@@ -31,12 +31,12 @@
     ghostty.url = "github:ghostty-org/ghostty";
 
     wk = {
-      url = "git+file:/home/user/programs/Personal/wk-dev?rev=645cb1ee2f55081f2299d8c73f46fe2049227cbd";
+      url = "git+file:/home/user/programs/Personal/wk-dev?ref=feat_vars&rev=069f28ed3b41a52fd65305071907add1e9f6346e";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    river-swap = {
-      url = "git+file:/home/user/programs/Personal/river-swap-dev?rev=5e155918cdd5bd2b539a081cb341124494f9567f";
+    riverdo = {
+      url = "git+file:/home/user/programs/Personal/riverdo-dev?rev=7c67c06cb56f73eae7e2099bd771c775f7c87f7d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

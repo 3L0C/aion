@@ -1,0 +1,45 @@
+# River-specific window and tag management
+# TODO: Customize these bindings for River
+
+# Client binds (tag/window navigation)
+c "Client"
+{
+    h "Focus left" +keep %{{riverctl focus-view left}}
+    j "Focus down" +keep %{{riverctl focus-view down}}
+    k "Focus up" +keep %{{riverctl focus-view up}}
+    l "Focus right" +keep %{{riverctl focus-view right}}
+    H "Swap left" +keep %{{riverctl swap left}}
+    J "Swap down" +keep %{{riverctl swap down}}
+    K "Swap up" +keep %{{riverctl swap up}}
+    L "Swap right" +keep %{{riverctl swap right}}
+    q "Close window" %{{riverctl close}}
+    # Tag prefix
+    t "Tags" +keep
+    {
+        ... "Switch tag %(index+1)" %{{riverctl set-focused-tags $((1 << %(index)))}}
+    }
+    # Move to tag
+    m "Move to tag" +keep
+    {
+        ... "Move %(index+1)" %{{riverctl set-view-tags $((1 << %(index)))}}
+    }
+}
+
+# Window manipulation
+w "Window" +keep
+{
+    f "Toggle fullscreen" %{{riverctl toggle-fullscreen}}
+    t "Toggle float" %{{riverctl toggle-float}}
+    # Tag navigation
+    h "Previous tag" %{{riverctl focus-previous-tags}}
+    l "Next tag" %{{riverctl focus-next-tags}}
+    # Send to output
+    H "Send left" %{{riverctl send-to-output left}}
+    L "Send right" %{{riverctl send-to-output right}}
+}
+
+# Override quit to include River close command
+q "Quit"
+{
+    c "Client" %{{riverctl close}}
+}

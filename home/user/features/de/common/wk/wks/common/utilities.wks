@@ -1,0 +1,74 @@
+# Dmenuscripts
+d "Dmenu scripts"
+{
+    C-b "dbrowse"
+    {
+        b "Home" %{{dbrowse}}
+        d "Dir" %{{dbrowse "$(echo "" | dmenu -i -c -bw 4)"}}
+    }
+    g "Gitignore auto" %{{dmenugitignore-auto}}
+    m "Manga"
+    {
+        r "Read new" %{{mlm -rn}}
+        p "Preview" %{{kitty mlm -v "$(wl-paste)"}}
+    }
+    o "Opener" %{{durl}}
+    # Playlist prefix
+    p "Playlist"
+    {
+        a "Add to playlist" %{{dmenuplaylist --add "$(xclip -o -selection clipboard)"}}
+        l "Show playlist" %{{dmenuplaylist --list}}
+        p "Play playlist" %{{dmenuplaylist}}
+        r "Remove playlist" %{{dmenuplaylist --remove}}
+    }
+    u "Url-handler"
+    {
+        a "ampv" %{{ampv "$(wl-paster)"}}
+        b "Brave" %{{brave "$(wl-paster)"}}
+        d "Download manga" %{{mlm-wrapper "$(wl-paster)"}}
+        f "Firefox" %{{firefox "$(wl-paster)"}}
+        l "Librewolf" %{{librewolf "$(wl-paster)"}}
+        m "mpv" %{{mpv "$(wl-paster)"}}
+        n "mpv-music" %{{mpv-music "$(wl-paster)"}}
+        p "Playlist" %{{dmenuplaylist -a "$(wl-paster)"}}
+        u "umpv" %{{umpv "$(wl-paster)"}}
+        w "wsg2mpv" %{{wsg2mpv "$(wl-paster)"}}
+        y "yt-opts" %{{yt-opts "$(wl-paster)"}}
+    }
+}
+
+# dfeed binds
+f "dfeed"
+{
+    l "List feeds" %{{dfeed}}
+    s "Seasonal" %{{dfeed --filter-output seasonal_anime --invert --feed anime_torrents}}
+    # Tech prefix
+    t "Tech"
+    {
+        a "All tech" %{{dfeed --feed tech}}
+        c "CyberSec" %{{dfeed --feed cybersecurity}}
+        f "Filesharing" %{{dfeed --feed filesharing}}
+        g "General" %{{dfeed --feed general}}
+        l "List feed" %{{dfeed}}
+        n "Linux" %{{dfeed --feed linux}}
+        o "Podcasts" %{{dfeed --feed podcasts}}
+        p "Pick feeds" %{{dfeed --pick-filters}}
+        s "Software" %{{dfeed --feed software}}
+        t "Technology" %{{dfeed --feed technology}}
+    }
+}
+
+# vmt binds
+v "vmt"
+{
+    b "Browse" %{{vmt -B}}
+    l "Latest" %{{vmt -l}}
+    u "Update" +ignore %{{kitty vmt -u}}
+    w "Watch" %{{vmt -w}}
+}
+
+# whichkey binds
+W "whichkey"
+{
+    u "update" %{{wkx -u}}
+}
