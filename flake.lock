@@ -798,18 +798,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1762770900,
-        "narHash": "sha256-mybRG0fjULPL39XDsJc3gkvNvbcpVHw9kd4Xhq7Z1GQ=",
-        "ref": "refs/heads/main",
-        "rev": "7c67c06cb56f73eae7e2099bd771c775f7c87f7d",
-        "revCount": 1,
+        "lastModified": 1762910341,
+        "narHash": "sha256-AcibAFqbUFJRMsXj9s0H8pHsq7e824WkUhY62pmkqPA=",
+        "ref": "zig_0_15",
+        "rev": "169c18cb19e398b23d228965618a9a3fa098a8e0",
+        "revCount": 2,
         "type": "git",
-        "url": "file:/home/user/programs/Personal/riverdo-dev"
+        "url": "file:///home/user/programs/Personal/riverdo-dev"
       },
       "original": {
-        "rev": "7c67c06cb56f73eae7e2099bd771c775f7c87f7d",
+        "ref": "zig_0_15",
         "type": "git",
-        "url": "file:/home/user/programs/Personal/riverdo-dev"
+        "url": "file:///home/user/programs/Personal/riverdo-dev"
       }
     },
     "root": {
@@ -1036,18 +1036,18 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1762709943,
-        "narHash": "sha256-OR16t1ntyklVSr/3ZUZml73UNIgds0sCAXZhYgl/Vkw=",
-        "ref": "refs/heads/master",
-        "rev": "645cb1ee2f55081f2299d8c73f46fe2049227cbd",
-        "revCount": 299,
+        "lastModified": 1762899114,
+        "narHash": "sha256-w8nltYQoOXEpKNM5nsPSjmsD7JAOCHCiF8vUK4GVllw=",
+        "ref": "72e3c43d80f848f8e4a4b4f58a9103a459ca4ff9",
+        "rev": "72e3c43d80f848f8e4a4b4f58a9103a459ca4ff9",
+        "revCount": 303,
         "type": "git",
-        "url": "file:/home/user/programs/Personal/wk-dev"
+        "url": "file:///home/user/programs/Personal/wk-dev"
       },
       "original": {
-        "rev": "645cb1ee2f55081f2299d8c73f46fe2049227cbd",
+        "ref": "72e3c43d80f848f8e4a4b4f58a9103a459ca4ff9",
         "type": "git",
-        "url": "file:/home/user/programs/Personal/wk-dev"
+        "url": "file:///home/user/programs/Personal/wk-dev"
       }
     },
     "zen-browser": {

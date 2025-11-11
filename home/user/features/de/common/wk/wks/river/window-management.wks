@@ -1,45 +1,25 @@
 # River-specific window and tag management
-# TODO: Customize these bindings for River
+# River has unique directional window navigation that doesn't exist in Hyprland
+# Most common functionality is in common/window-management.wks
 
-# Client binds (tag/window navigation)
+# River-specific: Directional window focus and swap
+# These commands extend the common window management with River's tiling features
 c "Client"
 {
-    h "Focus left" +keep %{{riverctl focus-view left}}
-    j "Focus down" +keep %{{riverctl focus-view down}}
-    k "Focus up" +keep %{{riverctl focus-view up}}
-    l "Focus right" +keep %{{riverctl focus-view right}}
-    H "Swap left" +keep %{{riverctl swap left}}
-    J "Swap down" +keep %{{riverctl swap down}}
-    K "Swap up" +keep %{{riverctl swap up}}
-    L "Swap right" +keep %{{riverctl swap right}}
-    q "Close window" %{{riverctl close}}
-    # Tag prefix
-    t "Tags" +keep
-    {
-        ... "Switch tag %(index+1)" %{{riverctl set-focused-tags $((1 << %(index)))}}
-    }
-    # Move to tag
-    m "Move to tag" +keep
-    {
-        ... "Move %(index+1)" %{{riverctl set-view-tags $((1 << %(index)))}}
-    }
+    # Directional focus (River-specific - not in Hyprland)
+    j "Focus down" +keep %{{%(CMD_FOCUS_DOWN)}}
+    k "Focus up" +keep %{{%(CMD_FOCUS_UP)}}
+    # h/l are used for workspace navigation in common/window-management.wks
+
+    # Directional swap (River-specific - not in Hyprland)
+    J "Swap down" +keep %{{%(CMD_SWAP_DOWN)}}
+    K "Swap up" +keep %{{%(CMD_SWAP_UP)}}
+    # H/L are used for monitor navigation in common/window-management.wks
 }
 
-# Window manipulation
-w "Window" +keep
+# River window toggles
+w "Window"
 {
-    f "Toggle fullscreen" %{{riverctl toggle-fullscreen}}
-    t "Toggle float" %{{riverctl toggle-float}}
-    # Tag navigation
-    h "Previous tag" %{{riverctl focus-previous-tags}}
-    l "Next tag" %{{riverctl focus-next-tags}}
-    # Send to output
-    H "Send left" %{{riverctl send-to-output left}}
-    L "Send right" %{{riverctl send-to-output right}}
-}
-
-# Override quit to include River close command
-q "Quit"
-{
-    c "Client" %{{riverctl close}}
+    f "Toggle fullscreen" %{{%(CMD_TOGGLE_FULLSCREEN)}}
+    t "Toggle float" %{{%(CMD_TOGGLE_FLOAT)}}
 }

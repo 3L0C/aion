@@ -2,6 +2,7 @@
   imports = [
     ./services
     ./tools
+    ./wk
 
     ./browsers.nix
     ./document-viewers.nix
@@ -14,7 +15,6 @@
     ./virtualization.nix
     ./wayland.nix
     ./wine.nix
-    ./wk.nix
     ./xdg.nix
   ];
 

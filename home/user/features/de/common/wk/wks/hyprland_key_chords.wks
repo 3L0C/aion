@@ -3,4 +3,36 @@
 # It includes common bindings and Hyprland-specific window management
 
 :include "main_key_chords.wks"
+
+# Hyprland-specific variable definitions
+# Window management commands
+:var "CMD_CLOSE_WINDOW" "sleep 0.1 ; hyprctl dispatch killactive"
+:var "CMD_TOGGLE_FLOAT" "hyprctl dispatch togglefloating"
+:var "CMD_TOGGLE_FULLSCREEN" "hyprctl dispatch fullscreen"
+
+# Workspace operations (parametric - use with %(index+1) or direct number)
+:var "CMD_SWITCH_WORKSPACE" "hyprctl dispatch split-workspace"
+:var "CMD_MOVE_TO_WORKSPACE" "hyprctl dispatch split-movetoworkspacesilent"
+:var "CMD_MOVE_FOLLOW_WORKSPACE" "hyprctl dispatch split-movetoworkspace"
+:var "CMD_GO_WORKSPACE" "hyprctl dispatch split-workspace"
+
+# Relative workspace navigation
+:var "CMD_WORKSPACE_NEXT" "hyprctl dispatch split-workspace m+1"
+:var "CMD_WORKSPACE_PREV" "hyprctl dispatch split-workspace m-1"
+:var "CMD_MOVE_NEXT" "hyprctl dispatch split-movetoworkspacesilent m+1"
+:var "CMD_MOVE_PREV" "hyprctl dispatch split-movetoworkspacesilent m-1"
+
+# Monitor operations
+:var "CMD_MOVE_TO_MONITOR_LEFT" "hyprctl dispatch movewindow mon:0 silent"
+:var "CMD_MOVE_TO_MONITOR_RIGHT" "hyprctl dispatch movewindow mon:1 silent"
+
+# Screenshot utilities
+:var "CMD_GET_WINDOW_GEOMETRY" "hyprctl activewindow -j | jq -r '\"\\(.at[0]),\\(.at[1]) \\(.size[0])x\\(.size[1])\"'"
+
+# Workflow workspace assignments
+:var "WS_EMACS" "2"
+:var "WS_BROWSER_MULLVAD" "4"
+:var "WS_FEEDS" "5"
+:var "WS_GAMES" "4"
+
 :include "hyprland/window-management.wks"

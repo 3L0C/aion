@@ -1,0 +1,39 @@
+# Generic window management commands
+# Uses variables defined in DE-specific entry points (hyprland_key_chords.wks, river_key_chords.wks)
+# This file provides consistent keybindings across all desktop environments
+
+# Client/Window management
+c "Client"
+{
+    h "Move/Tag left" +keep %{{%(CMD_MOVE_PREV)}}
+    l "Move/Tag right" +keep %{{%(CMD_MOVE_NEXT)}}
+    H "Monitor left" %{{%(CMD_MOVE_TO_MONITOR_LEFT)}}
+    L "Monitor right" %{{%(CMD_MOVE_TO_MONITOR_RIGHT)}}
+
+    # Move to specific workspace/tag
+    m "Move & follow"
+    {
+        ... "Move %(index+1)" +keep %{{%(CMD_MOVE_FOLLOW_WORKSPACE) %(index+1)}}
+    }
+
+    # Move to workspace silently (without following)
+    t "Move silent" +keep
+    {
+        ... "Move %(index+1)" %{{%(CMD_MOVE_TO_WORKSPACE) %(index+1)}}
+    }
+
+    q "Quit window" %{{%(CMD_CLOSE_WINDOW)}}
+}
+
+# Workspace/Tag navigation
+w "Workspace" +keep
+{
+    h "Previous" %{{%(CMD_WORKSPACE_PREV)}}
+    l "Next" %{{%(CMD_WORKSPACE_NEXT)}}
+
+    # Switch to specific workspace/tag
+    t "Switch to"
+    {
+        ... "Workspace %(index+1)" %{{%(CMD_SWITCH_WORKSPACE) %(index+1)}}
+    }
+}

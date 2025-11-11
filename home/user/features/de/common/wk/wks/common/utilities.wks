@@ -38,7 +38,7 @@ d "Dmenu scripts"
 }
 
 # dfeed binds
-f "dfeed"
+f "dfeed" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
 {
     l "List feeds" %{{dfeed}}
     s "Seasonal" %{{dfeed --filter-output seasonal_anime --invert --feed anime_torrents}}
@@ -59,7 +59,7 @@ f "dfeed"
 }
 
 # vmt binds
-v "vmt"
+v "vmt" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
 {
     b "Browse" %{{vmt -B}}
     l "Latest" %{{vmt -l}}

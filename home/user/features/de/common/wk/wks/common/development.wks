@@ -1,5 +1,5 @@
 # Emacs binds
-e "Emacs"
+e "Emacs" ^before %{{%(CMD_GO_WORKSPACE) %(WS_EMACS)}}
 {
     e "Open blank" %{{doomemacs --blank}}
     # Emacs projects prefix

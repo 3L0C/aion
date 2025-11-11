@@ -16,7 +16,7 @@
   riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   launcher = "uwsm-app -- ${rofi} -show drun -run-command '\\''uwsm-app -- {cmd}'\\''";
-  menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched}";
+  menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched} --key-chords ~/.config/wk/river_key_chords.wks";
   terminal = "uwsm-app -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [

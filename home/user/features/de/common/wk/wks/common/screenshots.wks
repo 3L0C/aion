@@ -9,9 +9,11 @@ o "Open"
         {
             f "Full screen" %{{grim-to --full-screen --output "$HOME/pictures/shared/to-sort/to-sort_anime"}}
             s "Selected area" %{{grim-to --selected --output "$HOME/pictures/shared/to-sort/to-sort_anime"}}
+            w "Current window" %{{grim-to --window --output "$HOME/pictures/shared/to-sort/to-sort_anime"}}
         }
         c "Copy Shot"
         {
+            c "Current window" %{{grim -g "$(%(CMD_GET_WINDOW_GEOMETRY))" - | wl-copy -t image/png}}
             f "Full screen" %{{grim - | wl-copy -t image/png}}
             s "Selected area" %{{grim -g "$(slurp)" - | wl-copy -t image/png}}
         }
@@ -20,8 +22,10 @@ o "Open"
         {
             f "Full screen" %{{grim-to --full-screen --output "$HOME/pictures/shared/to-sort/to-sort_manga"}}
             s "Selected area" %{{grim-to --selected --output "$HOME/pictures/shared/to-sort/to-sort_manga"}}
+            w "Current window" %{{grim-to --window --output "$HOME/pictures/shared/to-sort/to-sort_manga"}}
         }
         s "Selected area" %{{grim -g "$(slurp)" pic-selected-"$(date '+%y%m%d-%H%M-%S').png"}}
+        w "Current window" %{{grim -g "$(%(CMD_GET_WINDOW_GEOMETRY))" pic-window-"$(date '+%y%m%d-%H%M-%S').png"}}
         t "Save to"
         {
             f "Full screen" %{{maim-to --full-screen}}
@@ -35,14 +39,14 @@ o "Open"
 o "Open"
 {
     # dfeed prefix
-    f "dfeed"
+    f "dfeed" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
     {
         s "Seasonal" %{{dfeed --filter-output seasonal_anime --invert --feed anime_torrents}}
         l "List feed" %{{dfeed}}
         p "Pick feed" %{{dfeed --pick}}
     }
     # Manga options
-    m "Manga"
+    m "Manga" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
     {
         d "Download" %{{kitty tmux new 'mlm --add "$(xclip -o -selection clipboard)"; date "+%Y%m%d-%H%M%S"; exec zsh -i'}}
         l "Latest" %{{mlm -l}}

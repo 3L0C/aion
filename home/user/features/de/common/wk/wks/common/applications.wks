@@ -8,7 +8,7 @@ b "Browser"
     m "Mullvad-exclude"
     {
         b "Exclude Brave" %{{mullvad-exclude brave}}
-        c "Exclude Chromium" %{{mullvad-exclude chromium}}
+        c "Exclude Chromium" ^before %{{%(CMD_GO_WORKSPACE) %(WS_BROWSER_MULLVAD)}} %{{mullvad-exclude chromium}}
         f "Exclude Firefox" %{{mullvad-exclude firefox}}
         l "Exclude Librewolf" %{{mullvad-exclude librewolf}}
     }
@@ -49,9 +49,9 @@ o "Open"
     o "Other programs"
     {
         l "Lutris" %{{lutris}}
-        m "OpenMW" %{{openmw-launcher}}
+        m "OpenMW" ^before %{{%(CMD_GO_WORKSPACE) %(WS_GAMES)}} %{{openmw-launcher}}
         p "Playlist" %{{dmenuplaylist --list}}
-        s "Steam" %{{mullvad-exclude steam}}
+        s "Steam" ^before %{{%(CMD_GO_WORKSPACE) %(WS_GAMES)}} %{{mullvad-exclude steam}}
     }
     p "Pulsemixer" %{{kitty --class pulsemixer pulsemixer}}
     r "DrRacket" %{{drracket}}

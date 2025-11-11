@@ -5,9 +5,9 @@
 
 # Preprocessor configuration
 :font "JetBrainsMono Nerd Font, 14"
-:fg-color "#DCD7BA"
-:bg-color "#1F1F28"
-:bd-color "#54546D"
+:fg "#DCD7BA"
+:bg "#1F1F28"
+:bd "#54546D"
 :menu-width 80
 :delay 250
 :uwsm true
@@ -23,3 +23,4 @@
 :include "common/utilities.wks"
 :include "common/system.wks"
 :include "common/screenshots.wks"
+:include "common/window-management.wks"

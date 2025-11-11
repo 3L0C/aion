@@ -1,6 +1,7 @@
 # Quit prefix
 q "Quit"
 {
+    c "Close window" %{{%(CMD_CLOSE_WINDOW)}}
     m "mpv" %{{mpv-opts --quit}}
     n "mpc" %{{mpc stop ; mpc clear}}
 }
