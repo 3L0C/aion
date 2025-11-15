@@ -30,10 +30,14 @@
   home.packages = with pkgs; [
     # Doom Emacs launcher script
     custom.scripts.doomemacs
+    universal-ctags # generates an index (or tag) file of language objects found in source files
 
     # :tools lsp
     nodejs
     clang
+
+    # :lang cc
+    clang-tools
 
     # :lang haskell
     haskell-language-server
@@ -52,7 +56,10 @@
     # :lang python
     isort
     pipenv
+    black
     python313Packages.pytest
+    python313Packages.pyflakes
+    python313Packages.nose2
 
     # :lang rust
     cargo
@@ -61,6 +68,7 @@
 
     # :lang sh
     shellcheck
+    shfmt
 
     # :lang zig
     zls
@@ -71,6 +79,8 @@
     nodePackages.js-beautify
     cmake
     gnumake
+
+    # :module mermaid-mode
     mermaid-cli
   ];
 }
