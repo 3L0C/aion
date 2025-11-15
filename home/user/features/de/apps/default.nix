@@ -5,6 +5,7 @@
     ./android-studio.nix
     ./discord.nix
     ./dunst.nix
+    ./easyeffects.nix
     ./gimp.nix
     ./kdenlive.nix
     ./keepassxc.nix
