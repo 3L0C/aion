@@ -12,6 +12,8 @@
     ./optional/hyprland.nix
     ./optional/keyring.nix
     ./optional/nh.nix
+    ./optional/noisetorch.nix
+    ./optional/pipewire-noise-cancellation.nix
     ./optional/pipewire.nix
     ./optional/river.nix
     ./optional/steam.nix
