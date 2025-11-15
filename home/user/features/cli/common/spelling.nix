@@ -1,8 +1,17 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    aspell # A spell checker designed to eventually replace Ispell
-    aspellDicts.en # English dictionary for aspell
-    aspellDicts.en-computers # Aspell dictionary for English Computer Jargon
+    # A spell checker designed to eventually replace Ispell
+    (aspellWithDicts (
+      dicts:
+        with dicts; [
+          # English dictionary for aspell
+          en
+          # Aspell dictionary for English Computer Jargon
+          en-computers
+          # Aspell dictionary for English Scientific Jargon
+          en-science
+        ]
+    ))
     dict # Dictionary client
   ];
 }
