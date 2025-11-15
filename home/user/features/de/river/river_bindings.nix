@@ -15,9 +15,10 @@
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
-  launcher = "uwsm-app -- ${rofi} -show drun -run-command '\\''uwsm-app -- {cmd}'\\''";
-  menu = "uwsm-app -- ${lib.getExe pkgs.wk-patched} --key-chords ~/.config/wk/river_key_chords.wks";
-  terminal = "uwsm-app -- ${kitty}";
+  uwsm-app = "${lib.getExe' pkgs.uwsm "uwsm-app"}";
+  launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
+  menu = "${uwsm-app} -- ${lib.getExe pkgs.wk-patched}";
+  terminal = "${uwsm-app} -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
       "${mod} Z spawn '${riverdo} toggle-float delay 50 move-to top-left 0 resize-to 35%x35% move-to bottom-right 20 stick --tags occupied'"
@@ -34,8 +35,8 @@
       "${meh} Space spawn '${riverdo} swap-outputs'"
       "${mod} J focus-view next"
       "${mod} K focus-view previous"
-      "${meh} L send-to-output next"
-      "${meh} H send-to-output previous"
+      "${meh} L spawn '${riverdo} output next'"
+      "${meh} H spawn '${riverdo} output previous'"
       "${mod} L spawn '${riverdo} shift-tag next --occupied'"
       "${mod} H spawn '${riverdo} shift-tag previous --occupied'"
       "${mod} Tab spawn '${riverdo} shift-tag +1'"
