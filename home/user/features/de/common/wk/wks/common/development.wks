@@ -1,5 +1,5 @@
 # Emacs binds
-e "Emacs" ^before %{{%(CMD_GO_WORKSPACE) %(WS_EMACS)}}
+e "Emacs" ^before %{{%(CMD_SWITCH_WS) %(WS_EMACS)}}
 {
     e "Open blank" %{{doomemacs --blank}}
     # Emacs projects prefix
@@ -19,7 +19,6 @@ e "Emacs" ^before %{{%(CMD_GO_WORKSPACE) %(WS_EMACS)}}
             w "wkx-dev" %{{emacs "~/programs/python/Personal/wkx-dev"}}
             z "znp-dev" %{{emacs "~/programs/python/Personal/znp-dev"}}
         }
-        w "wkx" %{{emacs "~/.config/wkx/bindsrc"}}
     }
     r "Roam" +ignore %{{emacsclient -c -a '' "$HOME/ewiki/20230620214854-startpage.org"}}
 }

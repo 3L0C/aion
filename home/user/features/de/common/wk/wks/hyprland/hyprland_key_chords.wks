@@ -2,13 +2,17 @@
 # This file is used when launching wk from Hyprland
 # It includes common bindings and Hyprland-specific window management
 
-:include "main_key_chords.wks"
+:include "common/main.wks"
 
 # Hyprland-specific variable definitions
 # Window management commands
 :var "CMD_CLOSE_WINDOW" "sleep 0.1 ; hyprctl dispatch killactive"
 :var "CMD_TOGGLE_FLOAT" "hyprctl dispatch togglefloating"
 :var "CMD_TOGGLE_FULLSCREEN" "hyprctl dispatch fullscreen"
+:var "CMD_FOCUS_DOWN" "hyprctl dispatch movefocus d"
+:var "CMD_FOCUS_UP" "hyprctl dispatch movefocus u"
+:var "CMD_SWAP_DOWN" "hyprctl dispatch swapwindow d"
+:var "CMD_SWAP_UP" "hyprctl dispatch swapwindow u"
 
 # Workspace operations (parametric - use with %(index+1) or direct number)
 :var "CMD_SWITCH_WORKSPACE" "hyprctl dispatch split-workspace"

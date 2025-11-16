@@ -30,11 +30,16 @@
   home.packages = with pkgs; [
     # Doom Emacs launcher script
     custom.scripts.doomemacs
-    universal-ctags # generates an index (or tag) file of language objects found in source files
+
+    # :emacs dired
+    vips
 
     # :tools lsp
     nodejs
     clang
+
+    # :tools projectile
+    universal-ctags # generates an index (or tag) file of language objects found in source files
 
     # :lang cc
     clang-tools

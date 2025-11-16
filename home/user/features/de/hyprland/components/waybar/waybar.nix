@@ -128,7 +128,7 @@ in {
     pulseaudio = {
       format = "| {volume}% ";
       format-muted = "| MUTED";
-      on-click = "wk --press 'o p'";
+      on-click = "wk-hyprland --press 'o p'";
       on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
       on-scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +2%";
       on-scroll-down = "pactl set-sink-volume @DEFAULT_SINK@ -2%";

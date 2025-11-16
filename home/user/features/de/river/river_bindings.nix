@@ -17,7 +17,8 @@
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   uwsm-app = "${lib.getExe' pkgs.uwsm "uwsm-app"}";
   launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
-  menu = "${uwsm-app} -- ${lib.getExe pkgs.wk-patched}";
+  menu = "${uwsm-app} -- wk-river";
+  old-menu = "${uwsm-app} -- wk";
   terminal = "${uwsm-app} -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
@@ -26,6 +27,7 @@
       "${modShift} Return spawn '${terminal}'"
       "${mod} R spawn '${launcher}'"
       "${mod} Comma spawn '${menu}'"
+      "${mod} Period spawn '${old-menu}'"
       ''${mod} O spawn "${menu} --press 'o'"''
       ''${mod} E spawn "${menu} --press 'e'"''
       "${mod} Q close"

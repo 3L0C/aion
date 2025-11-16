@@ -8,52 +8,57 @@ b "Browser"
     m "Mullvad-exclude"
     {
         b "Exclude Brave" %{{mullvad-exclude brave}}
-        c "Exclude Chromium" ^before %{{%(CMD_GO_WORKSPACE) %(WS_BROWSER_MULLVAD)}} %{{mullvad-exclude chromium}}
+        c "Exclude Chromium" %{{%(CMD_SWITCH_WS) %(WS_CHROMIUM) ; %(wrap_cmd) mullvad-exclude chromium}}
         f "Exclude Firefox" %{{mullvad-exclude firefox}}
         l "Exclude Librewolf" %{{mullvad-exclude librewolf}}
-    }
-    # Sites prefixes
-    s "Open sites"
-    {
-        c "Codeberg " %{{librewolf "https://www.codeberg.org"}}
-        e "ESL_CSGO " %{{librewolf "https://www.twitch.tv/esl_csgo/videos?filter=archives&sort=time"}}
-        y "Youtube " %{{librewolf "https://vid.puffyan.us/feed/popular"}}
     }
 }
 
 # Open programs
 o "Open"
 {
-    b "dbrowse"
+    e "Emacs" %{{emacs}}
+    # dfeed prefix
+    f "dfeed" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
     {
-        b "Books" %{{dbrowse -n "$XDG_DOCUMENTS_DIR/books"}}
-        c "Config" %{{dbrowse -e "$XDG_CONFIG_HOME"}}
-        d "Documents" %{{dbrowse -n "$XDG_DOCUMENTS_DIR"}}
-        l "Learning" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms/youtube/playlists/learning"}}
-        m "Music" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms/youtube/playlists/music"}}
-        n "Downloads" %{{dbrowse -n "$XDG_DOWNLOAD_DIR"}}
-        p "Pictures" %{{dbrowse -n "$XDG_PICTURES_DIR"}}
-        r "Drives" %{{dbrowse -n "/mnt/drives"}}
-        v "Videos" %{{dbrowse -n "$XDG_VIDEOS_DIR"}}
-        w "webms" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms"}}
-        y "YouTube Playlists" %{{dbrowse -n "$XDG_VIDEOS_DIR/webms/youtube/playlists"}}
+        s "Seasonal" %{{dfeed --filter-output seasonal_anime --invert --feed anime_torrents}}
+        l "List feed" %{{dfeed}}
+        p "Pick feed" %{{dfeed --pick}}
     }
-    d "dmenu" %{{dmenu_run}}
-    e "Emacs" %{{emacsclient -c -a ''}}
-    g "gpt4all" %{{gpt4all-chat}}
     h "htop" %{{kitty htop}}
     l "lf" %{{kitty --name lf_run lf}}
-    k "KeePass" %{{keepasshide}}
+    k "KeePassXC" ^before %{{%(CMD_SWITCH_WS) %(WS_9)}} %{{keepassxc}}
+    # Manga options
+    m "Manga" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
+    {
+        d "Download" %{{kitty tmux new 'mlm --add "$(xclip -o -selection clipboard)"; date "+%Y%m%d-%H%M%S"; exec zsh -i'}}
+        l "Latest" %{{mlm -l}}
+        n "New latest" %{{mlm -ln}}
+        r "Read" %{{mlm -r}}
+        s "Last updated" %{{mlm -rn}}
+        u "Update" %{{kitty tmux new 'mlm --download-new; exec zsh -i'}}
+    }
     n "ncmpcpp" %{{kitty ncmpcpp}}
     # Other programs
     o "Other programs"
     {
         l "Lutris" %{{lutris}}
-        m "OpenMW" ^before %{{%(CMD_GO_WORKSPACE) %(WS_GAMES)}} %{{openmw-launcher}}
+        m "OpenMW" ^before %{{%(CMD_SWITCH_WS) %(WS_GAMES)}} %{{openmw-launcher}}
         p "Playlist" %{{dmenuplaylist --list}}
-        s "Steam" ^before %{{%(CMD_GO_WORKSPACE) %(WS_GAMES)}} %{{mullvad-exclude steam}}
+        s "Steam" ^before %{{%(CMD_SWITCH_WS) %(WS_GAMES)}} %{{mullvad-exclude steam}}
     }
     p "Pulsemixer" %{{kitty --class pulsemixer pulsemixer}}
     r "DrRacket" %{{drracket}}
+    # Screenshot prefix
+    s "Screenshot"
+    {
+        c "Copy Shot"
+        {
+            f "Full screen" %{{grim - | wl-copy -t image/png}}
+            s "Selected area" %{{grim -g "$(slurp)" - | wl-copy -t image/png}}
+        }
+        f "Full screen" %{{grim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send "Screenshot of desktop taken"}}
+        s "Selected area" %{{grim -g "$(slurp)" pic-selected-"$(date '+%y%m%d-%H%M-%S').png"}}
+    }
     t "Thunderbird" %{{thunderbird}}
 }

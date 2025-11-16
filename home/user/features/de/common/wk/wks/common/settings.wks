@@ -1,0 +1,23 @@
+:delimiter " -> "
+:delay 250
+:max-columns 5
+:menu-width -1
+:menu-gap -1
+:width-padding 6
+:height-padding 2
+:table-padding 0
+:bottom
+:border-width 4
+:border-radius 0
+:shell "/bin/sh"
+:implicit-array-keys "xcdrstwfp"
+:wrap-cmd "uwsm-app --"
+:sort
+
+:fg-key "%(base0C)"
+:fg-delimiter "%(base02)"
+:fg-prefix "%(base08)"
+:fg-chord "%(base0E)"
+:bg "%(base00)"
+:bd "%(base0D)"
+:font "monospace, 14"

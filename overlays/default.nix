@@ -1,9 +1,4 @@
-{inputs, ...}: let
-  addPatches = pkg: patches:
-    pkg.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or []) ++ patches;
-    });
-in {
+{inputs, ...}: {
   stable = final: _prev: {
     stable = import inputs.nixpkgs-stable {
       inherit (final.stdenv.hostPlatform) system;
@@ -16,10 +11,7 @@ in {
     custom = import ../pkgs {pkgs = final;};
   };
   wk-overlay = final: _prev: {
-    wk-patched = addPatches inputs.wk.packages.${final.stdenv.hostPlatform.system}.wk [
-      ./wk-patches/config.patch
-      ./wk-patches/key_chords.patch
-    ];
+    inherit (inputs.wk.packages.${final.stdenv.hostPlatform.system}) wk;
   };
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;

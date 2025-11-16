@@ -35,9 +35,9 @@ in {
         "${modShift}, Q, exec, loginctl terminate-user \"\""
         "${mod}, RETURN, exec, uwsm-app -- ${kitty} tmux"
         "${mod}, R, exec, ${menu}"
-        "${mod}, COMMA, exec, uwsm-app -- wk --wks-file ~/.config/wk/hyprland_key_chords.wks --debug"
-        "${mod}, O, exec, uwsm-app -- wk --wks-file ~/.config/wk/hyprland_key_chords.wks --press 'o'"
-        "${mod}, E, exec, uwsm-app -- wk --wks-file ~/.config/wk/hyprland_key_chords.wks --press 'e'"
+        "${mod}, COMMA, exec, uwsm-app -- wk-hyprland --debug"
+        "${mod}, O, exec, uwsm-app -- wk-hyprland --press 'o'"
+        "${mod}, E, exec, uwsm-app -- wk-hyprland --press 'e'"
         "${modMeh}, J, focusmonitor, l"
         "${modMeh}, K, focusmonitor, r"
         "${mod}, J, layoutmsg, cyclenext"
@@ -60,7 +60,7 @@ in {
         "${mod}, H, workspace, m-1"
         "${mod}, L, workspace, m+1"
         "${mod}, B, exec, killall -SIGUSR2 waybar"
-        "${mod}, S, exec, uwsm-app -- wk --wks-file ~/.config/wk/hyprland_key_chords.wks --press 'os'"
+        "${mod}, S, exec, uwsm-app -- wk-hyprland --press 'os'"
         "${modShift}, F, togglefloating,"
       ]
       ++ (lib.mapAttrsToList (n: key: "${mod}, ${key}, workspace, ${n}") workspaces)

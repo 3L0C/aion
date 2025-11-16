@@ -1,0 +1,12 @@
+# Main WK configuration - common bindings for all desktop environments
+# This file includes DE-agnostic bindings
+# DE-specific entry points (hyprland_key_chords.wks, river_key_chords.wks)
+# include this file and then add their own DE-specific overrides
+
+# Include common bindings (DE-agnostic)
+:include "settings.wks"
+:include "applications.wks"
+:include "development.wks"
+:include "media.wks"
+:include "utilities.wks"
+:include "system.wks"

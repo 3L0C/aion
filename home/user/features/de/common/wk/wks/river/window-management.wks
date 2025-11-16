@@ -6,20 +6,31 @@
 # These commands extend the common window management with River's tiling features
 c "Client"
 {
-    # Directional focus (River-specific - not in Hyprland)
-    j "Focus down" +keep %{{%(CMD_FOCUS_DOWN)}}
-    k "Focus up" +keep %{{%(CMD_FOCUS_UP)}}
-    # h/l are used for workspace navigation in common/window-management.wks
-
-    # Directional swap (River-specific - not in Hyprland)
-    J "Swap down" +keep %{{%(CMD_SWAP_DOWN)}}
-    K "Swap up" +keep %{{%(CMD_SWAP_UP)}}
-    # H/L are used for monitor navigation in common/window-management.wks
+    l "Tag Right" +keep %{{%(CMD_WS_NEXT)}}
+    L "Mon Right" %{{%(CMD_MOVE_TO_MONITOR_RIGHT)}}
+    h "Tag Left" +keep %{{%(CMD_WS_PREV)}}
+    H "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT)}}
+    # Tag & follow
+    m "Tag & follow" +keep
+    {
+        ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1) --follow}}
+    }
+    q "Quit" %{{riverdo delay 0.1 close}}
+    s "Stick (occupied)" %{{riverdo delay 0.1 stick --tags occupied}}
+    S "Stick (all)" %{{riverdo delay 0.1 stick}}
+    u "Unstick" %{{riverdo delay 0.1 unstick}}
+    t "Tag" +keep
+    {
+        ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1)}}
+    }
 }
 
 # River window toggles
-w "Window"
+w "Window" +keep
 {
-    f "Toggle fullscreen" %{{%(CMD_TOGGLE_FULLSCREEN)}}
-    t "Toggle float" %{{%(CMD_TOGGLE_FLOAT)}}
+    s "Swap Outputs" %{{riverdo delay 0.1 swap-outputs}}
+    t "View tags" +keep
+    {
+        ... "View tag %(index+1)" %{{riverdo set-focused-tags %(index+1)}}
+    }
 }

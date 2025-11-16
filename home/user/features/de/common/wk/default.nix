@@ -1,17 +1,63 @@
-{pkgs, ...}: {
-  home.packages = [pkgs.wk-patched];
-  xdg.configFile = {
-    "wk/main_key_chords.wks".source = ./wks/main_key_chords.wks;
-    "wk/hyprland_key_chords.wks".source = ./wks/hyprland_key_chords.wks;
-    "wk/river_key_chords.wks".source = ./wks/river_key_chords.wks;
-    "wk/common/applications.wks".source = ./wks/common/applications.wks;
-    "wk/common/development.wks".source = ./wks/common/development.wks;
-    "wk/common/media.wks".source = ./wks/common/media.wks;
-    "wk/common/utilities.wks".source = ./wks/common/utilities.wks;
-    "wk/common/system.wks".source = ./wks/common/system.wks;
-    "wk/common/screenshots.wks".source = ./wks/common/screenshots.wks;
-    "wk/common/window-management.wks".source = ./wks/common/window-management.wks;
-    "wk/hyprland/window-management.wks".source = ./wks/hyprland/window-management.wks;
-    "wk/river/window-management.wks".source = ./wks/river/window-management.wks;
-  };
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  wksDir = ./wks;
+  base16Colors = [
+    "base00"
+    "base01"
+    "base02"
+    "base03"
+    "base04"
+    "base05"
+    "base06"
+    "base07"
+    "base08"
+    "base09"
+    "base0A"
+    "base0B"
+    "base0C"
+    "base0D"
+    "base0E"
+    "base0F"
+  ];
+  themeWks = pkgs.writeText "theme.wks" (
+    lib.concatStringsSep "\n" (
+      map (name: '':var "${name}" "${config.lib.stylix.colors.withHashtag.${name}}"'')
+      base16Colors
+    )
+  );
+  themeDir = pkgs.runCommand "wk-theme" {} ''
+    mkdir -p $out
+    cp ${themeWks} $out/theme.wks
+  '';
+  wk-hyprland =
+    (pkgs.wk.override {
+      wksFile = wksDir + "/hyprland/hyprland_key_chords.wks";
+      wksDirs = [
+        themeDir # Contains theme.wks, copied as config/wk-theme/
+        (wksDir + "/common") # Common DE-agnostic configs, copied as config/common/
+        (wksDir + "/hyprland") # Hyprland-specific configs, copied as config/hyprland/
+      ];
+    }).overrideAttrs {
+      pname = "wk-hyprland";
+    };
+  wk-river =
+    (pkgs.wk.override {
+      wksFile = wksDir + "/river/river_key_chords.wks";
+      wksDirs = [
+        themeDir # Contains theme.wks, copied as config/wk-theme/
+        (wksDir + "/common") # Common DE-agnostic configs, copied as config/common/
+        (wksDir + "/river") # River-specific configs, copied as config/river/
+      ];
+    }).overrideAttrs {
+      pname = "wk-river";
+    };
+in {
+  home.packages = [
+    wk-hyprland
+    wk-river
+  ];
 }

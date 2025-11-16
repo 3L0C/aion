@@ -66,9 +66,3 @@ v "vmt" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}
     u "Update" +ignore %{{kitty vmt -u}}
     w "Watch" %{{vmt -w}}
 }
-
-# whichkey binds
-W "whichkey"
-{
-    u "update" %{{wkx -u}}
-}
