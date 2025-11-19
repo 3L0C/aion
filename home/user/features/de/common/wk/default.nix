@@ -23,38 +23,46 @@
     "base0E"
     "base0F"
   ];
-  themeWks = pkgs.writeText "theme.wks" (
-    lib.concatStringsSep "\n" (
-      map (name: '':var "${name}" "${config.lib.stylix.colors.withHashtag.${name}}"'')
-      base16Colors
-    )
+  themeVars = lib.concatStringsSep "\n" (
+    map (name: '':var "${name}" "${config.lib.stylix.colors.withHashtag.${name}}"'')
+    base16Colors
   );
-  themeDir = pkgs.runCommand "wk-theme" {} ''
-    mkdir -p $out
-    cp ${themeWks} $out/theme.wks
-  '';
   wk-hyprland =
     (pkgs.wk.override {
-      wksFile = wksDir + "/hyprland/hyprland_key_chords.wks";
+      wksContent = ''
+        ${themeVars}
+        :include "hyprland/hyprland_key_chords.wks"
+      '';
       wksDirs = [
-        themeDir # Contains theme.wks, copied as config/wk-theme/
-        (wksDir + "/common") # Common DE-agnostic configs, copied as config/common/
-        (wksDir + "/hyprland") # Hyprland-specific configs, copied as config/hyprland/
+        (wksDir + "/common") # Common DE-agnostic configs
+        (wksDir + "/hyprland") # Hyprland-specific configs
       ];
-    }).overrideAttrs {
+    }).overrideAttrs (old: {
       pname = "wk-hyprland";
-    };
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          mv $out/bin/wk $out/bin/wk-hyprland
+        '';
+    });
   wk-river =
     (pkgs.wk.override {
-      wksFile = wksDir + "/river/river_key_chords.wks";
+      wksContent = ''
+        ${themeVars}
+        :include "river/river_key_chords.wks"
+      '';
       wksDirs = [
-        themeDir # Contains theme.wks, copied as config/wk-theme/
-        (wksDir + "/common") # Common DE-agnostic configs, copied as config/common/
-        (wksDir + "/river") # River-specific configs, copied as config/river/
+        (wksDir + "/common") # Common DE-agnostic configs
+        (wksDir + "/river") # River-specific configs
       ];
-    }).overrideAttrs {
+    }).overrideAttrs (old: {
       pname = "wk-river";
-    };
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          mv $out/bin/wk $out/bin/wk-river
+        '';
+    });
 in {
   home.packages = [
     wk-hyprland

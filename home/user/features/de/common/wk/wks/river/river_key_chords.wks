@@ -33,6 +33,7 @@
 
 # Tag operations using riverdo (parametric - use with %(index+1))
 :var "CMD_SWITCH_WS" "riverdo set-focused-tags"
+:var "CMD_GO_WORKSPACE" "riverdo set-focused-tags"
 :var "CMD_MOVE_TO_WS" "riverdo set-view-tags"
 
 # Relative tag navigation (riverdo)
@@ -57,5 +58,5 @@
 :var "WS_KEEPASSXC" "9"
 :var "WS_SUPERSONIC" "9"
 
-:include "common/main.wks"
-:include "river/window-management.wks"
+:include "../common/main.wks"
+:include "window-management.wks"

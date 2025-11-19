@@ -2,7 +2,7 @@
 # This file is used when launching wk from Hyprland
 # It includes common bindings and Hyprland-specific window management
 
-:include "common/main.wks"
+:include "../common/main.wks"
 
 # Hyprland-specific variable definitions
 # Window management commands
@@ -16,6 +16,7 @@
 
 # Workspace operations (parametric - use with %(index+1) or direct number)
 :var "CMD_SWITCH_WORKSPACE" "hyprctl dispatch split-workspace"
+:var "CMD_SWITCH_WS" "hyprctl dispatch split-workspace"
 :var "CMD_MOVE_TO_WORKSPACE" "hyprctl dispatch split-movetoworkspacesilent"
 :var "CMD_MOVE_FOLLOW_WORKSPACE" "hyprctl dispatch split-movetoworkspace"
 :var "CMD_GO_WORKSPACE" "hyprctl dispatch split-workspace"
@@ -36,7 +37,10 @@
 # Workflow workspace assignments
 :var "WS_EMACS" "2"
 :var "WS_BROWSER_MULLVAD" "4"
+:var "WS_CHROMIUM" "4"
 :var "WS_FEEDS" "5"
 :var "WS_GAMES" "4"
+:var "WS_KEEPASSXC" "9"
+:var "WS_9" "9"
 
-:include "hyprland/window-management.wks"
+:include "window-management.wks"
