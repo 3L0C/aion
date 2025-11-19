@@ -15,10 +15,10 @@ c "Client"
     {
         ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1) --follow}}
     }
-    q "Quit" %{{riverdo delay 0.1 close}}
-    s "Stick (occupied)" %{{riverdo delay 0.1 stick --tags occupied}}
-    S "Stick (all)" %{{riverdo delay 0.1 stick}}
-    u "Unstick" %{{riverdo delay 0.1 unstick}}
+    q "Quit" %{{riverdo delay 100 close}}
+    s "Stick (occupied)" %{{riverdo delay 100 stick --tags occupied}}
+    S "Stick (all)" %{{riverdo delay 100 stick}}
+    u "Unstick" %{{riverdo delay 100 unstick}}
     t "Tag" +keep
     {
         ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1)}}
@@ -28,7 +28,7 @@ c "Client"
 # River window toggles
 w "Window" +keep
 {
-    s "Swap Outputs" %{{riverdo delay 0.1 swap-outputs}}
+    s "Swap Outputs" %{{riverdo delay 100 swap-outputs}}
     t "View tags" +keep
     {
         ... "View tag %(index+1)" %{{riverdo set-focused-tags %(index+1)}}

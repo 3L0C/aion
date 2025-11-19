@@ -19,8 +19,8 @@
 :var "MONITOR_RIGHT" "HDMI-A-1"
 
 # Window management commands
-:var "CMD_CLOSE_WINDOW" "riverdo delay 0.1 close"
-:var "CMD_TOGGLE_FLOAT" "riverdo delay 0.1 toggle-float"
+:var "CMD_CLOSE_WINDOW" "riverdo delay 100 close"
+:var "CMD_TOGGLE_FLOAT" "riverdo delay 100 toggle-float"
 :var "CMD_TOGGLE_FULLSCREEN" "riverctl toggle-fullscreen"
 
 # Directional window focus/swap (River-specific)
