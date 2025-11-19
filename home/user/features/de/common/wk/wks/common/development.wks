@@ -1,6 +1,7 @@
 # Emacs binds
 e "Emacs" ^before %{{%(CMD_SWITCH_WS) %(WS_EMACS)}}
 {
+    d "Open dirvish" %{{doomemacs --dirvish}}
     e "Open blank" %{{doomemacs --blank}}
     # Emacs projects prefix
     p "Projects" +inherit

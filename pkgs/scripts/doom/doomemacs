@@ -6,6 +6,7 @@ usage: ${0##*/} [option] [--] [files ...]
 
 options:
     -b, --blank          Start Emacs daemon, and blank Emacs frame.
+    -d, --dirvish        Start Emacs dirvish session.
     -v, --vanilla        Start a vanilla version of Doom Emacs, no daemon.
 EOF
 }
@@ -20,34 +21,55 @@ get_opts() {
     while [[ "$#" -ne 0 ]]; do
         local SHIFT_COUNT=1
         case "$1" in
-            -b | --blank) OPERATION="blank" ;;
-            -v | --vanilla) OPERATION="vanilla" ;;
-            --) FILES+=("$@:2") ; SHIFT_COUNT="$#" ;;
-            -*) abort "Unrecognized option: $1\nIf file begins with '-' use -- -file ..." ;;
-            *) FILES+=("$@") ; SHIFT_COUNT="$#" ;;
+        -b | --blank) OPERATION="blank" ;;
+        -d | --dirvish) OPERATION="dirvish" ;;
+        -v | --vanilla) OPERATION="vanilla" ;;
+        --)
+            FILES+=("$@:2")
+            SHIFT_COUNT="$#"
+            ;;
+        -*) abort "Unrecognized option: $1\nIf file begins with '-' use -- -file ..." ;;
+        *)
+            FILES+=("$@")
+            SHIFT_COUNT="$#"
+            ;;
         esac
         shift "$SHIFT_COUNT"
     done
 }
 
-doom_open_blank() {
-    if ! pidof -q emacs ; then
-        uwsm app -- doom sync
-        uwsm app -- emacs --daemon
+doom_maybe_start_daemon() {
+    if ! pidof -q emacs; then
+        uwsm-app -- doom sync
+        uwsm-app -- emacs --daemon
     fi
+}
 
-    uwsm app -- emacsclient -c "${FILES[@]}"
+doom_open_blank() {
+    doom_maybe_start_daemon
+    uwsm-app -- emacsclient -c "${FILES[@]}"
+}
+
+doom_open_dirvish() {
+    doom_maybe_start_daemon
+    uwsm-app -- emacsclient -c -e "(dirvish \"~/\")"
 }
 
 doom_open_vanilla() {
-    uwsm app -- doom --emacsdir ~/.config/emacs-vanilla --doomdir ~/.config/doom-vanilla emacs
+    uwsm-app -- doom --emacsdir ~/.config/emacs-vanilla --doomdir ~/.config/doom-vanilla emacs
+}
+
+doom_open() {
+    doom_maybe_start_daemon
+    uwsm-app -- emacsclient -c -a '' "$@"
 }
 
 handle_opts() {
     case "$OPERATION" in
-        blank) doom_open_blank ;;
-        vanilla) doom_open_vanilla ;;
-        *) abort "Unrecognized operation: $OPERATION"
+    blank) doom_open "${FILES[@]}" ;;
+    vanilla) doom_open_vanilla ;;
+    dirvish) doom_open -e "(dirvish \"~/\")" ;;
+    *) abort "Unrecognized operation: $OPERATION" ;;
     esac
 }
 

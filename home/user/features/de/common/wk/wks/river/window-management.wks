@@ -11,7 +11,7 @@ c "Client"
     h "Tag Left" +keep %{{%(CMD_WS_PREV)}}
     H "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT)}}
     # Tag & follow
-    m "Tag & follow" +keep
+    m "Tag & follow"
     {
         ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1) --follow}}
     }

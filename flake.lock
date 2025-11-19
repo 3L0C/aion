@@ -800,16 +800,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1762910341,
-        "narHash": "sha256-AcibAFqbUFJRMsXj9s0H8pHsq7e824WkUhY62pmkqPA=",
-        "ref": "zig_0_15",
-        "rev": "169c18cb19e398b23d228965618a9a3fa098a8e0",
-        "revCount": 2,
+        "lastModified": 1763534370,
+        "narHash": "sha256-txINmGz7f3oChMzl//Yt49F8xti+gD26v2VQck9ONAs=",
+        "ref": "main",
+        "rev": "851848415a3dc319b049bc64704ebee31c965531",
+        "revCount": 3,
         "type": "git",
         "url": "file:///home/user/programs/Personal/riverdo-dev"
       },
       "original": {
-        "ref": "zig_0_15",
+        "ref": "main",
         "type": "git",
         "url": "file:///home/user/programs/Personal/riverdo-dev"
       }

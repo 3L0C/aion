@@ -36,7 +36,7 @@
     };
 
     riverdo = {
-      url = "git+file:///home/user/programs/Personal/riverdo-dev?ref=zig_0_15";
+      url = "git+file:///home/user/programs/Personal/riverdo-dev?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
