@@ -800,11 +800,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763534370,
-        "narHash": "sha256-txINmGz7f3oChMzl//Yt49F8xti+gD26v2VQck9ONAs=",
+        "lastModified": 1763535628,
+        "narHash": "sha256-6VsoTKOtTOcfyzPA6rnzgvMHwz2CgoFUb/vROATRrDo=",
         "ref": "main",
-        "rev": "851848415a3dc319b049bc64704ebee31c965531",
-        "revCount": 3,
+        "rev": "b995c1c0f01394e09ece46992c4f30c885ee9734",
+        "revCount": 4,
         "type": "git",
         "url": "file:///home/user/programs/Personal/riverdo-dev"
       },
