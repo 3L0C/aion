@@ -26,7 +26,7 @@ c "Client"
 }
 
 # River window toggles
-w "Window" +keep
+w "Window"
 {
     s "Swap Outputs" %{{riverdo delay 100 swap-outputs}}
     t "View tags" +keep
