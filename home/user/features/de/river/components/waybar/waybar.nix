@@ -26,12 +26,13 @@ in {
     position = "top";
     height = 28;
     spacing = 0;
-    margin = null;
+    margin = 0;
     expand-left = true;
     no-center = true;
     modules-left = [
       "river/tags" # Replaces hyprland/workspaces
       "river/layout" # Replaces custom/layout
+      "river/window" # Window title
     ];
 
     modules-right = [
@@ -47,17 +48,31 @@ in {
     ];
     "river/tags" = {
       num-tags = 9;
-      tag-labels = ["1" "2" "3" "4" "5" "6" "7" "8" "9"];
+      tag-labels = [
+        "1"
+        "2"
+        "3"
+        "4"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+      ];
       disable-click = false;
       hide-vacant = true;
     };
     "river/layout" = {
-      format = "[]=";
+      format = "{}";
       tooltip = false;
     };
     "river/window" = {
-      format = "{title}";
+      format = "{}";
+      on-click-right = "${lib.getExe pkgs.riverdo} zoom";
+      on-scroll-up = "${lib.getExe pkgs.riverdo} focus-view previous";
+      on-scroll-down = "${lib.getExe pkgs.riverdo} focus-view next";
       max-length = 100;
+      expand = true;
       tooltip = false;
     };
     "custom/sb-playerctl" = {
