@@ -3,8 +3,8 @@
   pkgs,
   ...
 }: let
-  loginctl = "${pkgs.systemd}/bin/loginctl";
-
+  lock = "${pkgs.swaylock}/bin/swaylock --daemonize; ${pkgs.systemd}/bin/loginctl lock-session";
+  display = status: "${pkgs.wlopm}/bin/wlopm --${status} \\*";
   baseTimeout = 900; # 15 minutes
 in {
   services.swayidle = {
@@ -14,23 +14,29 @@ in {
     events = [
       {
         event = "before-sleep";
-        command = "${loginctl} lock-session";
+        command = (display "off") + "; " + lock;
       }
       {
         event = "after-resume";
-        command = "${pkgs.wlopm}/bin/wlopm --on \\*";
+        command = display "on";
       }
     ];
 
     timeouts = [
+      # Display off
       {
         timeout = baseTimeout;
-        command = "${loginctl} lock-session";
+        command = display "off";
+        resumeCommand = display "on";
       }
+      # Lock 60 seconds after display off
       {
         timeout = baseTimeout + 60;
-        command = "${pkgs.wlopm}/bin/wlopm --off \\*";
-        resumeCommand = "${pkgs.wlopm}/bin/wlopm --on \\*";
+        command = lock;
+      }
+      {
+        timeout = baseTimeout * 2;
+        command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
   };
