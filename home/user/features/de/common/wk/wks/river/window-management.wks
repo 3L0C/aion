@@ -19,7 +19,7 @@ c "Client"
     s "Stick (occupied)" %{{riverdo delay 100 stick --tags occupied}}
     S "Stick (all)" %{{riverdo delay 100 stick}}
     u "Unstick" %{{riverdo delay 100 unstick}}
-    t "Tag" +keep
+    t "Tag"
     {
         ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1)}}
     }

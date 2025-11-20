@@ -14,7 +14,7 @@
 :wrap-cmd "uwsm-app --"
 :sort
 
-:fg-key "%(base0A)"
+:fg-key "%(base0B)"
 :fg-delimiter "%(base02)"
 :fg-prefix "%(base08)"
 :fg-chord "%(base0E)"

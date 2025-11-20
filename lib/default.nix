@@ -1,4 +1,9 @@
-{lib, ...}: {
+{lib, ...}: let
+  pow2 = n:
+    if n == 0
+    then 1
+    else 2 * pow2 (n - 1);
+in {
   custom = {
     relativeToRoot = lib.path.append ../.;
     mkWaylandService = session: serviceConfig:
@@ -29,5 +34,8 @@
       bindingLines = map (binding: "${riverctl} map ${mode} ${binding}") bindings;
     in
       pkgs.writeShellScript name (lib.concatStringsSep "\n" bindingLines);
+    powerOf2 = pow2;
+    bitShiftLeft = val: n: val * pow2 n;
+    bitShiftRight = val: n: val / pow2 n;
   };
 }

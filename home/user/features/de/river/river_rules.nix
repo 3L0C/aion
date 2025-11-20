@@ -53,20 +53,52 @@
     {title = "Picture-in-Picture";}
     {title = "*LibreWolf";}
   ];
+  tagRules = [
+    {
+      app-id = "firefox";
+      tags = [2];
+    }
+    {
+      app-id = "discord";
+      tags = [1];
+    }
+  ];
   dimensionsRules = [
     {} # Apply 50% x 50% dimensions to all floating windows
   ];
   generateRules = rules: action:
-    lib.concatMapStringsSep "\n" (rule: let
-      appIdPart = lib.optionalString (rule ? app-id) "-app-id '${rule.app-id}'";
-      titlePart = lib.optionalString (rule ? title) "-title '${rule.title}'";
-      parts = lib.filter (x: x != "") [appIdPart titlePart];
-    in "${riverctl} rule-add ${lib.concatStringsSep " " parts} ${action}")
+    lib.concatMapStringsSep "\n" (
+      rule: let
+        appIdPart = lib.optionalString (rule ? app-id) "-app-id '${rule.app-id}'";
+        titlePart = lib.optionalString (rule ? title) "-title '${rule.title}'";
+        parts = lib.filter (x: x != "") [
+          appIdPart
+          titlePart
+        ];
+      in "${riverctl} rule-add ${lib.concatStringsSep " " parts} ${action}"
+    )
+    rules;
+  tagPositionToBitmask = position: lib.custom.bitShiftLeft 1 position;
+  tagPositionsToBitmask = positions: builtins.foldl' builtins.add 0 (map tagPositionToBitmask positions);
+  generateTagRules = rules:
+    lib.concatMapStringsSep "\n" (
+      rule: let
+        appIdPart = lib.optionalString (rule ? app-id) "-app-id '${rule.app-id}'";
+        titlePart = lib.optionalString (rule ? title) "-title '${rule.title}'";
+        parts = lib.filter (x: x != "") [
+          appIdPart
+          titlePart
+        ];
+        tagBitmask = tagPositionsToBitmask rule.tags;
+        action = "tags ${toString tagBitmask}";
+      in "${riverctl} rule-add ${lib.concatStringsSep " " parts} ${action}"
+    )
     rules;
   rulesScript = pkgs.writeShellScript "river-rules" ''
     ${generateRules floatRules "float"}
     ${generateRules dimensionsRules "dimensions ${toString floatWidth} ${toString floatHeight}"}
     ${generateRules ssdRules "ssd"}
+    ${generateTagRules tagRules}
     ${riverctl} rule-add ssd
   '';
 in {
