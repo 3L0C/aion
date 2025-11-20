@@ -90,15 +90,18 @@
 
       /* Window title - dwm style, left aligned, auto width */
       /* Note: river/window module currently disabled due to segfault bug */
+      /* Unfocused monitor - inverted styling */
       #window {
-          background-color: @base02;
+          background-color: @base00;
           color: @base05;
           padding: 0 5px;
           margin: 0;
       }
 
+      /* Focused monitor - normal styling */
       #window.focused {
           background-color: @base02;
+          color: @base05;
       }
 
       /* Right side modules - status bar style */
