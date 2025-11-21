@@ -34,8 +34,8 @@
     };
 
     pam.services = {
-      swaylock = {};
       hyprlock = {};
+      swaylock = {};
     };
   };
 }

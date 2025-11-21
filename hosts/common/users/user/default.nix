@@ -5,8 +5,7 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  home-manager.users.user =
-    import ../../../../home/user/${config.hostSpec.name}.nix;
+  home-manager.users.user = import ../../../../home/user/${config.hostSpec.name}.nix;
   programs.zsh.enable = true;
   programs.nh.flake = "${config.users.users.user.home}/aion";
   users.groups.user = {};
@@ -32,5 +31,6 @@ in {
 
   security.pam.services = {
     hyprlock = {};
+    swaylock = {};
   };
 }

@@ -21,6 +21,11 @@
       # Set default shell
       set-option -g default-shell "${pkgs.zsh}/bin/zsh"
 
+      # Override pane-base-index to 0 (default) to match original config
+      # The baseIndex module option sets both base-index and pane-base-index to 1,
+      # but the TWM configs expect panes to start at 0
+      setw -g pane-base-index 0
+
       # Easy config reload
       bind-key R source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."
 
@@ -77,52 +82,9 @@
       # Switch layouts
       bind-key y source-file ~/.config/tmux/twm.conf \; select-layout main-vertical
       bind-key t source-file ~/.config/tmux/twm-horizontal.conf \; select-layout main-horizontal
-      bind-key j run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux select-pane -t {next})" \; select-layout main-horizontal
-      bind-key k run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux select-pane -t {previous})" \; select-layout main-horizontal
 
-      # Move pane up or down in stack
-      bind-key J run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_top} #{pane_at_right}' | grep -iqE '^0 1$' && tmux rotate-window -D && tmux select-pane -t0) || (tmux swap-pane -D)" \; select-layout main-horizontal
-      bind-key K run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_top} #{pane_at_right}' | grep -iqE '^1 1$' && tmux rotate-window -U && tmux select-pane -t {bottom-right}) || (tmux swap-pane -U)" \; select-layout main-horizontal
-
-      # Move to next (+) or prev (-) window
-      bind-key l next-window \; select-layout main-horizontal
-      bind-key h previous-window \; select-layout main-horizontal
-
-      # Send current pane to the next (+) or prev (-) window
-      bind-key L join-pane -fdbv -t:+ \; select-layout main-horizontal
-      bind-key H join-pane -fdbv -t:- \; select-layout main-horizontal
-
-      # Swap current pane with master pane
-      bind-key space run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_index}' | grep -iqE '^0$' && tmux swap-pane -dZ -s1) || (tmux swap-pane -s0)" \; select-layout main-horizontal
-
-      # Use <prefix> enter, v, and s to open new panes as master
-      bind-key enter run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
-      bind-key v run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
-      bind-key s run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
-
-      # <prefix> i to zoom the focused pane
-      bind-key i resize-pane -Z
-
-      # <prefix> f to focus the master pane
-      bind-key f select-pane -t0 \; select-layout main-horizontal
-      bind-key F command-prompt "find-window -Z -- '%%'"
-
-      # Simple binds for pane/window switching
-      bind-key a last-pane \; select-layout main-horizontal
-      bind-key c new-window \; select-layout main-horizontal
-      bind-key t next-window \; select-layout main-horizontal
-      bind-key T previous-window \; select-layout main-horizontal
-
-      # Clear screen
-      bind-key C-b send-keys 'C-l' \; select-layout main-horizontal
-      bind-key o send-keys 'C-l' \; select-layout main-horizontal
-      bind-key C-o select-layout main-horizontal
-
-      # Kill pane
-      bind-key q killp \; select-pane -t0 \; select-layout main-horizontal
-
-      # Bind-key for opening lf
-      bind-key r split-window -fb 'lfrun' \; select-layout main-horizontal
+      # Source horizontal layout at startup (default layout)
+      source-file ~/.config/tmux/twm-horizontal.conf
     '';
   };
   xdg.configFile."tmux/twm.conf".text = ''
@@ -130,12 +92,12 @@
     # All bindings require prefix key
 
     # Move focus through pane stack
-    bind-key j run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux select-pane -t {next})" \; select-layout main-vertical
-    bind-key k run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux select-pane -t {previous})" \; select-layout main-vertical
+    bind-key j run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux select-pane -t {next})" \; select-layout main-vertical
+    bind-key k run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux select-pane -t {previous})" \; select-layout main-vertical
 
     # Move pane up or down in stack
-    bind-key J run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_left} #{pane_at_bottom}' | grep -iqE '^0 1$' && tmux rotate-window -D && tmux select-pane -t0) || (tmux swap-pane -D)" \; select-layout main-vertical
-    bind-key K run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_left} #{pane_at_bottom}' | grep -iqE '^1 1$' && tmux rotate-window -U && tmux select-pane -t {bottom-right}) || (tmux swap-pane -U)" \; select-layout main-vertical
+    bind-key J run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_left} #{pane_at_bottom}' | grep -iqE '^0 1''$' && tmux rotate-window -D && tmux select-pane -t0) || (tmux swap-pane -D)" \; select-layout main-vertical
+    bind-key K run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_left} #{pane_at_bottom}' | grep -iqE '^1 1''$' && tmux rotate-window -U && tmux select-pane -t {bottom-right}) || (tmux swap-pane -U)" \; select-layout main-vertical
 
     # Move to next (+) or prev (-) window
     bind-key l next-window \; select-layout main-vertical
@@ -146,12 +108,12 @@
     bind-key H join-pane -fdbh -t:- \; select-layout main-vertical
 
     # Swap current pane with master pane
-    bind-key space run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_index}' | grep -iqE '^0$' && tmux swap-pane -dZ -s1) || (tmux swap-pane -s0)" \; select-layout main-vertical
+    bind-key space run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_index}' | grep -iqE '^0''$' && tmux swap-pane -dZ -s1) || (tmux swap-pane -s0)" \; select-layout main-vertical
 
     # Use <prefix> enter, v, and s to open new panes as master
-    bind-key enter run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-vertical
-    bind-key v run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-vertical
-    bind-key s run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-vertical
+    bind-key enter run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-vertical
+    bind-key v run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-vertical
+    bind-key s run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-vertical
 
     # <prefix> i to zoom the focused pane
     bind-key i resize-pane -Z
@@ -189,12 +151,12 @@
     # This file exists for the layout toggle commands
 
     # Move focus through pane stack
-    bind-key j run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux select-pane -t {next})" \; select-layout main-horizontal
-    bind-key k run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux select-pane -t {previous})" \; select-layout main-horizontal
+    bind-key j run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux select-pane -t {next})" \; select-layout main-horizontal
+    bind-key k run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux select-pane -t {previous})" \; select-layout main-horizontal
 
     # Move pane up or down in stack
-    bind-key J run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_top} #{pane_at_right}' | grep -iqE '^0 1$' && tmux rotate-window -D && tmux select-pane -t0) || (tmux swap-pane -D)" \; select-layout main-horizontal
-    bind-key K run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_top} #{pane_at_right}' | grep -iqE '^1 1$' && tmux rotate-window -U && tmux select-pane -t {bottom-right}) || (tmux swap-pane -U)" \; select-layout main-horizontal
+    bind-key J run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_top} #{pane_at_right}' | grep -iqE '^0 1''$' && tmux rotate-window -D && tmux select-pane -t0) || (tmux swap-pane -D)" \; select-layout main-horizontal
+    bind-key K run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_at_top} #{pane_at_right}' | grep -iqE '^1 1''$' && tmux rotate-window -U && tmux select-pane -t {bottom-right}) || (tmux swap-pane -U)" \; select-layout main-horizontal
 
     # Move to next (+) or prev (-) window
     bind-key l next-window \; select-layout main-horizontal
@@ -205,12 +167,12 @@
     bind-key H join-pane -fdbv -t:- \; select-layout main-horizontal
 
     # Swap current pane with master pane
-    bind-key space run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_index}' | grep -iqE '^0$' && tmux swap-pane -dZ -s1) || (tmux swap-pane -s0)" \; select-layout main-horizontal
+    bind-key space run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux display-message -p '#{pane_index}' | grep -iqE '^0''$' && tmux swap-pane -dZ -s1) || (tmux swap-pane -s0)" \; select-layout main-horizontal
 
     # Use <prefix> enter, v, and s to open new panes as master
-    bind-key enter run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
-    bind-key v run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
-    bind-key s run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
+    bind-key enter run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
+    bind-key v run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
+    bind-key s run "(tmux display-message -p '#{window_zoomed_flag}' | grep -iqE '^1''$' && tmux resize-pane -Z) ; (tmux split-window -bh -t0)" \; select-layout main-horizontal
 
     # <prefix> i to zoom the focused pane
     bind-key i resize-pane -Z
@@ -237,6 +199,9 @@
 
     # Bind-key for opening lf
     bind-key r split-window -fb 'lfrun' \; select-layout main-horizontal
+
+    # Change layout
     bind-key y source-file ~/.config/tmux/twm.conf \; select-layout main-vertical
+    bind-key t source-file ~/.config/tmux/twm-horizontal.conf \; select-layout main-horizontal
   '';
 }
