@@ -11,14 +11,14 @@ c "Client"
     h "Tag Left" +keep %{{%(CMD_WS_PREV)}}
     H "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT)}}
     # Tag & follow
-    m "Tag & follow"
+    m "Tag & follow" +keep
     {
         ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1) --follow}}
     }
-    q "Quit" %{{riverdo delay 100 close}}
-    s "Stick (occupied)" %{{riverdo delay 100 stick --tags occupied}}
-    S "Stick (all)" %{{riverdo delay 100 stick}}
-    u "Unstick" %{{riverdo delay 100 unstick}}
+    q "Quit" %{{riverdo close}}
+    s "Stick (occupied)" %{{riverdo stick --tags occupied}}
+    S "Stick (all)" %{{riverdo stick}}
+    u "Unstick" %{{riverdo unstick}}
     t "Tag"
     {
         ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1)}}
@@ -28,7 +28,7 @@ c "Client"
 # River window toggles
 w "Window"
 {
-    s "Swap Outputs" %{{riverdo delay 100 swap-outputs}}
+    s "Swap Outputs" %{{riverdo swap-outputs}}
     t "View tags" +keep
     {
         ... "View tag %(index+1)" %{{riverdo set-focused-tags %(index+1)}}
