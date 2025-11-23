@@ -7,6 +7,7 @@ usage: ${0##*/} [option] [--] [files ...]
 options:
     -b, --blank          Start Emacs daemon, and blank Emacs frame.
     -d, --dirvish        Start Emacs dirvish session.
+    -t, --vterm          Start Emacs vterm in a frame that closes on exit.
     -v, --vanilla        Start a vanilla version of Doom Emacs, no daemon.
 EOF
 }
@@ -23,6 +24,7 @@ get_opts() {
         case "$1" in
         -b | --blank) OPERATION="blank" ;;
         -d | --dirvish) OPERATION="dirvish" ;;
+        -t | --vterm) OPERATION="vterm" ;;
         -v | --vanilla) OPERATION="vanilla" ;;
         --)
             FILES+=("$@:2")
@@ -45,14 +47,9 @@ doom_maybe_start_daemon() {
     fi
 }
 
-doom_open_blank() {
-    doom_maybe_start_daemon
-    uwsm-app -- emacsclient -c "${FILES[@]}"
-}
-
-doom_open_dirvish() {
-    doom_maybe_start_daemon
-    uwsm-app -- emacsclient -c -e "(dirvish \"~/\")"
+wrap_with_frame_close() {
+    local cmd="$1"
+    echo "(let ((frame (selected-frame))) $cmd (add-hook 'kill-buffer-hook (lambda () (when (frame-live-p frame) (delete-frame frame))) nil t) nil)"
 }
 
 doom_open_vanilla() {
@@ -60,15 +57,22 @@ doom_open_vanilla() {
 }
 
 doom_open() {
+    local eval_expr="$1"
+    shift
     doom_maybe_start_daemon
-    uwsm-app -- emacsclient -c -a '' "$@"
+    if [[ -n "$eval_expr" ]]; then
+        uwsm-app -- emacsclient -c --eval "$eval_expr"
+    else
+        uwsm-app -- emacsclient -c -a '' "$@"
+    fi
 }
 
 handle_opts() {
     case "$OPERATION" in
-    blank) doom_open "${FILES[@]}" ;;
+    blank) doom_open "" "${FILES[@]}" ;;
     vanilla) doom_open_vanilla ;;
-    dirvish) doom_open -e "(dirvish \"~/\")" ;;
+    dirvish) doom_open "$(wrap_with_frame_close '(dirvish "~/")')" ;;
+    vterm) doom_open "$(wrap_with_frame_close '(vterm)')" ;;
     *) abort "Unrecognized operation: $OPERATION" ;;
     esac
 }
