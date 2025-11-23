@@ -63,8 +63,18 @@
           mv $out/bin/wk $out/bin/wk-river
         '';
     });
+  wk = pkgs.wk.override {
+    wksContent = ''
+      ${themeVars}
+      :include "common/settings.wks"
+    '';
+    wksDirs = [
+      (wksDir + "/common") # Common directory for settings.wks
+    ];
+  };
 in {
   home.packages = [
+    wk
     wk-hyprland
     wk-river
   ];
