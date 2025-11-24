@@ -50,6 +50,12 @@
         type = types.bool;
         default = true;
       };
+      # OLED burn-in mitigation: enables automatic bar position rotation
+      isOLED = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable OLED burn-in mitigation (rotates Waybar position hourly)";
+      };
       workspaces = mkOption {
         type = types.listOf types.str;
         default = [];

@@ -50,9 +50,9 @@
 
     iconTheme = {
       enable = true;
-      package = pkgs.kanagawa-icon-theme;
-      dark = "Kanagawa-Dark";
-      light = "Kanagawa-Light";
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus-Light";
     };
 
     opacity = {

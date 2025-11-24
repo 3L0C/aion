@@ -18,6 +18,7 @@
       y = 0;
       scale = "auto";
       enabled = true;
+      isOLED = true; # Enable burn-in mitigation
       workspaces = [
         "1"
         "2"

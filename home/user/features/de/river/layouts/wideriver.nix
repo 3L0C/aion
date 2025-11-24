@@ -42,9 +42,9 @@ in {
           "--border-width                 4"
           "--border-width-monocle         4"
           "--border-width-smart-gaps      4"
-          "--border-color-focused         \"\""
-          "--border-color-focused-monocle \"\""
-          "--border-color-unfocused       \"\""
+          "--border-color-focused         \"0x5a7b8f\"" # Dimmed blue (themed)
+          "--border-color-focused-monocle \"0x5a7b8f\""
+          "--border-color-unfocused       \"0x393836\"" # Dark grey (base4)
           "--log-threshold                info"
         ];
         Restart = "on-failure";
