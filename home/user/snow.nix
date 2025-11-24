@@ -27,6 +27,7 @@
         "6"
         "7"
       ];
+      transform = "normal";
     }
     {
       name = "HDMI-A-1";
@@ -43,6 +44,7 @@
         "9"
         "10"
       ];
+      transform = "normal";
     }
   ];
 }

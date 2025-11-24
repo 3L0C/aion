@@ -12,6 +12,7 @@
         else "disable";
       mode = "${toString monitor.width}x${toString monitor.height}@${toString monitor.refreshRate}Hz";
       position = "${toString monitor.x},${toString monitor.y}";
+      inherit (monitor) transform;
       scale =
         if monitor.scale != "auto"
         then (lib.strings.toFloat monitor.scale)

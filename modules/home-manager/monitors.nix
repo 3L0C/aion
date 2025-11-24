@@ -53,7 +53,16 @@
       workspaces = mkOption {
         type = types.listOf types.str;
         default = [];
-        example = ["1" "2" "3"];
+        example = [
+          "1"
+          "2"
+          "3"
+        ];
+      };
+      transform = mkOption {
+        type = types.str;
+        default = "normal";
+        example = "flipped-90";
       };
       extraArgs = mkOption {
         type = types.nullOr types.str;
