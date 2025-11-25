@@ -28,7 +28,11 @@ c "Client"
 # River window toggles
 w "Window"
 {
-    s "Swap Outputs" %{{riverdo swap-outputs}}
+    s "Swap Outputs"
+    {
+        ... "Swap tags %(index+1)" %{{riverdo swap-outputs --tags %(index+1)}}
+        SPC "Swap focused tag" %{{riverdo swap-outputs --focused-tag}}
+    }
     t "View tags" +keep
     {
         ... "View tag %(index+1)" %{{riverdo set-focused-tags %(index+1)}}
