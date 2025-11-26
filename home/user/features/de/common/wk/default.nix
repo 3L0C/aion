@@ -43,6 +43,7 @@
         (old.postInstall or "")
         + ''
           mv $out/bin/wk $out/bin/wk-hyprland
+          rm -rf $out/share/man
         '';
     });
   wk-river =
@@ -61,6 +62,7 @@
         (old.postInstall or "")
         + ''
           mv $out/bin/wk $out/bin/wk-river
+          rm -rf $out/share/man
         '';
     });
   wk = pkgs.wk.override {
