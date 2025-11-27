@@ -12,7 +12,6 @@
 :shell "/bin/sh"
 :implicit-array-keys "xcdrstwfp"
 :wrap-cmd "uwsm-app --"
-:sort
 
 :fg-key "%(base0B)"
 :fg-delimiter "%(base02)"
