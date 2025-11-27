@@ -11,7 +11,7 @@
 
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-abyss.yaml";
     polarity = "dark";
-    image = ../hyprland/1450741833367.jpg;
+    image = ../wallpapers/1450741833367.jpg;
 
     cursor = {
       package = pkgs.phinger-cursors;
