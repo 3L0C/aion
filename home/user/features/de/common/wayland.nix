@@ -20,12 +20,15 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
-  xdg.configFile = {
-    "electron-flags.conf".text = ''
-      --enable-features=UseOzonePlatform
-      --ozone-platform=wayland
-    '';
+  xdg = {
+    configFile = {
+      "electron-flags.conf".text = ''
+        --enable-features=UseOzonePlatform
+        --ozone-platform=wayland
+      '';
 
-    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+      "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+    };
+    portal.config.common.default = "*";
   };
 }
