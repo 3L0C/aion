@@ -6,6 +6,10 @@
 }: let
   waybar = lib.getExe config.programs.waybar.package;
 in {
+  programs.waybar = {
+    enable = true;
+    systemd.enable = false;
+  };
   systemd.user.services.waybar-river = lib.custom.mkWaylandService "river" {
     Unit = {
       Description = "Waybar status bar (River)";
