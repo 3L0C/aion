@@ -1,4 +1,5 @@
 {
+  stylix.targets.waybar.addCss = true;
   programs.waybar = {
     style = ''
       /* Base styling - overriding minimal defaults */
