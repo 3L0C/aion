@@ -16,16 +16,7 @@
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };
-  claude-code-overlay = _final: prev: {
-    claude-code = prev.claude-code.overrideAttrs {
-      version = "2.0.51";
 
-      src = prev.fetchurl {
-        url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.51.tgz";
-        hash = "sha256-h7i7k0WdWhMgFhg4i2dTsYM/u94aZRcaJNCvJfJ7AC4=";
-      };
-    };
-  };
   modifications = _final: prev: {
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
       postInstall =
