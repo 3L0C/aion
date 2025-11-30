@@ -62,6 +62,10 @@
       app-id = "discord";
       tags = [1];
     }
+    {
+      app-id = "vesktop";
+      tags = [3];
+    }
   ];
   dimensionsRules = [
     {} # Apply 50% x 50% dimensions to all floating windows
