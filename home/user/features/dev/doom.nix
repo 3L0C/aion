@@ -75,6 +75,15 @@
     shellcheck
     shfmt
 
+    # :lang ocaml
+    ocaml
+    ocamlPackages.merlin
+    ocamlPackages.utop
+    ocamlPackages.ocp-indent
+    ocamlPackages.dune_3
+    ocamlPackages.ocamlformat
+    opam
+
     # :lang zig
     zls
     zig
