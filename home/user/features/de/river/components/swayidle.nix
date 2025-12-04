@@ -11,16 +11,10 @@ in {
     enable = true;
     systemdTarget = "wayland-session@river.target";
 
-    events = [
-      {
-        event = "before-sleep";
-        command = (display "off") + "; " + lock;
-      }
-      {
-        event = "after-resume";
-        command = display "on";
-      }
-    ];
+    events = {
+      before-sleep = (display "off") + "; " + lock;
+      after-resume = display "on";
+    };
 
     timeouts = [
       # Display off
