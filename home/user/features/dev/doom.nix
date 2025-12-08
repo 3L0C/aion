@@ -55,6 +55,15 @@
     # :lang markdown
     pandoc
 
+    # :lang ocaml
+    ocaml
+    ocamlPackages.merlin
+    ocamlPackages.utop
+    ocamlPackages.ocp-indent
+    ocamlPackages.dune_3
+    ocamlPackages.ocamlformat
+    opam
+
     # :lang org
     graphviz
 
@@ -75,22 +84,13 @@
     shellcheck
     shfmt
 
-    # :lang ocaml
-    ocaml
-    ocamlPackages.merlin
-    ocamlPackages.utop
-    ocamlPackages.ocp-indent
-    ocamlPackages.dune_3
-    ocamlPackages.ocamlformat
-    opam
+    # :lang web
+    stylelint
+    nodePackages.js-beautify
 
     # :lang zig
     zls
     zig
-
-    # :lang web
-    stylelint
-    nodePackages.js-beautify
     cmake
     gnumake
 
