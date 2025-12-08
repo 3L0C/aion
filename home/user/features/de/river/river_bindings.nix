@@ -34,7 +34,7 @@
       ''${modShift} Q spawn '${loginctl} terminate-user ""' ''
       "${meh} J focus-output next"
       "${meh} K focus-output previous"
-      "${meh} Space spawn '${riverdo} swap-outputs'"
+      "${meh} Space spawn '${riverdo} swap-outputs --focused-tag'"
       "${mod} J focus-view next"
       "${mod} K focus-view previous"
       "${meh} L spawn '${riverdo} output next'"
