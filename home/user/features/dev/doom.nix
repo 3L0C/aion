@@ -52,6 +52,9 @@
     # :lang java
     jdk
 
+    # :lang lua
+    lua-language-server
+
     # :lang markdown
     pandoc
 
