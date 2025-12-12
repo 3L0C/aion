@@ -31,7 +31,7 @@
     ghostty.url = "github:ghostty-org/ghostty";
 
     wk = {
-      url = "git+file:///home/user/programs/Personal/wk-dev?ref=master";
+      url = "git+file:///home/user/programs/Personal/wk-dev?ref=refac_compiler";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
