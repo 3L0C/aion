@@ -29,5 +29,6 @@
     slurp # Area selection for screenshots/screensharing
     wayshot # Native, blazing-fast screenshot tool for wlroots based compositors such as sway and river
     wev # Wayland event viewer
+    wlopm # Simple client implementing zwlr-output-power-management-v1
   ];
 }
