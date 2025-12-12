@@ -1,0 +1,74 @@
+#!/bin/bash
+# System action menu for River compositor
+# Provides power management and session control via rofi/wmenu
+
+# Menu command - uses first available: rofi, wmenu, fuzzel
+if command -v rofi &>/dev/null; then
+    menu_cmd="rofi -dmenu -i -p Action"
+else
+    notify-send "sysact" "Rofi not found"
+    exit 1
+fi
+
+actions=(
+    "Lock"
+    "Sleep"
+    "Renew"
+    "Reboot"
+    "Shutdown"
+    "Display off"
+    "Exit"
+)
+
+# Accept action as argument or prompt via menu
+if [ "$#" -eq 1 ]; then
+    action="$1"
+else
+    action=$(printf '%s\n' "${actions[@]}" | $menu_cmd)
+fi
+
+# Validate action
+if [[ -z "$action" ]] || ! printf '%s\n' "${actions[@]}" | grep -qx "$action"; then
+    exit 1
+fi
+
+case "$action" in
+'Lock')
+    swaylock --daemonize
+    loginctl lock-session
+    ;;
+'Sleep')
+    # Kill transmission before sleep to prevent corruption
+    if pgrep -x "transmission" &>/dev/null; then
+        pkill transmission
+    fi
+    systemctl suspend
+    ;;
+'Renew')
+    # Restart River session services to reload configuration
+    # Excludes layout daemon (wideriver/rivercarro) to preserve window arrangement
+    systemctl --user restart \
+        river-settings.service \
+        river-keybindings.service \
+        river-rules.service \
+        waybar-river.service \
+        kanshi.service \
+        dunst.service
+    notify-send "River" "Configuration reloaded"
+    ;;
+'Reboot')
+    systemctl reboot
+    ;;
+'Shutdown')
+    systemctl poweroff
+    ;;
+'Display off')
+    wlopm --off \*
+    ;;
+'Exit')
+    loginctl terminate-user ""
+    ;;
+*)
+    exit 1
+    ;;
+esac

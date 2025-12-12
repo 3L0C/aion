@@ -13,4 +13,5 @@ in {
   unicode = mkScript "dmenuunicode" ./dmenuunicode;
   displayselect = mkScript "displayselect" ./displayselect;
   maimpick = mkScript "maimpick" ./maimpick;
+  sysact = mkScript "sysact" ./sysact;
 }

@@ -4,6 +4,7 @@
     ./filesytems.nix
     ./help.nix
     ./media.nix
+    ./menu.nix
     ./misc.nix
     ./networking.nix
     ./nix.nix
