@@ -63,12 +63,12 @@ in {
         "8"
         "9"
       ];
-      on-click-right = "${lib.getExe pkgs.riverdo} swap-outputs --focused-tag";
       disable-click = false;
       hide-vacant = true;
     };
     "river/layout" = {
       format = "{}";
+      on-click-right = "${lib.getExe pkgs.riverdo} swap-outputs --focused-tag";
       tooltip = false;
     };
     "river/window" = {
