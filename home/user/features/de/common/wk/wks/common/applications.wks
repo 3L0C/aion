@@ -25,7 +25,7 @@ o "Open"
         l "List feed" %{{dfeed}}
         p "Pick feed" %{{dfeed --pick}}
     }
-    h "htop" %{{kitty htop}}
+    h "hmpv" %{{hmpv}}
     l "lf" %{{kitty --name lf_run lf}}
     k "KeePassXC" ^before %{{%(CMD_SWITCH_WS) %(WS_9)}} %{{keepassxc}}
     # Manga options
