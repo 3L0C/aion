@@ -25,11 +25,11 @@ in {
       }
       # Lock 60 seconds after display off
       {
-        timeout = baseTimeout + 60;
+        timeout = baseTimeout * 2;
         command = lock;
       }
       {
-        timeout = baseTimeout * 2;
+        timeout = baseTimeout * 4;
         command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
