@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    wk-prompt = {
+      url = "git+file:///home/user/programs/Personal/wk-prompt-dev?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     riverdo = {
       url = "git+file:///home/user/programs/Personal/riverdo-dev?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
