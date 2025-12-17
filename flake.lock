@@ -1059,11 +1059,11 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1765939142,
-        "narHash": "sha256-fgYqFwj8Eom/GBMjBomcQiXVv4nWYTIXttmZbmbRIYg=",
+        "lastModified": 1765996094,
+        "narHash": "sha256-8N9qIujlLqNDps7CTw9+cvVZSGXMxNrAbDEg8S8GktE=",
         "ref": "master",
-        "rev": "d4ed4dc866529f629f686f9f9c8418d15975f81f",
-        "revCount": 341,
+        "rev": "97aacd1bb2009470a513a9193bc3534dde21bb19",
+        "revCount": 343,
         "type": "git",
         "url": "file:///home/user/programs/Personal/wk-dev"
       },
