@@ -4,5 +4,6 @@ mpv --idle=yes \
     --loop-file=no \
     --loop-playlist=no \
     --keep-open=no \
-    --msg-level=homehub=debug \
+    --msg-level=homehub=info \
+    --script-opts=homehub-ui_autostart=yes \
     "$@"
