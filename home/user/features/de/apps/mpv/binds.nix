@@ -37,6 +37,9 @@
     "i" = "cycle interpolation";
     "D" = "cycle deinterlace";
 
+    # Video sync toggle (disable for files with PTS issues causing choppiness)
+    "R" = "cycle-values video-sync \"display-resample\" \"audio\"; show-text \"video-sync: \${video-sync}\"";
+
     # Volume
     "AXIS_UP" = "add volume 5";
     "AXIS_DOWN" = "add volume -5";

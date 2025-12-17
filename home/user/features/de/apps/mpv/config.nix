@@ -30,7 +30,7 @@
     audio-exclusive = false;
     audio-format = "s32";
     audio-pitch-correction = false;
-    audio-samplerate = 96000;
+    # audio-samplerate = 96000;
     autosync = 30;
     # af = "scaletempo2";
 
