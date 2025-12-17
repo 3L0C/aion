@@ -13,6 +13,9 @@
   wk-overlay = final: _prev: {
     inherit (inputs.wk.packages.${final.stdenv.hostPlatform.system}) wk;
   };
+  wk-prompt-overlay = final: _prev: {
+    inherit (inputs.wk-prompt.packages.${final.stdenv.hostPlatform.system}) wk-prompt;
+  };
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };

@@ -24,8 +24,7 @@
     "base0F"
   ];
   themeVars = lib.concatStringsSep "\n" (
-    map (name: '':var "${name}" "${config.lib.stylix.colors.withHashtag.${name}}"'')
-    base16Colors
+    map (name: '':var "${name}" "${config.lib.stylix.colors.withHashtag.${name}}"'') base16Colors
   );
   wk-hyprland =
     (pkgs.wk.override {
@@ -37,7 +36,8 @@
         (wksDir + "/common") # Common DE-agnostic configs
         (wksDir + "/hyprland") # Hyprland-specific configs
       ];
-    }).overrideAttrs (old: {
+    }).overrideAttrs
+    (old: {
       pname = "wk-hyprland";
       postInstall =
         (old.postInstall or "")
@@ -56,7 +56,8 @@
         (wksDir + "/common") # Common DE-agnostic configs
         (wksDir + "/river") # River-specific configs
       ];
-    }).overrideAttrs (old: {
+    }).overrideAttrs
+    (old: {
       pname = "wk-river";
       postInstall =
         (old.postInstall or "")
@@ -78,6 +79,7 @@ in {
   home.packages = [
     wk
     wk-hyprland
+    pkgs.wk-prompt
     wk-river
   ];
 }
