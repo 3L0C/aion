@@ -1,5 +1,5 @@
 {
-  description = "Master nixos configuration";
+  description = "A NixOS configuration for every aion";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
