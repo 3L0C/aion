@@ -59,12 +59,13 @@
     pandoc
 
     # :lang ocaml
+    dune
     ocaml
     ocamlPackages.merlin
-    ocamlPackages.utop
-    ocamlPackages.ocp-indent
-    ocamlPackages.dune_3
+    ocamlPackages.ocaml-lsp
     ocamlPackages.ocamlformat
+    ocamlPackages.ocp-indent
+    ocamlPackages.utop
     opam
 
     # :lang org
