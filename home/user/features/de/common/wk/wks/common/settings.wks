@@ -17,6 +17,8 @@
 :fg-delimiter "%(base02)"
 :fg-prefix "%(base08)"
 :fg-chord "%(base0E)"
+:fg-title "%(base05)"
+:fg-goto "%(base0A)"
 :bg "%(base00)"
 :bd "%(base0D)"
 :font "monospace, 14"
