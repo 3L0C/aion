@@ -5,7 +5,7 @@
 :menu-gap -1
 :width-padding 6
 :height-padding 2
-:table-padding 0
+:table-padding 6
 :bottom
 :border-width 4
 :border-radius 0
@@ -13,12 +13,12 @@
 :implicit-array-keys "xcdrstwfp"
 :wrap-cmd "uwsm-app --"
 
-:fg-key "%(base0B)"
+:fg-key "%(base0C)"
 :fg-delimiter "%(base02)"
 :fg-prefix "%(base08)"
 :fg-chord "%(base0E)"
 :fg-title "%(base05)"
-:fg-goto "%(base0A)"
+:fg-goto "%(base0D)"
 :bg "%(base00)"
 :bd "%(base0D)"
 :font "monospace, 14"
