@@ -21,4 +21,4 @@
 :fg-goto "%(base0D)"
 :bg "%(base00)"
 :bd "%(base0D)"
-:font "monospace, 14"
+:font "monospace, 16"
