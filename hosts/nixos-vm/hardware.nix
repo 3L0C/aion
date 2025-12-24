@@ -13,29 +13,45 @@
         "ahci"
         "xhci_pci"
         "virtio_pci"
-        "virtio_scsi"
-        "sd_mod"
         "sr_mod"
+        "virtio_blk"
       ];
       kernelModules = [];
     };
-    kernelModules = ["kvm-intel" "kvm-amd"];
+    kernelModules = ["kvm-amd"];
     extraModulePackages = [];
   };
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-  };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/5f098dc9-e496-43ab-8022-ce5095bd882f";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/3AB3-2FF4";
+      fsType = "vfat";
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
+    };
+    "/mnt/aion" = {
+      device = "aion";
+      fsType = "virtiofs";
+    };
+    "/home/user/programs" = {
+      device = "programs";
+      fsType = "virtiofs";
+    };
   };
 
   swapDevices = [];
+
   networking.hostName = "nixos-vm";
   networking.useDHCP = lib.mkDefault true;
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
   hardware.graphics.enable = true;
 }

@@ -11,7 +11,7 @@
   terminal = "uwsm-app -- ${kitty}";
   ncmpcpp = "${pkgs.ncmpcpp}/bin/ncmpcpp";
 
-  mod = "SUPER";
+  mod = "SUPER_CONTROL";
   modShift = "SUPER_SHIFT";
   modMeh = "SHIFT_ALT_CTRL";
   menu = "uwsm-app -- ${rofi} -show drun -monitor \"$(${hyprctl} monitors -j | ${jq} -r '.[] | select(.focused) | .name')\"";

@@ -1,8 +1,10 @@
 {
   imports = [
     ./global
+
     ./features/cli
     ./features/de
+    ./features/dev
   ];
 
   # Single virtual monitor
@@ -18,7 +20,18 @@
       y = 0;
       scale = "auto";
       enabled = true;
-      workspaces = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "10"];
+      workspaces = [
+        "1"
+        "2"
+        "3"
+        "4"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+      ];
       transform = "normal";
     }
   ];
