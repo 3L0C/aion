@@ -25,7 +25,6 @@
   ];
 
   hardware.enableAllFirmware = true;
-  services.speechd.enable = false;
   services.irqbalance.enable = true;
   systemd = {
     services.journalctl-vacuum = {

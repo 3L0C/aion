@@ -2,6 +2,7 @@
   imports = [
     ./hardware.nix
     ../common/pc.nix
+    ../common/optional/kde.nix
     ../common/users/user
   ];
 
