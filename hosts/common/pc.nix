@@ -9,6 +9,7 @@
     ./optional/fixes
     ./optional/graphics.nix
     ./optional/greetd.nix
+    ./optional/hyprland.nix
     ./optional/keyring.nix
     ./optional/nh.nix
     ./optional/noisetorch.nix
