@@ -27,6 +27,11 @@
         type = types.float;
         default = 60.0;
       };
+      autoResolution = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Use highres@highrr (auto) or explicit width/height/refreshRate";
+      };
       position = mkOption {
         type = types.str;
         default = "auto";

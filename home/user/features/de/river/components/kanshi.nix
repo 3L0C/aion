@@ -15,7 +15,7 @@
       inherit (monitor) transform;
       scale =
         if monitor.scale != "auto"
-        then (lib.strings.toFloat monitor.scale)
+        then builtins.fromJSON monitor.scale * 1.0 # Ensure float
         else null;
     };
   allMonitorsProfile = {

@@ -15,10 +15,11 @@
       width = 1920;
       height = 1080;
       refreshRate = 60.0;
+      autoResolution = false; # Use explicit resolution for VM
       position = "0x0";
       x = 0;
       y = 0;
-      scale = "auto";
+      scale = "1";
       enabled = true;
       workspaces = [
         "1"

@@ -136,7 +136,12 @@ in {
 
       monitor =
         map (
-          m: "${m.name},highres@highrr,${
+          m: let
+            resolution =
+              if m.autoResolution
+              then "highres@highrr"
+              else "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+          in "${m.name},${resolution},${
             if m.enabled
             then
               "${m.position},${m.scale}"
