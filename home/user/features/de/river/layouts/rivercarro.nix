@@ -1,9 +1,10 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: let
-  mod = "Super";
+  mod = config.hostSpec.modifierKeys.river;
   layoutmsg = msg: "send-layout-cmd rivercarro \"${msg}\"";
 in {
   home.packages = [pkgs.rivercarro];

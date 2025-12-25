@@ -11,8 +11,8 @@
   terminal = "uwsm-app -- ${kitty}";
   ncmpcpp = "${pkgs.ncmpcpp}/bin/ncmpcpp";
 
-  mod = "SUPER_CONTROL";
-  modShift = "SUPER_SHIFT";
+  mod = config.hostSpec.modifierKeys.hyprland;
+  modShift = "${mod}_SHIFT";
   modMeh = "SHIFT_ALT_CTRL";
   menu = "uwsm-app -- ${rofi} -show drun -monitor \"$(${hyprctl} monitors -j | ${jq} -r '.[] | select(.focused) | .name')\"";
 

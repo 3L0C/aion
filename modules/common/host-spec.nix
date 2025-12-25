@@ -52,6 +52,25 @@ in {
       description = "The name of the wireless LAN interface, if applicable";
       default = null;
     };
+
+    # Compositor modifier keys (different compositors use different syntax)
+    modifierKeys = mkOption {
+      type = types.attrsOf types.str;
+      default = {
+        river = "Super";
+        hyprland = "SUPER";
+      };
+      description = ''
+        Modifier key(s) for window manager keybindings, per compositor.
+        Different compositors use different syntax:
+        - River: "Super", "Super+Control", "Shift+Control+Alt"
+        - Hyprland: "SUPER", "SUPER_CONTROL", "SUPER_SHIFT"
+      '';
+      example = {
+        river = "Super+Control";
+        hyprland = "SUPER_CONTROL";
+      };
+    };
     work = mkOption {
       type = types.attrsOf types.anything;
       default = {};

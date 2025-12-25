@@ -10,5 +10,9 @@
 
     cpuThermalZone = null;
     hasDiscreteGPU = false; # VM uses virtual GPU
+    modifierKeys = {
+      river = "Super+Control";
+      hyprland = "SUPER_CONTROL";
+    };
   };
 }

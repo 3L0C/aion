@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  mod = "Super";
+  mod = config.hostSpec.modifierKeys.river;
   meh = "Shift+Control+Alt";
   modShift = "${mod}+Shift";
   brightnessctl = "${lib.getExe pkgs.brightnessctl}";
