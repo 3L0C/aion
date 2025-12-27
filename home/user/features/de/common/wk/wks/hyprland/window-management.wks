@@ -1,11 +1,30 @@
-# Hyprland-specific window management overrides
-# Most functionality is now in common files using variables
-# This file is kept for potential Hyprland-specific customizations
+# Hyprland-specific window management
+# Extends common/window-management.wks with Hyprland features
 
-# Currently empty - all Hyprland behavior is configured via variables in hyprland_key_chords.wks
-# Common window management, workspace navigation, and application hooks are handled by:
-# - common/window-management.wks (uses CMD_* variables)
-# - common/applications.wks (uses WS_* variables for workspace hooks)
-# - common/development.wks (uses WS_EMACS)
-# - common/utilities.wks (uses WS_FEEDS)
-# - common/screenshots.wks (uses CMD_GET_WINDOW_GEOMETRY)
+c "Client"
+{
+    l "Workspace Right" +keep %{{%(CMD_WS_NEXT)}}
+    L "Mon Right" %{{%(CMD_MOVE_TO_MONITOR_RIGHT)}}
+    h "Workspace Left" +keep %{{%(CMD_WS_PREV)}}
+    H "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT)}}
+    # Move to workspace & follow
+    m "Move & follow" +keep
+    {
+        ... "Workspace %(index+1)" %{{%(CMD_MOVE_FOLLOW_WORKSPACE) %(index+1)}}
+    }
+    q "Quit" %{{%(CMD_CLOSE_WINDOW)}}
+    p "Pin (float only)" %{{hyprctl dispatch pin}}
+    t "Move to workspace"
+    {
+        ... "Workspace %(index+1)" %{{%(CMD_MOVE_TO_WS) %(index+1)}}
+    }
+}
+
+w "Window"
+{
+    s "Swap monitors" %{{hyprctl dispatch swapactiveworkspaces 0 1}}
+    w "View workspace" +keep
+    {
+        ... "Workspace %(index+1)" %{{%(CMD_GO_WORKSPACE) %(index+1)}}
+    }
+}

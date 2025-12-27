@@ -6,26 +6,21 @@
 
 # Hyprland-specific variable definitions
 # Window management commands
-:var "CMD_CLOSE_WINDOW" "sleep 0.1 ; hyprctl dispatch killactive"
+:var "CMD_CLOSE_WINDOW" "hyprctl dispatch killactive"
 :var "CMD_TOGGLE_FLOAT" "hyprctl dispatch togglefloating"
 :var "CMD_TOGGLE_FULLSCREEN" "hyprctl dispatch fullscreen"
-:var "CMD_FOCUS_DOWN" "hyprctl dispatch movefocus d"
-:var "CMD_FOCUS_UP" "hyprctl dispatch movefocus u"
-:var "CMD_SWAP_DOWN" "hyprctl dispatch swapwindow d"
-:var "CMD_SWAP_UP" "hyprctl dispatch swapwindow u"
 
 # Workspace operations (parametric - use with %(index+1) or direct number)
-:var "CMD_SWITCH_WORKSPACE" "hyprctl dispatch split-workspace"
-:var "CMD_SWITCH_WS" "hyprctl dispatch split-workspace"
-:var "CMD_MOVE_TO_WORKSPACE" "hyprctl dispatch split-movetoworkspacesilent"
-:var "CMD_MOVE_FOLLOW_WORKSPACE" "hyprctl dispatch split-movetoworkspace"
-:var "CMD_GO_WORKSPACE" "hyprctl dispatch split-workspace"
+:var "CMD_SWITCH_WS" "hyprctl dispatch workspace"
+:var "CMD_MOVE_TO_WS" "hyprctl dispatch movetoworkspacesilent"
+:var "CMD_MOVE_FOLLOW_WORKSPACE" "hyprctl dispatch movetoworkspace"
+:var "CMD_GO_WORKSPACE" "hyprctl dispatch workspace"
 
 # Relative workspace navigation
-:var "CMD_WORKSPACE_NEXT" "hyprctl dispatch split-workspace m+1"
-:var "CMD_WORKSPACE_PREV" "hyprctl dispatch split-workspace m-1"
-:var "CMD_MOVE_NEXT" "hyprctl dispatch split-movetoworkspacesilent m+1"
-:var "CMD_MOVE_PREV" "hyprctl dispatch split-movetoworkspacesilent m-1"
+:var "CMD_WS_NEXT" "hyprctl dispatch workspace m+1"
+:var "CMD_WS_PREV" "hyprctl dispatch workspace m-1"
+:var "CMD_MOVE_NEXT" "hyprctl dispatch movetoworkspacesilent m+1"
+:var "CMD_MOVE_PREV" "hyprctl dispatch movetoworkspacesilent m-1"
 
 # Monitor operations
 :var "CMD_MOVE_TO_MONITOR_LEFT" "hyprctl dispatch movewindow mon:0 silent"
