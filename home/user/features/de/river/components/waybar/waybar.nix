@@ -5,6 +5,8 @@
   ...
 }: let
   waybar = lib.getExe config.programs.waybar.package;
+  riverdo = lib.getExe pkgs.riverdo;
+  shared = import ../../../common/waybar/shared.nix {inherit lib pkgs;};
 in {
   programs.waybar = {
     enable = true;
@@ -24,135 +26,52 @@ in {
       KillMode = "mixed";
     };
   };
-  xdg.configFile."waybar/river-config.json".text = builtins.toJSON {
-    name = "main-bar";
-    layer = "top";
-    position = "top";
-    height = 28;
-    spacing = 0;
-    margin = 0;
-    expand-left = true;
-    no-center = true;
-    modules-left = [
-      "river/tags" # Replaces hyprland/workspaces
-      "river/layout" # Replaces custom/layout
-      "river/window" # Window title
-    ];
+  xdg.configFile."waybar/river-config.json".text = builtins.toJSON (
+    shared.mkConfig {
+      wkCommand = "wk-river";
 
-    modules-right = [
-      "custom/sb-playerctl"
-      "custom/sb-mpv"
-      "pulseaudio"
-      "temperature"
-      "memory"
-      "custom/sb-internet"
-      "clock"
-      "idle_inhibitor"
-      "tray"
-    ];
-    "river/tags" = {
-      num-tags = 9;
-      tag-labels = [
-        "1"
-        "2"
-        "3"
-        "4"
-        "5"
-        "6"
-        "7"
-        "8"
-        "9"
+      modulesLeft = [
+        "river/tags"
+        "river/layout"
+        "river/window"
       ];
-      disable-click = false;
-      hide-vacant = true;
-    };
-    "river/layout" = {
-      format = "{}";
-      on-click-right = "${lib.getExe pkgs.riverdo} swap-outputs --focused-tag";
-      tooltip = false;
-    };
-    "river/window" = {
-      format = "{}";
-      on-click-right = "${lib.getExe pkgs.riverdo} zoom";
-      on-scroll-up = "${lib.getExe pkgs.riverdo} focus-view previous";
-      on-scroll-down = "${lib.getExe pkgs.riverdo} focus-view next";
-      max-length = 100;
-      expand = true;
-      tooltip = false;
-    };
-    "custom/sb-playerctl" = {
-      format = "{}";
-      exec = "sb-playerctl";
-      interval = 1;
-      on-click = "BLOCK_BUTTON=1 sb-playerctl";
-      tooltip = false;
-    };
+      compositorModules = {
+        "river/tags" = {
+          num-tags = 9;
+          tag-labels = [
+            "1"
+            "2"
+            "3"
+            "4"
+            "5"
+            "6"
+            "7"
+            "8"
+            "9"
+          ];
+          disable-click = false;
+          hide-vacant = true;
+        };
 
-    "custom/sb-mpv" = {
-      format = "{}";
-      exec = "sb-mpv";
-      on-click = "BLOCK_BUTTON=1 sb-mpv";
-      on-click-middle = "BLOCK_BUTTON=2 sb-mpv";
-      on-click-right = "BLOCK_BUTTON=3 sb-mpv";
-      on-scroll-down = "BLOCK_BUTTON=4 sb-mpv";
-      on-scroll-up = "BLOCK_BUTTON=5 sb-mpv";
-      interval = 1;
-      tooltip = false;
-    };
+        "river/layout" = {
+          format = "{}";
+          on-click-right = "${riverdo} swap-outputs --focused-tag";
+          tooltip = false;
+        };
 
-    pulseaudio = {
-      format = "| {volume}% ";
-      format-muted = "| MUTED";
-      on-click = "wk-river --press 'o p'";
-      on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-      on-scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +2%";
-      on-scroll-down = "pactl set-sink-volume @DEFAULT_SINK@ -2%";
-      tooltip = false;
-    };
-
-    temperature = {
-      hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
-      interval = 10;
-      format = "| {temperatureC}°C ";
-      tooltip = false;
-    };
-
-    memory = {
-      format = "| {used:0.1f}G ";
-      interval = 1;
-      on-click = "kitty -e htop";
-      tooltip = false;
-    };
-
-    "custom/sb-internet" = {
-      format = "{}";
-      exec = "sb-internet";
-      interval = 5;
-      on-click = "BLOCK_BUTTON=1 sb-internet";
-      on-click-middle = "BLOCK_BUTTON=2 sb-internet";
-      on-click-right = "BLOCK_BUTTON=3 sb-internet";
-      tooltip = false;
-    };
-
-    clock = {
-      format = "| {:%B %d %H:%M} ";
-      tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      tooltip = false;
-    };
-
-    idle_inhibitor = {
-      format = "| {icon} |";
-      format-icons = {
-        activated = "0";
-        deactivated = "-";
+        "river/window" = {
+          format = "{}";
+          on-click-right = "${riverdo} zoom";
+          on-scroll-up = "${riverdo} focus-view previous";
+          on-scroll-down = "${riverdo} focus-view next";
+          max-length = 100;
+          expand = true;
+          tooltip = false;
+        };
       };
-      tooltip = false;
-    };
-
-    tray = {
-      icon-size = 18;
-      spacing = 5;
-      tooltip = false;
-    };
-  };
+      extraSettings = {
+        temperature.hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/*/temp3_input";
+      };
+    }
+  );
 }

@@ -2,6 +2,7 @@
   imports = [
     ./services
     ./tools
+    ./waybar
     ./wk
 
     ./browsers.nix
