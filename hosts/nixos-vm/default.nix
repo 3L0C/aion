@@ -24,5 +24,5 @@
   # Open firewall for SSH
   networking.firewall.allowedTCPPorts = [22];
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

@@ -8,5 +8,5 @@
     ../common/users/user
     ../common/optional/fixes/usb-wake-fix.nix
   ];
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
