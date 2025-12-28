@@ -5,6 +5,8 @@
     ./features/cli
     ./features/de
     ./features/dev
+
+    ./features/de/river
   ];
   monitors = [
     {

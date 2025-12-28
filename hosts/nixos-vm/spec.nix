@@ -13,6 +13,7 @@
     modifierKeys = {
       river = "Super+Control";
       hyprland = "SUPER_CONTROL";
+      niri = "Mod+Ctrl";
     };
   };
 }

@@ -2,7 +2,9 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  colors = config.lib.stylix.colors.withHashtag;
+in {
   programs.tmux = {
     enable = true;
     terminal = "screen-256color";
@@ -49,17 +51,19 @@
 
       # Update default binding of Enter
       unbind -T copy-mode-vi Enter
+
+      # Status Bar (using stylix base16 colors)
       set-option -g status-interval 1
-      set-option -g status-style bg=${config.themeSpec.background},fg=${config.themeSpec.foreground}
-      set -g status-left '#[fg=${config.themeSpec.accent}]#H #[default]'
-      set -g status-right '%a %H:%M:%S %p#[default] #[fg=${config.themeSpec.active}]%Y-%m-%d'
-      set-option -g pane-active-border-style fg=${config.themeSpec.warning}
-      set-option -g pane-border-style fg=${config.themeSpec.active}
+      set-option -g status-style bg=${colors.base00},fg=${colors.base05}
+      set -g status-left '#[fg=${colors.base0D}]#H #[default]'
+      set -g status-right '%a %H:%M:%S %p#[default] #[fg=${colors.base0B}]%Y-%m-%d'
+      set-option -g pane-active-border-style fg=${colors.base09}
+      set-option -g pane-border-style fg=${colors.base0B}
       set-window-option -g other-pane-height 25
       set-window-option -g other-pane-width 80
       set-window-option -g display-panes-time 1500
-      set-window-option -g window-status-current-style fg=${config.themeSpec.error}
-      set-window-option -g window-status-style fg=${config.themeSpec.foreground}
+      set-window-option -g window-status-current-style fg=${colors.base08}
+      set-window-option -g window-status-style fg=${colors.base05}
       set-option -g main-pane-height 60%
       set-option -g main-pane-width 60%
 

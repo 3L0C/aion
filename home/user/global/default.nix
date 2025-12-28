@@ -11,7 +11,6 @@
       "secrets/home/user"
     ])
     ++ [
-      ../../common/themes/kanagawa.nix
       ../features/cli/common
       ../features/cli/zsh
     ];

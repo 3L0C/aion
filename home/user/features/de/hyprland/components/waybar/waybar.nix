@@ -89,7 +89,8 @@ in {
         };
       };
       extraSettings = {
-        temperature.hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/*/temp3_input";
+        temperature.hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+        temperature.input-filename = "temp3_input";
       };
     }
   );

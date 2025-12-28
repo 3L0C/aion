@@ -59,16 +59,19 @@ in {
       default = {
         river = "Super";
         hyprland = "SUPER";
+        niri = "Mod";
       };
       description = ''
         Modifier key(s) for window manager keybindings, per compositor.
         Different compositors use different syntax:
         - River: "Super", "Super+Control", "Shift+Control+Alt"
         - Hyprland: "SUPER", "SUPER_CONTROL", "SUPER_SHIFT"
+        - Niri: "Mod", "Mod+Shift", "Mod+Ctrl" (Mod = Super on TTY, Alt in window)
       '';
       example = {
         river = "Super+Control";
         hyprland = "SUPER_CONTROL";
+        niri = "Mod+Ctrl";
       };
     };
     work = mkOption {

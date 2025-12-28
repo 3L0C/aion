@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  colors = config.lib.stylix.colors.withHashtag;
+in {
   programs.kitty = {
     enable = true;
 
@@ -39,7 +41,7 @@
       tab_powerline_style = "slanted";
 
       # URL handling
-      url_color = config.themeSpec.colors.blue;
+      url_color = colors.base0D;
       url_style = "single";
       open_url_with = "default";
       url_prefixes = "http https file ftp gemini irc gopher mailto news git";

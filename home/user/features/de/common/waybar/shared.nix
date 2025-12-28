@@ -128,12 +128,13 @@ in rec {
     compositorModules ? {},
     extraSettings ? {},
   }:
-    barSettings
-    // {
-      modules-left = modulesLeft;
-      modules-right = modulesRight;
-    }
-    // sharedModules wkCommand
-    // compositorModules
-    // extraSettings;
+    lib.recursiveUpdate
+    (barSettings
+      // {
+        modules-left = modulesLeft;
+        modules-right = modulesRight;
+      }
+      // sharedModules wkCommand
+      // compositorModules)
+    extraSettings;
 }

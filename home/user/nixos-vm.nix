@@ -5,6 +5,10 @@
     ./features/cli
     ./features/de
     ./features/dev
+
+    ./features/de/hyprland
+    ./features/de/niri
+    ./features/de/river
   ];
 
   # Single virtual monitor

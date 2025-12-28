@@ -13,12 +13,13 @@
         "ahci"
         "xhci_pci"
         "virtio_pci"
+        "virtio_gpu" # Required for Wayland compositors in VM
         "sr_mod"
         "virtio_blk"
       ];
       kernelModules = [];
     };
-    kernelModules = ["kvm-amd"];
+    kernelModules = ["kvm-amd" "virtio_gpu"];
     extraModulePackages = [];
   };
 
