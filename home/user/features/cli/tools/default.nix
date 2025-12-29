@@ -1,6 +1,8 @@
 {
   imports = [
+    ./gallery-dl
     ./lf
+    ./yt-dlp
 
     ./bat.nix
     ./btop.nix

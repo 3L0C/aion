@@ -9,7 +9,6 @@
     fdupes # Identify or delete duplicate files
     file # Program that shows the type of files
     findutils # GNU utilities to locate files
-    gallery-dl # Command-line program to download image-galleries and collections from several image hosting sites
     gawk # GNU version of awk
     gettext # GNU internationalization library
     gnugrep # A string search utility
@@ -28,7 +27,6 @@
     unzip # For extracting and viewing files in .zip archives
     unrar # The RAR uncompression program
     wget # Network utility to retrieve files from the web
-    yt-dlp # A youtube-dl fork with additional features and fixes
     zip # Compressor/archiver for creating and modifying zipfiles
   ];
 }
