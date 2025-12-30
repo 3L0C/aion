@@ -9,6 +9,7 @@
     ./eza.nix
     ./fzf.nix
     ./git.nix
+    ./gpg.nix
     ./mpc.nix
     ./nix-index.nix
     ./tmux.nix

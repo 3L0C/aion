@@ -23,7 +23,7 @@
       core.whitespace = "-trailing-space";
       branch.autosetuprebase = "always";
       branch.sort = "committerdate";
-      init.defaultBranch = "main";
+      init.defaultBranch = "master";
       merge.conflictStyle = "zdiff3";
       rerere.enabled = true;
       fetch.prune = true;
