@@ -32,7 +32,7 @@ map ,yf  yank-filename
 map ,yi  yank-image
 map ,yp  yank-path
 map ,sf  fzf_search
-map /    fzf_jump
+map /    fzf_dot_jump
 map ?    fzf_dot_jump
 
 map <a-z> $sudo make uninstall && sudo make clean install && renew-dwm
