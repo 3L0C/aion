@@ -17,7 +17,6 @@ actions=(
     "Reboot"
     "Shutdown"
     "Display off"
-    "Exit"
 )
 
 # Accept action as argument or prompt via menu
@@ -64,9 +63,6 @@ case "$action" in
     ;;
 'Display off')
     wlopm --off \*
-    ;;
-'Exit')
-    loginctl terminate-user ""
     ;;
 *)
     exit 1

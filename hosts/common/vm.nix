@@ -8,7 +8,7 @@
     ./optional/flatpak.nix
     ./optional/fixes
     ./optional/graphics.nix
-    ./optional/greetd.nix
+    ./optional/sddm.nix
     ./optional/hyprland.nix
     ./optional/keyring.nix
     ./optional/niri.nix

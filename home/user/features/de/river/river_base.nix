@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -11,6 +12,8 @@
     };
     xwayland.enable = true;
     extraConfig = ''
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "export ${name}=${value}") config.wayland.envVars)}
+
       # Notify UWSM that River is ready
       uwsm finalize
     '';

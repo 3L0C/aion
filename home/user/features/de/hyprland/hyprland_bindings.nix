@@ -32,7 +32,7 @@ in {
   wayland.windowManager.hyprland.settings = {
     bind =
       [
-        "${modShift}, Q, exec, loginctl terminate-user \"\""
+        "${modShift}, Q, exec, uwsm stop"
         "${mod}, RETURN, exec, uwsm-app -- ${kitty} tmux"
         "${mod}, R, exec, ${menu}"
         "${mod}, COMMA, exec, uwsm-app -- wk-hyprland --debug"

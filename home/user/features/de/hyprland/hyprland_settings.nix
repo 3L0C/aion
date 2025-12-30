@@ -8,6 +8,8 @@
 in {
   wayland.windowManager.hyprland = {
     settings = {
+      env = lib.mapAttrsToList (name: value: "${name},${value}") config.wayland.envVars;
+
       exec-once = [
         "uwsm finalize"
         "${hyprctl} setcursor ${config.stylix.cursor.name} ${toString config.stylix.cursor.size}"

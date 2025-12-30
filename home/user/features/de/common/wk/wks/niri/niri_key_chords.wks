@@ -53,5 +53,8 @@
 :var "WS_KEEPASSXC" "9"
 :var "WS_SUPERSONIC" "9"
 
+# DE commands
+:var "CMD_DE_EXIT" "uwsm stop"
+
 :include "../common/main.wks"
 :include "window-management.wks"

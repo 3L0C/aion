@@ -13,11 +13,11 @@ s "System"
     # Binds that I want to be sure before pressing
     D "Dangerous"
     {
-        e "Exit" %{{sysact "%(desc)"}}
+        e "Exit" +unwrap %{{%(CMD_DE_EXIT)}}
         r "Reboot" %{{sysact "%(desc)"}}
         s "Shutdown" %{{sysact "%(desc)"}}
     }
-    l "Lock" %{{sleep 0.1 ; sysact "%(desc)"}}
+    l "Lock" %{{sysact "%(desc)"}}
     r "Renew" %{{sysact "%(desc)"}}
     s "Sleep" %{{sysact "%(desc)"}}
 }

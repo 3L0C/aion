@@ -38,4 +38,7 @@
 :var "WS_KEEPASSXC" "9"
 :var "WS_9" "9"
 
+# DE commands
+:var "CMD_DE_EXIT" "uwsm stop"
+
 :include "window-management.wks"

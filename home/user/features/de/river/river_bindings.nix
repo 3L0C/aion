@@ -9,7 +9,7 @@
   modShift = "${mod}+Shift";
   brightnessctl = "${lib.getExe pkgs.brightnessctl}";
   kitty = "${lib.getExe pkgs.kitty}";
-  loginctl = "${lib.getExe' pkgs.systemd "loginctl"}";
+  uwsm = "${lib.getExe pkgs.uwsm}";
   pamixer = "${lib.getExe pkgs.pamixer}";
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   riverdo = "${lib.getExe pkgs.riverdo}";
@@ -30,7 +30,7 @@
       ''${mod} O spawn "${menu} --press 'o'"''
       ''${mod} E spawn "${menu} --press 'e'"''
       "${mod} Q close"
-      ''${modShift} Q spawn '${loginctl} terminate-user ""' ''
+      "${modShift} Q spawn '${uwsm} stop'"
       "${meh} J focus-output next"
       "${meh} K focus-output previous"
       "${meh} Space spawn '${riverdo} swap-outputs --focused-tag'"

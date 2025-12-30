@@ -3,6 +3,7 @@
     ./hardware.nix
     ../common/vm.nix
     ../common/optional/kde.nix
+    ../common/optional/mate.nix
     ../common/users/user
   ];
 
