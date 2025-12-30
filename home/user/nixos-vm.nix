@@ -9,6 +9,7 @@
     ./features/de/hyprland
     ./features/de/niri
     ./features/de/river
+    ./features/de/kde # Disables Stylix Qt theming that breaks Plasma
   ];
 
   # Single virtual monitor
