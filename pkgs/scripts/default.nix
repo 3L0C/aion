@@ -9,6 +9,7 @@ in {
   ne = mkScript "ne" ./ne;
   doomemacs = mkScript "doomemacs" ./doom/doomemacs;
   dns-recovery = mkScript "dns-recovery" ./system/dns-recovery;
+  media = mkScript "media" ./media/media;
   hmpv = mkScript "hmpv" ./wip/hmpv;
   statusbar = callPackage ./statusbar {};
   menu = callPackage ./menu {};

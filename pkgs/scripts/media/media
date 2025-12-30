@@ -1,0 +1,345 @@
+#!/usr/bin/env bash
+# media - Unified media player controller
+# Supports MPC (MPD), MPV (socket-based), and playerctl (MPRIS)
+
+set -euo pipefail
+
+# === Configuration ===
+readonly TOGGLE_DIR="/tmp/mpc-toggle"
+readonly TOGGLE_FILE="$TOGGLE_DIR/last-toggled.txt"
+
+# === Default values ===
+OPERATION=""
+TARGET=""
+PLAYER="%any"
+QUIET=0
+
+# === Color output ===
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# === Helper functions ===
+usage() {
+    cat <<EOF
+Usage: media [OPTIONS] OPERATION
+
+Unified media player controller for MPC, MPV, and playerctl.
+
+OPERATIONS (required):
+    --toggle, -t     Toggle play/pause
+    --next, -n       Next track
+    --prev, -p       Previous track
+    --stop           Stop playback
+    --play           Start playback
+    --pause          Pause playback
+    --status, -s     Show current playback status
+
+TARGETING OPTIONS:
+    --mpv            Target MPV player
+    --mpc            Target MPC/MPD player
+    --playerctl      Target MPRIS players via playerctl
+    --player=NAME    Target specific MPRIS player (implies --playerctl)
+
+OTHER OPTIONS:
+    -q, --quiet      Suppress output
+    -h, --help       Show this help message
+
+EXAMPLES:
+    media --toggle              # Smart detection, toggle playback
+    media --next                # Smart detection, next track
+    media --mpv --toggle        # Force MPV target
+    media --mpc --prev          # Force MPC target
+    media --playerctl --player=spotify --pause
+
+SMART DETECTION ORDER:
+    When no target is specified, checks in order:
+    1. MPC (if currently playing)
+    2. MPV (if any socket is playing)
+    3. playerctl (if any MPRIS player is playing)
+    4. Last toggled player
+    5. Fallback to MPC
+EOF
+    exit 0
+}
+
+abort() {
+    echo -e "${RED}Error:${NC} $1" >&2
+    exit 1
+}
+
+# === State management ===
+create_toggle_dir() {
+    [[ -d "$TOGGLE_DIR" ]] && return 0
+    mkdir --mode '700' "$TOGGLE_DIR"
+}
+
+get_last_toggled() {
+    create_toggle_dir
+    if [[ -f "$TOGGLE_FILE" ]]; then
+        LAST_TOGGLED="$(head -n1 "$TOGGLE_FILE" 2>/dev/null || echo "")"
+    else
+        LAST_TOGGLED=""
+    fi
+}
+
+save_last_toggled() {
+    create_toggle_dir
+    echo "$1" > "$TOGGLE_FILE"
+}
+
+# === Detection functions ===
+mpc_is_playing() {
+    [[ "$(mpc status '%state%' 2>/dev/null)" == "playing" ]]
+}
+
+mpv_is_playing() {
+    mpv-currently-playing --quiet 2>/dev/null
+}
+
+playerctl_is_playing() {
+    [[ "$(playerctl --player "$PLAYER" status 2>/dev/null)" == "Playing" ]]
+}
+
+detect_active_player() {
+    if mpc_is_playing; then
+        TARGET="mpc"
+    elif mpv_is_playing; then
+        TARGET="mpv"
+    elif playerctl_is_playing; then
+        TARGET="playerctl"
+    else
+        get_last_toggled
+        if [[ -n "$LAST_TOGGLED" ]]; then
+            TARGET="$LAST_TOGGLED"
+        else
+            TARGET="mpc"
+        fi
+    fi
+}
+
+# === MPC operations ===
+mpc_toggle() {
+    mpc toggle
+    save_last_toggled "mpc"
+}
+
+mpc_next() {
+    mpc next
+}
+
+mpc_prev() {
+    mpc prev
+}
+
+mpc_stop() {
+    mpc stop
+}
+
+mpc_play() {
+    mpc play
+    save_last_toggled "mpc"
+}
+
+mpc_pause() {
+    mpc pause
+}
+
+mpc_status() {
+    local state artist title current total
+    state="$(mpc status '%state%' 2>/dev/null || echo "stopped")"
+    if [[ "$state" == "playing" || "$state" == "paused" ]]; then
+        artist="$(mpc current -f '%artist%' 2>/dev/null || echo "")"
+        title="$(mpc current -f '%title%' 2>/dev/null || echo "")"
+        current="$(mpc status '%currenttime%' 2>/dev/null || echo "")"
+        total="$(mpc status '%totaltime%' 2>/dev/null || echo "")"
+        if [[ -n "$artist" && -n "$title" ]]; then
+            echo "[mpc] ${state^}: $artist - $title ($current/$total)"
+        elif [[ -n "$title" ]]; then
+            echo "[mpc] ${state^}: $title ($current/$total)"
+        else
+            echo "[mpc] ${state^}: $(mpc current) ($current/$total)"
+        fi
+    else
+        echo "[mpc] Stopped"
+    fi
+}
+
+# === MPV operations ===
+mpv_toggle() {
+    mpv-toggle
+    save_last_toggled "mpv"
+}
+
+mpv_next() {
+    mpv-next
+}
+
+mpv_prev() {
+    mpv-prev
+}
+
+mpv_stop() {
+    mpv-quit 2>/dev/null || mpv-opts --quit 2>/dev/null || true
+}
+
+mpv_play() {
+    mpv-communicate "$(mpv-currently-playing --socket 2>/dev/null | head -n1)" '{"command": ["set_property", "pause", false]}' 2>/dev/null || true
+    save_last_toggled "mpv"
+}
+
+mpv_pause() {
+    mpv-communicate "$(mpv-currently-playing --socket 2>/dev/null | head -n1)" '{"command": ["set_property", "pause", true]}' 2>/dev/null || true
+}
+
+mpv_status() {
+    local title socket socket_type
+    if mpv_is_playing || mpv-currently-playing --all --quiet 2>/dev/null; then
+        title="$(mpv-currently-playing --media-title 2>/dev/null | head -n1 || echo "Unknown")"
+        socket="$(mpv-currently-playing --socket 2>/dev/null | head -n1 || echo "")"
+        socket_type="$(echo "$socket" | grep -oE '(umpv|ampv|music)' || echo "mpv")"
+        echo "[mpv] Playing: $title ($socket_type)"
+    else
+        echo "[mpv] No active instances"
+    fi
+}
+
+# === Playerctl operations ===
+playerctl_toggle() {
+    playerctl --player "$PLAYER" play-pause
+    save_last_toggled "playerctl"
+}
+
+playerctl_next() {
+    playerctl --player "$PLAYER" next
+}
+
+playerctl_prev() {
+    playerctl --player "$PLAYER" previous
+}
+
+playerctl_stop() {
+    playerctl --player "$PLAYER" stop
+}
+
+playerctl_play() {
+    playerctl --player "$PLAYER" play
+    save_last_toggled "playerctl"
+}
+
+playerctl_pause() {
+    playerctl --player "$PLAYER" pause
+}
+
+playerctl_status() {
+    local player_name status metadata
+    player_name="$(playerctl --list-all 2>/dev/null | head -n1 || echo "none")"
+    if [[ "$player_name" != "none" && -n "$player_name" ]]; then
+        status="$(playerctl --player "$player_name" status 2>/dev/null || echo "Stopped")"
+        metadata="$(playerctl --player "$player_name" metadata --format '{{artist}} - {{title}}' 2>/dev/null || echo "")"
+        if [[ -n "$metadata" && "$metadata" != " - " ]]; then
+            echo "[$player_name] $status: $metadata"
+        else
+            echo "[$player_name] $status"
+        fi
+    else
+        echo "[playerctl] No active players"
+    fi
+}
+
+# === Dispatch function ===
+execute_operation() {
+    case "$TARGET" in
+        mpc)
+            case "$OPERATION" in
+                toggle) mpc_toggle ;;
+                next) mpc_next ;;
+                prev) mpc_prev ;;
+                stop) mpc_stop ;;
+                play) mpc_play ;;
+                pause) mpc_pause ;;
+                status) mpc_status ;;
+            esac
+            ;;
+        mpv)
+            case "$OPERATION" in
+                toggle) mpv_toggle ;;
+                next) mpv_next ;;
+                prev) mpv_prev ;;
+                stop) mpv_stop ;;
+                play) mpv_play ;;
+                pause) mpv_pause ;;
+                status) mpv_status ;;
+            esac
+            ;;
+        playerctl)
+            case "$OPERATION" in
+                toggle) playerctl_toggle ;;
+                next) playerctl_next ;;
+                prev) playerctl_prev ;;
+                stop) playerctl_stop ;;
+                play) playerctl_play ;;
+                pause) playerctl_pause ;;
+                status) playerctl_status ;;
+            esac
+            ;;
+        *)
+            abort "Unknown target: $TARGET"
+            ;;
+    esac
+}
+
+# === Argument parsing ===
+get_opts() {
+    while [[ "$#" -ne 0 ]]; do
+        case "$1" in
+            # Operations
+            -t | --toggle) OPERATION="toggle" ;;
+            -n | --next) OPERATION="next" ;;
+            -p | --prev) OPERATION="prev" ;;
+            --stop) OPERATION="stop" ;;
+            --play) OPERATION="play" ;;
+            --pause) OPERATION="pause" ;;
+            -s | --status) OPERATION="status" ;;
+            # Targeting
+            --mpv) TARGET="mpv" ;;
+            --mpc) TARGET="mpc" ;;
+            --playerctl) TARGET="playerctl" ;;
+            --player=*)
+                TARGET="playerctl"
+                PLAYER="${1#--player=}"
+                ;;
+            --player)
+                TARGET="playerctl"
+                shift
+                PLAYER="${1:?--player requires a player name}"
+                ;;
+            # Other options
+            -q | --quiet) QUIET=1 ;;
+            -h | --help) usage ;;
+            *)
+                abort "Unknown option: $1"
+                ;;
+        esac
+        shift
+    done
+}
+
+# === Main ===
+main() {
+    get_opts "$@"
+
+    # Require an operation
+    if [[ -z "$OPERATION" ]]; then
+        echo "Error: No operation specified." >&2
+        echo "" >&2
+        usage >&2
+        exit 1
+    fi
+
+    # If no target specified, use smart detection
+    [[ -z "$TARGET" ]] && detect_active_player
+
+    execute_operation
+}
+
+main "$@"

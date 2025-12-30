@@ -11,7 +11,6 @@
   kitty = "${lib.getExe pkgs.kitty}";
   loginctl = "${lib.getExe' pkgs.systemd "loginctl"}";
   pamixer = "${lib.getExe pkgs.pamixer}";
-  playerctl = "${lib.getExe pkgs.playerctl}";
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
@@ -55,10 +54,10 @@
       "None XF86AudioRaiseVolume spawn '${pamixer} -i 5'"
       "None XF86AudioLowerVolume spawn '${pamixer} -d 5'"
       "None XF86AudioMute spawn '${pamixer} --toggle-mute'"
-      "None XF86AudioMedia spawn '${playerctl} play-pause'"
-      "None XF86AudioPlay spawn '${playerctl} play-pause'"
-      "None XF86AudioPrev spawn '${playerctl} previous'"
-      "None XF86AudioNext spawn '${playerctl} next'"
+      "None XF86AudioMedia spawn 'media --toggle'"
+      "None XF86AudioPlay spawn 'media --toggle'"
+      "None XF86AudioPrev spawn 'media --prev'"
+      "None XF86AudioNext spawn 'media --next'"
       "None XF86MonBrightnessUp spawn '${brightnessctl} set +5%'"
       "None XF86MonBrightnessDown spawn '${brightnessctl} set 5%-'"
     ];
@@ -69,10 +68,10 @@
       "None XF86AudioRaiseVolume spawn '${pamixer} -i 5'"
       "None XF86AudioLowerVolume spawn '${pamixer} -d 5'"
       "None XF86AudioMute spawn '${pamixer} --toggle-mute'"
-      "None XF86AudioMedia spawn '${playerctl} play-pause'"
-      "None XF86AudioPlay spawn '${playerctl} play-pause'"
-      "None XF86AudioPrev spawn '${playerctl} previous'"
-      "None XF86AudioNext spawn '${playerctl} next'"
+      "None XF86AudioMedia spawn 'media --toggle'"
+      "None XF86AudioPlay spawn 'media --toggle'"
+      "None XF86AudioPrev spawn 'media --prev'"
+      "None XF86AudioNext spawn 'media --next'"
       "None XF86MonBrightnessUp spawn '${brightnessctl} set +5%'"
       "None XF86MonBrightnessDown spawn '${brightnessctl} set 5%-'"
     ];

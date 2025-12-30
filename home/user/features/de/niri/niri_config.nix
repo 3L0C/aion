@@ -8,7 +8,6 @@
   kitty = lib.getExe pkgs.kitty;
   loginctl = lib.getExe' pkgs.systemd "loginctl";
   pamixer = lib.getExe pkgs.pamixer;
-  playerctl = lib.getExe pkgs.playerctl;
   brightnessctl = lib.getExe pkgs.brightnessctl;
   rofi = lib.getExe config.programs.rofi.finalPackage;
   monitor = config.primaryMonitor;
@@ -201,9 +200,9 @@ in {
         XF86AudioMute allow-when-locked=true { spawn "${pamixer}" "--toggle-mute"; }
 
         // Media keys - Player control
-        XF86AudioPlay allow-when-locked=true { spawn "${playerctl}" "play-pause"; }
-        XF86AudioPrev allow-when-locked=true { spawn "${playerctl}" "previous"; }
-        XF86AudioNext allow-when-locked=true { spawn "${playerctl}" "next"; }
+        XF86AudioPlay allow-when-locked=true { spawn "media" "--toggle"; }
+        XF86AudioPrev allow-when-locked=true { spawn "media" "--prev"; }
+        XF86AudioNext allow-when-locked=true { spawn "media" "--next"; }
 
         // Media keys - Brightness
         XF86MonBrightnessUp allow-when-locked=true { spawn "${brightnessctl}" "set" "+5%"; }

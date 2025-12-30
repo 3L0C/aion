@@ -34,7 +34,6 @@
 
       -- Set some sane defaults
       o.title = true
-      o.go = 'a'
       o.mouse = 'a'
       opt.hlsearch = false
       opt.ruler = false
