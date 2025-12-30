@@ -40,6 +40,6 @@ t "Toggle"
         t "Toggle Bluetooth" %{{dmenubluetooth -t}}
     }
     m "mpv" %{{mpv-toggle}}
-    n "mpc" %{{media --mpc --toggle}}
+    n "mpd" %{{media --player=mpd --toggle}}
     u "umpv" %{{mpv-toggle --umpv}}
 }

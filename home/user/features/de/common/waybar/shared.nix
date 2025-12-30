@@ -19,7 +19,6 @@ in rec {
   # Shared modules-right list (same for both compositors)
   modulesRight = [
     "custom/sb-playerctl"
-    "custom/sb-mpv"
     "pulseaudio"
     "temperature"
     "memory"
@@ -34,18 +33,6 @@ in rec {
       exec = "sb-playerctl";
       interval = 1;
       on-click = "BLOCK_BUTTON=1 sb-playerctl";
-      tooltip = false;
-    };
-
-    "custom/sb-mpv" = {
-      format = "{}";
-      exec = "sb-mpv";
-      on-click = "BLOCK_BUTTON=1 sb-mpv";
-      on-click-middle = "BLOCK_BUTTON=2 sb-mpv";
-      on-click-right = "BLOCK_BUTTON=3 sb-mpv";
-      on-scroll-down = "BLOCK_BUTTON=4 sb-mpv";
-      on-scroll-up = "BLOCK_BUTTON=5 sb-mpv";
-      interval = 1;
       tooltip = false;
     };
 
