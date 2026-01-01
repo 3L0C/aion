@@ -10,6 +10,7 @@
     ./optional/graphics.nix
     ./optional/greetd.nix
     ./optional/keyring.nix
+    ./optional/locate.nix
     ./optional/nh.nix
     ./optional/noisetorch.nix
     ./optional/pipewire-noise-cancellation.nix
