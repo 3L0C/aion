@@ -9,7 +9,9 @@
   ];
 
   # MPV helper scripts
-  home.packages = with pkgs.custom.scripts; [
-    hmpv # MPV helper (WIP)
-  ];
+  home.packages = with pkgs.custom.scripts;
+    [
+      hmpv # MPV wrapper for mpv-homehub
+    ]
+    ++ (with pkgs.custom.mpvUserScripts; [mpv-save]);
 }

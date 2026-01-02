@@ -8,4 +8,5 @@ in {
   wally = mkScript "wally" ./wally;
   tutorialvids = mkScript "tutorialvids" ./tutorialvids;
   noisereduce = mkScript "noisereduce" ./noisereduce;
+  mpv-save = mkScript "mpv-save" ./mpv-save;
 }

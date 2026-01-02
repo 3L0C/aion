@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Save current MPV file path to a playlist for later resumption
+set -eu
+
+savefile="${XDG_CONFIG_HOME:-$HOME/.config}/mpv/playlists/last.m3u"
+
+if [ $# -lt 2 ]; then
+    echo "Usage: ${0##*/} <filepath> <working-directory>" >&2
+    echo "Saves filepath to $savefile for later playback" >&2
+    exit 1
+fi
+
+filepath="$1"
+workingdir="$2"
+
+# Resolve relative paths
+case "$filepath" in
+    "$workingdir"*|/*) ;;  # Already absolute or starts with workingdir
+    *) filepath="$workingdir/$filepath" ;;
+esac
+
+# Ensure playlist directory exists
+mkdir -p "$(dirname "$savefile")"
+
+# Append if not already in playlist
+if ! grep -qsF "$filepath" "$savefile"; then
+    notify-send "${0##*/}" "Position saved!"
+    echo "$filepath" >> "$savefile"
+fi
