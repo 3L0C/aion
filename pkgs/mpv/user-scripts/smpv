@@ -28,25 +28,25 @@ get_opts() {
     while [[ "$#" -ne 0 ]]; do
         SHIFT_COUNT=1
         case "$1" in
-            -u | --umpv)
-                SOCKET="$(get_socket umpv)"
-                TITLE="umpv"
-                ;;
-            -m | --music)
-                SOCKET="$(get_socket music)"
-                TITLE="music"
-                ;;
-            -h | --help) abort ;;
-            -s | --socket)
-                if [[ -z "$2" ]]; then
-                    abort "--socket: Missing TITLE."
-                fi
-                SOCKET="$(get_socket "$2")"
-                TITLE="$2"
-                SHIFT_COUNT=2
-                ;;
-            -*) abort "$1: Unrecognized option." ;;
-            *) FILES+=("$1") ;;
+        -u | --umpv)
+            SOCKET="$(get_socket umpv)"
+            TITLE="umpv"
+            ;;
+        -m | --music)
+            SOCKET="$(get_socket music)"
+            TITLE="music"
+            ;;
+        -h | --help) abort ;;
+        -s | --socket)
+            if [[ -z "$2" ]]; then
+                abort "--socket: Missing TITLE."
+            fi
+            SOCKET="$(get_socket "$2")"
+            TITLE="$2"
+            SHIFT_COUNT=2
+            ;;
+        -*) abort "$1: Unrecognized option." ;;
+        *) FILES+=("$1") ;;
         esac
         shift "$SHIFT_COUNT"
     done
@@ -62,8 +62,8 @@ mpv_exec_command() {
 
 is_active_socket() {
     if ! pidof mpv >/dev/null 2>&1 ||
-            [[ ! -S "$SOCKET" ]] ||
-            ! mpv_exec_command '"get_property", "path"' >/dev/null 2>&1; then
+        [[ ! -S "$SOCKET" ]] ||
+        ! mpv_exec_command '"get_property", "path"' >/dev/null 2>&1; then
         [[ -e "$SOCKET" ]] && rm "$SOCKET" >&2
         return 1
     fi
@@ -88,7 +88,18 @@ mpv_start() {
         --script-opts=mpvSockets-socket="$TITLE" \
         --loop-playlist=no \
         --keep-open=yes \
-        "$@" & # >/dev/null 2>&1 &
+        "$@" &
+}
+
+mpv_start_music() {
+    mpv --idle=yes \
+        --no-terminal \
+        --script-opts=mpvSockets-socket="$TITLE",playlistmanager-sortplaylist_on_start=no \
+        --force-window=no \
+        --video=no \
+        --loop-playlist=yes \
+        --keep-open=yes "$@" &
+    notify-send "mpv-music" "Started $*"
 }
 
 main() {
@@ -102,7 +113,10 @@ main() {
     if is_active_socket; then
         mpv_add_files "${FILES[@]}"
     else
-        mpv_start "${FILES[@]}"
+        case "$TITLE" in
+        music) mpv_start_music "${FILES[@]}" ;;
+        *) mpv_start "${FILES[@]}" ;;
+        esac
     fi
 }
 
