@@ -18,6 +18,7 @@
     {title = "*Confirm*";}
     {title = "*confirm*";}
     {app-id = "pavucontrol";}
+    {app-id = "pulsemixer";}
     {app-id = "blueman-manager";}
     {app-id = "lxappearance";}
     {app-id = "qt5ct";}
