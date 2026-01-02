@@ -83,7 +83,6 @@
       bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n' # Ctrl-F: Fuzzy find directory
       bindkey '^[[3~' delete-char            # Delete key
 
-      [[ ! -r '/home/user/.opam/opam-init/init.zsh' ]] || source '/home/user/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
     '';
     profileExtra = "";
     shellAliases = {
