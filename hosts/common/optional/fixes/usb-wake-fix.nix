@@ -28,28 +28,4 @@
       done
     '';
   };
-  systemd.services.log-usb-wakeup-status = {
-    description = "Log USB wakeup status for debugging";
-    wantedBy = ["multi-user.target"];
-    after = ["disable-logitech-wakeup.service"];
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    script = ''
-      echo "=== USB Wakeup Status Report ==="
-      for device in /sys/bus/usb/devices/*; do
-        if [ -f "$device/idVendor" ] && [ -f "$device/idProduct" ] && [ -f "$device/power/wakeup" ]; then
-          vendor=$(cat "$device/idVendor" 2>/dev/null)
-          product=$(cat "$device/idProduct" 2>/dev/null)
-          wakeup=$(cat "$device/power/wakeup" 2>/dev/null)
-          manufacturer=$(cat "$device/manufacturer" 2>/dev/null || echo "Unknown")
-          product_name=$(cat "$device/product" 2>/dev/null || echo "Unknown")
-
-          if [ "$vendor" = "046d" ]; then
-            echo "Logitech Device: $vendor:$product - $manufacturer $product_name - Wakeup: $wakeup"
-          fi
-        fi
-      done
-    '';
-  };
 }
