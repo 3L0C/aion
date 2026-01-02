@@ -5,7 +5,8 @@
 }: let
   lock = "${pkgs.swaylock}/bin/swaylock --daemonize; ${pkgs.systemd}/bin/loginctl lock-session";
   display = status: "${pkgs.wlopm}/bin/wlopm --${status} \\*";
-  baseTimeout = 900; # 15 minutes
+  displayTimeout = 120; # 2 minutes
+  lockTimeout = 3600; # 1 hr
 in {
   services.swayidle = {
     enable = true;
@@ -19,18 +20,14 @@ in {
     timeouts = [
       # Display off
       {
-        timeout = baseTimeout;
+        timeout = displayTimeout;
         command = display "off";
         resumeCommand = display "on";
       }
       # Lock 60 seconds after display off
       {
-        timeout = baseTimeout * 2;
+        timeout = lockTimeout;
         command = lock;
-      }
-      {
-        timeout = baseTimeout * 4;
-        command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
   };
