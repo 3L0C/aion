@@ -33,7 +33,7 @@ map ,yi  yank-image
 map ,yp  yank-path
 map ,sf  fzf_search
 map /    fzf_dot_jump
-map ?    fzf_dot_jump
+map ?    fzf_fd_jump
 
 map <a-z> $sudo make uninstall && sudo make clean install && renew-dwm
 
@@ -91,17 +91,27 @@ cmd fzf_jump ${{
         select) lf -remote "send $id select \"$res\"" ;;
         *) notify-send "lf" "Bad option: '$option'" ;;
     esac
-    # if [ -n "$res" ]; then
-    #     if [ -d "$res" ]; then
-    #         res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    #         lf -remote "send $id cd \"$res\""
-    #     else
-    #         res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    #         lf-opener "$id" "$res" &
-    #     fi
-    # else
-    #     exit 0
-    # fi
+}}
+
+cmd fzf_fd_jump ${{
+    clear; tput cup $(($(tput lines)/10 * 6))
+    res="$(fd --follow . | \
+           fzf --bind 'esc:print(esc)+accept,tab:down,btab:up,enter:print(open)+accept,ctrl-space:print(select)+accept' \
+           --reverse --header='Jump to location' --height 60%)"
+    option="$(printf '%s' "$res" | sed '1!d')"
+    res="$(printf '%s' "$res" | sed '1d')"
+    case "$option" in
+        esc) exit 0 ;;
+        open)
+            if [ -d "$res" ]; then
+                lf -remote "send $id cd \"$res\""
+            else
+                lf-opener "$id" "$res" &
+            fi
+            ;;
+        select) lf -remote "send $id select \"$res\"" ;;
+        *) notify-send "lf" "Bad option: '$option'" ;;
+    esac
 }}
 
 cmd fzf_dot_jump ${{
