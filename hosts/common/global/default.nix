@@ -25,6 +25,7 @@
   ];
 
   hardware.enableAllFirmware = true;
+  documentation.man.generateCaches = true;
   services.irqbalance.enable = true;
   systemd = {
     services.journalctl-vacuum = {

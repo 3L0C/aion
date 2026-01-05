@@ -3,6 +3,7 @@
     ./audio.nix
     ./filesytems.nix
     ./help.nix
+    ./man.nix
     ./media.nix
     ./menu.nix
     ./misc.nix
