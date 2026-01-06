@@ -15,7 +15,7 @@
     ./optional/noisetorch.nix
     ./optional/pipewire-noise-cancellation.nix
     ./optional/pipewire.nix
-    ./optional/river.nix
+    ./optional/river-test.nix
     ./optional/steam.nix
     ./optional/virtualization.nix
     ./optional/vpn.nix
