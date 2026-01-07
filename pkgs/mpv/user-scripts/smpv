@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 SOCKET_DIR="${MPV_SOCKET_DIR:-/tmp/mpvSockets}/"
+MPV_OPTIONS=()
 
 usage() {
     cat <<-EOF
@@ -45,6 +46,11 @@ get_opts() {
             TITLE="$2"
             SHIFT_COUNT=2
             ;;
+        --)
+            shift
+            MPV_OPTIONS=("$@")
+            SHIFT_COUNT="$#"
+            ;;
         -*) abort "$1: Unrecognized option." ;;
         *) FILES+=("$1") ;;
         esac
@@ -88,6 +94,7 @@ mpv_start() {
         --script-opts=mpvSockets-socket="$TITLE" \
         --loop-playlist=no \
         --keep-open=yes \
+        "${MPV_OPTIONS[@]}" \
         "$@" &
 }
 
@@ -98,7 +105,9 @@ mpv_start_music() {
         --force-window=no \
         --video=no \
         --loop-playlist=yes \
-        --keep-open=yes "$@" &
+        --keep-open=yes \
+        "${MPV_OPTIONS[@]}" \
+        "$@" &
     notify-send "mpv-music" "Started $*"
 }
 

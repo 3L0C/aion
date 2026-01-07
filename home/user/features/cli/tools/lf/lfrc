@@ -100,10 +100,10 @@ cmd open ${{
             rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | setsid -f nsxiv -aio 2>/dev/null | lf-select &
             ;;
         audio/*)
-            setsid -f smpv --socket 'music' "$fx" >/dev/null 2>&1 &
+            setsid -f smpv --socket 'music' "$fx" -- >/dev/null 2>&1 &
             ;;
         video/*)
-            setsid -f smpv --socket 'lf-mpv' "$fx" -quiet >/dev/null 2>&1 &
+            setsid -f smpv --socket 'lf-mpv' "$fx" -- -quiet >/dev/null 2>&1 &
             ;;
         application/vnd.openxmlformats*)
             setsid -f libreoffice $fx >/dev/null 2>&1 &
