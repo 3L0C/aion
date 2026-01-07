@@ -19,6 +19,7 @@ s "System"
     }
     l "Lock" %{{sysact "%(desc)"}}
     r "Renew" %{{sysact "%(desc)"}}
+    R "Hard reset" %{{sysact "%(desc)"}}
     s "Sleep" %{{sysact "%(desc)"}}
 }
 
