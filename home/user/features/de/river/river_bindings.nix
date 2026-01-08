@@ -21,7 +21,7 @@
   terminal = "${uwsm-app} -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
-      "${mod} Z spawn '${riverdo} move-to top-left 0 resize-to 35%x35% move-to bottom-right 20 stick --tags occupied'"
+      "${mod} Z spawn '${riverdo} move-to top-left 0 resize-to 35%x35% move-to bottom-right 20'"
       "${mod} Return spawn '${terminal} tmux'"
       "${modShift} Return spawn '${terminal}'"
       "${mod} R spawn '${launcher}'"
