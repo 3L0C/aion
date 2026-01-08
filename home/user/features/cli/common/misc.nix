@@ -11,7 +11,7 @@
     mtools # Collection of utilities to access MS-DOS disks
     sfeed # RSS and Atom parser
     xidel # Command line tool to process HTML/XML/JSON
-    perl540Packages.FileMimeInfo # Determine file type (mimeopen, mimetype)
-    perl540Packages.TermReadKey # Simple control over terminal driver modes
+    perl5Packages.FileMimeInfo # Determine file type (mimeopen, mimetype)
+    perl5Packages.TermReadKey # Simple control over terminal driver modes
   ];
 }
