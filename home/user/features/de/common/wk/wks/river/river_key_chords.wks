@@ -43,8 +43,8 @@
 :var "CMD_MOVE_PREV" "riverdo shift-view previous --occupied"
 
 # Monitor/output operations
-:var "CMD_MOVE_TO_MONITOR_LEFT" "riverdo send-to-output %(MONITOR_LEFT) --current-tags"
-:var "CMD_MOVE_TO_MONITOR_RIGHT" "riverdo send-to-output %(MONITOR_RIGHT) --current-tags"
+:var "CMD_MOVE_TO_MONITOR_LEFT" "riverdo send-to-output %(MONITOR_LEFT)"
+:var "CMD_MOVE_TO_MONITOR_RIGHT" "riverdo send-to-output %(MONITOR_RIGHT)"
 
 # Screenshot utilities (use slurp for window mode)
 :var "CMD_GET_WINDOW_GEOMETRY" "slurp"
