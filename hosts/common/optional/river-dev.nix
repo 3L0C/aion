@@ -4,7 +4,7 @@
   ];
 
   programs = {
-    river-uwsm-test = {
+    river-uwsm-dev = {
       enable = true;
       extraPackages = [];
     };

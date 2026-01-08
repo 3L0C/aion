@@ -48,7 +48,7 @@ in {
       waylandCompositors.river = {
         prettyName = "River";
         comment = "River compositor managed by UWSM";
-        binPath = "/run/current-system/sw/bin/river";
+        binPath = lib.getExe cfg.package;
       };
     };
   };

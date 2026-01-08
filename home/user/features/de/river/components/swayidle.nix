@@ -10,7 +10,7 @@
 in {
   services.swayidle = {
     enable = true;
-    systemdTarget = "wayland-session@river.target";
+    systemdTarget = "";
 
     events = {
       before-sleep = (display "off") + "; " + lock;
@@ -31,5 +31,5 @@ in {
       }
     ];
   };
-  systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSession "river" {};
+  systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSessions ["river" "river-dev"] {};
 }

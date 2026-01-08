@@ -15,6 +15,7 @@
     ./optional/nh.nix
     ./optional/pipewire.nix
     ./optional/river.nix
+    ./optional/river-dev.nix
     ./optional/wayland.nix
   ];
   assertions = [

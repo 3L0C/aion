@@ -26,6 +26,18 @@ in {
           WantedBy = lib.mkForce ["wayland-session@${session}.target"];
         };
       };
+    scopeServiceToWaylandSessions = sessions: serviceConfig: let
+      targets = map (s: "wayland-session@${s}.target") sessions;
+    in
+      lib.recursiveUpdate serviceConfig {
+        Unit = {
+          PartOf = lib.mkForce targets;
+          After = lib.mkForce targets;
+        };
+        Install = {
+          WantedBy = lib.mkForce targets;
+        };
+      };
     mkRiverBindsScript = pkgs: name: {
       mode ? "normal",
       bindings,

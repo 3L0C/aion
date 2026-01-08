@@ -37,17 +37,12 @@
           rm -f $out/share/wayland-sessions/river.desktop
         '';
     });
-    river-classic-test = prev.river-classic.overrideAttrs (oldAttrs: {
-      patches =
-        (oldAttrs.patches or [])
-        ++ [
-          (prev.fetchpatch {
-            url = "https://codeberg.org/river/river-classic/commit/a46c0df7eddecab194719dd77ef487bc81f04e76.patch";
-            hash = "sha256-6daRviNslFwcIcoRZxilfZv/oJTjqmj6VX7r8mJxTZY=";
-          })
-        ];
-    });
-    river-classic-test-no-session = final.river-classic-test.overrideAttrs (oldAttrs: {
+    river-classic-dev = prev.river-classic.overrideAttrs {
+      version = "dev-${inputs.river-classic-src.shortRev or "unknown"}";
+      src = inputs.river-classic-src;
+      doInstallCheck = false;
+    };
+    river-classic-dev-no-session = final.river-classic-dev.overrideAttrs (oldAttrs: {
       postInstall =
         (oldAttrs.postInstall or "")
         + ''

@@ -1,7 +1,7 @@
 {
   imports = [
     ./river-uwsm.nix
-    ./river-uwsm-test.nix
+    ./river-uwsm-dev.nix
     ./version.nix
     ./wayland-sessions.nix
   ];

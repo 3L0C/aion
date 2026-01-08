@@ -36,15 +36,11 @@
 in {
   services.kanshi = {
     enable = true;
-    systemdTarget = "wayland-session@river.target";
+    systemdTarget = "";
 
     settings =
       [allMonitorsProfile]
       ++ singleMonitorProfiles;
   };
-  systemd.user.services.kanshi = {
-    Install = {
-      WantedBy = lib.mkForce ["wayland-session@river.target"];
-    };
-  };
+  systemd.user.services.kanshi = lib.custom.scopeServiceToWaylandSessions ["river" "river-dev"] {};
 }
