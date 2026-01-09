@@ -92,7 +92,6 @@ in {
         mfact = 0.60;
         new_on_top = true;
         orientation = "left";
-        inherit_fullscreen = false;
         smart_resizing = true;
         new_on_active = "before";
       };
@@ -105,6 +104,7 @@ in {
         focus_on_activate = true;
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = false;
+        on_focus_under_fullscreen = 0;
       };
 
       cursor = {
@@ -178,22 +178,22 @@ in {
         m.workspaces)
       config.monitors);
       windowrule = [
-        "float, class:pulsemixer, title:kitty"
-        "center, class:pulsemixer, title:kitty"
-        "size 25% 50%, class:pulsemixer, title:kitty"
-        "workspace 1, class:^(LibreWolf)$, title:^(Navigator)$"
-        "workspace 9, class:^(firefox)$, title:^(Mozilla Firefox)$"
-        "workspace 4, class:^(Brave-browser)$"
-        "workspace 4, class:^(brave-browser)$"
-        "workspace 4, class:^(Lutris)$"
-        "workspace 5, class:^(fate.exe)$"
-        "float, class:^(fate.exe)$"
-        "workspace 5, class:^(Steam)$, title:^(Steam)$"
-        "float, class:^(Steam)$, title:^(Friends List)$"
-        "workspace 5, class:^(Steam)$, title:^(Friends List)$"
-        "workspace 7, class:^(Gimp)$"
-        "workspace 10, class:^(KeePassXC)$"
-        "monitor HDMI-A-1, title:Picture-in-Picture"
+        "float on, match:class pulsemixer, match:title kitty"
+        "center on, match:class pulsemixer, match:title kitty"
+        "size 25% 50%, match:class pulsemixer, match:title kitty"
+        "workspace 1, match:class ^(LibreWolf)$, match:title ^(Navigator)$"
+        "workspace 9, match:class ^(firefox)$, match:title ^(Mozilla Firefox)$"
+        "workspace 4, match:class ^(Brave-browser)$"
+        "workspace 4, match:class ^(brave-browser)$"
+        "workspace 4, match:class ^(Lutris)$"
+        "workspace 5, match:class ^(fate.exe)$"
+        "float on, match:class ^(fate.exe)$"
+        "workspace 5, match:class ^(Steam)$, match:title ^(Steam)$"
+        "float on, match:class ^(Steam)$, match:title ^(Friends List)$"
+        "workspace 5, match:class ^(Steam)$, match:title ^(Friends List)$"
+        "workspace 7, match:class ^(Gimp)$"
+        "workspace 10, match:class ^(KeePassXC)$"
+        "monitor HDMI-A-1, match:title Picture-in-Picture"
       ];
 
       ecosystem = {
