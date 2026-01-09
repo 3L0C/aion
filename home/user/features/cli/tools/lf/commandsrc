@@ -11,16 +11,21 @@ map ,cs  push $curl<space>-LJO<space>
 map ,cx  chmodx
 map ,e   $dmacs "$PWD"
 map ,ff  fzf_fd_jump
-map ,fm  fmpv
 map ,gc  push $git<space>clone<space>
 map ,gi  %dmenugitignore
 map ,gI  get_info
 map ,l   $lfrun
-map ,mb  $manga-bulk
-map ,md  %echo $fx >> ~/rezip_dirs.txt
-map ,mm  mangamove
 map ,nc  push $nvim<space>.c<left><left>
 map ,nf  mknf
+# openers
+
+# openers - mpv
+map ,oml &setsid -f smpv --socket 'lf-mpv' "$fx" -- -quiet >/dev/null 2>&1
+map ,omm &setsid -f smpv --music           "$fx" -- -quiet >/dev/null 2>&1
+map ,oms &setsid -f smpv --socket 'smpv'   "$fx" -- -quiet >/dev/null 2>&1
+map ,omv &setsid -f smpv --socket 'videos' "$fx" -- -quiet >/dev/null 2>&1
+
+# openers - files
 map ,of  push $nvim<space>""<left>
 map ,ps  py_script
 map ,rf  replace_files
