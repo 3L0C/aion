@@ -1,3 +1,5 @@
 {
-  boot.kernelParams = ["amdgpu.vm_update_mode=3"];
+  boot.kernelParams = [
+    "amdgpu.gpu_recovery=1"
+  ];
 }
