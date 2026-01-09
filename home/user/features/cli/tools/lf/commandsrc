@@ -10,7 +10,7 @@ map ,ch  lf_chmod
 map ,cs  push $curl<space>-LJO<space>
 map ,cx  chmodx
 map ,e   $dmacs "$PWD"
-map ,ff  push $nvim<space>""<left>
+map ,ff  fzf_fd_jump
 map ,fm  fmpv
 map ,gc  push $git<space>clone<space>
 map ,gi  %dmenugitignore
@@ -21,6 +21,7 @@ map ,md  %echo $fx >> ~/rezip_dirs.txt
 map ,mm  mangamove
 map ,nc  push $nvim<space>.c<left><left>
 map ,nf  mknf
+map ,of  push $nvim<space>""<left>
 map ,ps  py_script
 map ,rf  replace_files
 map ,T   track
@@ -33,7 +34,6 @@ map ,yi  yank-image
 map ,yp  yank-path
 map ,sf  fzf_search
 map /    fzf_dot_jump
-map ?    fzf_fd_jump
 
 map <a-z> $sudo make uninstall && sudo make clean install && renew-dwm
 
