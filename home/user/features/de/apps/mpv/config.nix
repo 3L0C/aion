@@ -29,7 +29,7 @@
     ao = "pipewire";
     audio-exclusive = false;
     audio-format = "s32";
-    audio-pitch-correction = false;
+    audio-pitch-correction = true;
     # audio-samplerate = 96000;
     autosync = 30;
     # af = "scaletempo2";
