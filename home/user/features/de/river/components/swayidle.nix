@@ -31,5 +31,8 @@ in {
       }
     ];
   };
-  systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSessions ["river" "river-dev"] {};
+  systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSessions {
+    river = {};
+    riverdev = {};
+  };
 }

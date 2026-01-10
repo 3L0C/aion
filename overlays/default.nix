@@ -42,12 +42,22 @@
       src = inputs.river-classic-src;
       doInstallCheck = false;
     };
-    river-classic-dev-no-session = final.river-classic-dev.overrideAttrs (oldAttrs: {
-      postInstall =
-        (oldAttrs.postInstall or "")
-        + ''
-          rm -f $out/share/wayland-sessions/river.desktop
-        '';
-    });
+    river-classic-dev-no-session = let
+      unwrapped = final.river-classic-dev.overrideAttrs (oldAttrs: {
+        postInstall =
+          (oldAttrs.postInstall or "")
+          + ''
+            rm -f $out/share/wayland-sessions/river.desktop
+            mv $out/bin/river $out/bin/riverdev
+            ln -s riverdev $out/bin/river
+          '';
+        meta =
+          (oldAttrs.meta or {})
+          // {
+            mainProgram = "riverdev";
+          };
+      });
+    in
+      unwrapped;
   };
 }

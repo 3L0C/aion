@@ -45,7 +45,7 @@ in {
     environment.systemPackages = [cfg.package];
     programs.uwsm = {
       enable = true;
-      waylandCompositors.river-dev = {
+      waylandCompositors.riverdev = {
         prettyName = "River (Dev)";
         comment = "River compositor (upstream HEAD) managed by UWSM";
         binPath = lib.getExe cfg.package;

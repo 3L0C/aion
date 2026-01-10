@@ -2,5 +2,8 @@
   services.wpaperd = {
     enable = true;
   };
-  systemd.user.services.wpaperd = lib.custom.scopeServiceToWaylandSessions ["river" "river-dev"] {};
+  systemd.user.services.wpaperd = lib.custom.scopeServiceToWaylandSessions {
+    river = {};
+    riverdev = {};
+  };
 }

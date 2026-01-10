@@ -12,18 +12,34 @@ in {
     enable = true;
     systemd.enable = false;
   };
-  systemd.user.services.waybar-river = lib.custom.mkWaylandService "river" {
-    Unit = {
-      Description = "Waybar status bar (River)";
-      Documentation = "https://github.com/Alexays/Waybar/wiki";
-    };
+  systemd.user.services.waybar-river = lib.custom.mkWaylandService {
+    river = {
+      Unit = {
+        Description = "Waybar status bar (River)";
+        Documentation = "https://github.com/Alexays/Waybar/wiki";
+      };
 
-    Service = {
-      Type = "simple";
-      ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
-      ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
-      Restart = "on-failure";
-      KillMode = "mixed";
+      Service = {
+        Type = "simple";
+        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+        Restart = "on-failure";
+        KillMode = "mixed";
+      };
+    };
+    riverdev = {
+      Unit = {
+        Description = "Waybar status bar (River)";
+        Documentation = "https://github.com/Alexays/Waybar/wiki";
+      };
+
+      Service = {
+        Type = "simple";
+        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+        Restart = "on-failure";
+        KillMode = "mixed";
+      };
     };
   };
   xdg.configFile."waybar/river-config.json".text = builtins.toJSON (

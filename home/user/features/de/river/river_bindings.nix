@@ -85,16 +85,30 @@
     ${riverctl} map-pointer normal ${mod} BTN_RIGHT resize-view
   '';
 in {
-  systemd.user.services.river-keybindings = lib.custom.mkWaylandService "river" {
-    Unit = {
-      Description = "River compositor keybindings";
-      Documentation = "man:riverctl(1)";
-    };
+  systemd.user.services.river-keybindings = lib.custom.mkWaylandService {
+    river = {
+      Unit = {
+        Description = "River compositor keybindings";
+        Documentation = "man:riverctl(1)";
+      };
 
-    Service = {
-      Type = "oneshot";
-      ExecStart = keybindingsScript;
-      RemainAfterExit = true;
+      Service = {
+        Type = "oneshot";
+        ExecStart = keybindingsScript;
+        RemainAfterExit = true;
+      };
+    };
+    riverdev = {
+      Unit = {
+        Description = "River compositor keybindings";
+        Documentation = "man:riverctl(1)";
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = keybindingsScript;
+        RemainAfterExit = true;
+      };
     };
   };
 }

@@ -42,5 +42,8 @@ in {
       [allMonitorsProfile]
       ++ singleMonitorProfiles;
   };
-  systemd.user.services.kanshi = lib.custom.scopeServiceToWaylandSessions ["river" "river-dev"] {};
+  systemd.user.services.kanshi = lib.custom.scopeServiceToWaylandSessions {
+    river = {};
+    riverdev = {};
+  };
 }

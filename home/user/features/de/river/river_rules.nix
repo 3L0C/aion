@@ -107,16 +107,30 @@
     ${riverctl} rule-add ssd
   '';
 in {
-  systemd.user.services.river-rules = lib.custom.mkWaylandService "river" {
-    Unit = {
-      Description = "River compositor window rules";
-      Documentation = "man:riverctl(1)";
-    };
+  systemd.user.services.river-rules = lib.custom.mkWaylandService {
+    river = {
+      Unit = {
+        Description = "River compositor window rules";
+        Documentation = "man:riverctl(1)";
+      };
 
-    Service = {
-      Type = "oneshot";
-      ExecStart = rulesScript;
-      RemainAfterExit = true;
+      Service = {
+        Type = "oneshot";
+        ExecStart = rulesScript;
+        RemainAfterExit = true;
+      };
+    };
+    riverdev = {
+      Unit = {
+        Description = "River compositor window rules";
+        Documentation = "man:riverctl(1)";
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = rulesScript;
+        RemainAfterExit = true;
+      };
     };
   };
 }

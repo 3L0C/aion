@@ -26,7 +26,8 @@ o "Open"
         p "Pick feed" %{{dfeed --pick}}
     }
     h "hmpv" %{{hmpv}}
-    l "lf" %{{kitty --name lf_run lf}}
+    l "emf" %{{emacsclient -s efm -c --eval "(efm)"}}
+    L "lf" %{{kitty --name lf_run lf}}
     k "KeePassXC" ^before %{{%(CMD_SWITCH_WS) %(WS_9)}} %{{keepassxc}}
     # Manga options
     m "Manga" ^before %{{%(CMD_GO_WORKSPACE) %(WS_FEEDS)}}

@@ -6,33 +6,31 @@
 in {
   custom = {
     relativeToRoot = lib.path.append ../.;
-    mkWaylandService = session: serviceConfig:
-      lib.recursiveUpdate serviceConfig {
-        Unit = {
-          PartOf = ["wayland-session@${session}.target"];
-          After = ["wayland-session@${session}.target"];
-        };
-        Install = {
-          WantedBy = ["wayland-session@${session}.target"];
-        };
-      };
-    scopeServiceToWaylandSession = session: serviceConfig:
-      lib.recursiveUpdate serviceConfig {
-        Unit = {
-          PartOf = ["wayland-session@${session}.target"];
-          After = ["wayland-session@${session}.target"];
-        };
-        Install = {
-          WantedBy = lib.mkForce ["wayland-session@${session}.target"];
-        };
-      };
-    scopeServiceToWaylandSessions = sessions: serviceConfig: let
-      targets = map (s: "wayland-session@${s}.target") sessions;
+    mkWaylandService = sessions: let
+      sessionNames = builtins.attrNames sessions;
+      targets = map (s: "wayland-session@${s}.target") sessionNames;
+      wmServices = map (s: "wayland-wm@${s}.service") sessionNames;
+      mergedConfig = lib.foldl' lib.recursiveUpdate {} (builtins.attrValues sessions);
     in
-      lib.recursiveUpdate serviceConfig {
+      lib.recursiveUpdate mergedConfig {
         Unit = {
           PartOf = lib.mkForce targets;
-          After = lib.mkForce targets;
+          After = lib.mkForce wmServices;
+        };
+        Install = {
+          WantedBy = lib.mkForce targets;
+        };
+      };
+    scopeServiceToWaylandSessions = sessions: let
+      sessionNames = builtins.attrNames sessions;
+      targets = map (s: "wayland-session@${s}.target") sessionNames;
+      wmServices = map (s: "wayland-wm@${s}.service") sessionNames;
+      mergedConfig = lib.foldl' lib.recursiveUpdate {} (builtins.attrValues sessions);
+    in
+      lib.recursiveUpdate mergedConfig {
+        Unit = {
+          PartOf = lib.mkForce targets;
+          After = lib.mkForce wmServices;
         };
         Install = {
           WantedBy = lib.mkForce targets;

@@ -17,16 +17,30 @@
     ${riverctl} xcursor-theme "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
   '';
 in {
-  systemd.user.services.river-settings = lib.custom.mkWaylandService "river" {
-    Unit = {
-      Description = "River compositor settings";
-      Documentation = "man:riverctl(1)";
-    };
+  systemd.user.services.river-settings = lib.custom.mkWaylandService {
+    river = {
+      Unit = {
+        Description = "River compositor settings";
+        Documentation = "man:riverctl(1)";
+      };
 
-    Service = {
-      Type = "oneshot";
-      ExecStart = settingsScript;
-      RemainAfterExit = true;
+      Service = {
+        Type = "oneshot";
+        ExecStart = settingsScript;
+        RemainAfterExit = true;
+      };
+    };
+    riverdev = {
+      Unit = {
+        Description = "River compositor settings";
+        Documentation = "man:riverctl(1)";
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = settingsScript;
+        RemainAfterExit = true;
+      };
     };
   };
 }
