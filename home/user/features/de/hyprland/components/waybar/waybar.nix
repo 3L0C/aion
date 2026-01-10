@@ -16,8 +16,8 @@ in {
     Unit = {
       Description = "Waybar status bar (Hyprland)";
       Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = ["wayland-session@Hyprland.target"];
-      After = ["wayland-session@Hyprland.target"];
+      PartOf = ["wayland-session@start\\x2dhyprland.target"];
+      After = ["wayland-wm@start\\x2dhyprland.service"];
     };
 
     Service = {
@@ -29,7 +29,7 @@ in {
     };
 
     Install = {
-      WantedBy = lib.mkForce ["wayland-session@Hyprland.target"];
+      WantedBy = lib.mkForce ["wayland-session@start\\x2dhyprland.target"];
     };
   };
   xdg.configFile."waybar/hyprland-config.json".text = builtins.toJSON (

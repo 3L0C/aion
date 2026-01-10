@@ -9,11 +9,11 @@
   };
   systemd.user.services.hyprpaper = {
     Unit = {
-      PartOf = ["wayland-session@Hyprland.target"];
-      After = ["wayland-session@Hyprland.target"];
+      PartOf = lib.mkForce ["wayland-session@start\\x2dhyprland.target"];
+      After = lib.mkForce ["wayland-wm@start\\x2dhyprland.service"];
     };
     Install = {
-      WantedBy = lib.mkForce ["wayland-session@Hyprland.target"];
+      WantedBy = lib.mkForce ["wayland-session@start\\x2dhyprland.target"];
     };
   };
 }
