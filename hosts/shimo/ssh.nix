@@ -1,6 +1,6 @@
 {lib, ...}: {
   services.openssh.ports = lib.mkForce [54734];
-  networking.firewall.allowedTCPPorts = lib.mkForce [54734];
+  networking.firewall.allowedTCPPorts = [54734];
 
   # Fail2ban for SSH brute force protection
   services.fail2ban = {
