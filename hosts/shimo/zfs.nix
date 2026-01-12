@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: {
+  environment.systemPackages = [pkgs.zfs];
   boot = {
     kernelPackages = lib.mkForce pkgs.linuxPackages;
 
