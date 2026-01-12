@@ -2,7 +2,7 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /mnt 192.168.1.0/24(rw,sync,no_subtree_check,no_root_squash)
+      /mnt 192.168.1.0/24(rw,sync,no_subtree_check,no_root_squash,crossmnt)
     '';
   };
 
