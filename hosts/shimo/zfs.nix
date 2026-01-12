@@ -12,7 +12,13 @@
       extraPools = ["tank"]; # Import existing pool at boot
     };
   };
-  boot.zfs.requestEncryptionCredentials = ["tank"];
+  boot.zfs.requestEncryptionCredentials = false;
+  boot.initrd.secrets = {
+    "/etc/keys/tank.key" = "/etc/keys/tank.key";
+  };
+  boot.initrd.postDeviceCommands = ''
+    zfs load-key -L file:///etc/keys/tank.key tank 2>/dev/null || true
+  '';
   services.zfs = {
     autoScrub = {
       enable = true;
