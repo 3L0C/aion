@@ -10,8 +10,9 @@
   };
 
   fileSystems = {
-    "/mnt/shimo" = {
-      device = "192.168.1.126:/mnt/tank/data";
+    # Shimo NFS share
+    "/mnt/share" = {
+      device = "192.168.1.126:/mnt";
       fsType = "nfs";
       options = [
         "x-systemd.automount"
