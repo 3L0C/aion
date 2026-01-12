@@ -873,6 +873,7 @@
         "pre-commit-hooks": "pre-commit-hooks",
         "river-classic-src": "river-classic-src",
         "riverdo": "riverdo",
+        "sops-nix": "sops-nix",
         "stylix": "stylix",
         "wk": "wk",
         "wk-prompt": "wk-prompt",
@@ -897,6 +898,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768104471,
+        "narHash": "sha256-HdnXWQsA1EI27IJlaENUEEug58trUrh6+MT0cFiDHmY=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "94f9cbd20f680ebb2ad6cdf39da97cbcfaedf004",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

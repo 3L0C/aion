@@ -3,7 +3,30 @@
   config,
   ...
 }: let
-  colors = config.lib.stylix.colors.withHashtag;
+  # Use stylix colors if available, otherwise use fallback base16 colors
+  hasStylex = config.lib ? stylix;
+  colors =
+    if hasStylex
+    then config.lib.stylix.colors.withHashtag
+    else {
+      # Fallback: Kanagawa-inspired base16 colors
+      base00 = "#0d0c0c"; # Background
+      base01 = "#12120f";
+      base02 = "#1a1a19";
+      base03 = "#363646";
+      base04 = "#717c7c";
+      base05 = "#c5c9c5"; # Foreground
+      base06 = "#c8c093";
+      base07 = "#e6e3cc";
+      base08 = "#e46a78"; # Red
+      base09 = "#e48959"; # Orange
+      base0A = "#e5c283"; # Yellow
+      base0B = "#98bb6c"; # Green
+      base0C = "#7eb4c9"; # Cyan
+      base0D = "#7fb4ca"; # Blue
+      base0E = "#d4879c"; # Magenta
+      base0F = "#d4879c";
+    };
 in {
   programs.tmux = {
     enable = true;

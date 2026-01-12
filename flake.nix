@@ -58,6 +58,10 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -139,10 +143,12 @@
     nixosConfigurations = lib.listToAttrs [
       (mkNixos "snow" "x86_64-linux")
       (mkNixos "nixos-vm" "x86_64-linux")
+      (mkNixos "shimo" "x86_64-linux")
     ];
     homeConfigurations = lib.listToAttrs [
       (mkHome "user" "snow" "x86_64-linux")
       (mkHome "user" "nixos-vm" "x86_64-linux")
+      (mkHome "user" "shimo" "x86_64-linux")
     ];
   };
 }
