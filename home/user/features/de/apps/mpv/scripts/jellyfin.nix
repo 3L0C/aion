@@ -1,10 +1,10 @@
-{secrets, ...}: {
+{
   programs.mpv = {
     scriptOpts = {
       jellyfin = {
         url = "https://jellyfin.colebruns.com";
         username = "cole";
-        password = secrets.jellyfin.password or "CHANGEME";
+        password = "CHANGEME";
         image_path = "/tmp/mpv-jellyfin";
         hide_images = "off";
         hide_spoilers = "on";

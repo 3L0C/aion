@@ -10,14 +10,15 @@
   };
 
   fileSystems = {
-    "/mnt/share" = {
-      device = "192.168.1.126:/mnt";
+    "/mnt/shimo" = {
+      device = "192.168.1.126:/mnt/tank/data";
       fsType = "nfs";
       options = [
-        "defaults"
-        "noatime"
-        "nofail"
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.idle-timeout=600"
         "_netdev"
+        "nofail"
       ];
     };
 

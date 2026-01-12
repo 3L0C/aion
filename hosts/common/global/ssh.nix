@@ -6,7 +6,6 @@
   config,
   ...
 }: let
-  inherit (inputs) secrets;
   secretsDir = builtins.toString inputs.secrets;
   hosts = lib.attrNames outputs.nixosConfigurations;
 in {
@@ -16,7 +15,6 @@ in {
     askPassword = "";
 
     knownHosts = lib.genAttrs hosts (hostname: {
-      extraHostNames = ["${secrets.hosts.${hostname}.inet}"];
       publicKey =
         builtins.readFile "${secretsDir}/hosts/${hostname}/ssh_host_ed25519_key.pub";
     });

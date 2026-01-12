@@ -8,3 +8,6 @@ nixpkgs/**
 
 # Personal task tracking
 *.org
+
+# Secrets managed via sops-nix (aion-secrets repo)
+secrets/

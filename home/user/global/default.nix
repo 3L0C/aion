@@ -8,11 +8,13 @@
     (map lib.custom.relativeToRoot [
       "modules/home-manager"
       "modules/common"
-      "secrets/home/user"
     ])
     ++ [
       ../features/cli/common
       ../features/cli/zsh
+      ../features/cli/git
+      ../features/cli/ssh
+      ../features/cli/authinfo.nix
     ];
 
   inherit hostSpec;

@@ -4,6 +4,7 @@
     ./bootloader.nix
     ./zfs.nix
     ./ssh.nix
+    ./modules/nfs-export.nix
     ../common/headless.nix
     ../common/users/user
   ];

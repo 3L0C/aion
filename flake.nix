@@ -62,6 +62,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    secrets = {
+      url = "git+ssh://git@github.com-3L0C/3L0C/aion-secrets.git";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -84,16 +88,6 @@
         }
     );
     forEachSystem = f: lib.genAttrs supportedSystems (sys: f pkgsFor.${sys});
-    secrets = let
-      secretsPath = ./secrets + "/secrets.json";
-      secretsExist = builtins.pathExists secretsPath;
-      tryReadSecrets = builtins.tryEval (builtins.fromJSON (builtins.readFile secretsPath));
-    in
-      if !secretsExist
-      then {}
-      else if tryReadSecrets.success
-      then tryReadSecrets.value
-      else {};
     mkNixos = hostname: system: {
       name = hostname;
       value = lib.nixosSystem {
@@ -102,7 +96,6 @@
             lib
             inputs
             outputs
-            secrets
             ;
           aionRev = self.shortRev or self.dirtyShortRev or "dirty";
         };
@@ -122,7 +115,6 @@
             lib
             inputs
             outputs
-            secrets
             ;
           inherit (import ./hosts/${hostname}/spec.nix) hostSpec;
         };

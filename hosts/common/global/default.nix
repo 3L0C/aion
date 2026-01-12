@@ -17,6 +17,7 @@
       ./locale.nix
       ./network.nix
       ./nix.nix
+      ./secrets.nix
       ./security.nix
       ./udev.nix
     ];
