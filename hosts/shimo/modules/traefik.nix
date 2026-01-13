@@ -79,6 +79,8 @@ in {
           audiobookshelf = mkRouter "audiobookshelf.colebruns.com" "audiobookshelf";
           qbittorrent = mkRouter "qbittorrent.colebruns.com" "qbittorrent";
           glance = mkRouter "glance.colebruns.com" "glance";
+          notifiarr = mkRouter "notifiarr.colebruns.com" "notifiarr";
+          cleanuparr = mkRouter "cleanuparr.colebruns.com" "cleanuparr";
         };
 
         services = {
@@ -94,6 +96,8 @@ in {
           audiobookshelf.loadBalancer.servers = [{url = "http://localhost:13378";}];
           qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8081";}];
           glance.loadBalancer.servers = [{url = "http://localhost:8080";}];
+          notifiarr.loadBalancer.servers = [{url = "http://localhost:5454";}];
+          cleanuparr.loadBalancer.servers = [{url = "http://localhost:11011";}];
         };
       };
     };
