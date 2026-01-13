@@ -1,9 +1,10 @@
 {inputs, ...}: {
   imports = [
-    ./hardware.nix
     ./bootloader.nix
-    ./zfs.nix
+    ./hardware.nix
     ./ssh.nix
+    ./syncthing.nix
+    ./zfs.nix
     ./modules/nfs-export.nix
     ./modules/jellyfin.nix
     ./modules/navidrome.nix

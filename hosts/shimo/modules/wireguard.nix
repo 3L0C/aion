@@ -23,7 +23,7 @@
     ];
   };
   systemd.tmpfiles.rules = [
-    "d /var/lib/wireguard 0755 root root -"
+    "d /var/lib/wireguard 0755 user user -"
   ];
   networking.firewall.allowedUDPPorts = [51820];
 }
