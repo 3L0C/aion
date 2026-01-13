@@ -10,6 +10,7 @@
     ./modules/komga.nix
     ./modules/audiobookshelf.nix
     ./modules/arr.nix
+    ./modules/caddy.nix
     ../common/headless.nix
     ../common/users/user
   ];
