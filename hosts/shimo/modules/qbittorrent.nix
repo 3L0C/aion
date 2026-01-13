@@ -32,7 +32,7 @@
         "WebUI\\Address" = "*";
         "WebUI\\Port" = 8081;
         "WebUI\\AlternativeUIEnabled" = true;
-        "WebUI\\RootFolder" = "${pkgs.vuetorrent}";
+        "WebUI\\RootFolder" = "${pkgs.vuetorrent}/share/vuetorrent/public";
         "Downloads\\SavePath" = "/mnt/tank/data/torrents";
         "Downloads\\TempPath" = "/mnt/tank/data/torrents/.incomplete";
       };
