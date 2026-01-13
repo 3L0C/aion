@@ -14,7 +14,7 @@
     ports = ["51820:51820/udp"];
     volumes = [
       "/var/lib/wireguard:/config"
-      "/lib/modules:/lib/modules:ro"
+      "/run/current-system/kernel-modules/lib/modules:/lib/modules:ro"
     ];
     extraOptions = [
       "--cap-add=NET_ADMIN"
