@@ -12,12 +12,12 @@
       ALLOWEDIPS = "192.168.1.0/24,192.168.99.0/24";
       LOG_CONFS = "true";
     };
-    ports = ["51820:51820/udp"];
     volumes = [
       "/var/lib/wireguard:/config"
       "/run/current-system/kernel-modules/lib/modules:/lib/modules:ro"
     ];
     extraOptions = [
+      "--network=host"
       "--cap-add=NET_ADMIN"
       "--cap-add=SYS_MODULE"
       "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
