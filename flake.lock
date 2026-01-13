@@ -876,6 +876,7 @@
         "secrets": "secrets",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
+        "vpn-confinement": "vpn-confinement",
         "wk": "wk",
         "wk-prompt": "wk-prompt",
         "zen-browser": "zen-browser"
@@ -905,11 +906,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1768285029,
-        "narHash": "sha256-qg3qFG2tafW+2BBcehX4OiW6L/ZhJC3G512iLkE8bi0=",
+        "lastModified": 1768290263,
+        "narHash": "sha256-GQ2iDmJ3EgiToEBrWP0yJ5jjDtSkQBtO/RZ+4KLMskc=",
         "ref": "refs/heads/master",
-        "rev": "55ae9d620e0abdb92f2d5f3664ef84859bc1283d",
-        "revCount": 3,
+        "rev": "00a75aa3b9a45c757d48d92cb938ecb5696d7884",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com-3L0C/3L0C/aion-secrets.git"
       },
@@ -1125,6 +1126,21 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "vpn-confinement": {
+      "locked": {
+        "lastModified": 1767604552,
+        "narHash": "sha256-FddhMxnc99KYOZ/S3YNqtDSoxisIhVtJ7L4s8XD2u0A=",
+        "owner": "Maroka-chan",
+        "repo": "VPN-Confinement",
+        "rev": "a6b2da727853886876fd1081d6bb2880752937f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Maroka-chan",
+        "repo": "VPN-Confinement",
         "type": "github"
       }
     },
