@@ -91,7 +91,7 @@ in {
           navidrome.loadBalancer.servers = [{url = "http://localhost:4533";}];
           komga.loadBalancer.servers = [{url = "http://localhost:25600";}];
           audiobookshelf.loadBalancer.servers = [{url = "http://localhost:13378";}];
-          qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8080";}];
+          qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8081";}];
         };
       };
     };

@@ -7,8 +7,8 @@
     accessibleFrom = ["192.168.1.0/24"];
     portMappings = [
       {
-        from = 8080;
-        to = 8080;
+        from = 8081;
+        to = 8081;
       }
     ]; # WebUI
     openVPNPorts = [
@@ -20,13 +20,13 @@
   };
   services.qbittorrent = {
     enable = true;
-    webuiPort = 8080;
+    webuiPort = 8081;
     torrentingPort = 38681; # AirVPN forwarded port
     openFirewall = false; # Handled by VPN namespace
     serverConfig = {
       Preferences = {
         "WebUI\\Address" = "*";
-        "WebUI\\Port" = 8080;
+        "WebUI\\Port" = 8081;
         "Downloads\\SavePath" = "/mnt/tank/data/torrents";
         "Downloads\\TempPath" = "/mnt/tank/data/torrents/.incomplete";
       };
