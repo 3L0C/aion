@@ -5,6 +5,7 @@
       PUID = "1000";
       PGID = "1000";
       TZ = "America/Los_Angeles";
+      SERVERURL = "auto";
       SERVERPORT = "51820";
       PEERS = "iPhone,PC,Laptop,Tablet,Pixel8,SteamDeck";
       INTERNAL_SUBNET = "192.168.99.0";
