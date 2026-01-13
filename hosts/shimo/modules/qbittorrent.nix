@@ -1,5 +1,9 @@
 # qBittorrent download client confined to AirVPN
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   sops.secrets."airvpn/wg-conf" = {};
   vpnNamespaces.airvpn = {
     enable = true;
@@ -27,6 +31,8 @@
       Preferences = {
         "WebUI\\Address" = "*";
         "WebUI\\Port" = 8081;
+        "WebUI\\AlternativeUIEnabled" = true;
+        "WebUI\\RootFolder" = "${pkgs.vuetorrent}";
         "Downloads\\SavePath" = "/mnt/tank/data/torrents";
         "Downloads\\TempPath" = "/mnt/tank/data/torrents/.incomplete";
       };
