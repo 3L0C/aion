@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -31,8 +32,7 @@ in {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIzpZTzhOr01CSn89XDn3i+L6OewOp8MTrYEQGc2SCx2"
     ];
   };
-
-  security.pam.services = {
+  security.pam.services = lib.mkIf (config.hostSpec.kind != "headless") {
     hyprlock = {};
     swaylock = {};
   };
