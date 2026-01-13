@@ -1,4 +1,11 @@
-{config, ...}: {
+{config, ...}: let
+  mkRouter = host: service: {
+    rule = "Host(`${host}`)";
+    inherit service;
+    entryPoints = ["websecure"];
+    tls = {}; # Uses default/stored wildcard cert
+  };
+in {
   sops = {
     secrets."porkbun/api-key" = {};
     secrets."porkbun/secret-key" = {};
@@ -35,7 +42,10 @@
           storage = "/var/lib/traefik/acme.json";
           dnsChallenge = {
             provider = "porkbun";
-            resolvers = ["1.1.1.1:53" "8.8.8.8:53"];
+            resolvers = [
+              "1.1.1.1:53"
+              "8.8.8.8:53"
+            ];
           };
         };
       };
@@ -48,62 +58,25 @@
             rule = "Host(`jellyfin.colebruns.com`)";
             service = "jellyfin";
             entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
+            tls = {
+              certResolver = "porkbun";
+              domains = [
+                {
+                  main = "colebruns.com";
+                  sans = ["*.colebruns.com"];
+                }
+              ];
+            };
           };
-          sonarr = {
-            rule = "Host(`sonarr.colebruns.com`)";
-            service = "sonarr";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          radarr = {
-            rule = "Host(`radarr.colebruns.com`)";
-            service = "radarr";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          lidarr = {
-            rule = "Host(`lidarr.colebruns.com`)";
-            service = "lidarr";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          prowlarr = {
-            rule = "Host(`prowlarr.colebruns.com`)";
-            service = "prowlarr";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          bazarr = {
-            rule = "Host(`bazarr.colebruns.com`)";
-            service = "bazarr";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          jellyseerr = {
-            rule = "Host(`jellyseerr.colebruns.com`)";
-            service = "jellyseerr";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          navidrome = {
-            rule = "Host(`navidrome.colebruns.com`)";
-            service = "navidrome";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          komga = {
-            rule = "Host(`komga.colebruns.com`)";
-            service = "komga";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
-          audiobookshelf = {
-            rule = "Host(`audiobookshelf.colebruns.com`)";
-            service = "audiobookshelf";
-            entryPoints = ["websecure"];
-            tls.certResolver = "porkbun";
-          };
+          sonarr = mkRouter "sonarr.colebruns.com" "sonarr";
+          radarr = mkRouter "radarr.colebruns.com" "radarr";
+          lidarr = mkRouter "lidarr.colebruns.com" "lidarr";
+          prowlarr = mkRouter "prowlarr.colebruns.com" "prowlarr";
+          bazarr = mkRouter "bazarr.colebruns.com" "bazarr";
+          jellyseerr = mkRouter "jellyseerr.colebruns.com" "jellyseerr";
+          navidrome = mkRouter "navidrome.colebruns.com" "navidrome";
+          komga = mkRouter "komga.colebruns.com" "komga";
+          audiobookshelf = mkRouter "audiobookshelf.colebruns.com" "audiobookshelf";
         };
 
         services = {
@@ -128,5 +101,8 @@
     "d /var/lib/traefik 0750 traefik traefik -"
   ];
 
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }
