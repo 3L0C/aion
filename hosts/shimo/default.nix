@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   imports = [
     ./hardware.nix
     ./bootloader.nix
@@ -11,6 +11,8 @@
     ./modules/audiobookshelf.nix
     ./modules/arr.nix
     ./modules/traefik.nix
+    ./modules/qbittorrent.nix
+    inputs.vpn-confinement.nixosModules.default
     ../common/headless.nix
     ../common/users/user
   ];
