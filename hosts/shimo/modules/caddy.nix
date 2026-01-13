@@ -18,7 +18,7 @@
     enable = true;
     package = pkgs.caddy.withPlugins {
       plugins = ["github.com/caddy-dns/porkbun@v0.2.1"];
-      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Will fail, use hash from error
+      hash = "sha256-ozoAP0NwYFjkqpoazVts8TrfgLb9WKdFenLRyceBFMg=";
     };
     globalConfig = ''
       acme_dns porkbun {
@@ -64,5 +64,8 @@
     config.sops.templates."caddy-env".path
   ];
 
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }
