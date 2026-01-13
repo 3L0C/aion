@@ -5,7 +5,7 @@
     templates."traefik-env" = {
       content = ''
         PORKBUN_API_KEY=${config.sops.placeholder."porkbun/api-key"}
-        PORKBUN_SECRET_KEY=${config.sops.placeholder."porkbun/secret-key"}
+        PORKBUN_SECRET_API_KEY=${config.sops.placeholder."porkbun/secret-key"}
       '';
     };
   };
