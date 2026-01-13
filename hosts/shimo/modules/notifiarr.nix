@@ -10,6 +10,10 @@
     environment = {
       TZ = "America/Los_Angeles";
     };
+    extraOptions = [
+      "--dns=1.1.1.1"
+      "--dns=8.8.8.8"
+    ];
   };
   systemd.tmpfiles.rules = [
     "d /var/lib/notifiarr 0755 root root -"
