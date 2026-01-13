@@ -26,5 +26,4 @@
     "d /var/lib/wireguard 0755 root root -"
   ];
   networking.firewall.allowedUDPPorts = [51820];
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 }
