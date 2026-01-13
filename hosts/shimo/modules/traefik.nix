@@ -81,6 +81,7 @@ in {
           glance = mkRouter "glance.colebruns.com" "glance";
           notifiarr = mkRouter "notifiarr.colebruns.com" "notifiarr";
           cleanuparr = mkRouter "cleanuparr.colebruns.com" "cleanuparr";
+          syncthing = mkRouter "syncthing.colebruns.com" "syncthing";
         };
 
         services = {
@@ -98,6 +99,7 @@ in {
           glance.loadBalancer.servers = [{url = "http://localhost:8080";}];
           notifiarr.loadBalancer.servers = [{url = "http://localhost:5454";}];
           cleanuparr.loadBalancer.servers = [{url = "http://localhost:11011";}];
+          syncthing.loadBalancer.servers = [{url = "http://localhost:8384";}];
         };
       };
     };
