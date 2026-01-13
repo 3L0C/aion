@@ -78,6 +78,7 @@ in {
           komga = mkRouter "komga.colebruns.com" "komga";
           audiobookshelf = mkRouter "audiobookshelf.colebruns.com" "audiobookshelf";
           qbittorrent = mkRouter "qbittorrent.colebruns.com" "qbittorrent";
+          glance = mkRouter "glance.colebruns.com" "glance";
         };
 
         services = {
@@ -92,6 +93,7 @@ in {
           komga.loadBalancer.servers = [{url = "http://localhost:25600";}];
           audiobookshelf.loadBalancer.servers = [{url = "http://localhost:13378";}];
           qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8081";}];
+          glance.loadBalancer.servers = [{url = "http://localhost:8080";}];
         };
       };
     };

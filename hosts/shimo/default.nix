@@ -12,6 +12,7 @@
     ./modules/arr.nix
     ./modules/traefik.nix
     ./modules/qbittorrent.nix
+    ./modules/glance.nix
     inputs.vpn-confinement.nixosModules.default
     ../common/headless.nix
     ../common/users/user
