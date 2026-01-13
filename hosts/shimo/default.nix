@@ -16,7 +16,7 @@
     ./modules/glance.nix
     ./modules/notifiarr.nix
     ./modules/cleanuparr.nix
-    ./modules/wireguard.nix
+    ./modules/tailscale.nix
     inputs.vpn-confinement.nixosModules.default
     ../common/headless.nix
     ../common/users/user
