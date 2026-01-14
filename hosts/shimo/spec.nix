@@ -3,6 +3,7 @@
     name = "shimo";
     kind = "headless";
     isWork = false;
+    primaryUser = "user"; # Primary administrator account
     kbdModel = "pc105";
     kbdLayout = "us";
     kbdVariant = "";

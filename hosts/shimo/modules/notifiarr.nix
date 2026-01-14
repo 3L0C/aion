@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   virtualisation.oci-containers.containers.notifiarr = {
     image = "golift/notifiarr:latest";
     volumes = [
@@ -7,10 +7,11 @@
       "/etc/machine-id:/etc/machine-id:ro"
     ];
     environment = {
-      TZ = "America/Los_Angeles";
+      TZ = config.time.timeZone;
     };
     extraOptions = [
       "--network=host"
+      "--memory=512m"
     ];
   };
   systemd.tmpfiles.rules = [

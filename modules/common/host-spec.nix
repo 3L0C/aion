@@ -74,6 +74,12 @@ in {
         niri = "Mod+Ctrl";
       };
     };
+    primaryUser = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Primary administrator account name for the host";
+      example = "user";
+    };
     work = mkOption {
       type = types.attrsOf types.anything;
       default = {};

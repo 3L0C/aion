@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   virtualisation.oci-containers.containers.cleanuparr = {
     image = "ghcr.io/cleanuparr/cleanuparr:latest";
     ports = ["11011:11011"];
@@ -8,11 +8,14 @@
     ];
     environment = {
       PORT = "11011";
-      TZ = "America/Los_Angeles";
+      TZ = config.time.timeZone;
       PUID = "1000";
       PGID = "1000";
       UMASK = "022";
     };
+    extraOptions = [
+      "--memory=256m"
+    ];
   };
   systemd.tmpfiles.rules = [
     "d /var/lib/cleanuparr 0755 root root -"

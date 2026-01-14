@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   virtualisation.oci-containers.containers.audiobookshelf = {
     image = "ghcr.io/advplyr/audiobookshelf:latest";
     ports = ["13378:80"];
@@ -9,8 +9,12 @@
       "/mnt/tank/data/media/podcasts:/podcasts"
     ];
     environment = {
-      TZ = "America/Los_Angeles";
+      TZ = config.time.timeZone;
     };
+    extraOptions = [
+      "--memory=1g"
+      "--cpus=2"
+    ];
   };
   systemd.tmpfiles.rules = [
     "d /var/lib/audiobookshelf/config 0755 root root -"
