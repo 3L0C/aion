@@ -17,6 +17,7 @@
     ./modules/notifiarr.nix
     ./modules/cleanuparr.nix
     ./modules/jackett.nix
+    ./modules/flaresolverr.nix
     ./modules/samba.nix
     ./modules/bentopdf.nix
     ./modules/tailscale.nix

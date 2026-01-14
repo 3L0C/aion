@@ -85,6 +85,7 @@ in {
           jackett = mkRouter "jackett.colebruns.com" "jackett";
           bentopdf = mkRouter "bentopdf.colebruns.com" "bentopdf";
           adguard = mkRouter "adguard.colebruns.com" "adguard";
+          flaresolverr = mkRouter "flaresolverr.colebruns.com" "flaresolverr";
         };
 
         services = {
@@ -106,6 +107,7 @@ in {
           jackett.loadBalancer.servers = [{url = "http://localhost:9117";}];
           bentopdf.loadBalancer.servers = [{url = "http://localhost:8083";}];
           adguard.loadBalancer.servers = [{url = "http://192.168.1.1:8080";}];
+          flaresolverr.loadBalancer.servers = [{url = "http://localhost:8191";}];
         };
       };
     };

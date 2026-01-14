@@ -131,6 +131,11 @@
                           icon = "di:jackett";
                         }
                         {
+                          title = "FlareSolverr";
+                          url = "https://flaresolverr.colebruns.com";
+                          icon = "di:flaresolverr";
+                        }
+                        {
                           title = "Bazarr";
                           url = "https://bazarr.colebruns.com";
                           icon = "di:bazarr";
