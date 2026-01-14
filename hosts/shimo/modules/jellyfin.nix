@@ -4,7 +4,7 @@
     enable = true;
     openFirewall = true;
   };
-  users.users.jellyfin.extraGroups = ["render" "video"];
+  users.users.jellyfin.extraGroups = ["render" "video" "media"];
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [

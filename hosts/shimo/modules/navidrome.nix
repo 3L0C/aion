@@ -1,5 +1,7 @@
 # Navidrome music streaming server
 {
+  users.users.navidrome.extraGroups = ["media"];
+
   services.navidrome = {
     enable = true;
     openFirewall = true;
