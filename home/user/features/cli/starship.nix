@@ -18,12 +18,11 @@
         truncate_to_repo = false;
       };
       git_branch = {
-        format = "[$symbol$branch]($style) ";
-        symbol = " ";
+        format = "([$branch]($style)";
         style = "bold magenta";
       };
       git_status = {
-        format = "([$all_status$ahead_behind]($style) )";
+        format = "([ : $all_status$ahead_behind]($style))) ";
         style = "bold red";
         conflicted = "=";
         ahead = "⇡";
