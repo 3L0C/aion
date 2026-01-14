@@ -35,6 +35,10 @@
       # Disable ctrl-s to freeze terminal
       stty stop undef
 
+      # Disable history substring search highlighting
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=""
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=""
+
       # Vi mode timeout
       export KEYTIMEOUT=1
 
