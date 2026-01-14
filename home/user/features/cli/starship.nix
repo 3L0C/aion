@@ -4,7 +4,7 @@
     enableZshIntegration = true;
 
     settings = {
-      format = "$hostname$directory$git_branch$git_status$cmd_duration\n$character";
+      format = "$hostname$directory$git_branch$git_status$cmd_duration$shell\n$character";
       add_newline = false;
       hostname = {
         ssh_only = false;
@@ -43,6 +43,15 @@
       character = {
         success_symbol = "[λ](bold white)";
         error_symbol = "[λ](bold red)";
+      };
+      shell = {
+        disabled = false;
+        format = "[$indicator]($style) ";
+        style = "bold yellow";
+        zsh_indicator = ""; # hide for normal shell
+        bash_indicator = "bash";
+        fish_indicator = "fish";
+        nu_indicator = "nu";
       };
 
       # Disable noisy modules
