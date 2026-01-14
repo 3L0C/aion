@@ -19,7 +19,7 @@
       };
       git_branch = {
         format = "\\([$branch]($style)";
-        style = "bold magenta";
+        style = "bold purple";
       };
       git_status = {
         format = "([ : ](bold white)[$all_status$ahead_behind]($style))\\) ";
