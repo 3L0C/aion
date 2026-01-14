@@ -5,7 +5,7 @@
     ./ssh.nix
     ./zfs.nix
     ../common/optional/tailscale.nix
-    ../common/optional/syncthing.nix
+    ./syncthing.nix
     ../common/optional/fail2ban.nix
     ./modules/nfs-export.nix
     ./modules/jellyfin.nix
