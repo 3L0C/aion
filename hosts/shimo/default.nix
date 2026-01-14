@@ -16,6 +16,9 @@
     ./modules/glance.nix
     ./modules/notifiarr.nix
     ./modules/cleanuparr.nix
+    ./modules/jackett.nix
+    ./modules/samba.nix
+    ./modules/bentopdf.nix
     ./modules/tailscale.nix
     inputs.vpn-confinement.nixosModules.default
     ../common/headless.nix

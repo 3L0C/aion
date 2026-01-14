@@ -82,6 +82,8 @@ in {
           notifiarr = mkRouter "notifiarr.colebruns.com" "notifiarr";
           cleanuparr = mkRouter "cleanuparr.colebruns.com" "cleanuparr";
           syncthing = mkRouter "syncthing.colebruns.com" "syncthing";
+          jackett = mkRouter "jackett.colebruns.com" "jackett";
+          bentopdf = mkRouter "bentopdf.colebruns.com" "bentopdf";
         };
 
         services = {
@@ -100,6 +102,8 @@ in {
           notifiarr.loadBalancer.servers = [{url = "http://localhost:5454";}];
           cleanuparr.loadBalancer.servers = [{url = "http://localhost:11011";}];
           syncthing.loadBalancer.servers = [{url = "http://localhost:8384";}];
+          jackett.loadBalancer.servers = [{url = "http://localhost:9117";}];
+          bentopdf.loadBalancer.servers = [{url = "http://localhost:8083";}];
         };
       };
     };
