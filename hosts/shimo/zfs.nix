@@ -23,11 +23,14 @@
     requires = ["zfs-import-tank.service"];
     wants = ["sops-nix.service"];
     unitConfig.DefaultDependencies = false;
+    path = [pkgs.coreutils pkgs.zfs];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = "${pkgs.zfs}/bin/zfs load-key -L file:///run/secrets/zfs-tank-key tank";
     };
+    script = ''
+      base64 -d /run/secrets/zfs-tank-key | zfs load-key -L file:///dev/stdin tank
+    '';
   };
   services.zfs = {
     autoScrub = {
