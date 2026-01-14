@@ -181,12 +181,12 @@
                         {
                           title = "Flint2 Router";
                           url = "http://192.168.1.1";
-                          icon = "si:glinet";
+                          icon = "di:openwrt";
                         }
                         {
                           title = "Linksys AP";
                           url = "http://192.168.1.124";
-                          icon = "si:linksys";
+                          icon = "di:openwrt";
                         }
                       ];
                     }
