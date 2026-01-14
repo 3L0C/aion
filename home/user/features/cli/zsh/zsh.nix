@@ -36,9 +36,6 @@
     initContent = ''
       # Disable ctrl-s to freeze terminal
       stty stop undef
-      autoload -U colors && colors
-      PS1="%B%{$fg[blue]%}%~%{$reset_color%}
-      $%b "
 
       # Vi mode timeout
       export KEYTIMEOUT=1
