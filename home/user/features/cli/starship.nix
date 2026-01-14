@@ -22,7 +22,7 @@
         style = "bold magenta";
       };
       git_status = {
-        format = "([ : $all_status$ahead_behind]($style))\\) ";
+        format = "([ : ](bold white)[$all_status$ahead_behind]($style))\\) ";
         style = "bold red";
         conflicted = "=";
         ahead = "⇡";
