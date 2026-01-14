@@ -11,7 +11,7 @@
           "server string" = "shimo";
           "netbios name" = "shimo";
           "security" = "user";
-          "hosts allow" = "192.168.1.0/24 127.0.0.1 localhost";
+          "hosts allow" = "192.168.1.0/24 100.64.0.0/10 127.0.0.1 localhost";
           "hosts deny" = "0.0.0.0/0";
           "map to guest" = "never"; # Require authentication
         };
