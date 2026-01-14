@@ -4,11 +4,13 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    historySubstringSearch.enable = true;
     defaultKeymap = "viins"; # Start in vi insert mode
     history = {
       size = 10000000;
       save = 10000000;
       path = "${config.xdg.cacheHome}/zsh/history";
+      share = true; # Share history between terminals in real-time
       ignoreAllDups = true;
       ignoreDups = true;
       ignoreSpace = true;
@@ -17,11 +19,7 @@
     setOptions = [
       "AUTOCD" # Automatically cd into typed directory
       "INTERACTIVE_COMMENTS" # Allow comments in interactive shell
-      "HIST_EXPIRE_DUPS_FIRST"
       "HIST_FIND_NO_DUPS"
-      "HIST_IGNORE_ALL_DUPS"
-      "HIST_IGNORE_DUPS"
-      "HIST_IGNORE_SPACE"
       "HIST_SAVE_NO_DUPS"
     ];
 
@@ -82,7 +80,5 @@
 
     '';
     profileExtra = "";
-    shellAliases = {
-    };
   };
 }
