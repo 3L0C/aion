@@ -84,6 +84,7 @@ in {
           syncthing = mkRouter "syncthing.colebruns.com" "syncthing";
           jackett = mkRouter "jackett.colebruns.com" "jackett";
           bentopdf = mkRouter "bentopdf.colebruns.com" "bentopdf";
+          adguard = mkRouter "adguard.colebruns.com" "adguard";
         };
 
         services = {
@@ -104,6 +105,7 @@ in {
           syncthing.loadBalancer.servers = [{url = "http://localhost:8384";}];
           jackett.loadBalancer.servers = [{url = "http://localhost:9117";}];
           bentopdf.loadBalancer.servers = [{url = "http://localhost:8083";}];
+          adguard.loadBalancer.servers = [{url = "http://192.168.1.1:8080";}];
         };
       };
     };

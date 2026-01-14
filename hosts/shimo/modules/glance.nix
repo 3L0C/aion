@@ -126,6 +126,11 @@
                           icon = "di:prowlarr";
                         }
                         {
+                          title = "Jackett";
+                          url = "https://jackett.colebruns.com";
+                          icon = "di:jackett";
+                        }
+                        {
                           title = "Bazarr";
                           url = "https://bazarr.colebruns.com";
                           icon = "di:bazarr";
@@ -145,6 +150,43 @@
                           title = "qBittorrent";
                           url = "https://qbittorrent.colebruns.com";
                           icon = "di:vuetorrent";
+                        }
+                      ];
+                    }
+                    {
+                      title = "Tools";
+                      color = "180 50 50";
+                      links = [
+                        {
+                          title = "Syncthing";
+                          url = "https://syncthing.colebruns.com";
+                          icon = "di:syncthing";
+                        }
+                        {
+                          title = "BentoPDF";
+                          url = "https://bentopdf.colebruns.com";
+                          icon = "di:bentopdf";
+                        }
+                      ];
+                    }
+                    {
+                      title = "Network";
+                      color = "220 50 50";
+                      links = [
+                        {
+                          title = "AdGuard";
+                          url = "https://adguard.colebruns.com";
+                          icon = "di:adguard-home";
+                        }
+                        {
+                          title = "Flint2 Router";
+                          url = "http://192.168.1.1";
+                          icon = "si:glinet";
+                        }
+                        {
+                          title = "Linksys AP";
+                          url = "http://192.168.1.124";
+                          icon = "si:linksys";
                         }
                       ];
                     }
@@ -211,7 +253,11 @@
                 }
                 {
                   type = "twitch-channels";
-                  channels = ["mikaels1" "deathydl" "deadlockfightnight"];
+                  channels = [
+                    "mikaels1"
+                    "deathydl"
+                    "deadlockfightnight"
+                  ];
                 }
               ];
             }
