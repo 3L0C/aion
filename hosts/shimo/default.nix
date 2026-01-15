@@ -15,7 +15,7 @@
     ./modules/arr.nix
     ./modules/traefik.nix
     ./modules/qbittorrent.nix
-    ./modules/glance.nix
+    ./modules/glance
     ./modules/notifiarr.nix
     ./modules/cleanuparr.nix
     ./modules/jackett.nix
