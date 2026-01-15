@@ -13,7 +13,7 @@
     polarity = "dark";
     image = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-simple-dark-gray.png";
-      hash = "sha256-MnJ1MOkHBl5VigPOUB5zPH3MxLuPoCBTfoTugjGl/cA=";
+      hash = "sha256-JaLHdBxwrphKVherDVe5fgh+3zqUtpcwuNbjwrBlAok=";
     };
   };
 }
