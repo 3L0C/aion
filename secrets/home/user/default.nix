@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./authinfo.nix
-    ./git.nix
-    ./ssh.nix
-  ];
-}
