@@ -4,6 +4,7 @@
     ./hardware.nix
     ./ssh.nix
     ./zfs.nix
+    ../common/optional/stylix.nix
     ../common/optional/tailscale.nix
     ./syncthing.nix
     ../common/optional/fail2ban.nix
