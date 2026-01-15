@@ -11,6 +11,7 @@ in {
       ADGUARD_PASSWORD=${config.sops.placeholder."adguard/password"}
     '';
   };
+  stylix.targets.glance.enable = true;
 
   services.glance = {
     enable = true;

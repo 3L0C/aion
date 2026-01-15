@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   pkgs,
   ...
@@ -8,7 +7,7 @@
 
   stylix = {
     enable = true;
-    autoEnable = true;
+    autoEnable = false;
 
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-abyss.yaml";
     polarity = "dark";
@@ -16,6 +15,5 @@
       url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-simple-dark-gray.png";
       hash = "sha256-JaLHdBxwrphKVherDVe5fgh+3zqUtpcwuNbjwrBlAok=";
     };
-    targets.gtk.enable = config.hostSpec.kind != "headless";
   };
 }
