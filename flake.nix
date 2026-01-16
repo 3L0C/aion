@@ -139,11 +139,13 @@
       (mkNixos "snow" "x86_64-linux")
       (mkNixos "nixos-vm" "x86_64-linux")
       (mkNixos "shimo" "x86_64-linux")
+      (mkNixos "haruhi" "x86_64-linux")
     ];
     homeConfigurations = lib.listToAttrs [
       (mkHome "user" "snow" "x86_64-linux")
       (mkHome "user" "nixos-vm" "x86_64-linux")
       (mkHome "user" "shimo" "x86_64-linux")
+      (mkHome "user" "haruhi" "x86_64-linux")
     ];
   };
 }
