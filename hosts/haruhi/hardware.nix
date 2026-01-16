@@ -6,8 +6,8 @@
 }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-gpu-intel-lunar-lake
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-blackwell
+    "${inputs.nixos-hardware}/common/gpu/intel/lunar-lake"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/blackwell"
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ../common/optional/nvidia.nix
