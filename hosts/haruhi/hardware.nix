@@ -12,6 +12,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ../common/optional/nvidia.nix
     ../common/optional/fixes/asus-shutdown-fix.nix
+    ../common/optional/fixes/nvme-timeout-fix.nix
   ];
 
   boot = {
