@@ -9,6 +9,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ../common/optional/nvidia.nix
+    ../common/optional/fixes/asus-shutdown-fix.nix
   ];
 
   boot = {
@@ -16,15 +17,27 @@
       availableKernelModules = [
         "xhci_pci"
         "thunderbolt"
+        "vmd" # Intel Volume Management Device
         "nvme"
         "usbhid"
         "usb_storage"
         "sd_mod"
+        "rtsx_pci_sdmmc" # SD card reader
       ];
-      kernelModules = [];
+      kernelModules = [
+        "dm-snapshot"
+        "cryptd"
+      ];
+      luks.devices.cryptroot = {
+        device = "/dev/disk/by-label/NIXLUKS";
+        allowDiscards = true; # SSD TRIM support
+      };
     };
 
-    kernelModules = ["kvm-intel"];
+    kernelModules = [
+      "kvm-intel"
+      "asus_wmi" # ASUS WMI for backlight and hotkeys
+    ];
     extraModulePackages = [];
     kernelParams = [
       "i915.enable_dpcd_backlight=1"
@@ -48,9 +61,8 @@
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "ext4";
   };
-
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
+    device = "/dev/disk/by-label/SYSTEM";
     fsType = "vfat";
     options = [
       "fmask=0077"
