@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -37,6 +38,7 @@
     kernelModules = [
       "kvm-intel"
       "asus_wmi" # ASUS WMI for backlight and hotkeys
+      "xe" # Intel Xe/Arc graphics driver (Arrow Lake)
     ];
     extraModulePackages = [];
     kernelParams = [
@@ -78,6 +80,10 @@
   hardware = {
     enableAllFirmware = true;
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    graphics.extraPackages = [
+      pkgs.intel-media-driver # iHD driver for VAAPI
+      pkgs.intel-compute-runtime # OpenCL support
+    ];
   };
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   services.asusd = {

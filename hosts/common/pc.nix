@@ -21,6 +21,7 @@
     ./optional/virtualization.nix
     ./optional/vpn.nix
     ./optional/wayland.nix
+    ./optional/openssh-server.nix
   ];
   assertions = [
     {
