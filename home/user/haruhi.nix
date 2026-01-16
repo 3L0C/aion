@@ -18,7 +18,7 @@
       position = "0x0";
       x = 0;
       y = 0;
-      scale = "1.6"; # HiDPI scaling for 16" 2.5K
+      scale = "1"; # HiDPI scaling for 16" 2.5K
       enabled = true;
       isOLED = true; # Enable burn-in mitigation
       workspaces = [

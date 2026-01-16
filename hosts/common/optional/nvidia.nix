@@ -11,10 +11,4 @@
     "nouveau.modeset=0"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
   ];
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    GBM_BACKEND = "nvidia-drm";
-    NVD_BACKEND = "direct";
-  };
 }
