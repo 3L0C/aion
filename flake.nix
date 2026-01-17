@@ -31,17 +31,17 @@
     ghostty.url = "github:ghostty-org/ghostty";
 
     wk = {
-      url = "git+file:///home/user/programs/Personal/wk-dev?ref=master";
+      url = "github:3L0C/wk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     wk-prompt = {
-      url = "git+file:///home/user/programs/Personal/wk-prompt-dev?ref=master";
+      url = "github:3L0C/wk-prompt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     riverdo = {
-      url = "git+file:///home/user/programs/Personal/riverdo-dev?ref=main";
+      url = "github:3L0C/riverdo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     river-classic-src = {
