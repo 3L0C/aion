@@ -103,7 +103,6 @@ in {
               "pulseaudio"
               "temperature"
               "memory"
-              "network"
             ]
             ++ lib.optional isLaptop "battery"
             ++ [
