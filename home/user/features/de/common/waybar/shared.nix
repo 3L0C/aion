@@ -114,9 +114,9 @@ in rec {
         warning = 30;
         critical = 15;
       };
-      format = "| {capacity}% - ";
-      format-charging = "| {capacity}% + ";
-      format-plugged = "| {capacity}% = ";
+      format = "| - {capacity}% ";
+      format-charging = "| + {capacity}% ";
+      format-plugged = "| {capacity}% ";
       format-icons = [
         ""
         ""
