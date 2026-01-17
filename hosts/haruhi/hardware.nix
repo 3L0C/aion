@@ -45,6 +45,11 @@
       "asus_wmi" # ASUS WMI for backlight and hotkeys
     ];
     extraModulePackages = [];
+    kernelParams = [
+      "nvidia.NVreg_EnableBacklightHandler=0"
+      "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=0"
+      "i915.enable_dpcd_backlight=1"
+    ];
   };
   hardware.nvidia = {
     dynamicBoost.enable = true;
