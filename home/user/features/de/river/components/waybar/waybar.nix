@@ -6,14 +6,11 @@
 }: let
   waybar = lib.getExe config.programs.waybar.package;
   riverdo = lib.getExe pkgs.riverdo;
+  kitty = lib.getExe pkgs.kitty;
   shared = import ../../../common/waybar/shared.nix {inherit lib pkgs;};
   wlanIface =
     if config.hostSpec.wlanInterface != null
     then config.hostSpec.wlanInterface
-    else "";
-  ethIface =
-    if config.hostSpec.ethernetInterface != null
-    then config.hostSpec.ethernetInterface
     else "";
   isLaptop = config.hostSpec.kind == "laptop";
 in {
@@ -94,15 +91,6 @@ in {
             expand = true;
             tooltip = false;
           };
-          "custom/sb-internet" = {
-            format = "{}";
-            exec = "WLAN_IFACE=${wlanIface} ETH_IFACE=${ethIface} sb-internet";
-            interval = 5;
-            on-click = "BLOCK_BUTTON=1 WLAN_IFACE=${wlanIface} ETH_IFACE=${ethIface} sb-internet";
-            on-click-middle = "BLOCK_BUTTON=2 WLAN_IFACE=${wlanIface} ETH_IFACE=${ethIface} sb-internet";
-            on-click-right = "BLOCK_BUTTON=3 WLAN_IFACE=${wlanIface} ETH_IFACE=${ethIface} sb-internet";
-            tooltip = false;
-          };
         }
         // lib.optionalAttrs isLaptop {
           inherit (shared.sharedModules "wk-river") battery;
@@ -110,8 +98,27 @@ in {
       extraSettings =
         {
           modules-right =
-            shared.modulesRight
-            ++ lib.optional isLaptop "battery";
+            [
+              "custom/sb-playerctl"
+              "pulseaudio"
+              "temperature"
+              "memory"
+              "network"
+            ]
+            ++ lib.optional isLaptop "battery"
+            ++ [
+              "clock"
+              "idle_inhibitor"
+              "tray"
+            ];
+          network = {
+            interface = wlanIface;
+            format-wifi = "| {essid} ({signalStrength}%) ";
+            format-ethernet = "| {ifname} ";
+            format-disconnected = "| Disconnected ";
+            on-click = "${kitty} -e nmtui";
+            tooltip = false;
+          };
         }
         // lib.optionalAttrs (config.hostSpec.cpuHwmonPath != null) {
           temperature = {
