@@ -7,6 +7,7 @@
   mod = config.hostSpec.modifierKeys.river;
   meh = "Shift+Control+Alt";
   modShift = "${mod}+Shift";
+  asusctl = "${lib.getExe' pkgs.asusctl "asusctl"}";
   brightnessctl = "${lib.getExe pkgs.brightnessctl}";
   kitty = "${lib.getExe pkgs.kitty}";
   uwsm = "${lib.getExe pkgs.uwsm}";
@@ -60,6 +61,8 @@
       "None XF86AudioNext spawn 'media --next'"
       "None XF86MonBrightnessUp spawn '${brightnessctl} set +5%'"
       "None XF86MonBrightnessDown spawn '${brightnessctl} set 5%-'"
+      "None XF86KbdBrightnessUp spawn '${asusctl} brightness next'"
+      "None XF86KbdBrightnessDown spawn '${asusctl} brightness prev'"
     ];
   };
   lockedBindings = lib.custom.mkRiverBindsScript pkgs "river-locked-bindings" {
@@ -74,6 +77,8 @@
       "None XF86AudioNext spawn 'media --next'"
       "None XF86MonBrightnessUp spawn '${brightnessctl} set +5%'"
       "None XF86MonBrightnessDown spawn '${brightnessctl} set 5%-'"
+      "None XF86KbdBrightnessUp spawn '${asusctl} brightness next'"
+      "None XF86KbdBrightnessDown spawn '${asusctl} brightness prev'"
     ];
   };
   keybindingsScript = pkgs.writeShellScript "river-keybindings" ''

@@ -52,6 +52,23 @@ in {
       description = "The name of the wireless LAN interface, if applicable";
       default = null;
     };
+    ethernetInterface = mkOption {
+      type = types.nullOr types.str;
+      description = "The name of the ethernet interface, if applicable";
+      default = null;
+    };
+    cpuHwmonPath = mkOption {
+      type = types.nullOr types.str;
+      description = "Absolute path to CPU temperature hwmon directory";
+      default = null;
+      example = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+    };
+    cpuTempInput = mkOption {
+      type = types.str;
+      description = "Temperature input filename in hwmon directory";
+      default = "temp1_input";
+      example = "temp3_input";
+    };
 
     # Compositor modifier keys (different compositors use different syntax)
     modifierKeys = mkOption {

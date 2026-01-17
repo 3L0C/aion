@@ -108,6 +108,18 @@ in rec {
       spacing = 5;
       tooltip = false;
     };
+    battery = {
+      interval = 10;
+      states = {
+        warning = 30;
+        critical = 15;
+      };
+      format = "| {capacity}% {icon} ";
+      format-charging = "| {capacity}% + ";
+      format-plugged = "| {capacity}% = ";
+      format-icons = ["" "" "" "" ""];
+      tooltip = false;
+    };
   };
   mkConfig = {
     wkCommand,

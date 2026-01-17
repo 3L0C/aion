@@ -3,6 +3,13 @@
 # Show wifi +W and percent strength or 📡 if none.
 # Show 🌐 if connected to ethernet or ❎ if none.
 # Show 🔒 if a vpn connection is active
+#
+# Environment variables:
+#   WLAN_IFACE - Specific wireless interface (default: auto-detect w*)
+#   ETH_IFACE  - Specific ethernet interface (default: eno1)
+
+# Use specified interfaces or defaults
+ETH_IFACE="${ETH_IFACE:-eno1}"
 
 case $BLOCK_BUTTON in
   1)
@@ -29,10 +36,30 @@ N%: wifi connection quality
   6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null; then
-  wifiicon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
-elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null; then
-  grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="-W " || wifiicon="!W "
+# Wifi detection - use specified interface or wildcard
+if [ -n "$WLAN_IFACE" ]; then
+  wifi_operstate="/sys/class/net/$WLAN_IFACE/operstate"
+  wifi_flags="/sys/class/net/$WLAN_IFACE/flags"
+  if grep -xq 'up' "$wifi_operstate" 2>/dev/null; then
+    wifiicon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+  elif grep -xq 'down' "$wifi_operstate" 2>/dev/null; then
+    grep -xq '0x1003' "$wifi_flags" && wifiicon="-W " || wifiicon="!W "
+  fi
+else
+  # Fallback to wildcard matching
+  if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null; then
+    wifiicon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+  elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null; then
+    grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="-W " || wifiicon="!W "
+  fi
 fi
 
-printf "| %s%s%s " "$wifiicon" "$(sed "s/down/-E/;s/up/+E/" /sys/class/net/eno1/operstate 2>/dev/null)" "$(mullvad status | grep -q "Connected" && echo " +V" 2>/dev/null || echo " -V" 2>/dev/null)"
+# Ethernet detection - use specified interface (empty if no ethernet configured)
+if [ -n "$ETH_IFACE" ] && [ -e "/sys/class/net/$ETH_IFACE/operstate" ]; then
+  ethicon="$(sed 's/down/-E/;s/up/+E/' "/sys/class/net/$ETH_IFACE/operstate" 2>/dev/null)"
+fi
+
+# VPN detection
+vpnicon="$(mullvad status 2>/dev/null | grep -q "Connected" && echo " +V" || echo " -V")"
+
+printf "| %s%s%s " "$wifiicon" "$ethicon" "$vpnicon"
