@@ -22,19 +22,18 @@
   };
   services.resolved = {
     enable = true;
-    dnssec = "allow-downgrade"; # Allow DNSSEC but fallback on validation errors
-    domains = ["~."]; # Use for all domains
-    dnsovertls = "true"; # Enable DNS-over-TLS (encrypted DNS queries)
-    fallbackDns = [
-      "127.0.0.1"
-      "::1"
-    ];
-    extraConfig = ''
-      MulticastDNS=no
-      LLMNR=no
-      ReadEtcHosts=yes
-      ResolveUnicastSingleLabel=no
-    '';
+    settings = {
+      Resolve = {
+        DNSSEC = "allow-downgrade"; # Allow DNSSEC but fallback on validation errors
+        Domains = "~."; # Use for all domains
+        DNSOverTLS = "yes"; # Enable DNS-over-TLS (encrypted DNS queries)
+        FallbackDNS = "127.0.0.1 ::1"; # Fallback to localhost if all else fails
+        MulticastDNS = "no";
+        LLMNR = "no";
+        ReadEtcHosts = "yes";
+        ResolveUnicastSingleLabel = "no";
+      };
+    };
   };
   environment.systemPackages = with pkgs; [networkmanagerapplet];
 }
