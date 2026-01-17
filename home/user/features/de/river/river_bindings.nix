@@ -7,8 +7,8 @@
   mod = config.hostSpec.modifierKeys.river;
   meh = "Shift+Control+Alt";
   modShift = "${mod}+Shift";
-  hasOLED = lib.any (m: m.isOLED or false) config.monitors;
   asusctl = "${lib.getExe' pkgs.asusctl "asusctl"}";
+  brightnessctl = "${lib.getExe pkgs.brightnessctl}";
   kitty = "${lib.getExe pkgs.kitty}";
   uwsm = "${lib.getExe pkgs.uwsm}";
   pamixer = "${lib.getExe pkgs.pamixer}";
@@ -16,14 +16,6 @@
   riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   uwsm-app = "${lib.getExe' pkgs.uwsm "uwsm-app"}";
-  brightnessUp =
-    if hasOLED
-    then "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d 0.05"
-    else "${lib.getExe pkgs.brightnessctl} set +5%";
-  brightnessDown =
-    if hasOLED
-    then "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.05"
-    else "${lib.getExe pkgs.brightnessctl} set 5%-";
   launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
   menu = "${uwsm-app} -- wk-river";
   old-menu = "${uwsm-app} -- wk";
@@ -67,8 +59,8 @@
       "None XF86AudioPlay spawn 'media --toggle'"
       "None XF86AudioPrev spawn 'media --prev'"
       "None XF86AudioNext spawn 'media --next'"
-      "None XF86MonBrightnessUp spawn '${brightnessUp}'"
-      "None XF86MonBrightnessDown spawn '${brightnessDown}'"
+      "None XF86MonBrightnessUp spawn '${brightnessctl} -d intel_backlight set +5%'"
+      "None XF86MonBrightnessDown spawn '${brightnessctl} -d intel_backlight set 5%-'"
       "None XF86KbdBrightnessUp spawn '${asusctl} -n'"
       "None XF86KbdBrightnessDown spawn '${asusctl} -p'"
     ];
@@ -83,8 +75,8 @@
       "None XF86AudioPlay spawn 'media --toggle'"
       "None XF86AudioPrev spawn 'media --prev'"
       "None XF86AudioNext spawn 'media --next'"
-      "None XF86MonBrightnessUp spawn '${brightnessUp}'"
-      "None XF86MonBrightnessDown spawn '${brightnessDown}'"
+      "None XF86MonBrightnessUp spawn '${brightnessctl} -d intel_backlight set +5%'"
+      "None XF86MonBrightnessDown spawn '${brightnessctl} -d intel_backlight set 5%-'"
       "None XF86KbdBrightnessUp spawn '${asusctl} -n'"
       "None XF86KbdBrightnessDown spawn '${asusctl} -p'"
     ];
