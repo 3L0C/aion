@@ -843,18 +843,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1766017149,
-        "narHash": "sha256-P7qjNlHGzbYb0OCSJz4hIGy9gLd4teZNJBxJQi8tlWU=",
-        "ref": "main",
-        "rev": "3c15aa90ffc73c2ddf9b1b2bdcd0920bd4a89ba0",
-        "revCount": 7,
-        "type": "git",
-        "url": "file:///home/user/programs/Personal/riverdo-dev"
+        "lastModified": 1768611954,
+        "narHash": "sha256-CNY01I3VYmVhN2hIjM5vrE/dPrFHBgkpCEtSTILXal0=",
+        "owner": "3L0C",
+        "repo": "riverdo",
+        "rev": "9532ce7eb6f8b16390cd59ac469d0fea75728e02",
+        "type": "github"
       },
       "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "file:///home/user/programs/Personal/riverdo-dev"
+        "owner": "3L0C",
+        "repo": "riverdo",
+        "type": "github"
       }
     },
     "root": {
@@ -1152,18 +1151,17 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1767921837,
-        "narHash": "sha256-LHgful3BbQgYb06k4spEyGZ73JzSvJMxIgd0FsWn7QQ=",
-        "ref": "master",
-        "rev": "fd0b7ac16774132fa2637928a9b6bee46e13f1a9",
-        "revCount": 380,
-        "type": "git",
-        "url": "file:///home/user/programs/Personal/wk-dev"
+        "lastModified": 1768601140,
+        "narHash": "sha256-cUqgP0BCXjx8qFhFcYfpyE07LihcssUBp8VkhEaana4=",
+        "owner": "3L0C",
+        "repo": "wk",
+        "rev": "925b53ec7d3a8e22b5e8bb9271613d14239a67cb",
+        "type": "github"
       },
       "original": {
-        "ref": "master",
-        "type": "git",
-        "url": "file:///home/user/programs/Personal/wk-dev"
+        "owner": "3L0C",
+        "repo": "wk",
+        "type": "github"
       }
     },
     "wk-prompt": {
@@ -1176,16 +1174,15 @@
       "locked": {
         "lastModified": 1766017100,
         "narHash": "sha256-z2rdwDHrv7Tw37+yX3LKQrSLpDo0nwyeT4mSc6RleDg=",
-        "ref": "master",
+        "owner": "3L0C",
+        "repo": "wk-prompt",
         "rev": "919e5ef539262e223445e38176b02f5daa93fafc",
-        "revCount": 6,
-        "type": "git",
-        "url": "file:///home/user/programs/Personal/wk-prompt-dev"
+        "type": "github"
       },
       "original": {
-        "ref": "master",
-        "type": "git",
-        "url": "file:///home/user/programs/Personal/wk-prompt-dev"
+        "owner": "3L0C",
+        "repo": "wk-prompt",
+        "type": "github"
       }
     },
     "zen-browser": {
