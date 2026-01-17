@@ -2,10 +2,16 @@
   config,
   lib,
   ...
-}: {
+}: let
+  isHeadless = config.hostSpec.kind == "headless";
+in {
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = lib.mkIf (config.hostSpec.kind == "headless") "server";
+    useRoutingFeatures =
+      if isHeadless
+      then "server"
+      else "client";
+    extraUpFlags = lib.optionals (!isHeadless) ["--accept-routes"];
   };
 
   networking.firewall = {
