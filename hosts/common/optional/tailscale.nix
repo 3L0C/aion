@@ -1,7 +1,11 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "server"; # Enable subnet routing
+    useRoutingFeatures = lib.mkIf (config.hostSpec.kind == "headless") "server";
   };
 
   networking.firewall = {

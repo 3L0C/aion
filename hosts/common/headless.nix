@@ -9,6 +9,7 @@
     ./optional/nh.nix
     ./optional/locate.nix
     ./optional/openssh-server.nix
+    ./optional/tailscale.nix
   ];
   assertions = [
     {
