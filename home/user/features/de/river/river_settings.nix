@@ -15,6 +15,16 @@
     ${riverctl} set-cursor-warp on-output-change
     ${riverctl} set-repeat 50 300
     ${riverctl} xcursor-theme "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
+    ${riverctl} input "*Touchpad*" click-method button-areas
+    ${riverctl} input "*Touchpad*" drag enabled
+    ${riverctl} input "*Touchpad*" drag-lock enabled
+    ${riverctl} input "*Touchpad*" disable-while-typing enabled
+    ${riverctl} input "*Touchpad*" disable-while-trackpointing enabled
+    ${riverctl} input "*Touchpad*" middle-emulation enabled
+    ${riverctl} input "*Touchpad*" natural-scroll enabled
+    ${riverctl} input "*Touchpad*" tap enabled
+    ${riverctl} input "*Touchpad*" tap-button-map left-right-middle
+    ${riverctl} input "*Touchpad*" scroll-method two-finger
   '';
 in {
   systemd.user.services.river-settings = lib.custom.mkWaylandService {
