@@ -114,10 +114,16 @@ in rec {
         warning = 30;
         critical = 15;
       };
-      format = "| {capacity}% {icon} ";
+      format = "| {capacity}% - ";
       format-charging = "| {capacity}% + ";
       format-plugged = "| {capacity}% = ";
-      format-icons = ["" "" "" "" ""];
+      format-icons = [
+        ""
+        ""
+        ""
+        ""
+        ""
+      ];
       tooltip = false;
     };
   };
@@ -127,13 +133,14 @@ in rec {
     compositorModules ? {},
     extraSettings ? {},
   }:
-    lib.recursiveUpdate
-    (barSettings
+    lib.recursiveUpdate (
+      barSettings
       // {
         modules-left = modulesLeft;
         modules-right = modulesRight;
       }
       // sharedModules wkCommand
-      // compositorModules)
+      // compositorModules
+    )
     extraSettings;
 }
