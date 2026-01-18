@@ -1,6 +1,6 @@
 {
   hostSpec = {
-    name = "snow";
+    name = "yuki";
     kind = "desktop";
     isWork = false;
 

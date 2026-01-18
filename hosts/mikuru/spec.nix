@@ -1,6 +1,6 @@
 {
   hostSpec = {
-    name = "shimo";
+    name = "mikuru";
     kind = "headless";
     isWork = false;
     primaryUser = "user"; # Primary administrator account

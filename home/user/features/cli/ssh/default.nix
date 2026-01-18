@@ -120,7 +120,7 @@
         addKeysToAgent = "yes";
       };
 
-      "shimo" = {
+      "mikuru" = {
         hostname = "192.168.1.126";
         port = 54734;
         user = "user";
