@@ -10,6 +10,7 @@
       "modules/common"
     ])
     ++ [
+      ./user-spec.nix
       ../features/cli/common
       ../features/cli/zsh
       ../features/cli/git

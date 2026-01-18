@@ -50,6 +50,7 @@
       "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=0"
       "i915.enable_dpcd_backlight=1"
     ];
+    resumeDevice = "/dev/disk/by-label/NIXSWAP";
   };
   hardware.nvidia = {
     dynamicBoost.enable = true;

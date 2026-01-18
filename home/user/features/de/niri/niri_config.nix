@@ -36,6 +36,7 @@ in {
                 xkb {
                     layout "${config.hostSpec.kbdLayout}"
                     ${lib.optionalString (config.hostSpec.kbdVariant != "") ''variant "${config.hostSpec.kbdVariant}"''}
+                    ${lib.optionalString (config.userSpec.kbdOptions != "") ''options "${config.userSpec.kbdOptions}"''}
                 }
                 repeat-delay 300
                 repeat-rate 50

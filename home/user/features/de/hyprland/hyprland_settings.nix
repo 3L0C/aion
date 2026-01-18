@@ -119,10 +119,10 @@ in {
       };
 
       input = {
-        kb_layout = "us";
-        kb_variant = "";
-        kb_model = "";
-        kb_options = "";
+        kb_layout = config.hostSpec.kbdLayout;
+        kb_variant = config.hostSpec.kbdVariant;
+        kb_model = config.hostSpec.kbdModel;
+        kb_options = config.userSpec.kbdOptions;
         kb_rules = "";
         repeat_rate = 50;
         repeat_delay = 300;

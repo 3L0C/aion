@@ -1,65 +1,58 @@
 {
+  config,
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  monitorScale = let
+    scaleStr = config.primaryMonitor.scale or "1";
+  in
+    if scaleStr == "auto"
+    then 1.0
+    else builtins.fromJSON scaleStr;
+  scaledCursorSize = builtins.floor (config.userSpec.cursor.baseSize * monitorScale);
+  us = config.userSpec;
+in {
   imports = [inputs.stylix.homeModules.stylix];
 
   stylix = {
     enable = true;
     overlays.enable = false;
 
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-abyss.yaml";
-    polarity = "dark";
-    image = ../wallpapers/1450741833367.jpg;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/${us.theme.base16Scheme}.yaml";
+    inherit (us.theme) polarity;
+    image = us.theme.wallpaper;
 
     cursor = {
-      package = pkgs.phinger-cursors;
-      name = "phinger-cursors-dark";
-      size = 24;
+      inherit (us.cursor) package name;
+      size = scaledCursorSize;
     };
 
     fonts = {
       emoji = {
-        package = pkgs.noto-fonts-color-emoji;
-        name = "Noto Color Emoji";
+        inherit (us.fonts.emoji) package name;
       };
-
       monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMonoNL Nerd Font";
+        inherit (us.fonts.monospace) package name;
       };
-
       sansSerif = {
-        package = pkgs.inter-nerdfont;
-        name = "Inter Nerd Font";
+        inherit (us.fonts.sansSerif) package name;
       };
-
       serif = {
-        package = pkgs.inter-nerdfont;
-        name = "Inter Nerd Font";
+        inherit (us.fonts.serif) package name;
       };
-
       sizes = {
-        applications = 14;
-        desktop = 14;
-        popups = 14;
-        terminal = 16;
+        inherit (us.fonts.sizes) applications desktop popups terminal;
       };
     };
 
     icons = {
       enable = true;
-      package = pkgs.papirus-icon-theme;
-      dark = "Papirus-Dark";
-      light = "Papirus-Light";
+      inherit (us.icons) package dark light;
     };
 
     opacity = {
-      applications = 1.0;
-      desktop = 1.0;
-      popups = 1.0;
-      terminal = 1.0;
+      inherit (us.opacity) applications desktop popups terminal;
     };
   };
 }
