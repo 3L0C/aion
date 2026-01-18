@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   isHeadless = config.hostSpec.kind == "headless";
@@ -34,5 +35,33 @@ in {
         }
       '';
     };
+  };
+  systemd.services.mullvad-daemon = lib.mkIf (config.services.mullvad-vpn.enable or false) {
+    after = ["tailscaled.service"];
+    wants = ["tailscaled.service"];
+  };
+  systemd.services.nftables-tailscale-fix = lib.mkIf (config.services.mullvad-vpn.enable or false) {
+    description = "Reload nftables after Mullvad to restore Tailscale bypass rules";
+    after = ["mullvad-daemon.service"];
+    requires = ["mullvad-daemon.service"];
+    wantedBy = ["multi-user.target"];
+    path = [config.services.mullvad-vpn.package];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      timeout=60
+      while [ $timeout -gt 0 ]; do
+        if mullvad status 2>/dev/null | grep -q "Connected"; then
+          sleep 2  # Brief additional wait for firewall rules to settle
+          ${pkgs.systemd}/bin/systemctl restart nftables.service
+          exit 0
+        fi
+        sleep 1
+        timeout=$((timeout - 1))
+      done
+      ${pkgs.systemd}/bin/systemctl restart nftables.service
+    '';
   };
 }
