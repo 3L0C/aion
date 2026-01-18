@@ -1,50 +1,54 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   userSpec = {
-    kbdOptions = "";
+    kbdOptions = lib.mkDefault "";
     theme = {
-      base16Scheme = "kanagawa-abyss";
-      polarity = "dark";
-      wallpaper = ../features/de/wallpapers/1450741833367.jpg;
+      base16Scheme = lib.mkDefault "kanagawa-abyss";
+      polarity = lib.mkDefault "dark";
+      wallpaper = lib.mkDefault ../features/de/wallpapers/1450741833367.jpg;
     };
     cursor = {
-      package = pkgs.phinger-cursors;
-      name = "phinger-cursors-dark";
-      baseSize = 24;
+      package = lib.mkDefault pkgs.phinger-cursors;
+      name = lib.mkDefault "phinger-cursors-dark";
+      baseSize = lib.mkDefault 24;
     };
     fonts = {
       emoji = {
-        package = pkgs.noto-fonts-color-emoji;
-        name = "Noto Color Emoji";
+        package = lib.mkDefault pkgs.noto-fonts-color-emoji;
+        name = lib.mkDefault "Noto Color Emoji";
       };
       monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMonoNL Nerd Font";
+        package = lib.mkDefault pkgs.nerd-fonts.jetbrains-mono;
+        name = lib.mkDefault "JetBrainsMonoNL Nerd Font";
       };
       sansSerif = {
-        package = pkgs.inter-nerdfont;
-        name = "Inter Nerd Font";
+        package = lib.mkDefault pkgs.inter-nerdfont;
+        name = lib.mkDefault "Inter Nerd Font";
       };
       serif = {
-        package = pkgs.inter-nerdfont;
-        name = "Inter Nerd Font";
+        package = lib.mkDefault pkgs.inter-nerdfont;
+        name = lib.mkDefault "Inter Nerd Font";
       };
       sizes = {
-        applications = 14;
-        desktop = 14;
-        popups = 14;
-        terminal = 16;
+        applications = lib.mkDefault 14;
+        desktop = lib.mkDefault 14;
+        popups = lib.mkDefault 14;
+        terminal = lib.mkDefault 16;
       };
     };
     icons = {
-      package = pkgs.papirus-icon-theme;
-      dark = "Papirus-Dark";
-      light = "Papirus-Light";
+      package = lib.mkDefault pkgs.papirus-icon-theme;
+      dark = lib.mkDefault "Papirus-Dark";
+      light = lib.mkDefault "Papirus-Light";
     };
     opacity = {
-      applications = 1.0;
-      desktop = 1.0;
-      popups = 1.0;
-      terminal = 1.0;
+      applications = lib.mkDefault 1.0;
+      desktop = lib.mkDefault 1.0;
+      popups = lib.mkDefault 1.0;
+      terminal = lib.mkDefault 1.0;
     };
   };
 }
