@@ -2,7 +2,6 @@
   imports = [
     ./bootloader.nix
     ./hardware.nix
-    ./ssh.nix
     ./zfs.nix
     ../common/optional/stylix.nix
     ./syncthing.nix
