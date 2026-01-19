@@ -23,6 +23,13 @@
     chooser_type = simple
     chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
   '';
+  xdg.configFile."xdg-desktop-portal/river-portals.conf".text = ''
+    [preferred]
+    default=gtk
+    org.freedesktop.impl.portal.ScreenCast=wlr
+    org.freedesktop.impl.portal.Screenshot=wlr
+    org.freedesktop.impl.portal.Inhibit=none
+  '';
   home.packages = with pkgs; [
     riverdo # Improved riverctl
     grim # Screenshot tool
