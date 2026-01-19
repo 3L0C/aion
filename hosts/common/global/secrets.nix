@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  secretsDir = builtins.toString inputs.secrets;
+  secretsDir = toString inputs.secrets;
   hostName = config.hostSpec.name;
   normalUsers = lib.filterAttrs (_: v: v.isNormalUser) config.users.users;
   isHeadless = config.hostSpec.kind == "headless";
@@ -21,7 +21,9 @@ in {
     secrets =
       lib.mapAttrs' (n: _: {
         name = "passwords/${n}";
-        value = {neededForUsers = true;};
+        value = {
+          neededForUsers = true;
+        };
       })
       normalUsers;
   };

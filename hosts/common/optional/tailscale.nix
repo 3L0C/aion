@@ -6,12 +6,15 @@
 }: let
   isHeadless = config.hostSpec.kind == "headless";
 in {
+  sops.secrets."tailscale/authkey" = {};
+
   services.tailscale = {
     enable = true;
     useRoutingFeatures =
       if isHeadless
       then "server"
       else "client";
+    authKeyFile = config.sops.secrets."tailscale/authkey".path;
     extraUpFlags = lib.optionals (!isHeadless) ["--accept-routes"];
   };
 
