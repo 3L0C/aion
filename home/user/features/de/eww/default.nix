@@ -43,7 +43,7 @@ in {
       * {
         all: unset;
         font-family: "${fonts.monospace.name}", monospace;
-        font-size: ${toString fonts.sizes.terminal}px;
+        font-size: ${toString (fonts.sizes.terminal + 4)}px;
       }
 
       .media-panel {

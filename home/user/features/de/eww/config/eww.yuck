@@ -9,8 +9,8 @@
 (defwindow media-panel
   :monitor 0
   :geometry (geometry
-    :x "5px"
-    :y "30px"
+    :x "10px"
+    :y "25px"
     :width "350px"
     :anchor "top right")
   :stacking "fg"
