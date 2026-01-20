@@ -11,6 +11,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ../common/optional/nvidia.nix
+    ../common/optional/power.nix
     ../common/optional/fixes/asus-shutdown-fix.nix
   ];
 
@@ -53,6 +54,7 @@
   };
   hardware.nvidia = {
     dynamicBoost.enable = true;
+    powerManagement.finegrained = true;
 
     prime = {
       intelBusId = "PCI:0:2:0";
