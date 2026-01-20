@@ -9,9 +9,8 @@
   ];
 
   # MPV helper scripts
-  home.packages = with pkgs.custom.scripts;
-    [
-      hmpv # MPV wrapper for mpv-homehub
-    ]
-    ++ (with pkgs.custom.mpvUserScripts; [mpv-save]);
+  home.packages = with pkgs.custom.mpvUserScripts; [
+    mpv-save # script to save mpv position on quit
+    hmpv # wrapper for mpv-homehub script
+  ];
 }

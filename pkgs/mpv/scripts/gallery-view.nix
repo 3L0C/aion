@@ -18,11 +18,11 @@ pkgs.mpvScripts.buildLua {
   };
 
   postPatch = ''
-        # Create the script directory structure
-        mv scripts gallery-view
+    # Create the script directory structure
+    mv scripts gallery-view
 
-        # Create main.lua that loads only the enabled components
-        cat > gallery-view/main.lua << 'EOF'
+    # Create main.lua that loads only the enabled components
+    cat > gallery-view/main.lua << 'EOF'
     -- mpv-gallery-view main entry point
     -- This file loads the enabled components based on nix build configuration
 
@@ -41,19 +41,19 @@ pkgs.mpvScripts.buildLua {
     ''}
     EOF
 
-        # Copy enabled script files to the directory
-        mv script-modules gallery-view/
+    # Copy enabled script files to the directory
+    mv script-modules gallery-view/
 
-        ${lib.optionalString enablePlaylistView ''
+    ${lib.optionalString enablePlaylistView ''
       substituteInPlace gallery-view/playlist-view.lua \
         --replace-fail "~~/script-modules/?.lua;" \
-                       "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
+                        "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
     ''}
 
-        ${lib.optionalString enableContactSheet ''
+    ${lib.optionalString enableContactSheet ''
       substituteInPlace gallery-view/contact-sheet.lua \
         --replace-fail "~~/script-modules/?.lua;" \
-                       "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
+                        "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
     ''}
   '';
 

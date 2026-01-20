@@ -5,5 +5,5 @@ mpv --idle=yes \
     --loop-playlist=no \
     --keep-open=no \
     --msg-level=homehub=info \
-    --script-opts=homehub-ui_autostart=yes \
+    --script-opts=homehub-enable=yes,homehub-ui_autostart=yes \
     "$@"

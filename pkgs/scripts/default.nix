@@ -11,7 +11,6 @@ in {
   dns-recovery = mkScript "dns-recovery" ./system/dns-recovery;
   media = mkScript "media" ./media/media;
   browser-migrate = mkScript "browser-migrate" ./browser/browser-migrate;
-  hmpv = mkScript "hmpv" ./wip/hmpv;
   statusbar = callPackage ./statusbar {};
   menu = callPackage ./menu {};
   lf = callPackage ./lf {};

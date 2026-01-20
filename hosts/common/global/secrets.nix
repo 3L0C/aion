@@ -11,8 +11,15 @@
 in {
   imports = [inputs.sops-nix.nixosModules.sops];
 
-  sops = {
+  options.sops.userSecretsFile = lib.mkOption {
+    type = lib.types.attrsOf lib.types.path;
+    description = "Per-user paths to secrets files (accessible on all hosts)";
+    readOnly = true;
+  };
+
+  config.sops = {
     defaultSopsFile = "${secretsDir}/hosts/${hostName}/secrets.yaml";
+    userSecretsFile = lib.mapAttrs (name: _: "${secretsDir}/users/${name}/secrets.yaml") normalUsers;
 
     age = {
       sshKeyPaths = lib.mkIf isHeadless ["/etc/ssh/ssh_host_ed25519_key"];

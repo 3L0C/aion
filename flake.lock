@@ -904,11 +904,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1768859813,
-        "narHash": "sha256-HeyugxW1BZ3W0AWbjzLjIDbqYFr+SUHkSITpRbQqQr8=",
+        "lastModified": 1768898624,
+        "narHash": "sha256-kSQQmyBh7BLlJK2Le4n4ed6BFml/3zQrsK8yO/eFypQ=",
         "ref": "refs/heads/master",
-        "rev": "5c1fc659248cb89bded86ed631d368cfd74bc6ea",
-        "revCount": 10,
+        "rev": "856bcbedca627f9fe83080a309a3188aae7d100e",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com-3L0C/3L0C/aion-secrets.git"
       },
