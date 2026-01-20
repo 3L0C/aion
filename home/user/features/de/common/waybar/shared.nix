@@ -84,8 +84,8 @@ in rec {
       tooltip = false;
     };
     mpris = {
-      format = "| {player}: {title} {status_icon}";
-      format-paused = "| {player}: {title} {status_icon}";
+      format = "| {title} {status_icon}";
+      format-paused = "| {title} {status_icon}";
       status-icons = {
         playing = "-";
         paused = "+";
@@ -94,7 +94,7 @@ in rec {
       player-icons = {
         default = "";
       };
-      max-length = 30;
+      title-len = 16;
       on-click = "playerctl play-pause";
       on-click-right = "eww open --toggle media-panel";
       tooltip = false;

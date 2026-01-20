@@ -44,10 +44,10 @@
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} previous"
       "󰒮")
-    ; Player name and title
+    ; Media title
     (label :class "player-info"
            :hexpand true
-           :text "${data.player}: ${data.display}")
+           :text "${data.display}")
     ; Play/pause button
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} play-pause"
