@@ -98,8 +98,8 @@ in {
             "custom/cc-indicator"
             "custom/cc-run"
             "pulseaudio"
-            "idle_inhibitor"
             "backlight"
+            "idle_inhibitor"
           ];
         };
     }

@@ -43,17 +43,17 @@ in rec {
     };
 
     "custom/cc-indicator" = {
-      format = "| ctrl ";
+      format = "| ctrl |";
       tooltip = false;
     };
 
     "custom/cc-run" = {
-      format = "run ";
+      format = "| run ";
       on-click = "rofi -show drun";
       tooltip = false;
     };
     backlight = {
-      format = "| lit:{percent}% ";
+      format = "| + bkl:{percent}% - ";
       on-scroll-up = "light -A 5";
       on-scroll-down = "light -U 5";
       tooltip = false;
@@ -72,12 +72,18 @@ in rec {
       ];
     };
     mpris = {
-      format = "| {title} ";
-      format-paused = "| {title} ";
-      format-stopped = "| mpris ";
-      max-length = 20;
+      format = "| {player}: {title} {status_icon}";
+      format-paused = "| {player}: {title} {status_icon}";
+      status-icons = {
+        playing = "-";
+        paused = "+";
+        stopped = "x";
+      };
+      player-icons = {
+        default = "";
+      };
+      max-length = 30;
       on-click = "playerctl play-pause";
-      player = "playerctld";
       tooltip = false;
     };
     "custom/media-prev" = {
@@ -93,8 +99,8 @@ in rec {
     };
 
     pulseaudio = {
-      format = "| {volume}% ";
-      format-muted = "| MUTED";
+      format = "| + vol:{volume}% - ";
+      format-muted = "| MUTED ";
       on-click = "${wkCommand} --press 'o p'";
       on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
       on-scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +2%";
@@ -151,7 +157,7 @@ in rec {
     };
 
     idle_inhibitor = {
-      format = "| {icon} |";
+      format = "| {icon} ";
       format-icons = {
         activated = "0";
         deactivated = "-";

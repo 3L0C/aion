@@ -211,24 +211,12 @@
           margin: 0;
       }
 
-      #custom-cc-run:hover {
-          color: @base0D;
-      }
-
       /* MPRIS module */
       #mpris {
           background-color: transparent;
           color: @base05;
           padding: 0;
           margin: 0;
-      }
-
-      #mpris.playing {
-          color: @base0B;
-      }
-
-      #mpris.paused {
-          color: @base05;
       }
 
       /* Media controls */
@@ -238,11 +226,6 @@
           color: @base05;
           padding: 0;
           margin: 0;
-      }
-
-      #custom-media-prev:hover,
-      #custom-media-next:hover {
-          color: @base0D;
       }
     '';
   };
