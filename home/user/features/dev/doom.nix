@@ -72,6 +72,7 @@
     graphviz
 
     # :lang python
+    python3
     isort
     pipenv
     black
