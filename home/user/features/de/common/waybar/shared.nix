@@ -18,7 +18,7 @@ in rec {
 
   # Shared modules-right list (same for both compositors)
   modulesRight = [
-    "group/media"
+    "custom/media-toggle"
     "temperature"
     "memory"
     "custom/sb-internet"
@@ -83,43 +83,9 @@ in rec {
       on-click = "light -U 5";
       tooltip = false;
     };
-    "group/media" = {
-      orientation = "horizontal";
-      drawer = {
-        transition-duration = 300;
-        transition-left-to-right = true;
-        children-class = "media-drawer";
-      };
-      modules = [
-        "mpris"
-        "custom/media-prev"
-        "custom/media-next"
-      ];
-    };
-    mpris = {
-      format = "| {player}: {title} {status_icon}";
-      format-paused = "| {player}: {title} {status_icon}";
-      status-icons = {
-        playing = "-";
-        paused = "+";
-        stopped = "x";
-      };
-      player-icons = {
-        default = "";
-      };
-      max-length = 30;
-      on-click = "playerctl play-pause";
-      tooltip = false;
-    };
-    "custom/media-prev" = {
-      format = "< ";
-      on-click = "playerctl previous";
-      tooltip = false;
-    };
-
-    "custom/media-next" = {
-      format = "> |";
-      on-click = "playerctl next";
+    "custom/media-toggle" = {
+      format = "| media ";
+      on-click = "eww open --toggle media-panel";
       tooltip = false;
     };
 

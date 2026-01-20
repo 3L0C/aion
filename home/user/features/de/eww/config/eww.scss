@@ -1,0 +1,63 @@
+// EWW Media Panel Styling
+// Colors from Kanagawa Abyss theme (base16)
+$base00: #0d0c0c;  // background
+$base01: #12120f;
+$base02: #1a1a19;
+$base03: #282727;
+$base04: #625e5a;
+$base05: #c5c9c5;  // foreground
+$base06: #dcd7ba;
+$base07: #dcd7ba;
+$base08: #c4746e;  // red
+$base09: #e6c384;  // orange
+$base0A: #c4b28a;  // yellow
+$base0B: #87a987;  // green
+$base0C: #8ea4a2;  // cyan
+$base0D: #7fb4ca;  // blue
+$base0E: #938aa9;  // purple
+$base0F: #8a6a53;  // brown
+
+* {
+  all: unset;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.media-panel {
+  background-color: $base00;
+  border: 1px solid $base03;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.player-row {
+  background-color: $base00;
+  color: $base05;
+  padding: 4px 6px;
+  border-bottom: 1px solid $base02;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.player-info {
+  color: $base05;
+  margin: 0 8px;
+}
+
+.player-btn {
+  color: $base05;
+  padding: 2px 6px;
+  border-radius: 2px;
+
+  &:hover {
+    color: $base0D;
+    background-color: $base01;
+  }
+}
+
+.no-players {
+  color: $base04;
+  padding: 8px;
+}

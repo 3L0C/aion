@@ -1,0 +1,56 @@
+; EWW Media Panel - Shows all active MPRIS players
+; Triggered from waybar, displays vertically stacked player controls
+
+; Poll for active media players every second
+(defpoll media-players :interval "1s"
+  "~/.config/eww/scripts/media-players.sh")
+
+; Main media panel window
+(defwindow media-panel
+  :monitor 0
+  :geometry (geometry
+    :x "5px"
+    :y "33px"
+    :width "350px"
+    :anchor "top right")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  (media-panel-content))
+
+; Container widget - shows players or empty state
+(defwidget media-panel-content []
+  (box :class "media-panel"
+       :orientation "vertical"
+       :space-evenly false
+    (if (== (arraylength media-players) 0)
+      (no-players)
+      (for player in media-players
+        (player-row :data player)))))
+
+; Individual player row with prev/info/play-pause/next
+(defwidget player-row [data]
+  (box :class "player-row"
+       :orientation "horizontal"
+       :space-evenly false
+    ; Prev button
+    (button :class "player-btn"
+            :onclick "playerctl --player=${data.player} previous"
+      "⏮")
+    ; Player name and title
+    (label :class "player-info"
+           :hexpand true
+           :text "${data.player}: ${data.display}")
+    ; Play/pause button
+    (button :class "player-btn"
+            :onclick "playerctl --player=${data.player} play-pause"
+      "${data.icon}")
+    ; Next button
+    (button :class "player-btn"
+            :onclick "playerctl --player=${data.player} next"
+      "⏭")))
+
+; Empty state when no players active
+(defwidget no-players []
+  (box :class "no-players"
+    (label :text "no active players")))

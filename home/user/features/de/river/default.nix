@@ -6,6 +6,7 @@
     ./river_layout.nix
     ./river_rules.nix
     ./components
+    ../eww
     ../common/wk/wk-river.nix
   ];
 }
