@@ -1,9 +1,11 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: let
   shared = import ../../common/waybar/shared.nix {inherit lib pkgs;};
+  isLaptop = config.hostSpec.kind == "laptop";
 in {
   programs.waybar.enable = true;
   xdg.configFile."waybar/niri-config.json".text = builtins.toJSON (
@@ -37,10 +39,20 @@ in {
           tooltip = false;
         };
       };
-      extraSettings = {
-        temperature.hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
-        temperature.input-filename = "temp3_input";
-      };
+      extraSettings =
+        {
+          temperature.hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+          temperature.input-filename = "temp3_input";
+        }
+        // lib.optionalAttrs isLaptop {
+          "group/control-center".modules = [
+            "custom/cc-indicator"
+            "custom/cc-run"
+            "pulseaudio"
+            "idle_inhibitor"
+            "backlight"
+          ];
+        };
     }
   );
 }

@@ -18,21 +18,77 @@ in rec {
 
   # Shared modules-right list (same for both compositors)
   modulesRight = [
-    "custom/sb-playerctl"
-    "pulseaudio"
+    "group/media"
     "temperature"
     "memory"
     "custom/sb-internet"
     "clock"
-    "idle_inhibitor"
+    "group/control-center"
     "tray"
   ];
   sharedModules = wkCommand: {
-    "custom/sb-playerctl" = {
-      format = "{}";
-      exec = "sb-playerctl";
-      interval = 1;
-      on-click = "BLOCK_BUTTON=1 sb-playerctl";
+    "group/control-center" = {
+      orientation = "horizontal";
+      drawer = {
+        transition-duration = 300;
+        transition-left-to-right = false;
+        children-class = "cc-drawer";
+      };
+      modules = [
+        "custom/cc-indicator"
+        "custom/cc-run"
+        "pulseaudio"
+        "idle_inhibitor"
+      ];
+    };
+
+    "custom/cc-indicator" = {
+      format = "| ctrl ";
+      tooltip = false;
+    };
+
+    "custom/cc-run" = {
+      format = "run ";
+      on-click = "rofi -show drun";
+      tooltip = false;
+    };
+    backlight = {
+      format = "| lit:{percent}% ";
+      on-scroll-up = "light -A 5";
+      on-scroll-down = "light -U 5";
+      tooltip = false;
+    };
+    "group/media" = {
+      orientation = "horizontal";
+      drawer = {
+        transition-duration = 300;
+        transition-left-to-right = true;
+        children-class = "media-drawer";
+      };
+      modules = [
+        "mpris"
+        "custom/media-prev"
+        "custom/media-next"
+      ];
+    };
+    mpris = {
+      format = "| {title} ";
+      format-paused = "| {title} ";
+      format-stopped = "| mpris ";
+      max-length = 20;
+      on-click = "playerctl play-pause";
+      player = "playerctld";
+      tooltip = false;
+    };
+    "custom/media-prev" = {
+      format = "< ";
+      on-click = "playerctl previous";
+      tooltip = false;
+    };
+
+    "custom/media-next" = {
+      format = "> |";
+      on-click = "playerctl next";
       tooltip = false;
     };
 

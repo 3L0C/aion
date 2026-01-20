@@ -99,15 +99,14 @@ in {
         {
           modules-right =
             [
-              "custom/sb-playerctl"
-              "pulseaudio"
+              "group/media"
               "temperature"
               "memory"
             ]
             ++ lib.optional isLaptop "battery"
             ++ [
               "clock"
-              "idle_inhibitor"
+              "group/control-center"
               "tray"
             ];
           network = {
@@ -124,6 +123,15 @@ in {
             hwmon-path-abs = config.hostSpec.cpuHwmonPath;
             input-filename = config.hostSpec.cpuTempInput;
           };
+        }
+        // lib.optionalAttrs isLaptop {
+          "group/control-center".modules = [
+            "custom/cc-indicator"
+            "custom/cc-run"
+            "pulseaudio"
+            "idle_inhibitor"
+            "backlight"
+          ];
         };
     }
   );
