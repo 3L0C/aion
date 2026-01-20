@@ -37,7 +37,9 @@ in rec {
       modules = [
         "custom/cc-indicator"
         "custom/cc-run"
+        "custom/vol-up"
         "pulseaudio"
+        "custom/vol-down"
         "idle_inhibitor"
       ];
     };
@@ -52,10 +54,33 @@ in rec {
       on-click = "rofi -show drun";
       tooltip = false;
     };
+    "custom/vol-up" = {
+      format = "| + ";
+      on-click = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
+      tooltip = false;
+    };
+
+    "custom/vol-down" = {
+      format = "- ";
+      on-click = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
+      tooltip = false;
+    };
+    "custom/bkl-up" = {
+      format = "| + ";
+      on-click = "light -A 5";
+      tooltip = false;
+    };
+
     backlight = {
-      format = "| + bkl:{percent}% - ";
+      format = "bkl:{percent}% ";
       on-scroll-up = "light -A 5";
       on-scroll-down = "light -U 5";
+      tooltip = false;
+    };
+
+    "custom/bkl-down" = {
+      format = "- ";
+      on-click = "light -U 5";
       tooltip = false;
     };
     "group/media" = {
@@ -99,8 +124,8 @@ in rec {
     };
 
     pulseaudio = {
-      format = "| + vol:{volume}% - ";
-      format-muted = "| MUTED ";
+      format = "vol:{volume}% ";
+      format-muted = "MUTED ";
       on-click = "${wkCommand} --press 'o p'";
       on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
       on-scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +2%";

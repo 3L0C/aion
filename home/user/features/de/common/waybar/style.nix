@@ -204,7 +204,11 @@
 
       /* Control Center group */
       #custom-cc-indicator,
-      #custom-cc-run {
+      #custom-cc-run,
+      #custom-vol-up,
+      #custom-vol-down,
+      #custom-bkl-up,
+      #custom-bkl-down {
           background-color: transparent;
           color: @base05;
           padding: 0;

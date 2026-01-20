@@ -128,8 +128,12 @@ in {
           "group/control-center".modules = [
             "custom/cc-indicator"
             "custom/cc-run"
+            "custom/vol-up"
             "pulseaudio"
+            "custom/vol-down"
+            "custom/bkl-up"
             "backlight"
+            "custom/bkl-down"
             "idle_inhibitor"
           ];
         };
