@@ -56,13 +56,13 @@ in rec {
     };
     "custom/vol-up" = {
       format = "| + ";
-      on-click = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
+      on-click = "pamixer -i 5";
       tooltip = false;
     };
 
     "custom/vol-down" = {
       format = "- ";
-      on-click = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
+      on-click = "pamixer -d 5";
       tooltip = false;
     };
     "custom/bkl-up" = {
@@ -127,9 +127,9 @@ in rec {
       format = "vol:{volume}% ";
       format-muted = "MUTED ";
       on-click = "${wkCommand} --press 'o p'";
-      on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-      on-scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +2%";
-      on-scroll-down = "pactl set-sink-volume @DEFAULT_SINK@ -2%";
+      on-click-right = "pamixer -t";
+      on-scroll-up = "pamixer -i 2";
+      on-scroll-down = "pamixer -d 2";
       tooltip = false;
     };
 
