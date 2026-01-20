@@ -53,22 +53,6 @@ in {
         padding: 6px;
       }
 
-      .panel-header {
-        color: $base04;
-        padding: 2px 6px 6px 6px;
-        border-bottom: 1px solid $base02;
-        margin-bottom: 4px;
-      }
-
-      .close-btn {
-        color: $base04;
-        padding: 0 4px;
-
-        &:hover {
-          color: $base08;
-        }
-      }
-
       .player-row {
         background-color: $base00;
         color: $base05;
@@ -83,6 +67,10 @@ in {
       .player-info {
         color: $base05;
         margin: 0 8px;
+
+        &:hover {
+          color: $base0D;
+        }
       }
 
       .player-btn {

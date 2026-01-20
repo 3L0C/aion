@@ -18,22 +18,14 @@
   :focusable false
   (media-panel-content))
 
-; Container widget - shows players or empty state
+; Container widget - right-click anywhere to close
 (defwidget media-panel-content []
-  (box :class "media-panel"
-       :orientation "vertical"
-       :space-evenly false
-    ; Header with close button
-    (box :class "panel-header"
-         :orientation "horizontal"
+  (eventbox :onrightclick "eww close media-panel"
+    (box :class "media-panel"
+         :orientation "vertical"
          :space-evenly false
-      (label :hexpand true :text "media players")
-      (button :class "close-btn"
-              :onclick "eww close media-panel"
-        "x"))
-    ; Player list
-    (for player in media-players
-      (player-row :data player))))
+      (for player in media-players
+        (player-row :data player)))))
 
 ; Individual player row with prev/info/play-pause/next
 (defwidget player-row [data]
@@ -44,10 +36,11 @@
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} previous"
       "󰒮")
-    ; Media title
-    (label :class "player-info"
-           :hexpand true
-           :text "${data.display}")
+    ; Media title - click to toggle play/pause
+    (eventbox :onclick "playerctl --player=${data.player} play-pause"
+              :hexpand true
+      (label :class "player-info"
+             :text "${data.display}"))
     ; Play/pause button
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} play-pause"
