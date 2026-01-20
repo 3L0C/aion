@@ -44,8 +44,8 @@ in {
             "--border-width                 4"
             "--border-width-monocle         4"
             "--border-width-smart-gaps      4"
-            "--border-color-focused         \"0x5a7b8f\"" # Dimmed blue (themed)
-            "--border-color-focused-monocle \"0x5a7b8f\""
+            "--border-color-focused         \"0x7FB4CA\"" # Dimmed blue (themed)
+            "--border-color-focused-monocle \"0x7FB4CA\""
             "--border-color-unfocused       \"0x393836\"" # Dark grey (base4)
             "--log-threshold                info"
           ];
