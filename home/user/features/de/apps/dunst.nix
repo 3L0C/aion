@@ -8,7 +8,7 @@
         follow = "keyboard";
         width = 350;
         height = "(0, 450)";
-        offset = "(0, 30)";
+        offset = "(20, 20)";
         padding = 8;
         horizontal_padding = 8;
         frame_width = 3;

@@ -97,6 +97,7 @@ in rec {
       title-len = 16;
       on-click = "playerctl play-pause";
       on-click-right = "eww open --toggle media-panel";
+      interval = 1;
       tooltip = false;
     };
 

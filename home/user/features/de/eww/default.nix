@@ -36,7 +36,7 @@ in {
       $base0A: ${colors.base0A};
       $base0B: ${colors.base0B};
       $base0C: ${colors.base0C};
-      $base0D: ${colors.base0D};
+      $base0D: #5a7b8f;
       $base0E: ${colors.base0E};
       $base0F: ${colors.base0F};
 
