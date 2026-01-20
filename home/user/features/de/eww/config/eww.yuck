@@ -23,10 +23,8 @@
   (box :class "media-panel"
        :orientation "vertical"
        :space-evenly false
-    (if (== (arraylength media-players) 0)
-      (no-players)
-      (for player in media-players
-        (player-row :data player)))))
+    (for player in media-players
+      (player-row :data player))))
 
 ; Individual player row with prev/info/play-pause/next
 (defwidget player-row [data]
@@ -49,8 +47,3 @@
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} next"
       "⏭")))
-
-; Empty state when no players active
-(defwidget no-players []
-  (box :class "no-players"
-    (label :text "no active players")))

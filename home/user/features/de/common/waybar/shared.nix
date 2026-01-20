@@ -18,7 +18,7 @@ in rec {
 
   # Shared modules-right list (same for both compositors)
   modulesRight = [
-    "custom/media-toggle"
+    "mpris"
     "temperature"
     "memory"
     "custom/sb-internet"
@@ -83,9 +83,20 @@ in rec {
       on-click = "light -U 5";
       tooltip = false;
     };
-    "custom/media-toggle" = {
-      format = "| media ";
-      on-click = "eww open --toggle media-panel";
+    mpris = {
+      format = "| {player}: {title} {status_icon}";
+      format-paused = "| {player}: {title} {status_icon}";
+      status-icons = {
+        playing = "-";
+        paused = "+";
+        stopped = "x";
+      };
+      player-icons = {
+        default = "";
+      };
+      max-length = 30;
+      on-click = "playerctl play-pause";
+      on-click-right = "eww open --toggle media-panel";
       tooltip = false;
     };
 
