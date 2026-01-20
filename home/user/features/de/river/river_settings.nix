@@ -37,7 +37,7 @@
     ${riverctl} input "*Touchpad*" disable-while-trackpointing enabled
     ${riverctl} input "*Touchpad*" middle-emulation enabled
     ${riverctl} input "*Touchpad*" natural-scroll enabled
-    ${riverctl} input "*Touchpad*" tap enabled
+    ${riverctl} input "*Touchpad*" tap disabled
     ${riverctl} input "*Touchpad*" tap-button-map left-right-middle
     ${riverctl} input "*Touchpad*" scroll-method two-finger
   '';
