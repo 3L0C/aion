@@ -99,7 +99,7 @@ in {
         {
           modules-right =
             [
-              "group/media"
+              "mpris"
               "temperature"
               "memory"
             ]

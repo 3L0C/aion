@@ -23,6 +23,15 @@
   (box :class "media-panel"
        :orientation "vertical"
        :space-evenly false
+    ; Header with close button
+    (box :class "panel-header"
+         :orientation "horizontal"
+         :space-evenly false
+      (label :hexpand true :text "media players")
+      (button :class "close-btn"
+              :onclick "eww close media-panel"
+        "x"))
+    ; Player list
     (for player in media-players
       (player-row :data player))))
 

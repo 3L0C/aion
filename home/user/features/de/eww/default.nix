@@ -43,14 +43,30 @@ in {
       * {
         all: unset;
         font-family: "${fonts.monospace.name}", monospace;
-        font-size: ${toString fonts.sizes.popups}px;
+        font-size: ${toString fonts.sizes.terminal}px;
       }
 
       .media-panel {
         background-color: $base00;
-        border: 2px solid $base0D;
+        border: 4px solid $base0D;
         border-radius: 0px;
         padding: 6px;
+      }
+
+      .panel-header {
+        color: $base04;
+        padding: 2px 6px 6px 6px;
+        border-bottom: 1px solid $base02;
+        margin-bottom: 4px;
+      }
+
+      .close-btn {
+        color: $base04;
+        padding: 0 4px;
+
+        &:hover {
+          color: $base08;
+        }
       }
 
       .player-row {
