@@ -5,6 +5,19 @@
   ...
 }: let
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
+  keyboardLayoutCmd = let
+    model = config.hostSpec.kbdModel;
+    variant = config.hostSpec.kbdVariant;
+    options = config.userSpec.kbdOptions;
+    layout = config.hostSpec.kbdLayout;
+  in
+    lib.optionalString (options != "") ''
+      ${riverctl} keyboard-layout \
+        ${lib.optionalString (model != "") "-model \"${model}\""} \
+        ${lib.optionalString (variant != "") "-variant \"${variant}\""} \
+        -options "${options}" \
+        "${layout}"
+    '';
   settingsScript = pkgs.writeShellScript "river-settings" ''
     ${riverctl} default-attach-mode top
     ${riverctl} allow-tearing disabled
@@ -14,6 +27,8 @@
     ${riverctl} hide-cursor when-typing enabled
     ${riverctl} set-cursor-warp on-output-change
     ${riverctl} set-repeat 50 300
+
+    ${keyboardLayoutCmd}
     ${riverctl} xcursor-theme "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
     ${riverctl} input "*Touchpad*" click-method button-areas
     ${riverctl} input "*Touchpad*" drag enabled
