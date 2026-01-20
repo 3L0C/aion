@@ -34,7 +34,7 @@
     ; Prev button
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} previous"
-      "⏮")
+      "󰒮")
     ; Player name and title
     (label :class "player-info"
            :hexpand true
@@ -46,4 +46,4 @@
     ; Next button
     (button :class "player-btn"
             :onclick "playerctl --player=${data.player} next"
-      "⏭")))
+      "󰒭")))
