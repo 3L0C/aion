@@ -84,8 +84,8 @@ in rec {
       tooltip = false;
     };
     mpris = {
-      format = "| {title} {status_icon}";
-      format-paused = "| {title} {status_icon}";
+      format = "| {title}";
+      format-paused = "| mpris";
       status-icons = {
         playing = "-";
         paused = "+";

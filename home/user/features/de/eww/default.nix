@@ -5,13 +5,6 @@
 }: let
   colors = config.lib.stylix.colors.withHashtag;
   inherit (config.stylix) fonts;
-  monitorScale = let
-    scaleStr = config.primaryMonitor.scale or "1";
-  in
-    if scaleStr == "auto"
-    then 1.0
-    else builtins.fromJSON scaleStr;
-  scaledFontSize = builtins.floor (fonts.sizes.terminal * monitorScale);
 in {
   programs.eww = {
     enable = true;
@@ -50,7 +43,7 @@ in {
       * {
         all: unset;
         font-family: "${fonts.monospace.name}", monospace;
-        font-size: ${toString scaledFontSize}px;
+        font-size: ${toString fonts.sizes.terminal}px;
       }
 
       .media-panel {
