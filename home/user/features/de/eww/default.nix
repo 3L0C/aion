@@ -7,16 +7,174 @@
   colors = config.lib.stylix.colors.withHashtag;
   inherit (config.stylix) fonts;
   isLaptop = config.hostSpec.kind == "laptop";
-  controlCenterContent = ''
-    ; Container widget - right-click anywhere to close
+  polls = {
+    cc-state = ''
+      (defpoll cc-state :interval "1s"
+        "~/.config/eww/scripts/control-center.sh")
+    '';
+    power-profile = ''
+      (defpoll power-profile :interval "2s"
+        "~/.config/eww/scripts/power-profile.sh")
+    '';
+    touchpad-state = ''
+      (defpoll touchpad-state :interval "1s"
+        "cat $XDG_RUNTIME_DIR/touchpad-state 2>/dev/null || echo enabled")
+    '';
+  };
+  widgets = {
+    volume-control = {
+      requires = ["cc-state"];
+      definition = ''
+        (defwidget volume-control []
+          (eventbox :onrightclick "kitty --class pulsemixer pulsemixer &"
+            (box :class "cc-row"
+                 :orientation "horizontal"
+                 :space-evenly false
+              (button :class "cc-btn"
+                      :onclick "pamixer -d 5"
+                "")
+              (label :class "cc-text"
+                     :hexpand true
+                     :text {cc-state.muted ? "MUTED" : "vol: ''${cc-state.volume}%"})
+              (button :class "cc-btn"
+                      :onclick "pamixer -i 5"
+                ""))))
+      '';
+    };
+    backlight-control = {
+      requires = ["cc-state"];
+      definition = ''
+        (defwidget backlight-control []
+          (box :class "cc-row"
+               :orientation "horizontal"
+               :space-evenly false
+            (button :class "cc-btn"
+                    :onclick "brightnessctl --device=intel_backlight set 5%-"
+              "󰌶")
+            (label :class "cc-text"
+                   :hexpand true
+                   :text {cc-state.backlight != "null" ? "bkl: ''${cc-state.backlight}%" : "bkl: N/A"})
+            (button :class "cc-btn"
+                    :onclick "brightnessctl --device=intel_backlight set +5%"
+              "󰌵")))
+      '';
+    };
+    power-profile-control = {
+      requires = ["power-profile"];
+      definition = ''
+        (defwidget power-profile-control []
+          (box :class "cc-row cc-power-row"
+               :orientation "horizontal"
+               :space-evenly true
+            (button :class {power-profile == "Quiet" ? "cc-btn cc-power cc-active" : "cc-btn cc-power"}
+                    :onclick "asusctl profile -P Quiet"
+                    :tooltip "Quiet - Low power, silent fans"
+              "󰌪")
+            (button :class {power-profile == "Balanced" ? "cc-btn cc-power cc-active" : "cc-btn cc-power"}
+                    :onclick "asusctl profile -P Balanced"
+                    :tooltip "Balanced - Normal performance"
+              "󰾅")
+            (button :class {power-profile == "Performance" ? "cc-btn cc-power cc-active" : "cc-btn cc-power"}
+                    :onclick "asusctl profile -P Performance"
+                    :tooltip "Performance - Maximum power"
+              "")))
+      '';
+    };
+  };
+  quickActionButtons = {
+    search = {
+      requires = [];
+      definition = ''
+        (button :class "cc-btn cc-action"
+                :onclick "eww close control-center && rofi -show drun &"
+          "")
+      '';
+    };
+    touchpad = {
+      requires = ["touchpad-state"];
+      definition = ''
+        (button :class "cc-btn cc-action"
+                :onclick "touchpad-toggle"
+                :tooltip {touchpad-state == "disabled" ? "Touchpad disabled - click to enable" : "Touchpad enabled - click to disable"}
+          {touchpad-state == "disabled" ? "󰤳" : "󰟸"})
+      '';
+    };
+  };
+  layouts = {
+    laptop = {
+      widgets = ["volume-control" "backlight-control" "power-profile-control"];
+      quickActions = ["search" "touchpad"];
+    };
+
+    desktop = {
+      widgets = ["volume-control"];
+      quickActions = ["search"];
+    };
+  };
+  currentLayout =
+    if isLaptop
+    then layouts.laptop
+    else layouts.desktop;
+
+  collectPolls = layout: let
+    widgetPolls = lib.concatMap (w: widgets.${w}.requires) layout.widgets;
+    buttonPolls = lib.concatMap (b: quickActionButtons.${b}.requires) layout.quickActions;
+  in
+    lib.unique (widgetPolls ++ buttonPolls);
+  generatePolls = pollNames:
+    lib.concatStringsSep "\n" (map (p: polls.${p}) pollNames);
+  generateWidgets = widgetNames:
+    lib.concatStringsSep "\n" (map (w: widgets.${w}.definition) widgetNames);
+  generateQuickActions = buttonNames: ''
+    (defwidget quick-actions []
+      (box :class "cc-row"
+           :orientation "horizontal"
+           :space-evenly true
+        ${lib.concatStringsSep "\n    " (map (b: quickActionButtons.${b}.definition) buttonNames)}))
+  '';
+  generateContentWidget = layout: ''
     (defwidget control-center-content []
       (eventbox :onrightclick "eww close control-center"
         (box :class "control-panel"
              :orientation "vertical"
              :space-evenly false
-          (volume-control)
-          ${lib.optionalString isLaptop "(backlight-control)\n      (power-profile-control)\n      (quick-actions-laptop)"}
-          ${lib.optionalString (!isLaptop) "(quick-actions)"})))
+          ${lib.concatStringsSep "\n      " (map (w: "(${w})") layout.widgets)}
+          (quick-actions))))
+  '';
+  controlCenterYuck = let
+    requiredPolls = collectPolls currentLayout;
+  in ''
+    ; EWW Control Center - Dynamically generated
+    ; Layout: ${
+      if isLaptop
+      then "laptop"
+      else "desktop"
+    }
+
+    ; Polls
+    ${generatePolls requiredPolls}
+
+    ; Window definition
+    (defwindow control-center
+      :monitor 0
+      :geometry (geometry
+        :x "20px"
+        :y "20px"
+        :width "200px"
+        :anchor "top right")
+      :stacking "fg"
+      :exclusive false
+      :focusable false
+      (control-center-content))
+
+    ; Widget definitions
+    ${generateWidgets currentLayout.widgets}
+
+    ; Quick actions row
+    ${generateQuickActions currentLayout.quickActions}
+
+    ; Main content container
+    ${generateContentWidget currentLayout}
   '';
 in {
   programs.eww = {
@@ -32,21 +190,23 @@ in {
     ]
     ++ lib.optional isLaptop asusctl;
   xdg.configFile = {
-    "eww/eww.yuck".text =
-      builtins.readFile ./config/eww.yuck
-      + "\n"
-      + builtins.readFile ./config/control-center.yuck
-      + "\n"
-      + controlCenterContent
-      + lib.optionalString isLaptop ("\n" + builtins.readFile ./config/control-center-laptop.yuck);
+    "eww/media-panel.yuck".source = ./config/eww.yuck;
+    "eww/control-center.yuck".text = controlCenterYuck;
+    "eww/eww.yuck".text = ''
+      ; EWW Configuration - Import all panels
+      (include "./media-panel.yuck")
+      (include "./control-center.yuck")
+    '';
     "eww/scripts/media-players.sh" = {
       source = ./config/scripts/media-players.sh;
       executable = true;
     };
+
     "eww/scripts/control-center.sh" = {
       source = ./config/scripts/control-center.sh;
       executable = true;
     };
+
     "eww/scripts/power-profile.sh" = lib.mkIf isLaptop {
       source = ./config/scripts/power-profile.sh;
       executable = true;
