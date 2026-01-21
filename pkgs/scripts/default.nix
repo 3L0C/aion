@@ -9,6 +9,7 @@ in {
   ne = mkScript "ne" ./ne;
   doomemacs = mkScript "doomemacs" ./doom/doomemacs;
   dns-recovery = mkScript "dns-recovery" ./system/dns-recovery;
+  touchpad-toggle = mkScript "touchpad-toggle" ./river/touchpad-toggle;
   media = mkScript "media" ./media/media;
   browser-migrate = mkScript "browser-migrate" ./browser/browser-migrate;
   statusbar = callPackage ./statusbar {};

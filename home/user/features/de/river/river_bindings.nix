@@ -63,6 +63,7 @@
       "None XF86MonBrightnessDown spawn '${brightnessctl} -d intel_backlight set 5%-'"
       "None XF86KbdBrightnessUp spawn '${asusctl} -n'"
       "None XF86KbdBrightnessDown spawn '${asusctl} -p'"
+      "None XF86TouchpadToggle spawn 'touchpad-toggle'"
     ];
   };
   lockedBindings = lib.custom.mkRiverBindsScript pkgs "river-locked-bindings" {
