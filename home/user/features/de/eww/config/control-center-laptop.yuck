@@ -31,7 +31,7 @@
        :space-evenly true
     (button :class "cc-btn cc-action"
             :onclick "eww close control-center && rofi -show drun &"
-      "")
+      "")
     (button :class "cc-btn cc-action"
             :onclick "touchpad-toggle"
             :tooltip {touchpad-state == "disabled" ? "Touchpad disabled - click to enable" : "Touchpad enabled - click to disable"}
