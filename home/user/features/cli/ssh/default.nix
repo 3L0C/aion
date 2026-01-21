@@ -18,6 +18,7 @@
     value = {
       hostname = "${hostname}.${domain}";
       user = "user";
+      identityFile = "~/.ssh/id_3L0C";
       addKeysToAgent = "yes";
     };
   }) (lib.filterAttrs (hostname: _: hostname != currentHost) tailnetHosts);

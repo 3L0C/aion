@@ -29,7 +29,7 @@ in {
         "video"
       ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIzpZTzhOr01CSn89XDn3i+L6OewOp8MTrYEQGc2SCx2"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBM61uXhrZmkI+QGEboOUPnYRb1ZMM85qaYKEGeWRTTZ"
     ];
   };
   security.pam.services = lib.mkIf (config.hostSpec.kind != "headless") {
