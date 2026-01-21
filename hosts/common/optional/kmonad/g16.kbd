@@ -1,0 +1,91 @@
+;; ASUS ROG Zephyrus G16 2025 (GU605CR) keyboard configuration
+;; Features: vim navigation, tap-hold modifiers, colemak-dhm, extend layers
+
+;; Source layout - ASUS G16 ANSI with media keys row
+(defsrc
+  vold volu mute prog1
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft z    x    c    v    b    n    m    ,    .    /              rsft
+  lctl wkup lmet lalt           spc            ralt cmp  up   left down rght
+)
+
+;; Aliases for tap-hold and layer switching
+(defalias
+  ;; Tap-hold modifiers
+  tes (tap-hold-next-release 200 esc lsft)   ;; tap esc, hold shift
+  tss (tap-hold-next-release 200 spc lmet)   ;; tap space, hold meta
+  ttm (tap-hold-next-release 200 tab (around lctl (around lalt lsft))) ;; tap tab, hold meh
+  trm (tap-hold-next-release 200 ret (around lctl (around lalt lsft))) ;; tap return, hold meh
+  tas (tap-hold-next-release 200 a lmet)     ;; tap a, hold meta (for colemak)
+
+  ;; Layer switching
+  lnv (layer-next vim)      ;; next press goes to vim layer
+  lsv (layer-switch vim)    ;; switch to vim layer
+  lsb (layer-switch base)   ;; switch to base layer
+  lsc (layer-switch colemak);; switch to colemak layer
+  lse (layer-switch extend) ;; switch to extend layer
+  ext (layer-toggle extend) ;; hold for extend layer
+
+  ;; Navigation aliases
+  bck C-left   ;; word back
+  wrd C-right  ;; word forward
+  cpy C-c      ;; copy
+  cut C-x      ;; cut
+  pst C-v      ;; paste
+  rev C-z      ;; undo
+  rdo C-y      ;; redo
+  sel C-a      ;; select all
+
+  ;; Vim macros
+  vms (tap-macro esc : w ret)    ;; vim save
+  vmq (tap-macro esc : q ret)    ;; vim quit
+  vmx (tap-macro esc : x ret)    ;; vim save and quit
+  vmc (tap-macro esc : w q ! ret);; vim force quit
+)
+
+;; Base layer - QWERTY with tap-hold modifiers
+(deflayer base
+  vold volu mute prog1
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ttm _    _    _    _    _    _    _    _    _    _    _    _    _
+  @tes _    _    _    _    _    _    _    _    _    _    _         @trm
+  _    _    _    _    _    _    _    _    _    _    _              _
+  _    @ext _    _              @tss           _    @lnv _    _    _    _
+)
+
+;; Vim layer - navigation and vim-style commands
+(deflayer vim
+  _    _    _    _
+  @lsb _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @vmq @wrd end  @rdo _    _    @rev ins  _    @pst _    _    _
+  _    @sel @vms del  _    _    left down up   rght _    _         _
+  _    @rev @cut @cpy @pst @bck home _    _    _    _              _
+  _    _    _    _              _              _    @lsb _    _    _    _
+)
+
+;; Colemak-DHm layer
+(deflayer colemak
+  _    _    _    _
+  @lsb _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ttm q    w    f    p    b    j    l    u    y    ;    [    ]    \
+  @tes @tas r    s    t    g    m    n    e    i    o    '         @trm
+  _    x    c    d    v    z    k    h    ,    .    /              _
+  _    @ext _    _              @tss           _    @lnv _    _    _    _
+)
+
+;; Extend layer - function keys, media, and navigation
+(deflayer extend
+  _    _    _    _
+  _    brdn brup _    _    _    _    prev pp   next _    _    _    _
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    _    @wrd end  _    _    _    _    ins  _    _    _    _    _
+  _    _    _    del  _    _    left down up   rght _    _         _
+  _    @rev @cut @cpy @pst @bck home _    _    _    _              _
+  _    _    _    _              _              _    _    _    _    _    _
+)
