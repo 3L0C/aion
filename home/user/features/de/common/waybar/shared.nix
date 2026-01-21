@@ -15,77 +15,47 @@ in rec {
     expand-left = true;
     no-center = true;
   };
-
-  # Shared modules-right list (same for both compositors)
   modulesRight = [
     "mpris"
+    "custom/sep"
     "temperature"
+    "custom/sep"
     "memory"
+    "custom/sep"
     "custom/sb-internet"
+    "custom/sep"
     "clock"
+    "custom/sep"
     "group/control-center"
+    "custom/sep"
     "tray"
   ];
-  sharedModules = wkCommand: {
+
+  # Shared module definitions
+  sharedModules = {
+    "custom/sep" = {
+      format = "|";
+      tooltip = false;
+    };
     "group/control-center" = {
       orientation = "horizontal";
-      drawer = {
-        transition-duration = 300;
-        transition-left-to-right = false;
-        children-class = "cc-drawer";
-      };
       modules = [
-        "custom/cc-indicator"
-        "custom/cc-run"
-        "custom/vol-up"
-        "pulseaudio"
-        "custom/vol-down"
         "idle_inhibitor"
+        "pulseaudio"
       ];
     };
-
-    "custom/cc-indicator" = {
-      format = "| ctrl |";
-      tooltip = false;
-    };
-
-    "custom/cc-run" = {
-      format = "| run ";
-      on-click = "rofi -show drun";
-      tooltip = false;
-    };
-    "custom/vol-up" = {
-      format = "| + ";
-      on-click = "pamixer -i 5";
-      tooltip = false;
-    };
-
-    "custom/vol-down" = {
-      format = "- ";
-      on-click = "pamixer -d 5";
-      tooltip = false;
-    };
-    "custom/bkl-up" = {
-      format = "| + ";
-      on-click = "light -A 5";
-      tooltip = false;
-    };
-
-    backlight = {
-      format = "bkl:{percent}% ";
-      on-scroll-up = "light -A 5";
-      on-scroll-down = "light -U 5";
-      tooltip = false;
-    };
-
-    "custom/bkl-down" = {
-      format = "- ";
-      on-click = "light -U 5";
+    idle_inhibitor = {
+      format = " {icon} ";
+      format-icons = {
+        activated = "󰈉"; # eye closed (idle inhibited)
+        deactivated = "󰈈"; # eye open (normal)
+      };
+      on-click = "eww open --toggle control-center";
       tooltip = false;
     };
     mpris = {
-      format = "| {title} ";
-      format-paused = "| mpris ";
+      format = " {title} ";
+      format-paused = " mpris ";
       status-icons = {
         playing = "-";
         paused = "+";
@@ -100,33 +70,32 @@ in rec {
       interval = 1;
       tooltip = false;
     };
-
     pulseaudio = {
-      format = "vol:{volume}% ";
-      format-muted = "MUTED ";
-      on-click = "${wkCommand} --press 'o p'";
-      on-click-right = "pamixer -t";
+      format = " {volume}% ";
+      format-muted = " MUTED ";
       on-scroll-up = "pamixer -i 2";
       on-scroll-down = "pamixer -d 2";
+      on-click = "${kitty} --class pulsemixer pulsemixer";
+      on-click-right = "eww open --toggle control-center";
       tooltip = false;
     };
 
     # Note: hwmon-path is host-specific, override in extraSettings
     temperature = {
       interval = 10;
-      format = "| {temperatureC}°C ";
+      format = " {temperatureC}°C ";
       tooltip = false;
     };
 
     cpu = {
-      format = "| {usage}% ";
+      format = " {usage}% ";
       interval = 10;
       on-click = "${kitty} -e htop";
       tooltip = false;
     };
 
     memory = {
-      format = "| {used:0.1f}G ";
+      format = " {used:0.1f}G ";
       interval = 10;
       on-click = "${kitty} -e htop";
       tooltip = false;
@@ -144,7 +113,7 @@ in rec {
 
     network = {
       format-wifi = "  {essid} ({signalStrength}%)";
-      format-ethernet = "| {ifname} ";
+      format-ethernet = " {ifname} ";
       format-linked = " {ifname} (No IP)";
       format-disconnected = " Disconnected";
       format-alt = "{ifname}: {ipaddr}/{cidr}";
@@ -154,17 +123,8 @@ in rec {
     };
 
     clock = {
-      format = "| {:%B %d %H:%M} ";
+      format = " {:%B %d %H:%M} ";
       tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      tooltip = false;
-    };
-
-    idle_inhibitor = {
-      format = "| {icon} ";
-      format-icons = {
-        activated = "0";
-        deactivated = "-";
-      };
       tooltip = false;
     };
 
@@ -179,9 +139,9 @@ in rec {
         warning = 30;
         critical = 15;
       };
-      format = "| - {capacity}% ";
-      format-charging = "| + {capacity}% ";
-      format-plugged = "| {capacity}% ";
+      format = " - {capacity}% ";
+      format-charging = " + {capacity}% ";
+      format-plugged = " {capacity}% ";
       format-icons = [
         ""
         ""
@@ -191,9 +151,14 @@ in rec {
       ];
       tooltip = false;
     };
+    backlight = {
+      format = " bkl:{percent}% ";
+      on-scroll-up = "brightnessctl set +5%";
+      on-scroll-down = "brightnessctl set 5%-";
+      tooltip = false;
+    };
   };
   mkConfig = {
-    wkCommand,
     modulesLeft,
     compositorModules ? {},
     extraSettings ? {},
@@ -204,7 +169,7 @@ in rec {
         modules-left = modulesLeft;
         modules-right = modulesRight;
       }
-      // sharedModules wkCommand
+      // sharedModules
       // compositorModules
     )
     extraSettings;

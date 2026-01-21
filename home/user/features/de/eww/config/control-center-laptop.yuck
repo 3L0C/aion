@@ -1,0 +1,40 @@
+; EWW Control Center - Laptop-specific widgets
+; Backlight control and power profile switcher (ASUS laptops)
+
+; Poll for current power profile every 2 seconds
+(defpoll power-profile :interval "2s"
+  "~/.config/eww/scripts/power-profile.sh")
+
+; Backlight control row with +/- buttons and text display
+(defwidget backlight-control []
+  (box :class "cc-row"
+       :orientation "horizontal"
+       :space-evenly false
+    (button :class "cc-btn"
+            :onclick "brightnessctl set 5%-"
+      "󰌶")
+    (label :class "cc-text"
+           :hexpand true
+           :text {cc-state.backlight != "null" ? "bkl: ${cc-state.backlight}%" : "bkl: N/A"})
+    (button :class "cc-btn"
+            :onclick "brightnessctl set +5%"
+      "󰌵")))
+
+; Power profile control - three buttons for Quiet/Balanced/Performance
+; Uses asusctl for ASUS laptops
+(defwidget power-profile-control []
+  (box :class "cc-row cc-power-row"
+       :orientation "horizontal"
+       :space-evenly true
+    (button :class {power-profile == "Quiet" ? "cc-btn cc-power cc-active" : "cc-btn cc-power"}
+            :onclick "asusctl profile -P Quiet"
+            :tooltip "Quiet - Low power, silent fans"
+      "󰌪")
+    (button :class {power-profile == "Balanced" ? "cc-btn cc-power cc-active" : "cc-btn cc-power"}
+            :onclick "asusctl profile -P Balanced"
+            :tooltip "Balanced - Normal performance"
+      "󰾅")
+    (button :class {power-profile == "Performance" ? "cc-btn cc-power cc-active" : "cc-btn cc-power"}
+            :onclick "asusctl profile -P Performance"
+            :tooltip "Performance - Maximum power"
+      "")))

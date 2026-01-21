@@ -34,8 +34,6 @@ in {
   };
   xdg.configFile."waybar/hyprland-config.json".text = builtins.toJSON (
     shared.mkConfig {
-      wkCommand = "wk-hyprland";
-
       modulesLeft = [
         "hyprland/workspaces"
         "hyprland/submap"
@@ -88,24 +86,10 @@ in {
           tooltip = false;
         };
       };
-      extraSettings =
-        {
-          temperature.hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
-          temperature.input-filename = "temp3_input";
-        }
-        // lib.optionalAttrs (config.hostSpec.kind == "laptop") {
-          "group/control-center".modules = [
-            "custom/cc-indicator"
-            "custom/cc-run"
-            "custom/vol-up"
-            "pulseaudio"
-            "custom/vol-down"
-            "custom/bkl-up"
-            "backlight"
-            "custom/bkl-down"
-            "idle_inhibitor"
-          ];
-        };
+      extraSettings = {
+        temperature.hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+        temperature.input-filename = "temp3_input";
+      };
     }
   );
 }

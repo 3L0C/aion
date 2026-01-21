@@ -50,8 +50,6 @@ in {
   };
   xdg.configFile."waybar/river-config.json".text = builtins.toJSON (
     shared.mkConfig {
-      wkCommand = "wk-river";
-
       modulesLeft = [
         "river/tags"
         "river/layout"
@@ -93,27 +91,32 @@ in {
           };
         }
         // lib.optionalAttrs isLaptop {
-          inherit (shared.sharedModules "wk-river") battery;
+          inherit (shared.sharedModules) battery;
         };
       extraSettings =
         {
           modules-right =
             [
               "mpris"
+              "custom/sep"
               "temperature"
+              "custom/sep"
               "memory"
             ]
-            ++ lib.optional isLaptop "battery"
+            ++ lib.optionals isLaptop ["custom/sep" "battery"]
             ++ [
+              "custom/sep"
               "clock"
+              "custom/sep"
               "group/control-center"
+              "custom/sep"
               "tray"
             ];
           network = {
             interface = wlanIface;
-            format-wifi = "| {essid} ({signalStrength}%) ";
-            format-ethernet = "| {ifname} ";
-            format-disconnected = "| Disconnected ";
+            format-wifi = " {essid} ({signalStrength}%) ";
+            format-ethernet = " {ifname} ";
+            format-disconnected = " Disconnected ";
             on-click = "${kitty} -e nmtui";
             tooltip = false;
           };
@@ -123,19 +126,6 @@ in {
             hwmon-path-abs = config.hostSpec.cpuHwmonPath;
             input-filename = config.hostSpec.cpuTempInput;
           };
-        }
-        // lib.optionalAttrs isLaptop {
-          "group/control-center".modules = [
-            "custom/cc-indicator"
-            "custom/cc-run"
-            "custom/vol-up"
-            "pulseaudio"
-            "custom/vol-down"
-            "custom/bkl-up"
-            "backlight"
-            "custom/bkl-down"
-            "idle_inhibitor"
-          ];
         };
     }
   );

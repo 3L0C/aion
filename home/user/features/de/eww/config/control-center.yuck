@@ -1,0 +1,49 @@
+; EWW Control Center - Volume controls and quick actions
+; Triggered from waybar idle_inhibitor, provides +/- volume and rofi launcher
+
+; Poll for volume/backlight state every second
+; Returns JSON: {"volume": 50, "muted": false, "backlight": 70}
+(defpoll cc-state :interval "1s"
+  "~/.config/eww/scripts/control-center.sh")
+
+; Main control center window
+(defwindow control-center
+  :monitor 0
+  :geometry (geometry
+    :x "20px"
+    :y "80px"
+    :width "200px"
+    :anchor "top right")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  (control-center-content))
+
+; NOTE: control-center-content widget is generated in default.nix
+; to conditionally include laptop-specific widgets
+
+; Volume control row with +/- buttons and text display
+; Right-click opens pulsemixer
+(defwidget volume-control []
+  (eventbox :onrightclick "kitty --class pulsemixer pulsemixer &"
+    (box :class "cc-row"
+         :orientation "horizontal"
+         :space-evenly false
+      (button :class "cc-btn"
+              :onclick "pamixer -d 5"
+        "")
+      (label :class "cc-text"
+             :hexpand true
+             :text {cc-state.muted ? "MUTED" : "vol: ${cc-state.volume}%"})
+      (button :class "cc-btn"
+              :onclick "pamixer -i 5"
+        ""))))
+
+; Quick actions row - rofi launcher
+(defwidget quick-actions []
+  (box :class "cc-row"
+       :orientation "horizontal"
+       :space-evenly true
+    (button :class "cc-btn cc-action"
+            :onclick "rofi -show drun &"
+      "")))
