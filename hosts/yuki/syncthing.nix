@@ -5,5 +5,6 @@
     user = "user";
     dataDir = "/home/user/sync";
     configDir = "/home/user/.config/syncthing";
+    guiAddress = "0.0.0.0:8384";
   };
 }

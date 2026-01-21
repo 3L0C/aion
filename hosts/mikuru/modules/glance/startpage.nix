@@ -142,6 +142,16 @@
                   icon = "di:syncthing";
                 }
                 {
+                  title = "Syncthing (Yuki)";
+                  url = "http://yuki.tail7d01e8.ts.net:8384";
+                  icon = "di:syncthing";
+                }
+                {
+                  title = "Syncthing (Haruhi)";
+                  url = "http://haruhi.tail7d01e8.ts.net:8384";
+                  icon = "di:syncthing";
+                }
+                {
                   title = "Syncthing (localhost)";
                   url = "http://localhost:8384";
                   icon = "di:syncthing";
