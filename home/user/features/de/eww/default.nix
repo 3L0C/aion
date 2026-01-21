@@ -15,8 +15,8 @@
              :orientation "vertical"
              :space-evenly false
           (volume-control)
-          ${lib.optionalString isLaptop "(backlight-control)\n      (power-profile-control)"}
-          (quick-actions))))
+          ${lib.optionalString isLaptop "(backlight-control)\n      (power-profile-control)\n      (quick-actions-laptop)"}
+          ${lib.optionalString (!isLaptop) "(quick-actions)"})))
   '';
 in {
   programs.eww = {

@@ -5,9 +5,9 @@
 STATE_FILE="${XDG_RUNTIME_DIR}/touchpad-state"
 
 if [[ -f "$STATE_FILE" && "$(cat "$STATE_FILE")" == "disabled" ]]; then
-    riverctl input "*Touchpad*" events enabled
-    echo "enabled" > "$STATE_FILE"
+    riverctl input "*Touchpad*" tap enabled
+    echo "enabled" >"$STATE_FILE"
 else
-    riverctl input "*Touchpad*" events disabled
-    echo "disabled" > "$STATE_FILE"
+    riverctl input "*Touchpad*" tap disabled
+    echo "disabled" >"$STATE_FILE"
 fi

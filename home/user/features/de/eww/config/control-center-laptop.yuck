@@ -1,9 +1,13 @@
 ; EWW Control Center - Laptop-specific widgets
-; Backlight control and power profile switcher (ASUS laptops)
+; Backlight control, touchpad toggle, and power profile switcher (ASUS laptops)
 
 ; Poll for current power profile every 2 seconds
 (defpoll power-profile :interval "2s"
   "~/.config/eww/scripts/power-profile.sh")
+
+; Poll for touchpad state (enabled/disabled)
+(defpoll touchpad-state :interval "1s"
+  "cat $XDG_RUNTIME_DIR/touchpad-state 2>/dev/null || echo enabled")
 
 ; Backlight control row with +/- buttons and text display
 (defwidget backlight-control []
@@ -19,6 +23,19 @@
     (button :class "cc-btn"
             :onclick "brightnessctl --device=intel_backlight set +5%"
       "󰌵")))
+
+; Quick actions for laptop - search launcher + touchpad toggle
+(defwidget quick-actions-laptop []
+  (box :class "cc-row"
+       :orientation "horizontal"
+       :space-evenly true
+    (button :class "cc-btn cc-action"
+            :onclick "eww close control-center && rofi -show drun &"
+      "")
+    (button :class "cc-btn cc-action"
+            :onclick "touchpad-toggle"
+            :tooltip {touchpad-state == "disabled" ? "Touchpad disabled - click to enable" : "Touchpad enabled - click to disable"}
+      {touchpad-state == "disabled" ? "󰤳" : "󰟸"})))
 
 ; Power profile control - three buttons for Quiet/Balanced/Performance
 ; Uses asusctl for ASUS laptops
