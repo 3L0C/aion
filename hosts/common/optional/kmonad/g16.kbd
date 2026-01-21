@@ -1,5 +1,5 @@
 ;; ASUS ROG Zephyrus G16 2025 (GU605CR) keyboard configuration
-;; Features: vim navigation, tap-hold modifiers, colemak-dhm, extend layers
+;; Based on T430.kbd - vim navigation, tap-hold modifiers, tmux integration
 
 ;; Source layout - ASUS G16 ANSI with media keys row
 (defsrc
@@ -12,49 +12,52 @@
   lctl wkup lmet lalt           spc            ralt cmp  up   left down rght
 )
 
-;; Aliases for tap-hold and layer switching
+;; Aliases - following T430.kbd conventions
+;; t = tap, l = layer
+;; Second letter is tap key, third is hold modifier/action
 (defalias
-  ;; Tap-hold modifiers
-  tes (tap-hold-next-release 200 esc lsft)   ;; tap esc, hold shift
-  tss (tap-hold-next-release 200 spc lmet)   ;; tap space, hold meta
-  ttm (tap-hold-next-release 200 tab (around lctl (around lalt lsft))) ;; tap tab, hold meh
-  trm (tap-hold-next-release 200 ret (around lctl (around lalt lsft))) ;; tap return, hold meh
-  tas (tap-hold-next-release 200 a lmet)     ;; tap a, hold meta (for colemak)
+  ;; Navigation (with shift for selection)
+  bck   C-S-left
+  wrd   C-S-rght
+  cpy   C-c
+  cut   C-x
+  pst   C-v
+  rev   C-z
+  rdo   C-y
 
   ;; Layer switching
-  lnv (layer-next vim)      ;; next press goes to vim layer
-  lsv (layer-switch vim)    ;; switch to vim layer
-  lsb (layer-switch base)   ;; switch to base layer
-  lsc (layer-switch colemak);; switch to colemak layer
-  lse (layer-switch extend) ;; switch to extend layer
-  ext (layer-toggle extend) ;; hold for extend layer
+  lnv   (layer-next   vim)
+  lsb   (layer-switch base)
+  lsi   (layer-switch brs-ins)
+  lsv   (layer-switch vim)
 
-  ;; Navigation aliases
-  bck C-left   ;; word back
-  wrd C-right  ;; word forward
-  cpy C-c      ;; copy
-  cut C-x      ;; cut
-  pst C-v      ;; paste
-  rev C-z      ;; undo
-  rdo C-y      ;; redo
-  sel C-a      ;; select all
+  ;; Tap-hold modifiers
+  tas   (tap-hold-next-release  200   a     lmet)      ;; tap a, hold meta
+  tbc   (tap-hold-next-release  200   @lsb  lctl)      ;; tap switch-base, hold ctrl
+  tes   (tap-hold-next-release  200   esc   lsft)      ;; tap esc, hold shift
+  trm   (tap-hold-next-release  200   ret   C-A-lsft)  ;; tap return, hold meh
+  tss   (tap-hold-next-release  200   spc   lmet)      ;; tap space, hold meta
+  tta   (tap-hold-next-release  200   C-b   lalt)      ;; tap C-b (tmux), hold alt
+  ttm   (tap-hold-next-release  200   tab   C-A-lsft)  ;; tap tab, hold meh
+  tts   (tap-hold-next-release  200   C-b   lsft)      ;; tap C-b (tmux), hold shift
+  tva   (tap-hold-next-release  200   @lnv  lalt)      ;; tap layer-next vim, hold alt
+  tvc   (tap-hold-next-release  200   @lsv  lctl)      ;; tap layer-switch vim, hold ctrl
+  tvs   (tap-hold-next-release  200   @lsv  lmet)      ;; tap layer-switch vim, hold meta
 
-  ;; Vim macros
-  vms (tap-macro esc : w ret)    ;; vim save
-  vmq (tap-macro esc : q ret)    ;; vim quit
-  vmx (tap-macro esc : x ret)    ;; vim save and quit
-  vmc (tap-macro esc : w q ! ret);; vim force quit
+  ;; Vim macros (ZZ = save+quit, ZQ = quit without save)
+  vms   #(S-z P10 S-z)
+  vmq   #(S-z P10 S-q)
 )
 
 ;; Base layer - QWERTY with tap-hold modifiers
 (deflayer base
-  vold volu mute prog1
+  _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   @ttm _    _    _    _    _    _    _    _    _    _    _    _    _
-  @tes _    _    _    _    _    _    _    _    _    _    _         @trm
-  _    _    _    _    _    _    _    _    _    _    _              _
-  _    @ext _    _              @tss           _    @lnv _    _    _    _
+  @tes @tas _    _    _    _    _    _    _    _    _    _         @trm
+  lctl _    _    _    _    _    _    _    _    _    _              @tts
+  _    _    @tvs @tta           @tss           @tva @tvc _    _    _    _
 )
 
 ;; Vim layer - navigation and vim-style commands
@@ -62,30 +65,19 @@
   _    _    _    _
   @lsb _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    @vmq @wrd end  @rdo _    _    @rev ins  _    @pst _    _    _
-  _    @sel @vms del  _    _    left down up   rght _    _         _
-  _    @rev @cut @cpy @pst @bck home _    _    _    _              _
-  _    _    _    _              _              _    @lsb _    _    _    _
+  _    @vmq @wrd @wrd @rdo _    @cpy @rev @lsi _    @pst _    _    _
+  @lsi _    del  @cut _    _    left down up   rght _    _         @trm
+  lctl @vms _    _    _    @bck _    _    _    _    _              @tts
+  _    @lsb @lsb _              @tss           _    _    @lsb _    _    _
 )
 
-;; Colemak-DHm layer
-(deflayer colemak
+;; Browser insert layer - for text input in browser while having vim access
+(deflayer brs-ins
   _    _    _    _
   @lsb _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @ttm q    w    f    p    b    j    l    u    y    ;    [    ]    \
-  @tes @tas r    s    t    g    m    n    e    i    o    '         @trm
-  _    x    c    d    v    z    k    h    ,    .    /              _
-  _    @ext _    _              @tss           _    @lnv _    _    _    _
-)
-
-;; Extend layer - function keys, media, and navigation
-(deflayer extend
-  _    _    _    _
-  _    brdn brup _    _    _    _    prev pp   next _    _    _    _
-  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-  _    _    @wrd end  _    _    _    _    ins  _    _    _    _    _
-  _    _    _    del  _    _    left down up   rght _    _         _
-  _    @rev @cut @cpy @pst @bck home _    _    _    _              _
-  _    _    _    _              _              _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  @lsv _    _    _    _    _    _    _    _    _    _    _         _
+  lctl _    _    _    _    _    _    _    _    _    _              _
+  _    @tbc _    _              @tss           _    _    _    _    _    _
 )

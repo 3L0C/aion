@@ -36,6 +36,5 @@
       transform = "normal";
     }
   ];
-
-  userSpec.kbdOptions = "caps:swapescape";
+  userSpec.kbdOptions = "";
 }
