@@ -11,7 +11,7 @@
   :monitor 0
   :geometry (geometry
     :x "20px"
-    :y "80px"
+    :y "20px"
     :width "200px"
     :anchor "top right")
   :stacking "fg"
@@ -45,5 +45,5 @@
        :orientation "horizontal"
        :space-evenly true
     (button :class "cc-btn cc-action"
-            :onclick "rofi -show drun &"
+            :onclick "eww close control-center && rofi -show drun &"
       "")))

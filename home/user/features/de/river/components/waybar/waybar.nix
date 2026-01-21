@@ -97,6 +97,7 @@ in {
         {
           modules-right =
             [
+              "custom/sep"
               "mpris"
               "custom/sep"
               "temperature"
@@ -108,7 +109,11 @@ in {
               "custom/sep"
               "clock"
               "custom/sep"
-              "group/control-center"
+              "pulseaudio"
+              "custom/sep"
+              "idle_inhibitor"
+              "custom/sep"
+              "custom/cc-toggle"
               "custom/sep"
               "tray"
             ];

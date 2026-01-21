@@ -16,17 +16,21 @@ in rec {
     no-center = true;
   };
   modulesRight = [
+    "custom/sep"
     "mpris"
     "custom/sep"
     "temperature"
     "custom/sep"
     "memory"
     "custom/sep"
-    "custom/sb-internet"
     "custom/sep"
     "clock"
     "custom/sep"
-    "group/control-center"
+    "pulseaudio"
+    "custom/sep"
+    "idle_inhibitor"
+    "custom/sep"
+    "custom/cc-toggle"
     "custom/sep"
     "tray"
   ];
@@ -37,12 +41,10 @@ in rec {
       format = "|";
       tooltip = false;
     };
-    "group/control-center" = {
-      orientation = "horizontal";
-      modules = [
-        "idle_inhibitor"
-        "pulseaudio"
-      ];
+    "custom/cc-toggle" = {
+      format = " 󰍜 ";
+      on-click = "eww open --toggle control-center";
+      tooltip = false;
     };
     idle_inhibitor = {
       format = " {icon} ";
@@ -50,7 +52,6 @@ in rec {
         activated = "󰈉"; # eye closed (idle inhibited)
         deactivated = "󰈈"; # eye open (normal)
       };
-      on-click = "eww open --toggle control-center";
       tooltip = false;
     };
     mpris = {
@@ -101,18 +102,8 @@ in rec {
       tooltip = false;
     };
 
-    "custom/sb-internet" = {
-      format = "{}";
-      exec = "sb-internet";
-      interval = 5;
-      on-click = "BLOCK_BUTTON=1 sb-internet";
-      on-click-middle = "BLOCK_BUTTON=2 sb-internet";
-      on-click-right = "BLOCK_BUTTON=3 sb-internet";
-      tooltip = false;
-    };
-
     network = {
-      format-wifi = "  {essid} ({signalStrength}%)";
+      format-wifi = " {essid} ({signalStrength}%) ";
       format-ethernet = " {ifname} ";
       format-linked = " {ifname} (No IP)";
       format-disconnected = " Disconnected";
