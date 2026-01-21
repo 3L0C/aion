@@ -137,12 +137,12 @@
                   icon = "di:vuetorrent";
                 }
                 {
-                  title = "Syncthing (Shimo)";
+                  title = "Syncthing (Mikuru)";
                   url = "https://syncthing.colebruns.com";
                   icon = "di:syncthing";
                 }
                 {
-                  title = "Syncthing (Snow)";
+                  title = "Syncthing (localhost)";
                   url = "localhost:8384";
                   icon = "di:syncthing";
                 }
