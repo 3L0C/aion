@@ -42,15 +42,15 @@ in rec {
       tooltip = false;
     };
     "custom/cc-toggle" = {
-      format = "  ";
+      format = " ctrl ";
       on-click = "eww open --toggle control-center";
       tooltip = false;
     };
     idle_inhibitor = {
-      format = "{icon}";
+      format = " {icon} ";
       format-icons = {
-        deactivated = " 󰈉 "; # eye closed (idle inhibited)
-        activated = " 󰈈 "; # eye open (normal)
+        deactivated = "-"; # eye closed (idle inhibited)
+        activated = "0"; # eye open (normal)
       };
       tooltip = false;
     };
