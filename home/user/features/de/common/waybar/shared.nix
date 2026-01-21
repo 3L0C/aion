@@ -42,21 +42,22 @@ in rec {
       tooltip = false;
     };
     "custom/cc-toggle" = {
-      format = " 󰍜 ";
+      format = "  ";
       on-click = "eww open --toggle control-center";
       tooltip = false;
     };
     idle_inhibitor = {
-      format = " {icon} ";
+      format = "{icon}";
       format-icons = {
-        activated = "󰈉"; # eye closed (idle inhibited)
-        deactivated = "󰈈"; # eye open (normal)
+        deactivated = " 󰈉 "; # eye closed (idle inhibited)
+        activated = " 󰈈 "; # eye open (normal)
       };
       tooltip = false;
     };
     mpris = {
       format = " {title} ";
       format-paused = " mpris ";
+      format-stopped = " mpris ";
       status-icons = {
         playing = "-";
         paused = "+";

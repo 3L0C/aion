@@ -11,13 +11,13 @@
        :orientation "horizontal"
        :space-evenly false
     (button :class "cc-btn"
-            :onclick "brightnessctl set 5%-"
+            :onclick "brightnessctl --device=intel_backlight set 5%-"
       "󰌶")
     (label :class "cc-text"
            :hexpand true
            :text {cc-state.backlight != "null" ? "bkl: ${cc-state.backlight}%" : "bkl: N/A"})
     (button :class "cc-btn"
-            :onclick "brightnessctl set +5%"
+            :onclick "brightnessctl --device=intel_backlight set +5%"
       "󰌵")))
 
 ; Power profile control - three buttons for Quiet/Balanced/Performance
