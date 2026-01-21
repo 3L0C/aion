@@ -143,7 +143,7 @@
                 }
                 {
                   title = "Syncthing (localhost)";
-                  url = "localhost:8384";
+                  url = "http://localhost:8384";
                   icon = "di:syncthing";
                 }
               ];
