@@ -3,9 +3,9 @@
     mode = "0600";
     text = ''
       # <mapped-name> <device uuid> [key-file] [options]
-      sandisk   UUID=51a5bc2d-9e63-4db2-8f9d-1d4a320476e9 /root/keys/sandisk.key          discard,luks,nofail
-      samssd    UUID=e89c0933-8140-4119-8220-ce2ae6317018 /root/keys/samssd.key           discard,luks,nofail
-      backuphdd UUID=0f5939b7-3bdf-4711-a1fc-6e6f06f50d22 /root/keys/panda-backup-hdd.key luks,nofail
+      sandisk   UUID=51a5bc2d-9e63-4db2-8f9d-1d4a320476e9 /root/keys/sandisk.key          discard,luks,nofail,fido2-device=auto
+      samssd    UUID=e89c0933-8140-4119-8220-ce2ae6317018 /root/keys/samssd.key           discard,luks,nofail,fido2-device=auto
+      backuphdd UUID=0f5939b7-3bdf-4711-a1fc-6e6f06f50d22 /root/keys/panda-backup-hdd.key luks,nofail,fido2-device=auto
     '';
   };
 

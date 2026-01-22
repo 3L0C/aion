@@ -23,12 +23,16 @@
         "dm-snapshot"
         "cryptd"
       ];
+
+      # Enable systemd in initrd for FIDO2 LUKS support
+      systemd.enable = true;
       luks.devices = {
         nixcrypt = {
           device = "/dev/disk/by-label/NIXLUKS";
           allowDiscards = true;
           keyFileSize = 4096;
           keyFile = "/dev/disk/by-id/usb-PNY_USB_2.0_FD_071917D05B8CE819-0:0";
+          crypttabExtraOpts = ["fido2-device=auto" "token-timeout=30"];
         };
       };
     };

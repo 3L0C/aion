@@ -23,6 +23,7 @@
     ./optional/vpn.nix
     ./optional/wayland.nix
     ./optional/openssh-server.nix
+    ./optional/yubikey.nix
   ];
   assertions = [
     {

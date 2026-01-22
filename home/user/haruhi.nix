@@ -37,4 +37,10 @@
     }
   ];
   userSpec.kbdOptions = "";
+
+  # YubiKey touch notification
+  services.yubikey-touch-detector = {
+    enable = true;
+    extraArgs = ["--libnotify"];
+  };
 }
