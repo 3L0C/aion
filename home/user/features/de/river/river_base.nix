@@ -12,24 +12,32 @@
     };
     xwayland.enable = true;
     extraConfig = ''
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "export ${name}=${value}") config.wayland.envVars)}
+      ${lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (name: value: "export ${name}=${value}") config.wayland.envVars
+      )}
 
       # Notify UWSM that River is ready
       uwsm finalize
     '';
   };
-  xdg.configFile."xdg-desktop-portal-wlr/config.ini".text = ''
-    [screencast]
-    chooser_type = simple
-    chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
-  '';
-  xdg.configFile."xdg-desktop-portal/river-portals.conf".text = ''
-    [preferred]
-    default=gtk
-    org.freedesktop.impl.portal.ScreenCast=wlr
-    org.freedesktop.impl.portal.Screenshot=wlr
-    org.freedesktop.impl.portal.Inhibit=none
-  '';
+
+  xdg.configFile = let
+    portalText = ''
+      [preferred]
+      default=gtk
+      org.freedesktop.impl.portal.ScreenCast=wlr
+      org.freedesktop.impl.portal.Screenshot=wlr
+      org.freedesktop.impl.portal.Inhibit=none
+    '';
+  in {
+    "xdg-desktop-portal/river-portals.conf".text = portalText;
+    "xdg-desktop-portal/riverdev-portals.conf".text = portalText;
+    "xdg-desktop-portal-wlr/config.ini".text = ''
+      [screencast]
+      chooser_type = simple
+      chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
+    '';
+  };
   home.packages = with pkgs; [
     riverdo # Improved riverctl
     grim # Screenshot tool
