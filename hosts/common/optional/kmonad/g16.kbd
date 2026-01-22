@@ -37,9 +37,11 @@
   tes   (tap-hold-next-release  200   esc   lsft)      ;; tap esc, hold shift
   trm   (tap-hold-next-release  200   ret   C-A-lsft)  ;; tap return, hold meh
   tss   (tap-hold-next-release  200   spc   lmet)      ;; tap space, hold meta
-  tta   (tap-hold-next-release  200   C-b   lalt)      ;; tap C-b (tmux), hold alt
+  ;; C-b tap with pause for tmux prefix recognition
+  ;; Using (around lctl (around b (pause 50))) gives the keypress duration
+  tta   (tap-hold-next-release  200   (around lctl (around b (pause 50)))   lalt)
   ttm   (tap-hold-next-release  200   tab   C-A-lsft)  ;; tap tab, hold meh
-  tts   (tap-hold-next-release  200   C-b   lsft)      ;; tap C-b (tmux), hold shift
+  tts   (tap-hold-next-release  200   (around lctl (around b (pause 50)))   lsft)
   tva   (tap-hold-next-release  200   @lnv  lalt)      ;; tap layer-next vim, hold alt
   tvc   (tap-hold-next-release  200   @lsv  lctl)      ;; tap layer-switch vim, hold ctrl
   tvs   (tap-hold-next-release  200   @lsv  lmet)      ;; tap layer-switch vim, hold meta
