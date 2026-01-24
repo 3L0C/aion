@@ -48,16 +48,18 @@ in {
           if [ "$2" != "up" ] || [ "$1" = "wg0-mullvad" ] || [ "$1" = "tailscale0" ]; then
             exit 0
           fi
-          timeout=60
-          while [ $timeout -gt 0 ]; do
-            if ${config.services.mullvad-vpn.package}/bin/mullvad status 2>/dev/null | grep -q "Connected"; then
-              sleep 2  # Brief wait for firewall rules to settle
-              ${pkgs.systemd}/bin/systemctl restart nftables.service
-              exit 0
-            fi
-            sleep 1
-            timeout=$((timeout - 1))
-          done
+          (
+            timeout=60
+            while [ $timeout -gt 0 ]; do
+              if ${config.services.mullvad-vpn.package}/bin/mullvad status 2>/dev/null | grep -q "Connected"; then
+                sleep 2  # Brief wait for firewall rules to settle
+                ${pkgs.systemd}/bin/systemctl restart nftables.service
+                exit 0
+              fi
+              sleep 1
+              timeout=$((timeout - 1))
+            done
+          ) &
         '';
         type = "basic";
       }
