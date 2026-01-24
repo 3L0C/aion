@@ -1,11 +1,11 @@
 {
   boot = {
-    consoleLogLevel = 0;
+    consoleLogLevel = 3;
     kernelParams = [
       "loglevel=3"
       "quiet"
       "rd.udev.log_level=3"
-      "systemd.show_status=auto"
+      "rd.systemd.show_status=true"
       "udev.log_level=3"
       "vt.global_cursor_default=0"
     ];
