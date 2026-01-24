@@ -69,4 +69,11 @@ in {
     after = ["tailscaled.service"];
     wants = ["tailscaled.service"];
   };
+  systemd.services.tailscaled-autoconnect = {
+    serviceConfig = {
+      TimeoutStartSec = "5s";
+      Restart = "on-failure";
+      RestartSec = "10s";
+    };
+  };
 }
