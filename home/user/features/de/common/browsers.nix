@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     firefox
-    librewolf
+    stable.librewolf
     brave
     chromium
   ];
