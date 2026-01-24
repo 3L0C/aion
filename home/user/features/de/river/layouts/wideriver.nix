@@ -5,7 +5,7 @@
   ...
 }: let
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
-  mod = config.hostSpec.modifierKeys.river;
+  mod = config.userSpec.modifierKeys.river;
   layoutmsg = msg: "send-layout-cmd wideriver \"${msg}\"";
   layoutSettingsScript = pkgs.writeShellScript "river-layout-settings" ''
     ${riverctl} default-layout wideriver

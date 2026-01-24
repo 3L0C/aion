@@ -15,11 +15,61 @@
 in {
   options.userSpec = {
     # Keyboard options
+    kbdModel = mkOption {
+      type = types.str;
+      description = "Keyboard model";
+      default = "pc105";
+    };
+    kbdLayout = mkOption {
+      type = types.str;
+      description = "Keyboard layout";
+      default = "us";
+    };
+    kbdVariant = mkOption {
+      type = types.str;
+      description = "Keyboard variant";
+      default = "";
+    };
     kbdOptions = mkOption {
       type = types.str;
       default = "";
       description = "XKB keyboard options (e.g., caps:swapescape)";
       example = "caps:swapescape,compose:ralt";
+    };
+
+    # Compositor modifier keys (different compositors use different syntax)
+    modifierKeys = mkOption {
+      type = types.attrsOf types.str;
+      default = {
+        river = "Super";
+        hyprland = "SUPER";
+        niri = "Mod";
+      };
+      description = ''
+        Modifier key(s) for window manager keybindings, per compositor.
+        Different compositors use different syntax:
+        - River: "Super", "Super+Control", "Shift+Control+Alt"
+        - Hyprland: "SUPER", "SUPER_CONTROL", "SUPER_SHIFT"
+        - Niri: "Mod", "Mod+Shift", "Mod+Ctrl" (Mod = Super on TTY, Alt in window)
+      '';
+      example = {
+        river = "Super+Control";
+        hyprland = "SUPER_CONTROL";
+        niri = "Mod+Ctrl";
+      };
+    };
+
+    # Kmonad options
+    kmonadDevice = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Input device path for kmonad (e.g., /dev/input/event5)";
+      example = "/dev/input/event5";
+    };
+    kmonadConfig = mkOption {
+      type = types.nullOr types.lines;
+      default = null;
+      description = "Kmonad configuration content (.kbd file content)";
     };
 
     # Theme/Stylix options

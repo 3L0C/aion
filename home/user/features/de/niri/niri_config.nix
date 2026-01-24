@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  mod = config.hostSpec.modifierKeys.niri;
+  mod = config.userSpec.modifierKeys.niri;
   kitty = lib.getExe pkgs.kitty;
   uwsm = lib.getExe pkgs.uwsm;
   pamixer = lib.getExe pkgs.pamixer;
@@ -34,8 +34,8 @@ in {
         input {
             keyboard {
                 xkb {
-                    layout "${config.hostSpec.kbdLayout}"
-                    ${lib.optionalString (config.hostSpec.kbdVariant != "") ''variant "${config.hostSpec.kbdVariant}"''}
+                    layout "${config.userSpec.kbdLayout}"
+                    ${lib.optionalString (config.userSpec.kbdVariant != "") ''variant "${config.userSpec.kbdVariant}"''}
                     ${lib.optionalString (config.userSpec.kbdOptions != "") ''options "${config.userSpec.kbdOptions}"''}
                 }
                 repeat-delay 300

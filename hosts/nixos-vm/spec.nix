@@ -4,16 +4,7 @@
     kind = "desktop"; # Use desktop to satisfy pc.nix assertions
     isWork = false;
 
-    kbdModel = "pc105";
-    kbdLayout = "us";
-    kbdVariant = "";
-
     cpuThermalZone = null;
     hasDiscreteGPU = false; # VM uses virtual GPU
-    modifierKeys = {
-      river = "Super+Control";
-      hyprland = "SUPER_CONTROL";
-      niri = "Mod+Ctrl";
-    };
   };
 }

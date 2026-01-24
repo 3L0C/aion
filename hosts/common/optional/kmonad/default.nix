@@ -1,17 +1,30 @@
 # Kmonad keyboard remapping service
 # Provides vim navigation, tap-hold modifiers, colemak-dhm, and extend layers
-{
+{config, ...}: let
+  inherit (config.home-manager.users.user) userSpec;
+in {
+  assertions = [
+    {
+      assertion = userSpec.kmonadDevice != null;
+      message = "userSpec.kmonadDevice must be set when using kmonad";
+    }
+    {
+      assertion = userSpec.kmonadConfig != null;
+      message = "userSpec.kmonadConfig must be set when using kmonad";
+    }
+  ];
+
   services.kmonad = {
     enable = true;
     keyboards = {
-      g16-internal = {
-        device = "/dev/input/event5";
+      main = {
+        device = userSpec.kmonadDevice;
         defcfg = {
           enable = true;
           fallthrough = true;
           allowCommands = false;
         };
-        config = builtins.readFile ./g16.kbd;
+        config = userSpec.kmonadConfig;
       };
     };
   };

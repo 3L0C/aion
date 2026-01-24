@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   imports = [
     ./global
 
@@ -36,11 +36,9 @@
       transform = "normal";
     }
   ];
-  userSpec.kbdOptions = "";
-
-  # YubiKey touch notification
-  services.yubikey-touch-detector = {
-    enable = true;
-    extraArgs = ["--libnotify"];
+  userSpec = {
+    kbdOptions = "";
+    kmonadDevice = "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-mouse";
+    kmonadConfig = lib.fileContents ../../hosts/common/optional/kmonad/g16.kbd;
   };
 }

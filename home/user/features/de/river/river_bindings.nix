@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  mod = config.hostSpec.modifierKeys.river;
+  mod = config.userSpec.modifierKeys.river;
   meh = "Shift+Control+Alt";
   modShift = "${mod}+Shift";
   asusctl = "${lib.getExe' pkgs.asusctl "asusctl"}";

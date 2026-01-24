@@ -6,10 +6,10 @@
 }: let
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
   keyboardLayoutCmd = let
-    model = config.hostSpec.kbdModel;
-    variant = config.hostSpec.kbdVariant;
+    model = config.userSpec.kbdModel;
+    variant = config.userSpec.kbdVariant;
     options = config.userSpec.kbdOptions;
-    layout = config.hostSpec.kbdLayout;
+    layout = config.userSpec.kbdLayout;
   in
     lib.optionalString (options != "") ''
       ${riverctl} keyboard-layout \

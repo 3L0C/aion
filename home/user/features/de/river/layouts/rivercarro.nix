@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  mod = config.hostSpec.modifierKeys.river;
+  mod = config.userSpec.modifierKeys.river;
   layoutmsg = msg: "send-layout-cmd rivercarro \"${msg}\"";
 in {
   home.packages = [pkgs.rivercarro];
