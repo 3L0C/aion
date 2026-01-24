@@ -23,14 +23,23 @@
     settings = {
       authfile = "/etc/u2f_keys";
       cue = true; # "Please touch the device" prompt
-      debug = true; # TEMP: Debug why U2F isn't prompting
-      debug_file = "/tmp/pam_u2f.log";
+      origin = "pam://aion";
+      appid = "pam://aion";
     };
-    control = "sufficient";
   };
   security.pam.services = {
     greetd.u2fAuth = true;
-    sudo.u2fAuth = true;
+    sudo.rules.auth.u2f = {
+      order = 100; # Before unix (11600) so U2F is tried first
+      control = "sufficient";
+      modulePath = "${pkgs.pam_u2f}/lib/security/pam_u2f.so";
+      args = [
+        "authfile=/etc/u2f_keys"
+        "cue"
+        "origin=pam://aion"
+        "appid=pam://aion"
+      ];
+    };
     hyprlock.u2fAuth = true;
     swaylock.u2fAuth = true;
   };
