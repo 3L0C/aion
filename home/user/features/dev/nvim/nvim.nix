@@ -2,7 +2,7 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraLuaConfig = ''
+    initLua = ''
       local g   = vim.g
       local o   = vim.o
       local opt = vim.opt
