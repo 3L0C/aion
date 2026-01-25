@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  secretsDir = toString inputs.secrets;
+  secretsDir = inputs.secrets.outPath;
   hostName = config.hostSpec.name;
   normalUsers = lib.filterAttrs (_: v: v.isNormalUser) config.users.users;
 in {

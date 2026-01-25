@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./disks.nix # Declarative disk partitioning (disko)
     ./hardware.nix
     ./syncthing.nix
     ./bootloader.nix

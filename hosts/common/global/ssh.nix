@@ -6,7 +6,7 @@
   config,
   ...
 }: let
-  secretsDir = builtins.toString inputs.secrets;
+  secretsDir = inputs.secrets.outPath;
   hosts = lib.attrNames outputs.nixosConfigurations;
 in {
   programs.ssh = {

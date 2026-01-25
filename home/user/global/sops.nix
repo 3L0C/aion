@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  secretsDir = toString inputs.secrets;
+  secretsDir = inputs.secrets.outPath;
   inherit (config.home) username;
 in {
   imports = [inputs.sops-nix.homeManagerModules.sops];

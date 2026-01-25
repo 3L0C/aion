@@ -34,16 +34,6 @@
 
       # Enable systemd in initrd for FIDO2 LUKS support
       systemd.enable = true;
-      luks.devices = {
-        nixcrypt = {
-          device = "/dev/disk/by-label/NIXLUKS";
-          allowDiscards = true;
-          crypttabExtraOpts = [
-            "fido2-device=auto"
-            "token-timeout=30"
-          ];
-        };
-      };
     };
 
     kernelModules = [
@@ -70,22 +60,7 @@
       };
     };
   };
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXROOT";
-    fsType = "ext4";
-  };
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
 
-  swapDevices = [
-    {device = "/dev/disk/by-label/NIXSWAP";}
-  ];
   nix.settings.max-jobs = 24; # Core Ultra 9 285H has 24 threads
 
   hardware = {

@@ -7,7 +7,11 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -67,7 +71,7 @@
     };
     secrets = {
       url = "git+ssh://git@github.com-3L0C/3L0C/aion-secrets.git";
-      flake = false;
+      flake = true;
     };
   };
 
