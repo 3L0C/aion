@@ -34,10 +34,6 @@
 
       # Enable systemd in initrd for FIDO2 LUKS support
       systemd.enable = true;
-      luks.devices.nixcrypt.crypttabExtraOpts = [
-        "fido2-device=auto"
-        "token-timeout=30"
-      ];
     };
 
     kernelModules = [
