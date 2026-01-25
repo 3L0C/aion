@@ -11,7 +11,7 @@
     ])
     ++ [
       ./user-spec.nix
-      ./sops.nix
+      ./secrets.nix
       ./yubikey.nix
       ../features/cli/common
       ../features/cli/zsh

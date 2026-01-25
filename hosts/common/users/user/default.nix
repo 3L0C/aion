@@ -16,6 +16,7 @@ in {
     shell = pkgs.zsh;
     group = "user";
     uid = 1000;
+    hashedPasswordFile = config.sops.secrets."passwords/user".path;
     extraGroups =
       [
         "wheel"

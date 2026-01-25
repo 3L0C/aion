@@ -6,7 +6,8 @@
 }: let
   isHeadless = config.hostSpec.kind == "headless";
 in {
-  sops.secrets."tailscale/authkey" = {};
+  sops.secrets."tailscale/authkey".sopsFile = config.sops.commonSecretsFile;
+  sops.secrets."tailscale/authkey_expires".sopsFile = config.sops.commonSecretsFile;
 
   services.tailscale = {
     enable = true;
@@ -75,5 +76,24 @@ in {
       Restart = "on-failure";
       RestartSec = "10s";
     };
+  };
+  system.activationScripts.checkTailscaleExpiry = {
+    deps = [];
+    text = ''
+      expires=$(cat ${config.sops.secrets."tailscale/authkey_expires".path})
+      today=$(date +%Y-%m-%d)
+      warn_date=$(date -d "+14 days" +%Y-%m-%d)
+
+      if [[ "$today" > "$expires" ]]; then
+        echo "ERROR: Tailscale auth key expired on $expires. Generate a new one at:"
+        echo "  https://login.tailscale.com/admin/settings/keys"
+        echo "Then update ~/aion-secrets/hosts/common/secrets.yaml"
+        exit 1
+      elif [[ "$warn_date" > "$expires" ]]; then
+        echo "WARNING: Tailscale auth key expires on $expires (within 14 days)"
+        echo "Consider generating a new one at:"
+        echo "  https://login.tailscale.com/admin/settings/keys"
+      fi
+    '';
   };
 }

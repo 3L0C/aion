@@ -16,6 +16,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
+              extraArgs = ["-n" "NIXBOOT"];
               mountOptions = [
                 "fmask=0077"
                 "dmask=0077"
@@ -30,6 +31,7 @@
               name = "nixcrypt";
               askPassword = true;
               settings.allowDiscards = true;
+              extraFormatArgs = ["--label" "NIXLUKS"];
               content = {
                 type = "lvm_pv";
                 vg = "nix";
@@ -48,6 +50,7 @@
             type = "swap";
             discardPolicy = "both";
             resumeDevice = true;
+            extraArgs = ["-L" "NIXSWAP"];
           };
         };
         root = {
@@ -56,6 +59,7 @@
             type = "filesystem";
             format = "ext4";
             mountpoint = "/";
+            extraArgs = ["-L" "NIXROOT"];
           };
         };
       };

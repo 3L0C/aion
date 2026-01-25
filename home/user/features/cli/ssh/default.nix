@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (config.home) homeDirectory;
   currentHost = config.hostSpec.name;
 
   # Tailnet hosts mapping: hostname -> domain
@@ -22,7 +23,46 @@
       addKeysToAgent = "yes";
     };
   }) (lib.filterAttrs (hostname: _: hostname != currentHost) tailnetHosts);
+  # All SSH key names to deploy via sops
+  sshKeyNames = [
+    "id_3L0C"
+    "id_anon-T430"
+    "id_anskrevy"
+    "id_aur"
+    "id_Cole"
+    "id_CSUG-Cole"
+    "id_deb-mount"
+    "id_debVPN"
+    "id_ed25519_sk"
+    "id_ed25519_sk_2"
+    "id_john"
+    "id_openwrt"
+    "id_rsa"
+    "id_rsa_an0nym0ous"
+    "id_ssh_server"
+  ];
+
+  # Generate sops.secrets entries for all SSH keys (private + public)
+  sshKeySecrets = lib.listToAttrs (lib.flatten (map (name: [
+      {
+        name = "ssh_keys/${name}";
+        value = {
+          path = "${homeDirectory}/.ssh/${name}";
+          mode = "0600";
+        };
+      }
+      {
+        name = "ssh_keys/${name}.pub";
+        value = {
+          path = "${homeDirectory}/.ssh/${name}.pub";
+          mode = "0644";
+        };
+      }
+    ])
+    sshKeyNames));
 in {
+  # SSH keys deployed from sops secrets
+  sops.secrets = sshKeySecrets;
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
