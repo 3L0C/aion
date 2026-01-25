@@ -78,9 +78,14 @@ in {
     };
   };
   system.activationScripts.checkTailscaleExpiry = {
-    deps = [];
+    deps = ["setupSecrets"];
     text = ''
-      expires=$(cat ${config.sops.secrets."tailscale/authkey_expires".path})
+      expires=$(cat ${config.sops.secrets."tailscale/authkey_expires".path} 2>/dev/null || echo "")
+      if [[ -z "$expires" ]]; then
+        echo "WARNING: Tailscale authkey_expires not set in secrets"
+        exit 0
+      fi
+
       today=$(date +%Y-%m-%d)
       warn_date=$(date -d "+14 days" +%Y-%m-%d)
 
