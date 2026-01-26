@@ -24,8 +24,10 @@ in {
       ++ ifTheyExist [
         "audio"
         "docker"
+        "jellyfin"
         "libvirtd"
         "media"
+        "navidrome"
         "network"
         "video"
       ];
