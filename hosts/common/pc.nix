@@ -19,6 +19,7 @@
     ./optional/river-dev.nix
     ./optional/steam.nix
     ./optional/tailscale.nix
+    ./optional/thunar.nix
     ./optional/virtualization.nix
     ./optional/vpn.nix
     ./optional/wayland.nix
