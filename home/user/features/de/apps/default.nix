@@ -6,7 +6,6 @@
     ./discord.nix
     ./dunst.nix
     ./gimp.nix
-    ./kdenlive.nix
     ./keepassxc.nix
     ./kitty.nix
     ./lutris.nix
