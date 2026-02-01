@@ -6,6 +6,7 @@
     ./wk
 
     ./browsers.nix
+    ./tridactyl.nix
     ./document-viewers.nix
     ./filemanagers.nix
     ./gnome-apps.nix
