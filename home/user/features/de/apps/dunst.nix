@@ -11,7 +11,7 @@
         offset = "(20, 20)";
         padding = 8;
         horizontal_padding = 8;
-        frame_width = 3;
+        frame_width = 4;
         transparency = 10;
         format = "<b>%s</b>\\n%b";
       };
