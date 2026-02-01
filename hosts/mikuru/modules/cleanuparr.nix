@@ -4,7 +4,7 @@
     ports = ["11011:11011"];
     volumes = [
       "/var/lib/cleanuparr:/config"
-      "/mnt/tank/data/torrents:/data/torrents"
+      "/mnt/tank/data/torrents:/mnt/tank/data/torrents"
     ];
     environment = {
       PORT = "11011";
