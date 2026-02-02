@@ -188,6 +188,11 @@
                   url = "http://192.168.1.124";
                   icon = "di:openwrt";
                 }
+                {
+                  title = "GLiNet KVM";
+                  url = "glkvm.tail7d01e8.ts.net";
+                  icon = "di:glinet-dark";
+                }
               ];
             }
           ];
