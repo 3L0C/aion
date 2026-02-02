@@ -190,7 +190,7 @@
                 }
                 {
                   title = "GLiNet KVM";
-                  url = "glkvm.tail7d01e8.ts.net";
+                  url = "https://glkvm.tail7d01e8.ts.net";
                   icon = "di:glinet-dark";
                 }
               ];
