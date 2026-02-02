@@ -100,6 +100,8 @@ in {
               "custom/sep"
               "mpris"
               "custom/sep"
+              "pulseaudio"
+              "custom/sep"
               "temperature"
               "custom/sep"
               "memory"
@@ -108,8 +110,6 @@ in {
             ++ [
               "custom/sep"
               "clock"
-              "custom/sep"
-              "pulseaudio"
               "custom/sep"
               "idle_inhibitor"
               "custom/sep"
