@@ -6,14 +6,14 @@
 }:
 pkgs.mpvScripts.buildLua {
   pname = "mpv-homehub";
-  version = "0-unstable-2026-01-20";
+  version = "0-unstable-2026-02-07";
   scriptPath = ".";
 
   src = fetchFromGitHub {
     owner = "3L0C";
     repo = "mpv-homehub";
-    rev = "3e6aa619b7651dfed1931845ac8e86bbe575611e";
-    hash = "sha256-6y14xiKd+RQM6fiHDSCCiNfcOdH/UjffyG3DaxzhgLs=";
+    rev = "dee0a18186ef8008a01653fe38b1ce8599d31edb";
+    hash = "sha256-s89WQglVjtb6B/ESsjE7VDNpi95JXWZQscZlGsRl1kk=";
   };
 
   passthru.updateScript = unstableGitUpdater {};
