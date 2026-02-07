@@ -16,6 +16,7 @@
   riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   uwsm-app = "${lib.getExe' pkgs.uwsm "uwsm-app"}";
+  touchpad-toggle = "${lib.getExe pkgs.custom.scripts.touchpad-toggle}";
   launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
   menu = "${uwsm-app} -- wk-river";
   old-menu = "${uwsm-app} -- wk";
@@ -61,9 +62,9 @@
       "None XF86AudioNext spawn 'media --next'"
       "None XF86MonBrightnessUp spawn '${brightnessctl} -d intel_backlight set +5%'"
       "None XF86MonBrightnessDown spawn '${brightnessctl} -d intel_backlight set 5%-'"
-      "None XF86KbdBrightnessUp spawn '${asusctl} -n'"
-      "None XF86KbdBrightnessDown spawn '${asusctl} -p'"
-      "None F21 spawn 'touchpad-toggle'"
+      "None XF86KbdBrightnessUp spawn '${asusctl} leds next'"
+      "None XF86KbdBrightnessDown spawn '${asusctl} leds prev'"
+      "None XF86TouchpadToggle spawn '${touchpad-toggle}'"
     ];
   };
   lockedBindings = lib.custom.mkRiverBindsScript pkgs "river-locked-bindings" {
@@ -80,7 +81,7 @@
       "None XF86MonBrightnessDown spawn '${brightnessctl} -d intel_backlight set 5%-'"
       "None XF86KbdBrightnessUp spawn '${asusctl} -n'"
       "None XF86KbdBrightnessDown spawn '${asusctl} -p'"
-      "None F21 spawn 'touchpad-toggle'"
+      "None XF86TouchpadToggle spawn '${touchpad-toggle}'"
     ];
   };
   keybindingsScript = pkgs.writeShellScript "river-keybindings" ''
