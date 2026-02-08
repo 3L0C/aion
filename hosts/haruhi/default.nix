@@ -2,6 +2,7 @@
   imports = [
     ./disks.nix # Declarative disk partitioning (disko)
     ./hardware.nix
+    ./mounts.nix
     ./syncthing.nix
     ./bootloader.nix
     ../common/pc.nix
