@@ -16,7 +16,7 @@ in rec {
     no-center = true;
   };
   modulesRight = [
-    "custom/sep"
+    "mpris#sep"
     "mpris"
     "custom/sep"
     "temperature"
@@ -52,6 +52,12 @@ in rec {
         deactivated = "-"; # eye closed (idle inhibited)
         activated = "0"; # eye open (normal)
       };
+      tooltip = false;
+    };
+    "mpris#sep" = {
+      format = "|";
+      format-paused = "|";
+      format-stopped = "|";
       tooltip = false;
     };
     mpris = {

@@ -97,7 +97,7 @@ in {
         {
           modules-right =
             [
-              "custom/sep"
+              "mpris#sep"
               "mpris"
               "custom/sep"
               "pulseaudio"
