@@ -35,13 +35,14 @@
   tas   (tap-hold-next-release  200   a     lmet)      ;; tap a, hold meta
   tbc   (tap-hold-next-release  200   @lsb  lctl)      ;; tap switch-base, hold ctrl
   tes   (tap-hold-next-release  200   esc   lsft)      ;; tap esc, hold shift
-  trm   (tap-hold-next-release  200   ret   C-A-lsft)  ;; tap return, hold meh
   tss   (tap-hold-next-release  200   spc   lmet)      ;; tap space, hold meta
   ;; C-b tap with pause for tmux prefix recognition
   ;; Using (around lctl (around b (pause 50))) gives the keypress duration
   tta   (tap-hold-next-release  200   (around lctl (around b (pause 50)))   lalt)
-  ttm   (tap-hold-next-release  200   tab   C-A-lsft)  ;; tap tab, hold meh
-  tts   (tap-hold-next-release  200   (around lctl (around b (pause 50)))   lsft)
+  ;; Miryoku-inspired layer access via thumb keys
+  ttm   (tap-hold-next-release  200   tab   (layer-toggle vim))  ;; tap tab, hold vim layer
+  trm   (tap-hold-next-release  200   ret   (layer-toggle num))  ;; tap return, hold num layer
+  tts   (tap-hold-next-release  200   (around lctl (around b (pause 50)))   (layer-toggle sym))  ;; tap C-b, hold sym layer
   tva   (tap-hold-next-release  200   @lnv  lalt)      ;; tap layer-next vim, hold alt
   tvc   (tap-hold-next-release  200   @lsv  lctl)      ;; tap layer-switch vim, hold ctrl
   tvs   (tap-hold-next-release  200   @lsv  lmet)      ;; tap layer-switch vim, hold meta
@@ -82,4 +83,26 @@
   @lsv _    _    _    _    _    _    _    _    _    _    _         _
   lctl _    _    _    _    _    _    _    _    _    _              _
   _    @tbc _    _              @tss           _    _    _    _    _    _
+)
+
+;; NUM layer - miryoku-style numpad on left hand
+(deflayer num
+  _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    [    7    8    9    ]    _    _    _    _    _    _    _    _
+  _    ;    4    5    6    =    _    _    _    _    _    _         _
+  _    grv  1    2    3    \\   _    _    .    0    -              _
+  _    _    _    _              _              _    _    _    _    _    _
+)
+
+;; SYM layer - miryoku-style symbols on left hand (shifted num positions)
+(deflayer sym
+  _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    S-[  S-7  S-8  S-9  S-]  _    _    _    _    _    _    _    _
+  _    S-;  S-4  S-5  S-6  S-=  _    _    _    _    _    _         _
+  _    S-grv S-1 S-2  S-3  S-\\ _    _    S-9  S-0  S--            _
+  _    _    _    _              _              _    _    _    _    _    _
 )
