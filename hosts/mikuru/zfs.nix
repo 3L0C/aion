@@ -29,6 +29,10 @@
       RemainAfterExit = true;
     };
     script = ''
+      if [ "$(zfs get -H -o value keystatus tank)" = "available" ]; then
+        echo "Key already loaded for tank"
+        exit 0
+      fi
       base64 -d /run/secrets/zfs-tank-key | zfs load-key -L file:///dev/stdin tank
     '';
   };
