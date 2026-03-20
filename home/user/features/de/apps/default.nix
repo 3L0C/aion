@@ -4,6 +4,7 @@
 
     ./android-studio.nix
     ./discord.nix
+    ./dolphin-emu.nix
     ./dunst.nix
     ./gimp.nix
     ./keepassxc.nix
