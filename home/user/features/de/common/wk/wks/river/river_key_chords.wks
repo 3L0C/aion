@@ -16,7 +16,7 @@
 
 # Monitors
 :var "MONITOR_LEFT" "DP-3"
-:var "MONITOR_RIGHT" "HDMI-A-1"
+:var "MONITOR_RIGHT" "DP-1"
 
 # Window management commands
 :var "CMD_CLOSE_WINDOW" "riverdo close"

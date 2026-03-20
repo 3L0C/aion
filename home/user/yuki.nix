@@ -33,11 +33,11 @@
       transform = "normal";
     }
     {
-      name = "HDMI-A-1";
+      name = "DP-1";
       primary = false;
       width = 2560;
       height = 1440;
-      refreshRate = 143.998;
+      refreshRate = 239.998001;
       position = "2560x0";
       x = 2560;
       y = 0;
