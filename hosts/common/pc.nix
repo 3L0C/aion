@@ -42,5 +42,5 @@
     daemonIOSchedClass = "idle";
   };
   services.dbus.implementation = "broker";
-  programs.light.enable = true;
+  hardware.acpilight.enable = true;
 }
