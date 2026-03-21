@@ -1,8 +1,7 @@
-{pkgs, ...}: {
+{
   services = {
     samba = {
       enable = true;
-      package = pkgs.samba4Full; # Required for mDNS/Avahi support
       openFirewall = true; # Opens ports 139, 445
 
       settings = {
