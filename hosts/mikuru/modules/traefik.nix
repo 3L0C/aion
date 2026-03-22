@@ -76,6 +76,7 @@ in {
           jellyseerr = mkRouter "jellyseerr.colebruns.com" "jellyseerr";
           navidrome = mkRouter "navidrome.colebruns.com" "navidrome";
           komga = mkRouter "komga.colebruns.com" "komga";
+          suwayomi = mkRouter "suwayomi.colebruns.com" "suwayomi";
           audiobookshelf = mkRouter "audiobookshelf.colebruns.com" "audiobookshelf";
           qbittorrent = mkRouter "qbittorrent.colebruns.com" "qbittorrent";
           glance = mkRouter "glance.colebruns.com" "glance";
@@ -98,6 +99,7 @@ in {
           jellyseerr.loadBalancer.servers = [{url = "http://localhost:5055";}];
           navidrome.loadBalancer.servers = [{url = "http://localhost:4533";}];
           komga.loadBalancer.servers = [{url = "http://localhost:25600";}];
+          suwayomi.loadBalancer.servers = [{url = "http://localhost:4567";}];
           audiobookshelf.loadBalancer.servers = [{url = "http://localhost:13378";}];
           qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8081";}];
           glance.loadBalancer.servers = [{url = "http://localhost:8080";}];

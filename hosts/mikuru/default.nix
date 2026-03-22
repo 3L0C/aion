@@ -11,6 +11,7 @@
     ./modules/jellyfin.nix
     ./modules/navidrome.nix
     ./modules/komga.nix
+    ./modules/suwayomi.nix
     ./modules/audiobookshelf.nix
     ./modules/arr.nix
     ./modules/traefik.nix

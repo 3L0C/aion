@@ -75,6 +75,11 @@
                   icon = "di:komga";
                 }
                 {
+                  title = "Suwayomi";
+                  url = "https://suwayomi.colebruns.com";
+                  icon = "di:suwayomi";
+                }
+                {
                   title = "Navidrome";
                   url = "https://navidrome.colebruns.com";
                   icon = "di:navidrome";
