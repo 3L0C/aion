@@ -84,6 +84,11 @@
                   url = "https://navidrome.colebruns.com";
                   icon = "di:navidrome";
                 }
+                {
+                  title = "Photoprism";
+                  url = "https://photoprism.colebruns.com";
+                  icon = "di:photoprism";
+                }
               ];
             }
             {

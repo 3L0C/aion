@@ -87,6 +87,7 @@ in {
           bentopdf = mkRouter "bentopdf.colebruns.com" "bentopdf";
           adguard = mkRouter "adguard.colebruns.com" "adguard";
           flaresolverr = mkRouter "flaresolverr.colebruns.com" "flaresolverr";
+          photoprism = mkRouter "photoprism.colebruns.com" "photoprism";
         };
 
         services = {
@@ -100,6 +101,7 @@ in {
           navidrome.loadBalancer.servers = [{url = "http://localhost:4533";}];
           komga.loadBalancer.servers = [{url = "http://localhost:25600";}];
           suwayomi.loadBalancer.servers = [{url = "http://localhost:4567";}];
+          photoprism.loadBalancer.servers = [{url = "http://localhost:2342";}];
           audiobookshelf.loadBalancer.servers = [{url = "http://localhost:13378";}];
           qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8081";}];
           glance.loadBalancer.servers = [{url = "http://localhost:8080";}];
