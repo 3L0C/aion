@@ -1,7 +1,5 @@
 # Suwayomi manga download server (Tachiyomi-compatible)
 {
-  users.users.suwayomi.extraGroups = ["media"];
-
   services.suwayomi-server = {
     enable = true;
     openFirewall = true;
