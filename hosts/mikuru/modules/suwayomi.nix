@@ -13,8 +13,5 @@
       localSourcePath = "/mnt/tank/data/media/manga-local";
     };
   };
-  systemd.services.suwayomi-server = {
-    environment.HOME = "/mnt/tank/data/media/manga";
-    serviceConfig.SetLoginEnvironment = false;
-  };
+  systemd.services.suwayomi-server.environment.JAVA_TOOL_OPTIONS = "-Duser.home=/mnt/tank/data/media/manga";
 }
