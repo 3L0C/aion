@@ -5,6 +5,7 @@
   services.suwayomi-server = {
     enable = true;
     openFirewall = true;
+    group = "media";
 
     settings.server = {
       port = 4567; # Default 8080 conflicts with Glance
