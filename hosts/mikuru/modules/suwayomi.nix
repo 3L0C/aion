@@ -13,4 +13,5 @@
       localSourcePath = "/mnt/tank/data/media/manga-local";
     };
   };
+  systemd.services.suwayomi-server.environment.HOME = "/mnt/tank/data/media/manga";
 }
