@@ -24,7 +24,7 @@
       webUIChannel = "stable"; # "bundled" (the version bundled with the server release), "stable" or "preview" - the webUI version that should be used
       webUIUpdateCheckInterval = 23; # time in hours - 0 to disable auto update - range: 1 <= n < 24 - default 23 hours - how often the server should check for webUI updates
       downloadAsCbz = true;
-      downloadsPath = "/mnt/tank/data/media/manga/downloads/mangas";
+      downloadsPath = "/mnt/tank/data/media/manga/downloads";
       autoDownloadNewChapters = true; # if new chapters that have been retrieved should get automatically downloaded
       excludeEntryWithUnreadChapters = false; # ignore automatic chapter downloads of entries with unread chapters
       autoDownloadNewChaptersLimit = 0; # 0 to disable it - how many unread downloaded chapters should be available - if the limit is reached, new chapters won't be downloaded automatically. this limit will also be applied to the auto download of new chapters on an update
