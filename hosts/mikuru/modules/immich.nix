@@ -7,4 +7,7 @@
     accelerationDevices = null; # Allow access to all devices (GPU transcoding)
   };
   users.users.immich.extraGroups = ["media"];
+  systemd.services.immich-server.serviceConfig.BindReadOnlyPaths = [
+    "/mnt/tank/data/media/photos"
+  ];
 }
