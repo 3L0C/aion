@@ -19,6 +19,7 @@
     ./modules/navidrome.nix
     ./modules/nfs-export.nix
     ./modules/notifiarr.nix
+    ./modules/immich.nix
     ./modules/photoprism.nix
     ./modules/qbittorrent.nix
     ./modules/traefik.nix
