@@ -58,7 +58,7 @@
 
       window = {
         background-color = mkLiteral "@background";
-        border = mkLiteral "2px solid";
+        border = mkLiteral "4px solid";
         border-color = mkLiteral "@border-color";
         border-radius = mkLiteral "0px";
         padding = mkLiteral "0px";
