@@ -89,6 +89,11 @@
                   url = "https://photoprism.colebruns.com";
                   icon = "di:photoprism";
                 }
+                {
+                  title = "Immich";
+                  url = "https://immich.colebruns.com";
+                  icon = "di:immich";
+                }
               ];
             }
             {
