@@ -21,6 +21,10 @@ s "System"
     r "Renew" %{{sysact "%(desc)"}}
     R "Hard reset" %{{sysact "%(desc)"}}
     s "Sleep" %{{sysact "%(desc)"}}
+    v "VPN"
+    {
+        r "Reconnect" %{{mullvad reconnect}}
+    }
 }
 
 # Toggle prefix
