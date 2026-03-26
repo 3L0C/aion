@@ -15,6 +15,7 @@
     ./modules/glance
     ./modules/jackett.nix
     ./modules/jellyfin.nix
+    ./modules/kavita.nix
     ./modules/komga.nix
     ./modules/navidrome.nix
     ./modules/nfs-export.nix

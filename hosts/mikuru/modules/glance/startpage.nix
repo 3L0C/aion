@@ -70,6 +70,11 @@
                   icon = "di:jellyfin";
                 }
                 {
+                  title = "Kavita";
+                  url = "https://kavita.colebruns.com";
+                  icon = "di:kavita";
+                }
+                {
                   title = "Komga";
                   url = "https://komga.colebruns.com";
                   icon = "di:komga";

@@ -75,6 +75,7 @@ in {
           bazarr = mkRouter "bazarr.colebruns.com" "bazarr";
           jellyseerr = mkRouter "jellyseerr.colebruns.com" "jellyseerr";
           navidrome = mkRouter "navidrome.colebruns.com" "navidrome";
+          kavita = mkRouter "kavita.colebruns.com" "kavita";
           komga = mkRouter "komga.colebruns.com" "komga";
           suwayomi = mkRouter "suwayomi.colebruns.com" "suwayomi";
           audiobookshelf = mkRouter "audiobookshelf.colebruns.com" "audiobookshelf";
@@ -100,6 +101,7 @@ in {
           bazarr.loadBalancer.servers = [{url = "http://localhost:6767";}];
           jellyseerr.loadBalancer.servers = [{url = "http://localhost:5055";}];
           navidrome.loadBalancer.servers = [{url = "http://localhost:4533";}];
+          kavita.loadBalancer.servers = [{url = "http://localhost:5000";}];
           komga.loadBalancer.servers = [{url = "http://localhost:25600";}];
           suwayomi.loadBalancer.servers = [{url = "http://localhost:4567";}];
           immich.loadBalancer.servers = [{url = "http://localhost:2283";}];
