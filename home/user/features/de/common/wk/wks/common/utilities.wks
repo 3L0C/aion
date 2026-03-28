@@ -23,17 +23,17 @@ d "Dmenu scripts"
     }
     u "Url-handler"
     {
-        a "ampv" %{{ampv "$(wl-paster)"}}
-        b "Brave" %{{brave "$(wl-paster)"}}
-        d "Download manga" %{{mlm-wrapper "$(wl-paster)"}}
-        f "Firefox" %{{firefox "$(wl-paster)"}}
-        l "Librewolf" %{{librewolf "$(wl-paster)"}}
-        m "mpv" %{{mpv "$(wl-paster)"}}
-        n "mpv-music" %{{mpv-music "$(wl-paster)"}}
-        p "Playlist" %{{dmenuplaylist -a "$(wl-paster)"}}
-        u "umpv" %{{umpv "$(wl-paster)"}}
-        w "wsg2mpv" %{{wsg2mpv "$(wl-paster)"}}
-        y "yt-opts" %{{yt-opts "$(wl-paster)"}}
+        a "ampv" %{{ampv "$(wl-paste)"}}
+        b "Brave" %{{brave "$(wl-paste)"}}
+        d "Download manga" %{{mlm-wrapper "$(wl-paste)"}}
+        f "Firefox" %{{firefox "$(wl-paste)"}}
+        l "Librewolf" %{{librewolf "$(wl-paste)"}}
+        m "mpv" %{{mpv "$(wl-paste)"}}
+        n "mpv-music" %{{mpv-music "$(wl-paste)"}}
+        p "Playlist" %{{dmenuplaylist -a "$(wl-paste)"}}
+        u "umpv" %{{umpv "$(wl-paste)"}}
+        w "wsg2mpv" %{{wsg2mpv "$(wl-paste)"}}
+        y "yt-opts" %{{yt-opts "$(wl-paste)"}}
     }
 }
 
