@@ -19,7 +19,6 @@
   touchpad-toggle = "${lib.getExe pkgs.custom.scripts.touchpad-toggle}";
   launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
   menu = "${uwsm-app} -- wk-river";
-  old-menu = "${uwsm-app} -- wk";
   terminal = "${uwsm-app} -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
@@ -28,7 +27,7 @@
       "${modShift} Return spawn '${terminal}'"
       "${mod} R spawn '${launcher}'"
       "${mod} Comma spawn '${menu}'"
-      "${mod} Period spawn '${old-menu}'"
+      "${mod} Period spawn '${menu} --press \"d u\"'"
       ''${mod} O spawn "${menu} --press 'o'"''
       ''${mod} E spawn "${menu} --press 'e'"''
       "${mod} Q close"
