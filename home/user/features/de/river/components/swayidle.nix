@@ -10,7 +10,7 @@
 in {
   services.swayidle = {
     enable = true;
-    systemdTarget = "";
+    systemdTargets = [""];
 
     events = {
       before-sleep = (display "off") + "; " + lock;
