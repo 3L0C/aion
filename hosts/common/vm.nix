@@ -15,7 +15,6 @@
     ./optional/nh.nix
     ./optional/pipewire.nix
     ./optional/river.nix
-    ./optional/river-dev.nix
     ./optional/tailscale.nix
     ./optional/wayland.nix
   ];

@@ -857,22 +857,6 @@
         "type": "github"
       }
     },
-    "river-classic-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1774858671,
-        "narHash": "sha256-A9aUj8/hAZ+lIvYt5NcjcRz5wUORxPpn0mlePkdBt1o=",
-        "ref": "refs/heads/main",
-        "rev": "ed1055497ca38eb7773f3fb35ef47e69eabb2934",
-        "revCount": 1376,
-        "type": "git",
-        "url": "https://codeberg.org/river/river-classic"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/river/river-classic"
-      }
-    },
     "riverdo": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -908,7 +892,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
-        "river-classic-src": "river-classic-src",
         "riverdo": "riverdo",
         "secrets": "secrets",
         "sops-nix": "sops-nix",

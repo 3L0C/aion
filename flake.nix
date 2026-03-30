@@ -48,10 +48,6 @@
       url = "github:3L0C/riverdo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    river-classic-src = {
-      url = "git+https://codeberg.org/river/river-classic";
-      flake = false;
-    };
 
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";

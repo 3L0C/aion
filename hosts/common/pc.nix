@@ -16,7 +16,6 @@
     ./optional/pipewire-noise-cancellation.nix
     ./optional/pipewire.nix
     ./optional/river.nix
-    ./optional/river-dev.nix
     ./optional/steam.nix
     ./optional/tailscale.nix
     ./optional/thunar.nix
