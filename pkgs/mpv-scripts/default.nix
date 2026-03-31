@@ -15,8 +15,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "3L0C";
     repo = "mpv-scripts";
-    rev = "666ee5ce5f229b7695bb73a9e40e445584d5bbf4";
-    sha256 = "sha256-zcMjIH1Tb/Aw1Lb6ZtFsoP7Qc+0yvFlt0LkFJ6FwqtM=";
+    rev = "9ee9cb09eb9249c3be4a15fa3bda6207eaae6a15";
+    sha256 = "sha256-ycT9td4/HHheTUXfqwfLRGYOPCMcIuWr6++i2+t90/k=";
   };
 
   nativeBuildInputs = [makeWrapper];
