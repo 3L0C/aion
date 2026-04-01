@@ -7,6 +7,7 @@
   colors = config.lib.stylix.colors.withHashtag;
   inherit (config.stylix) fonts;
   isLaptop = config.hostSpec.kind == "laptop";
+  primaryMonitorName = config.primaryMonitor.name;
   polls = {
     cc-state = ''
       (defpoll cc-state :interval "1s"
@@ -156,7 +157,7 @@
 
     ; Window definition
     (defwindow control-center
-      :monitor 0
+      :monitor "${primaryMonitorName}"
       :geometry (geometry
         :x "20px"
         :y "20px"
@@ -190,7 +191,59 @@ in {
     ]
     ++ lib.optional isLaptop asusctl;
   xdg.configFile = {
-    "eww/media-panel.yuck".source = ./config/eww.yuck;
+    "eww/media-panel.yuck".text = ''
+      ; EWW Media Panel - Shows all active MPRIS players
+      ; Triggered from waybar, displays vertically stacked player controls
+
+      ; Poll for active media players every second
+      (defpoll media-players :interval "1s"
+        "~/.config/eww/scripts/media-players.sh")
+
+      ; Main media panel window
+      (defwindow media-panel
+        :monitor "${primaryMonitorName}"
+        :geometry (geometry
+          :x "20px"
+          :y "20px"
+          :width "350px"
+          :anchor "top right")
+        :stacking "fg"
+        :exclusive false
+        :focusable false
+        (media-panel-content))
+
+      ; Container widget - right-click anywhere to close
+      (defwidget media-panel-content []
+        (eventbox :onrightclick "eww close media-panel"
+          (box :class "media-panel"
+               :orientation "vertical"
+               :space-evenly false
+            (for player in media-players
+              (player-row :data player)))))
+
+      ; Individual player row with prev/info/play-pause/next
+      (defwidget player-row [data]
+        (box :class "player-row"
+             :orientation "horizontal"
+             :space-evenly false
+          ; Prev button
+          (button :class "player-btn"
+                  :onclick "playerctl --player=''${data.player} previous"
+            "󰒮")
+          ; Media title - click to toggle play/pause
+          (eventbox :onclick "playerctl --player=''${data.player} play-pause"
+                    :hexpand true
+            (label :class "player-info"
+                   :text "''${data.display}"))
+          ; Play/pause button
+          (button :class "player-btn"
+                  :onclick "playerctl --player=''${data.player} play-pause"
+            "''${data.icon}")
+          ; Next button
+          (button :class "player-btn"
+                  :onclick "playerctl --player=''${data.player} next"
+            "󰒭")))
+    '';
     "eww/control-center.yuck".text = controlCenterYuck;
     "eww/eww.yuck".text = ''
       ; EWW Configuration - Import all panels
@@ -198,17 +251,17 @@ in {
       (include "./control-center.yuck")
     '';
     "eww/scripts/media-players.sh" = {
-      source = ./config/scripts/media-players.sh;
+      source = ./scripts/media-players.sh;
       executable = true;
     };
 
     "eww/scripts/control-center.sh" = {
-      source = ./config/scripts/control-center.sh;
+      source = ./scripts/control-center.sh;
       executable = true;
     };
 
     "eww/scripts/power-profile.sh" = lib.mkIf isLaptop {
-      source = ./config/scripts/power-profile.sh;
+      source = ./scripts/power-profile.sh;
       executable = true;
     };
     "eww/eww.scss".text = ''
