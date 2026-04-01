@@ -11,6 +11,7 @@ in {
   dns-recovery = mkScript "dns-recovery" ./system/dns-recovery;
   touchpad-toggle = mkScript "touchpad-toggle" ./river/touchpad-toggle;
   media = mkScript "media" ./media/media;
+  converter-sh = mkScript "converter.sh" ./media/converter.sh;
   browser-migrate = mkScript "browser-migrate" ./browser/browser-migrate;
   statusbar = callPackage ./statusbar {};
   menu = callPackage ./menu {};
