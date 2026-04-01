@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -18,24 +19,35 @@
 
   # udev rules for non-root YubiKey access
   services.udev.packages = [pkgs.yubikey-personalization];
-  security.pam.u2f = {
-    enable = true;
-    settings = {
-      authfile = "/etc/u2f_keys";
-      cue = true; # "Please touch the device" prompt
-      origin = "pam://aion";
-      appid = "pam://aion";
-    };
-  };
-  security.pam.services.sudo.rules.auth.u2f = {
-    order = 100; # Before unix (11600) so U2F is tried first
-    control = "sufficient";
-    modulePath = "${pkgs.pam_u2f}/lib/security/pam_u2f.so";
-    args = [
+  security.pam.services = let
+    u2fArgs = [
       "authfile=/etc/u2f_keys"
       "cue"
       "origin=pam://aion"
       "appid=pam://aion"
     ];
+    u2fModulePath = "${pkgs.pam_u2f}/lib/security/pam_u2f.so";
+  in {
+    sudo.rules.auth.u2f = {
+      enable = lib.mkForce true;
+      order = 100;
+      control = "sufficient";
+      modulePath = u2fModulePath;
+      args = u2fArgs;
+    };
+    greetd.rules.auth.u2f = {
+      enable = lib.mkForce true;
+      order = 100;
+      control = lib.mkForce "required";
+      modulePath = u2fModulePath;
+      args = u2fArgs;
+    };
+    swaylock.rules.auth.u2f = {
+      enable = lib.mkForce true;
+      order = 100;
+      control = lib.mkForce "required";
+      modulePath = u2fModulePath;
+      args = u2fArgs;
+    };
   };
 }
