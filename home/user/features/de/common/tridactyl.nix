@@ -60,6 +60,7 @@
     set searchurls.ms https://mangasee123.com/search/?name=
     set searchurls.go https://google.com/search?q=
     set searchurls.di https://dashboardicons.com/icons?q=
+    set searchurls.nixpr https://nixpk.gs/pr-tracker.html?pr=
 
     " Costom binds
 
