@@ -70,7 +70,6 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   services.asusd = {
     enable = true;
-    enableUserService = true;
   };
 
   # ROG keyboard function key mappings
