@@ -7,6 +7,14 @@
       };
     };
   };
+  unstable = final: _prev: {
+    unstable = import inputs.nixpkgs-unstable {
+      inherit (final.stdenv.hostPlatform) system;
+      config = {
+        allowUnfree = true;
+      };
+    };
+  };
   custom-packages = final: _prev: {
     custom = import ../pkgs {pkgs = final;};
   };
@@ -19,7 +27,6 @@
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };
-
   modifications = _final: prev: {
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
       postInstall =
