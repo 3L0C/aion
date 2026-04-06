@@ -91,7 +91,6 @@
 
     # :lang web
     stylelint
-    nodePackages.js-beautify
 
     # :lang zig
     zls
