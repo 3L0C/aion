@@ -1,5 +1,11 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   nix = {
+    package = pkgs.lixPackageSets.latest.lix;
+
     # https://github.com/NixOS/nix/issues/2982
     channel.enable = false;
 

@@ -27,6 +27,15 @@
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };
+  lix = _final: prev: {
+    inherit
+      (prev.lixPackageSets.latest)
+      nixpkgs-review
+      nix-eval-jobs
+      nix-fast-build
+      colmena
+      ;
+  };
   modifications = _final: prev: {
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
       postInstall =
