@@ -29,13 +29,30 @@
       org.freedesktop.impl.portal.Screenshot=wlr
       org.freedesktop.impl.portal.Inhibit=none
     '';
+    portalChooser = pkgs.writeShellApplication {
+      name = "xdph-wlr-chooser";
+      runtimeInputs = with pkgs; [lswt jq rofi wlr-randr coreutils gnused];
+      text = ''
+        set -euo pipefail
+
+        monitors=$(wlr-randr --json | jq -r '.[] | "Monitor: \(.name)"')
+        windows=$(lswt -j | jq -r '
+          .toplevels[]
+          | "Window: \(.identifier)\t\(.app_id // "?") — \(.title // "")"
+        ')
+
+        choice=$(printf '%s\n%s\n' "$monitors" "$windows" \
+          | rofi -dmenu -i -p "Screencast source")
+        printf '%s\n' "''${choice%%$'\t'*}"
+      '';
+    };
   in {
     "xdg-desktop-portal/river-portals.conf".text = portalText;
     "xdg-desktop-portal/riverdev-portals.conf".text = portalText;
     "xdg-desktop-portal-wlr/config.ini".text = ''
       [screencast]
       chooser_type = simple
-      chooser_cmd = ${lib.getExe pkgs.slurp} -f %o -or
+      chooser_cmd = ${lib.getExe portalChooser}
     '';
   };
   home.packages = with pkgs; [
