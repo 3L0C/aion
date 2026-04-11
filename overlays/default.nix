@@ -37,6 +37,18 @@
       ;
   };
   modifications = _final: prev: {
+    # xdg-desktop-portal-wlr: build from master for PipeWire 1.6.x fix and
+    # screencast improvements (buffer flags, damage reporting) not in 0.8.1
+    xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs {
+      version = "0.8.1-unstable-2026-03-19";
+      src = prev.fetchFromGitHub {
+        owner = "emersion";
+        repo = "xdg-desktop-portal-wlr";
+        rev = "896cee82a6f14ee996fb870c0fc5e27533e37907";
+        hash = "sha256-uQYXGiMmrMHCygh5IHt90NSZLPbY7uVMyDx8zUTHXaM=";
+      };
+    };
+
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
       postInstall =
         (oldAttrs.postInstall or "")
