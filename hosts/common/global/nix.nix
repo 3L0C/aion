@@ -20,7 +20,7 @@
       # Disable always-on store optimization (use scheduled instead)
       auto-optimise-store = false;
       allow-import-from-derivation = lib.mkDefault true;
-      allowed-users = lib.mkDefault [""]; # Trusted users are always allowed to connect
+      allowed-users = lib.mkDefault ["root" "@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
 
       # Binary cache substituters
