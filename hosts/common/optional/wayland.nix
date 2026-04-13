@@ -1,4 +1,7 @@
 {pkgs, ...}: {
-  xdg.portal.config.common.default = "*";
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+  };
   programs.gdk-pixbuf.modulePackages = [pkgs.librsvg];
 }

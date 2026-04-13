@@ -3,7 +3,15 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  portalChooser = pkgs.writeShellApplication {
+    name = "xdph-wlr-chooser";
+    runtimeInputs = with pkgs; [rofi];
+    text = ''
+      exec rofi -dmenu -i -p "Screencast source"
+    '';
+  };
+in {
   wayland.windowManager.river = {
     enable = true;
     package = null;
@@ -32,6 +40,12 @@
   in {
     "xdg-desktop-portal/river-portals.conf".text = portalText;
     "xdg-desktop-portal/riverdev-portals.conf".text = portalText;
+    "xdg-desktop-portal-wlr/config.ini".text = lib.generators.toINI {} {
+      screencast = {
+        chooser_type = "dmenu";
+        chooser_cmd = lib.getExe portalChooser;
+      };
+    };
   };
   home.packages = with pkgs; [
     riverdo # Improved riverctl
