@@ -14,6 +14,7 @@
       UMASK = "022";
     };
     extraOptions = [
+      "--pull=always"
       "--memory=256m"
       "--network=host"
     ];

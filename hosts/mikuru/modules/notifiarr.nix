@@ -10,6 +10,7 @@
       TZ = config.time.timeZone;
     };
     extraOptions = [
+      "--pull=always"
       "--network=host"
       "--memory=512m"
     ];

@@ -9,6 +9,7 @@
     };
     # Resource limits - FlareSolverr runs a browser, can be memory-intensive
     extraOptions = [
+      "--pull=always"
       "--memory=2g"
       "--cpus=2"
     ];

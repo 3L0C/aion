@@ -12,6 +12,7 @@
       TZ = config.time.timeZone;
     };
     extraOptions = [
+      "--pull=always"
       "--memory=1g"
       "--cpus=2"
     ];
