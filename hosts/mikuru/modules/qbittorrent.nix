@@ -127,9 +127,12 @@
       };
     };
   };
-  systemd.services.qbittorrent.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "airvpn";
+  systemd.services.qbittorrent = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "airvpn";
+    };
+    serviceConfig.UMask = "0002";
   };
   systemd.tmpfiles.rules = [
     "d /mnt/tank/data/torrents 0775 qbittorrent media -"
