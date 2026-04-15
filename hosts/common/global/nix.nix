@@ -15,8 +15,11 @@
       dates = ["weekly"];
     };
 
+    extraOptions = ''
+      accept-flake-config = true
+    '';
+
     settings = {
-      accept-flake-config = true;
       # Disable always-on store optimization (use scheduled instead)
       auto-optimise-store = false;
       allow-import-from-derivation = lib.mkDefault true;
