@@ -8,7 +8,7 @@
     theme = {
       base16Scheme = lib.mkDefault "kanagawa-abyss";
       polarity = lib.mkDefault "dark";
-      wallpaper = lib.mkDefault ../features/de/wallpapers/1450741833367.jpg;
+      wallpaper = lib.mkDefault ../features/de/wallpapers/Blackdune.jpg;
     };
     cursor = {
       package = lib.mkDefault pkgs.phinger-cursors;
