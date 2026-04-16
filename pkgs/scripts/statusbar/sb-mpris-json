@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# sb-mpris-json - Waybar custom/mpris module driver
+#
+# Picks the "best" player to display using a priority partition:
+#   1. Playing instances (playerctld LRU order within the partition)
+#   2. Paused instances
+#   3. Stopped instances
+#
+# Why: playerctld's single "active player" pointer is re-ordered on *any*
+# property change, so pausing a player moves it to the front of the LRU
+# even if other players are still Playing. This script imposes a
+# state-first ordering so the status bar follows a playing instance when
+# one exists, regardless of the most recent interaction.
+#
+# Usage:
+#   sb-mpris-json                emit waybar JSON (default mode)
+#   sb-mpris-json play-pause     play-pause on the selected player
+#   sb-mpris-json next           next track on the selected player
+#   sb-mpris-json previous       previous track on the selected player
+
+set -u
+
+ensure_daemon() {
+    pidof playerctld >/dev/null 2>&1 || setsid -f playerctld daemon >/dev/null 2>&1 || true
+}
+
+# Emit "<player>\t<status>" for the highest-priority player.
+# Nothing is emitted when no players are present.
+pick_player() {
+    local players=()
+    local playing=() paused=() stopped=()
+    local p status
+
+    mapfile -t players < <(playerctl --list-all 2>/dev/null)
+    ((${#players[@]} == 0)) && return 0
+
+    for p in "${players[@]}"; do
+        [[ -z "$p" ]] && continue
+        status=$(playerctl --player="$p" status 2>/dev/null || echo "Stopped")
+        case "$status" in
+            Playing) playing+=("$p") ;;
+            Paused)  paused+=("$p") ;;
+            *)       stopped+=("$p") ;;
+        esac
+    done
+
+    if   ((${#playing[@]} > 0)); then printf '%s\t%s\n' "${playing[0]}" "Playing"
+    elif ((${#paused[@]}  > 0)); then printf '%s\t%s\n' "${paused[0]}"  "Paused"
+    elif ((${#stopped[@]} > 0)); then printf '%s\t%s\n' "${stopped[0]}" "Stopped"
+    fi
+}
+
+emit_json() {
+    local pick player status title artist text alt tooltip
+
+    pick=$(pick_player)
+    if [[ -z "$pick" ]]; then
+        jq -nc '{text:"", alt:"empty", class:"empty", tooltip:""}'
+        return
+    fi
+
+    IFS=$'\t' read -r player status <<<"$pick"
+    title=$(playerctl --player="$player" metadata --format '{{title}}' 2>/dev/null || true)
+    artist=$(playerctl --player="$player" metadata --format '{{artist}}' 2>/dev/null || true)
+
+    alt=$(printf '%s' "$status" | tr '[:upper:]' '[:lower:]')
+    text=${title:-$player}
+    if [[ -n "$artist" && -n "$title" ]]; then
+        tooltip="$artist - $title ($player)"
+    else
+        tooltip="$text ($player)"
+    fi
+
+    jq -nc \
+        --arg text "$text" \
+        --arg alt "$alt" \
+        --arg tooltip "$tooltip" \
+        '{text:$text, alt:$alt, class:$alt, tooltip:$tooltip}'
+}
+
+run_action() {
+    local action="$1"
+    local pick player
+    pick=$(pick_player)
+    [[ -z "$pick" ]] && return 0
+    IFS=$'\t' read -r player _ <<<"$pick"
+    playerctl --player="$player" "$action" >/dev/null 2>&1 || true
+}
+
+main() {
+    ensure_daemon
+    case "${1:-}" in
+        ""|json)                        emit_json ;;
+        play-pause|play|pause|stop)     run_action "$1" ;;
+        next|previous)                  run_action "$1" ;;
+        *) echo "Usage: ${0##*/} [json|play-pause|play|pause|stop|next|previous]" >&2; exit 2 ;;
+    esac
+}
+
+main "$@"

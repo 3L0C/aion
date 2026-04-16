@@ -18,6 +18,7 @@ in {
   sb-memory = mkScript "sb-memory" ./sb-memory;
   sb-moonphase = mkScript "sb-moonphase" ./sb-moonphase;
   sb-mpdup = mkScript "sb-mpdup" ./sb-mpdup;
+  sb-mpris-json = mkScript "sb-mpris-json" ./sb-mpris-json;
   sb-mpv = mkScript "sb-mpv" ./sb-mpv;
   sb-mpv-music = mkScript "sb-mpv-music" ./sb-mpv-music;
   sb-mpv-music-bak = mkScript "sb-mpv-music-bak" ./sb-mpv-music-bak;

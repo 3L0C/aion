@@ -156,6 +156,7 @@
       /* Right side modules - status bar style */
       #custom-sb-playerctl,
       #custom-sb-mpv,
+      #custom-mpris,
       #pulseaudio,
       #temperature,
       #memory,
@@ -209,14 +210,6 @@
       #custom-vol-down,
       #custom-bkl-up,
       #custom-bkl-down {
-          background-color: transparent;
-          color: @base05;
-          padding: 0;
-          margin: 0;
-      }
-
-      /* MPRIS module */
-      #mpris {
           background-color: transparent;
           color: @base05;
           padding: 0;

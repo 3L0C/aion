@@ -16,8 +16,7 @@ in rec {
     no-center = true;
   };
   modulesRight = [
-    "mpris#sep"
-    "mpris"
+    "custom/mpris"
     "custom/sep"
     "temperature"
     "custom/sep"
@@ -54,28 +53,17 @@ in rec {
       };
       tooltip = false;
     };
-    "mpris#sep" = {
-      format = "|";
-      format-paused = "|";
-      format-stopped = "|";
-      tooltip = false;
-    };
-    mpris = {
-      format = " {title} ";
-      format-paused = " mpris ";
-      format-stopped = " mpris ";
-      status-icons = {
-        playing = "-";
-        paused = "+";
-        stopped = "x";
-      };
-      player-icons = {
-        default = "";
-      };
-      title-len = 16;
-      on-click = "playerctl play-pause";
-      on-click-right = "eww open --toggle media-panel";
+    "custom/mpris" = {
+      format = "| {} ";
+      format-paused = "| mpris ";
+      format-stopped = "| mpris ";
+      format-empty = "";
+      return-type = "json";
+      exec = "sb-mpris-json";
       interval = 1;
+      max-length = 18;
+      on-click = "sb-mpris-json play-pause";
+      on-click-right = "eww open --toggle media-panel";
       tooltip = false;
     };
     pulseaudio = {
