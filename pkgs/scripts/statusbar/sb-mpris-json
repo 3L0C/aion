@@ -64,11 +64,19 @@ emit_json() {
     artist=$(playerctl --player="$player" metadata --format '{{artist}}' 2>/dev/null || true)
 
     alt=$(printf '%s' "$status" | tr '[:upper:]' '[:lower:]')
-    text=${title:-$player}
+    # Only show the track title when actually Playing; otherwise render the
+    # "mpris" placeholder. Encoding this here (instead of relying on
+    # format-paused / format-stopped) keeps behavior consistent across
+    # waybar versions — custom modules don't always honor format-<alt>.
+    if [[ "$status" == "Playing" ]]; then
+        text=${title:-$player}
+    else
+        text="mpris"
+    fi
     if [[ -n "$artist" && -n "$title" ]]; then
         tooltip="$artist - $title ($player)"
     else
-        tooltip="$text ($player)"
+        tooltip="${title:-$player} ($player)"
     fi
 
     jq -nc \

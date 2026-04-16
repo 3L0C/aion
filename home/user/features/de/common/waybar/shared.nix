@@ -55,8 +55,6 @@ in rec {
     };
     "custom/mpris" = {
       format = "| {} ";
-      format-paused = "| mpris ";
-      format-stopped = "| mpris ";
       format-empty = "";
       return-type = "json";
       exec = "sb-mpris-json";
