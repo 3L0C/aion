@@ -15,6 +15,14 @@
       };
     };
   };
+  master = final: _prev: {
+    master = import inputs.nixpkgs-master {
+      inherit (final.stdenv.hostPlatform) system;
+      config = {
+        allowUnfree = true;
+      };
+    };
+  };
   custom-packages = final: _prev: {
     custom = import ../pkgs {pkgs = final;};
   };
