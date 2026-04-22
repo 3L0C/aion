@@ -36,9 +36,9 @@
         key_closeplaylist = "ESC SHIFT+ENTER";
 
         # extra functionality keys
-        key_sortplaylist = "";
-        key_shuffleplaylist = "";
-        key_reverseplaylist = "";
+        key_sortplaylist = "CTRL+S";
+        key_shuffleplaylist = "CTRL+P";
+        key_reverseplaylist = "CTRL+R";
         key_loadfiles = "";
         key_saveplaylist = "";
         key_selectplaylist = "";
