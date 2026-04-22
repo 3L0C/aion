@@ -18,5 +18,6 @@
     ./sioyek.nix
     ./thunderbird.nix
     ./vlc.nix
+    ./vn.nix
   ];
 }

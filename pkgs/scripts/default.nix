@@ -1,5 +1,7 @@
 {
   callPackage,
+  rsync,
+  winePackages,
   writeShellScriptBin,
 }: let
   mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
@@ -16,4 +18,8 @@ in {
   statusbar = callPackage ./statusbar {};
   menu = callPackage ./menu {};
   lf = callPackage ./lf {};
+  vn = callPackage ./vn {
+    wine = winePackages.waylandFull;
+    inherit rsync;
+  };
 }

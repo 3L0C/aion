@@ -35,6 +35,9 @@
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };
+  wine-ge-overlay = final: _prev: {
+    inherit (inputs.nix-gaming.packages.${final.stdenv.hostPlatform.system}) wine-ge;
+  };
   lix = _final: prev: {
     inherit
       (prev.lixPackageSets.latest)
