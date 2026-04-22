@@ -103,7 +103,7 @@ cmd open ${{
             setsid -f smpv --socket 'music' "$fx" -- >/dev/null 2>&1 &
             ;;
         video/*)
-            setsid -f smpv --socket 'lf-mpv' "$fx" -- -quiet >/dev/null 2>&1 &
+            setsid -f smpv --socket 'lf-mpv' "$fx" -- --auto-window-resize=no --keepaspect-window=no -quiet >/dev/null 2>&1 &
             ;;
         application/vnd.openxmlformats*)
             setsid -f libreoffice $fx >/dev/null 2>&1 &
