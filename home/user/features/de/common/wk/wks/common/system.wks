@@ -17,6 +17,11 @@ s "System"
         r "Reboot" %{{sysact "%(desc)"}}
         s "Shutdown" %{{sysact "%(desc)"}}
     }
+    k "Kanshi"
+    {
+        g "Gaming" %{{kanshictl switch gaming}}
+        w "Work" %{{kanshictl switch all}}
+    }
     l "Lock" %{{sysact "%(desc)"}}
     r "Renew" %{{sysact "%(desc)"}}
     R "Hard reset" %{{sysact "%(desc)"}}

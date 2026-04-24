@@ -81,16 +81,40 @@
       };
     };
   };
-in {
-  options.monitors = mkOption {
-    type = types.listOf monitorOption;
-    default = [];
+  layoutOverrideOption = types.submodule {
+    options = {
+      x = mkOption {
+        type = types.int;
+        example = 2560;
+      };
+      y = mkOption {
+        type = types.int;
+        default = 0;
+      };
+    };
   };
+in {
+  options = {
+    monitors = mkOption {
+      type = types.listOf monitorOption;
+      default = [];
+    };
 
-  options.primaryMonitor = mkOption {
-    type = types.nullOr monitorOption;
-    readOnly = true;
-    default = lib.head (lib.filter (m: m.primary) config.monitors);
+    monitorLayouts = mkOption {
+      type = types.attrsOf (types.attrsOf layoutOverrideOption);
+      default = {};
+      description = ''
+        Named alternate monitor layouts. Each entry maps an output name
+        to {x, y} position overrides applied on top of the base `monitors`
+        config. Switch at runtime with `kanshictl switch <name>`.
+      '';
+    };
+
+    primaryMonitor = mkOption {
+      type = types.nullOr monitorOption;
+      readOnly = true;
+      default = lib.head (lib.filter (m: m.primary) config.monitors);
+    };
   };
 
   config = {

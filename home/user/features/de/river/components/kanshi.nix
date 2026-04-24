@@ -18,12 +18,21 @@
         then builtins.fromJSON monitor.scale * 1.0 # Ensure float
         else null;
     };
+  applyOverride = overrides: monitor:
+    monitor // (overrides.${monitor.name} or {});
   allMonitorsProfile = {
     profile = {
       name = "all";
       outputs = map monitorToKanshiOutput config.monitors;
     };
   };
+  mkLayoutProfile = layoutName: overrides: {
+    profile = {
+      name = layoutName;
+      outputs = map (m: monitorToKanshiOutput (applyOverride overrides m)) config.monitors;
+    };
+  };
+  layoutProfiles = lib.mapAttrsToList mkLayoutProfile config.monitorLayouts;
 
   # Create individual profile for each monitor (fallback)
   mkSingleMonitorProfile = monitor: {
@@ -40,6 +49,7 @@ in {
 
     settings =
       [allMonitorsProfile]
+      ++ layoutProfiles
       ++ singleMonitorProfiles;
   };
   systemd.user.services.kanshi = lib.custom.scopeServiceToWaylandSessions {

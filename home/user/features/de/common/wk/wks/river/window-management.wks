@@ -7,9 +7,11 @@
 c "Client"
 {
     l "Tag Right" +keep %{{%(CMD_WS_NEXT)}}
-    L "Mon Right" %{{%(CMD_MOVE_TO_MONITOR_RIGHT) --current-tags}}
     h "Tag Left" +keep %{{%(CMD_WS_PREV)}}
-    H "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT) --current-tags}}
+    # Move to output (current-tags shortcuts)
+    A "AOC (current tags)" %{{%(CMD_MOVE_TO_AOC) --current-tags}}
+    B "BenQ (current tags)" %{{%(CMD_MOVE_TO_BENQ) --current-tags}}
+    H "HP (current tags)" %{{%(CMD_MOVE_TO_HP) --current-tags}}
     # Tag & follow
     m "Tag & follow" +keep
     {
@@ -17,10 +19,12 @@ c "Client"
     }
     o "Output" +keep
     {
-        l "Mon Right" %{{%(CMD_MOVE_TO_MONITOR_RIGHT)}}
-        L "Mon Right" %{{%(CMD_MOVE_TO_MONITOR_RIGHT) --follow}}
-        h "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT)}}
-        H "Mon Left" %{{%(CMD_MOVE_TO_MONITOR_LEFT) --follow}}
+        a "AOC" %{{%(CMD_MOVE_TO_AOC)}}
+        A "AOC & follow" %{{%(CMD_MOVE_TO_AOC) --follow}}
+        b "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
+        B "BenQ & follow" %{{%(CMD_MOVE_TO_BENQ) --follow}}
+        h "HP" %{{%(CMD_MOVE_TO_HP)}}
+        H "HP & follow" %{{%(CMD_MOVE_TO_HP) --follow}}
     }
     q "Quit" %{{riverdo close}}
     s "Stick (occupied)" %{{riverdo stick --tags occupied}}

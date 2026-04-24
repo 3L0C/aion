@@ -14,9 +14,10 @@
 :var "WS_8" "8"
 :var "WS_9" "9"
 
-# Monitors
-:var "MONITOR_LEFT" "DP-3"
-:var "MONITOR_RIGHT" "DP-1"
+# Monitors (output-identity based; layout-independent)
+:var "MONITOR_BENQ" "DP-3"
+:var "MONITOR_AOC" "DP-1"
+:var "MONITOR_HP" "HDMI-A-1"
 
 # Window management commands
 :var "CMD_CLOSE_WINDOW" "riverdo close"
@@ -42,9 +43,10 @@
 :var "CMD_MOVE_NEXT" "riverdo shift-view next --occupied"
 :var "CMD_MOVE_PREV" "riverdo shift-view previous --occupied"
 
-# Monitor/output operations
-:var "CMD_MOVE_TO_MONITOR_LEFT" "riverdo send-to-output %(MONITOR_LEFT)"
-:var "CMD_MOVE_TO_MONITOR_RIGHT" "riverdo send-to-output %(MONITOR_RIGHT)"
+# Monitor/output operations (target monitors by identity, not position)
+:var "CMD_MOVE_TO_BENQ" "riverdo send-to-output %(MONITOR_BENQ)"
+:var "CMD_MOVE_TO_AOC" "riverdo send-to-output %(MONITOR_AOC)"
+:var "CMD_MOVE_TO_HP" "riverdo send-to-output %(MONITOR_HP)"
 
 # Screenshot utilities (use slurp for window mode)
 :var "CMD_GET_WINDOW_GEOMETRY" "slurp"

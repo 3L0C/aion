@@ -76,7 +76,7 @@ in {
 
           "river/layout" = {
             format = "{}";
-            on-click-right = "${riverdo} swap-outputs --focused-tag";
+            on-click-right = "${riverdo} swap-outputs --focused-tag --swap DP-3 --with DP-1";
             tooltip = false;
           };
 
