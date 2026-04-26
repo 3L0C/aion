@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  services.pipewire.extraLadspaPackages = [pkgs.rnnoise-plugin.ladspa];
+
   services.pipewire.extraConfig.pipewire."99-input-denoising" = {
     "context.modules" = [
       {
@@ -11,7 +13,7 @@
               {
                 type = "ladspa";
                 name = "rnnoise";
-                plugin = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
+                plugin = "librnnoise_ladspa";
                 label = "noise_suppressor_mono";
                 control = {
                   "VAD Threshold (%)" = 80.0;
