@@ -13,8 +13,7 @@
       };
       whitelist.prefix = [
         "${config.home.homeDirectory}/aion/"
-        "${config.home.homeDirectory}/programs/"
-        "${config.home.homeDirectory}/repos/"
+        "${config.home.homeDirectory}/Projects/"
       ];
     };
     silent = true;
