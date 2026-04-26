@@ -7,7 +7,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs-pgtk;
+    package = pkgs.master.emacs-pgtk;
     extraPackages = epkgs: [epkgs.vterm];
   };
 
