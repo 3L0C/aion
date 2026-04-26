@@ -12,11 +12,9 @@ c "Client"
     A "AOC (current tags)" %{{%(CMD_MOVE_TO_AOC) --current-tags}}
     B "BenQ (current tags)" %{{%(CMD_MOVE_TO_BENQ) --current-tags}}
     H "HP (current tags)" %{{%(CMD_MOVE_TO_HP) --current-tags}}
-    # Tag & follow
-    m "Tag & follow" +keep
-    {
-        ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1) --follow}}
-    }
+    m "HP" %{{%(CMD_MOVE_TO_HP)}}
+    n "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
+    e "AOC" %{{%(CMD_MOVE_TO_AOC)}}
     o "Output" +keep
     {
         a "AOC" %{{%(CMD_MOVE_TO_AOC)}}
@@ -39,6 +37,9 @@ c "Client"
 # River window toggles
 w "Window"
 {
+    m "Swap HP" %{{riverdo swap-outputs --focused-tag --with "HDMI-A-1"}}
+    n "Swap BenQ" %{{riverdo swap-outputs --focused-tag --with "DP-3"}}
+    e "Swap AOC" %{{riverdo swap-outputs --focused-tag --with "DP-1"}}
     s "Swap Outputs"
     {
         ... "Swap tags %(index+1)" %{{riverdo swap-outputs --tags %(index+1)}}
