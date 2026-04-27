@@ -112,21 +112,6 @@
         ];
       };
     };
-    mkHome = username: hostname: system: {
-      name = "${username}@${hostname}";
-      value = lib.homeManagerConfiguration {
-        extraSpecialArgs = {
-          inherit
-            lib
-            inputs
-            outputs
-            ;
-          inherit (import ./hosts/${hostname}/spec.nix) hostSpec;
-        };
-        pkgs = pkgsFor.${system};
-        modules = [./home/${username}/${hostname}.nix];
-      };
-    };
   in {
     legacyPackages = forEachSystem (pkgs: pkgs.custom);
     formatter = forEachSystem (pkgs: pkgs.alejandra);
@@ -142,12 +127,6 @@
       (mkNixos "nixos-vm" "x86_64-linux")
       (mkNixos "mikuru" "x86_64-linux")
       (mkNixos "haruhi" "x86_64-linux")
-    ];
-    homeConfigurations = lib.listToAttrs [
-      (mkHome "user" "yuki" "x86_64-linux")
-      (mkHome "user" "nixos-vm" "x86_64-linux")
-      (mkHome "user" "mikuru" "x86_64-linux")
-      (mkHome "user" "haruhi" "x86_64-linux")
     ];
   };
 }
