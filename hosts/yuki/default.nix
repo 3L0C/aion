@@ -9,6 +9,7 @@
     ../common/users/user
     ../common/optional/fixes/usb-wake-fix.nix
     ../common/optional/fixes/amdgpu-sdma-fix.nix
+    ../common/optional/ollama.nix
   ];
   system.stateVersion = "26.05";
 }
