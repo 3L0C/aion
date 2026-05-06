@@ -24,10 +24,10 @@
 
   # Prevent root login on any TTY
   environment.etc.securetty.text = "";
-  systemd.coredump.extraConfig = ''
-    Storage=external
-    ProcessSizeMax=2G
-    ExternalSizeMax=2G
-    MaxUse=5G
-  '';
+  systemd.coredump.settings.Coredump = {
+    Storage = "external";
+    ProcessSizeMax = "2G";
+    ExternalSizeMax = "2G";
+    MaxUse = "5G";
+  };
 }
