@@ -6,6 +6,7 @@
     ./features/de
     ./features/dev
 
+    ./features/de/river-classic
     ./features/de/river
   ];
   monitors = [

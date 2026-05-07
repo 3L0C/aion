@@ -1,64 +1,55 @@
-# River entry point for WK
-# This file is used when launching wk from River
-# It includes common bindings and River-specific window management
+# River 0.4.x entry point for WK
+# Used when launching wk from River 0.4.x (with zrwm).
+# All actions go through zrwm-msg (zrwm's IPC tool), since River 0.4.x
+# removed riverctl and there's no riverdo equivalent for this variant.
 
-# River-specific variable definitions
-# Workspace numbers
+# River 0.4.x uses tag bitmasks: tag N = (1 << (N-1))
 :var "WS_1" "1"
 :var "WS_2" "2"
-:var "WS_3" "3"
-:var "WS_4" "4"
-:var "WS_5" "5"
-:var "WS_6" "6"
-:var "WS_7" "7"
-:var "WS_8" "8"
-:var "WS_9" "9"
+:var "WS_3" "4"
+:var "WS_4" "8"
+:var "WS_5" "16"
+:var "WS_6" "32"
+:var "WS_7" "64"
+:var "WS_8" "128"
+:var "WS_9" "256"
 
-# Monitors (output-identity based; layout-independent)
-:var "MONITOR_BENQ" "DP-3"
-:var "MONITOR_AOC" "DP-1"
-:var "MONITOR_HP" "HDMI-A-1"
+# Window management commands (zrwm-msg)
+:var "CMD_CLOSE_WINDOW" "zrwm-msg killwindow"
+:var "CMD_TOGGLE_FLOAT" "zrwm-msg togglefloating"
+:var "CMD_TOGGLE_FULLSCREEN" "zrwm-msg togglefullscreen"
 
-# Window management commands
-:var "CMD_CLOSE_WINDOW" "riverdo close"
-:var "CMD_TOGGLE_FLOAT" "riverdo toggle-float"
-:var "CMD_TOGGLE_FULLSCREEN" "riverctl toggle-fullscreen"
+# Stack navigation
+:var "CMD_FOCUS_NEXT" "zrwm-msg focusstack 1"
+:var "CMD_FOCUS_PREV" "zrwm-msg focusstack -1"
+:var "CMD_FOCUS_DOWN" "zrwm-msg focusstack 1"
+:var "CMD_FOCUS_UP" "zrwm-msg focusstack -1"
+:var "CMD_SWAP_DOWN" "zrwm-msg pushdown"
+:var "CMD_SWAP_UP" "zrwm-msg pushup"
 
-# Directional window focus/swap (River-specific)
-:var "CMD_FOCUS_NEXT" "riverctl focus-view next"
-:var "CMD_FOCUS_PREV" "riverctl focus-view previous"
-:var "CMD_FOCUS_DOWN" "riverctl focus-view down"
-:var "CMD_FOCUS_UP" "riverctl focus-view up"
-:var "CMD_SWAP_DOWN" "riverctl swap down"
-:var "CMD_SWAP_UP" "riverctl swap up"
+# Tag operations (parametric via raw bitmask args)
+:var "CMD_SWITCH_WS" "zrwm-msg view"
+:var "CMD_GO_WORKSPACE" "zrwm-msg view"
+:var "CMD_MOVE_TO_WS" "zrwm-msg tag"
 
-# Tag operations using riverdo (parametric - use with %(index+1))
-:var "CMD_SWITCH_WS" "riverdo set-focused-tags"
-:var "CMD_GO_WORKSPACE" "riverdo set-focused-tags"
-:var "CMD_MOVE_TO_WS" "riverdo set-view-tags"
+# Relative tag navigation: not supported by zrwm directly. Stubbed to no-op
+# (or to single-tag bindings) until a wrapper exists.
+:var "CMD_WS_NEXT" "true"
+:var "CMD_WS_PREV" "true"
+:var "CMD_MOVE_NEXT" "true"
+:var "CMD_MOVE_PREV" "true"
 
-# Relative tag navigation (riverdo)
-:var "CMD_WS_NEXT" "riverdo shift-tag next --occupied"
-:var "CMD_WS_PREV" "riverdo shift-tag previous --occupied"
-:var "CMD_MOVE_NEXT" "riverdo shift-view next --occupied"
-:var "CMD_MOVE_PREV" "riverdo shift-view previous --occupied"
-
-# Monitor/output operations (target monitors by identity, not position)
-:var "CMD_MOVE_TO_BENQ" "riverdo send-to-output %(MONITOR_BENQ)"
-:var "CMD_MOVE_TO_AOC" "riverdo send-to-output %(MONITOR_AOC)"
-:var "CMD_MOVE_TO_HP" "riverdo send-to-output %(MONITOR_HP)"
-
-# Screenshot utilities (use slurp for window mode)
+# Screenshot utilities
 :var "CMD_GET_WINDOW_GEOMETRY" "slurp"
 
-# Workflow workspace assignments (River uses tags 1-32)
+# Workflow workspace assignments (bitmask values)
 :var "WS_EMACS" "2"
-:var "WS_FIREFOX" "3"
-:var "WS_GAMES" "4"
-:var "WS_CHROMIUM" "4"
-:var "WS_FEEDS" "5"
-:var "WS_KEEPASSXC" "9"
-:var "WS_SUPERSONIC" "9"
+:var "WS_FIREFOX" "4"
+:var "WS_GAMES" "8"
+:var "WS_CHROMIUM" "8"
+:var "WS_FEEDS" "16"
+:var "WS_KEEPASSXC" "256"
+:var "WS_SUPERSONIC" "256"
 
 # DE commands
 :var "CMD_DE_EXIT" "uwsm stop"

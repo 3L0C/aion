@@ -16,8 +16,8 @@
     emacs-efm-server =
       lib.recursiveUpdate
       (lib.custom.mkWaylandService {
+        river-classic = {};
         river = {};
-        riverdev = {};
       })
       {
         Unit = {
@@ -36,8 +36,8 @@
     emacs-server =
       lib.recursiveUpdate
       (lib.custom.mkWaylandService {
+        river-classic = {};
         river = {};
-        riverdev = {};
       })
       {
         Unit = {

@@ -1,52 +1,46 @@
-# River-specific window and tag management
-# River has unique directional window navigation that doesn't exist in Hyprland
-# Most common functionality is in common/window-management.wks
+# River 0.4.x window and tag management (via zrwm-msg)
+# Multi-output / cross-output operations are not currently exposed; revisit
+# once zrwm or ocdwm provides equivalents.
 
-# River-specific: Directional window focus and swap
-# These commands extend the common window management with River's tiling features
 c "Client"
 {
-    l "Tag Right" +keep %{{%(CMD_WS_NEXT)}}
-    h "Tag Left" +keep %{{%(CMD_WS_PREV)}}
-    # Move to output (current-tags shortcuts)
-    A "AOC (current tags)" %{{%(CMD_MOVE_TO_AOC) --current-tags}}
-    B "BenQ (current tags)" %{{%(CMD_MOVE_TO_BENQ) --current-tags}}
-    H "HP (current tags)" %{{%(CMD_MOVE_TO_HP) --current-tags}}
-    m "HP" %{{%(CMD_MOVE_TO_HP)}}
-    n "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
-    e "AOC" %{{%(CMD_MOVE_TO_AOC)}}
-    o "Output" +keep
-    {
-        a "AOC" %{{%(CMD_MOVE_TO_AOC)}}
-        A "AOC & follow" %{{%(CMD_MOVE_TO_AOC) --follow}}
-        b "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
-        B "BenQ & follow" %{{%(CMD_MOVE_TO_BENQ) --follow}}
-        h "HP" %{{%(CMD_MOVE_TO_HP)}}
-        H "HP & follow" %{{%(CMD_MOVE_TO_HP) --follow}}
-    }
-    q "Quit" %{{riverdo close}}
-    s "Stick (occupied)" %{{riverdo stick --tags occupied}}
-    S "Stick (all)" %{{riverdo stick}}
-    u "Unstick" %{{riverdo unstick}}
+    q "Quit" %{{zrwm-msg killwindow}}
+    f "Toggle float" %{{zrwm-msg togglefloating}}
+    F "Toggle fullscreen" %{{zrwm-msg togglefullscreen}}
+    s "Toggle sticky" %{{zrwm-msg togglesticky}}
     t "Tag" +keep
     {
-        ... "Tag %(index+1)" %{{riverdo set-view-tags %(index+1)}}
+        1 "Tag 1" %{{zrwm-msg tag 1}}
+        2 "Tag 2" %{{zrwm-msg tag 2}}
+        3 "Tag 3" %{{zrwm-msg tag 4}}
+        4 "Tag 4" %{{zrwm-msg tag 8}}
+        5 "Tag 5" %{{zrwm-msg tag 16}}
+        6 "Tag 6" %{{zrwm-msg tag 32}}
+        7 "Tag 7" %{{zrwm-msg tag 64}}
+        8 "Tag 8" %{{zrwm-msg tag 128}}
+        9 "Tag 9" %{{zrwm-msg tag 256}}
     }
 }
 
-# River window toggles
 w "Window"
 {
-    m "Swap HP" %{{riverdo swap-outputs --focused-tag --with "HDMI-A-1"}}
-    n "Swap BenQ" %{{riverdo swap-outputs --focused-tag --with "DP-3"}}
-    e "Swap AOC" %{{riverdo swap-outputs --focused-tag --with "DP-1"}}
-    s "Swap Outputs"
-    {
-        ... "Swap tags %(index+1)" %{{riverdo swap-outputs --tags %(index+1)}}
-        SPC "Swap focused tag" %{{riverdo swap-outputs --focused-tag}}
-    }
     t "View tags" +keep
     {
-        ... "View tag %(index+1)" %{{riverdo set-focused-tags %(index+1)}}
+        1 "View tag 1" %{{zrwm-msg view 1}}
+        2 "View tag 2" %{{zrwm-msg view 2}}
+        3 "View tag 3" %{{zrwm-msg view 4}}
+        4 "View tag 4" %{{zrwm-msg view 8}}
+        5 "View tag 5" %{{zrwm-msg view 16}}
+        6 "View tag 6" %{{zrwm-msg view 32}}
+        7 "View tag 7" %{{zrwm-msg view 64}}
+        8 "View tag 8" %{{zrwm-msg view 128}}
+        9 "View tag 9" %{{zrwm-msg view 256}}
     }
+    l "Layout" +keep
+    {
+        s "split_tile" %{{zrwm-msg setlayout split_tile}}
+        d "deck" %{{zrwm-msg setlayout deck}}
+        f "float" %{{zrwm-msg setlayout float}}
+    }
+    r "Reload zrwm" %{{zrwm-msg reload}}
 }

@@ -5,7 +5,7 @@
   ...
 }: let
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
-  mod = config.userSpec.modifierKeys.river;
+  mod = config.userSpec.modifierKeys.river-classic;
   layoutmsg = msg: "send-layout-cmd wideriver \"${msg}\"";
   layoutSettingsScript = pkgs.writeShellScript "river-layout-settings" ''
     ${riverctl} default-layout wideriver
@@ -21,41 +21,9 @@ in {
   home.packages = [pkgs.wideriver];
   systemd.user.services = {
     wideriver = lib.custom.mkWaylandService {
-      river = {
+      river-classic = {
         Unit = {
-          Description = "Wideriver layout daemon for River";
-          Documentation = "https://github.com/alex-courtis/wideriver";
-        };
-
-        Service = {
-          Type = "simple";
-          ExecStart = toString [
-            "${lib.getExe pkgs.wideriver}"
-            "--layout                       left"
-            "--layout-alt                   monocle"
-            "--stack                        dwindle"
-            "--count-master                 1"
-            "--ratio-master                 0.60"
-            "--count-wide-left              0"
-            "--ratio-wide                   0.35"
-            "--no-smart-gaps"
-            "--inner-gaps                   10"
-            "--outer-gaps                   20"
-            "--border-width                 4"
-            "--border-width-monocle         4"
-            "--border-width-smart-gaps      4"
-            "--border-color-focused         \"0x7FB4CA\""
-            "--border-color-focused-monocle \"0x7FB4CA\""
-            "--border-color-unfocused       \"0x393836\"" # Dark grey (base4)
-            "--log-threshold                info"
-          ];
-          Restart = "on-failure";
-          RestartSec = "3s";
-        };
-      };
-      riverdev = {
-        Unit = {
-          Description = "Wideriver layout daemon for River";
+          Description = "Wideriver layout daemon for River Classic";
           Documentation = "https://github.com/alex-courtis/wideriver";
         };
 
@@ -87,22 +55,9 @@ in {
       };
     };
     river-layout-settings = lib.custom.mkWaylandService {
-      river = {
+      river-classic = {
         Unit = {
-          Description = "River layout settings";
-          Documentation = "man:riverctl(1)";
-          After = ["wideriver.service"];
-        };
-
-        Service = {
-          Type = "oneshot";
-          ExecStart = layoutSettingsScript;
-          RemainAfterExit = true;
-        };
-      };
-      riverdev = {
-        Unit = {
-          Description = "River layout settings";
+          Description = "River Classic layout settings";
           Documentation = "man:riverctl(1)";
           After = ["wideriver.service"];
         };
@@ -115,22 +70,9 @@ in {
       };
     };
     river-layout-keybindings = lib.custom.mkWaylandService {
-      river = {
+      river-classic = {
         Unit = {
-          Description = "River layout keybindings";
-          Documentation = "man:riverctl(1)";
-          After = ["river-keybindings.service"];
-        };
-
-        Service = {
-          Type = "oneshot";
-          ExecStart = layoutKeybindingsScript;
-          RemainAfterExit = true;
-        };
-      };
-      riverdev = {
-        Unit = {
-          Description = "River layout keybindings";
+          Description = "River Classic layout keybindings";
           Documentation = "man:riverctl(1)";
           After = ["river-keybindings.service"];
         };

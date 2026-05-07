@@ -1,11 +1,8 @@
 {
   imports = [
     ./river_base.nix
-    ./river_settings.nix
-    ./river_bindings.nix
-    ./river_layout.nix
-    ./river_rules.nix
-    ./components
+    ./wm/zrwm.nix
+    ./waybar.nix
     ../eww
     ../common/wk/wk-river.nix
   ];

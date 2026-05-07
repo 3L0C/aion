@@ -78,6 +78,21 @@
         + ''
           # Remove the plain river.desktop session file
           rm -f $out/share/wayland-sessions/river.desktop
+          mv $out/bin/river $out/bin/river-classic
+        '';
+
+      meta =
+        oldAttrs.meta
+        // {
+          mainProgram = "river-classic";
+        };
+    });
+    river-no-session = prev.river.overrideAttrs (oldAttrs: {
+      postInstall =
+        (oldAttrs.postInstall or "")
+        + ''
+          # Remove the plain river.desktop session file
+          rm -f $out/share/wayland-sessions/river.desktop
         '';
     });
   };

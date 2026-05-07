@@ -44,6 +44,11 @@ in {
       bindingLines = map (binding: "${riverctl} map ${mode} ${binding}") bindings;
     in
       pkgs.writeShellScript name (lib.concatStringsSep "\n" bindingLines);
+    mkZrwmBindsScript = pkgs: name: {bindings}: let
+      zrwm-msg = "${lib.getExe' pkgs.custom.zrwm "zrwm-msg"}";
+      bindingLines = map (binding: "${zrwm-msg} bind ${binding}") bindings;
+    in
+      pkgs.writeShellScript name (lib.concatStringsSep "\n" bindingLines);
     powerOf2 = pow2;
     bitShiftLeft = val: n: val * pow2 n;
     bitShiftRight = val: n: val / pow2 n;

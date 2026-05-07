@@ -43,21 +43,9 @@
   '';
 in {
   systemd.user.services.river-settings = lib.custom.mkWaylandService {
-    river = {
+    river-classic = {
       Unit = {
-        Description = "River compositor settings";
-        Documentation = "man:riverctl(1)";
-      };
-
-      Service = {
-        Type = "oneshot";
-        ExecStart = settingsScript;
-        RemainAfterExit = true;
-      };
-    };
-    riverdev = {
-      Unit = {
-        Description = "River compositor settings";
+        Description = "River Classic compositor settings";
         Documentation = "man:riverctl(1)";
       };
 

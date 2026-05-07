@@ -18,37 +18,23 @@ in {
     enable = true;
     systemd.enable = false;
   };
-  systemd.user.services.waybar-river = lib.custom.mkWaylandService {
-    river = {
+  systemd.user.services.waybar-river-classic = lib.custom.mkWaylandService {
+    river-classic = {
       Unit = {
-        Description = "Waybar status bar (River)";
+        Description = "Waybar status bar (River Classic)";
         Documentation = "https://github.com/Alexays/Waybar/wiki";
       };
 
       Service = {
         Type = "simple";
-        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
-        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
-        Restart = "on-failure";
-        KillMode = "mixed";
-      };
-    };
-    riverdev = {
-      Unit = {
-        Description = "Waybar status bar (River)";
-        Documentation = "https://github.com/Alexays/Waybar/wiki";
-      };
-
-      Service = {
-        Type = "simple";
-        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
+        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-classic-config.json";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
         Restart = "on-failure";
         KillMode = "mixed";
       };
     };
   };
-  xdg.configFile."waybar/river-config.json".text = builtins.toJSON (
+  xdg.configFile."waybar/river-classic-config.json".text = builtins.toJSON (
     shared.mkConfig {
       modulesLeft = [
         "river/tags"

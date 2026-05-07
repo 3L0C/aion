@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  mod = config.userSpec.modifierKeys.river;
+  mod = config.userSpec.modifierKeys.river-classic;
   meh = "Shift+Control+Alt";
   modShift = "${mod}+Shift";
   asusctl = "${lib.getExe' pkgs.asusctl "asusctl"}";
@@ -18,7 +18,7 @@
   uwsm-app = "${lib.getExe' pkgs.uwsm "uwsm-app"}";
   touchpad-toggle = "${lib.getExe pkgs.custom.scripts.touchpad-toggle}";
   launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
-  menu = "${uwsm-app} -- wk-river";
+  menu = "${uwsm-app} -- wk-river-classic";
   terminal = "${uwsm-app} -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
@@ -99,21 +99,9 @@
   '';
 in {
   systemd.user.services.river-keybindings = lib.custom.mkWaylandService {
-    river = {
+    river-classic = {
       Unit = {
-        Description = "River compositor keybindings";
-        Documentation = "man:riverctl(1)";
-      };
-
-      Service = {
-        Type = "oneshot";
-        ExecStart = keybindingsScript;
-        RemainAfterExit = true;
-      };
-    };
-    riverdev = {
-      Unit = {
-        Description = "River compositor keybindings";
+        Description = "River Classic compositor keybindings";
         Documentation = "man:riverctl(1)";
       };
 

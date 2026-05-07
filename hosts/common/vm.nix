@@ -14,7 +14,7 @@
     ./optional/niri.nix
     ./optional/nh.nix
     ./optional/pipewire.nix
-    ./optional/river.nix
+    ./optional/river-classic.nix
     ./optional/tailscale.nix
     ./optional/wayland.nix
   ];

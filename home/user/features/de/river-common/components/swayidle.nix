@@ -32,7 +32,7 @@ in {
     ];
   };
   systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSessions {
+    river-classic = {};
     river = {};
-    riverdev = {};
   };
 }
