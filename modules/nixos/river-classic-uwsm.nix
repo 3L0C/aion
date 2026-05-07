@@ -48,7 +48,7 @@ in {
       waylandCompositors.river-classic = {
         prettyName = "River Classic";
         comment = "River Classic compositor managed by UWSM";
-        binPath = pkgs.writeShellScript "river-classic-uwsm" ''
+        binPath = pkgs.writeShellScript "river-classic" ''
           exec ${lib.getExe cfg.package} -c "$HOME/.config/river-classic/init"
         '';
       };
