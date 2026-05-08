@@ -9,7 +9,7 @@
 in {
   home.packages = [pkgs.rivercarro];
   systemd.user.services.rivercarro = lib.custom.mkWaylandService {
-    river-classic = {
+    riverclassic = {
       Unit = {
         Description = "Rivercarro layout daemon for River Classic";
         Documentation = "https://sr.ht/~novakane/rivercarro/";

@@ -3,7 +3,7 @@
     enable = true;
   };
   systemd.user.services.wpaperd = lib.custom.scopeServiceToWaylandSessions {
-    river-classic = {};
+    riverclassic = {};
     river = {};
   };
 }

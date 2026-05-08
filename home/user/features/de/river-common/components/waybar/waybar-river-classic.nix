@@ -19,7 +19,7 @@ in {
     systemd.enable = false;
   };
   systemd.user.services.waybar-river-classic = lib.custom.mkWaylandService {
-    river-classic = {
+    riverclassic = {
       Unit = {
         Description = "Waybar status bar (River Classic)";
         Documentation = "https://github.com/Alexays/Waybar/wiki";

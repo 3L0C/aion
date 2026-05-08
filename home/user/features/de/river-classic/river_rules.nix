@@ -108,7 +108,7 @@
   '';
 in {
   systemd.user.services.river-rules = lib.custom.mkWaylandService {
-    river-classic = {
+    riverclassic = {
       Unit = {
         Description = "River Classic compositor window rules";
         Documentation = "man:riverctl(1)";

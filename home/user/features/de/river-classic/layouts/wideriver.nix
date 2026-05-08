@@ -21,7 +21,7 @@ in {
   home.packages = [pkgs.wideriver];
   systemd.user.services = {
     wideriver = lib.custom.mkWaylandService {
-      river-classic = {
+      riverclassic = {
         Unit = {
           Description = "Wideriver layout daemon for River Classic";
           Documentation = "https://github.com/alex-courtis/wideriver";
@@ -55,7 +55,7 @@ in {
       };
     };
     river-layout-settings = lib.custom.mkWaylandService {
-      river-classic = {
+      riverclassic = {
         Unit = {
           Description = "River Classic layout settings";
           Documentation = "man:riverctl(1)";
@@ -70,7 +70,7 @@ in {
       };
     };
     river-layout-keybindings = lib.custom.mkWaylandService {
-      river-classic = {
+      riverclassic = {
         Unit = {
           Description = "River Classic layout keybindings";
           Documentation = "man:riverctl(1)";

@@ -99,7 +99,7 @@
   '';
 in {
   systemd.user.services.river-keybindings = lib.custom.mkWaylandService {
-    river-classic = {
+    riverclassic = {
       Unit = {
         Description = "River Classic compositor keybindings";
         Documentation = "man:riverctl(1)";

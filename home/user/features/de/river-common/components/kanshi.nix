@@ -53,7 +53,7 @@ in {
       ++ singleMonitorProfiles;
   };
   systemd.user.services.kanshi = lib.custom.scopeServiceToWaylandSessions {
-    river-classic = {};
+    riverclassic = {};
     river = {};
   };
 }

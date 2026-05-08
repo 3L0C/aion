@@ -16,7 +16,7 @@
     emacs-efm-server =
       lib.recursiveUpdate
       (lib.custom.mkWaylandService {
-        river-classic = {};
+        riverclassic = {};
         river = {};
       })
       {
@@ -36,7 +36,7 @@
     emacs-server =
       lib.recursiveUpdate
       (lib.custom.mkWaylandService {
-        river-classic = {};
+        riverclassic = {};
         river = {};
       })
       {

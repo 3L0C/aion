@@ -45,10 +45,10 @@ in {
     environment.systemPackages = [cfg.package];
     programs.uwsm = {
       enable = true;
-      waylandCompositors.river-classic = {
+      waylandCompositors.riverclassic = {
         prettyName = "River Classic";
         comment = "River Classic compositor managed by UWSM";
-        binPath = lib.getExe (pkgs.writeShellScriptBin "river-classic" ''
+        binPath = lib.getExe (pkgs.writeShellScriptBin "riverclassic" ''
           exec ${lib.getExe cfg.package} -c "$HOME/.config/river-classic/init"
         '');
       };

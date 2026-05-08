@@ -43,7 +43,7 @@
   '';
 in {
   systemd.user.services.river-settings = lib.custom.mkWaylandService {
-    river-classic = {
+    riverclassic = {
       Unit = {
         Description = "River Classic compositor settings";
         Documentation = "man:riverctl(1)";
