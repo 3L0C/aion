@@ -6,6 +6,7 @@
 }: let
   zrwm = lib.getExe' pkgs.custom.zrwm "zrwm";
   zrwm-msg = lib.getExe' pkgs.custom.zrwm "zrwm-msg";
+  shell = pkgs.runtimeShell;
   mod = config.userSpec.modifierKeys.river;
   modShift = "${mod},shift";
   modCtrl = "${mod},ctrl";
@@ -35,15 +36,15 @@ in {
         ${zrwm-msg} bind ${mod},shift,ctrl $(($1 + 1)) toggletag $((1 << $1))
       }
       for i in 0 1 2 3 4 5 6 7 8; do TAGKEYS "$i"; done
-      ${zrwm-msg} bind ${mod} Return spawn '${terminal} tmux'
-      ${zrwm-msg} bind ${modShift} Return spawn ${terminal}
-      ${zrwm-msg} bind ${mod} r spawn '${launcher}'
-      ${zrwm-msg} bind ${mod} comma spawn ${menu}
-      ${zrwm-msg} bind ${mod} period spawn '${menu} --press "d u"'
-      ${zrwm-msg} bind ${mod} o spawn "${menu} --press 'o'"
-      ${zrwm-msg} bind ${mod} e spawn "${menu} --press 'e'"
+      ${zrwm-msg} bind ${mod} Return spawn ${shell} -c '${terminal} tmux'
+      ${zrwm-msg} bind ${modShift} Return spawn ${shell} -c '${terminal}'
+      ${zrwm-msg} bind ${mod} r spawn ${shell} -c '${launcher}'
+      ${zrwm-msg} bind ${mod} comma spawn ${shell} -c '${menu}'
+      ${zrwm-msg} bind ${mod} period spawn ${shell} -c '${menu} --press "d u"'
+      ${zrwm-msg} bind ${mod} o spawn ${shell} -c "${menu} --press 'o'"
+      ${zrwm-msg} bind ${mod} e spawn ${shell} -c "${menu} --press 'e'"
       ${zrwm-msg} bind ${mod} q killwindow
-      ${zrwm-msg} bind ${modShift} q spawn '${uwsm} stop'
+      ${zrwm-msg} bind ${modShift} q spawn ${shell} -c '${uwsm} stop'
       ${zrwm-msg} bind ${mod} j focusstack 1
       ${zrwm-msg} bind ${mod} k focusstack -1
       ${zrwm-msg} bind ${modShift} j pushdown
@@ -58,16 +59,16 @@ in {
       ${zrwm-msg} bind ${mod} t setlayout split_tile
       ${zrwm-msg} bind ${modShift} s setlayout float
       ${zrwm-msg} bind ${mod} BackSpace reload
-      ${zrwm-msg} bind none XF86AudioRaiseVolume spawn '${pamixer} -i 5'
-      ${zrwm-msg} bind none XF86AudioLowerVolume spawn '${pamixer} -d 5'
-      ${zrwm-msg} bind none XF86AudioMute spawn '${pamixer} --toggle-mute'
-      ${zrwm-msg} bind none XF86AudioMedia spawn 'media --toggle'
-      ${zrwm-msg} bind none XF86AudioPlay spawn 'media --toggle'
-      ${zrwm-msg} bind none XF86AudioPrev spawn 'media --prev'
-      ${zrwm-msg} bind none XF86AudioNext spawn 'media --next'
-      ${zrwm-msg} bind none XF86MonBrightnessUp spawn '${brightnessctl} -d intel_backlight set +5%'
-      ${zrwm-msg} bind none XF86MonBrightnessDown spawn '${brightnessctl} -d intel_backlight set 5%-'
-      ${zrwm-msg} bind none XF86TouchpadToggle spawn '${touchpad-toggle}'
+      ${zrwm-msg} bind none XF86AudioRaiseVolume spawn ${shell} -c '${pamixer} -i 5'
+      ${zrwm-msg} bind none XF86AudioLowerVolume spawn ${shell} -c '${pamixer} -d 5'
+      ${zrwm-msg} bind none XF86AudioMute spawn ${shell} -c '${pamixer} --toggle-mute'
+      ${zrwm-msg} bind none XF86AudioMedia spawn ${shell} -c 'media --toggle'
+      ${zrwm-msg} bind none XF86AudioPlay spawn ${shell} -c 'media --toggle'
+      ${zrwm-msg} bind none XF86AudioPrev spawn ${shell} -c 'media --prev'
+      ${zrwm-msg} bind none XF86AudioNext spawn ${shell} -c 'media --next'
+      ${zrwm-msg} bind none XF86MonBrightnessUp spawn ${shell} -c '${brightnessctl} -d intel_backlight set +5%'
+      ${zrwm-msg} bind none XF86MonBrightnessDown spawn ${shell} -c '${brightnessctl} -d intel_backlight set 5%-'
+      ${zrwm-msg} bind none XF86TouchpadToggle spawn ${shell} -c '${touchpad-toggle}'
     '';
   };
   systemd.user.services.zrwm = lib.custom.mkWaylandService {
