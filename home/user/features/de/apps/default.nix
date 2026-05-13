@@ -1,5 +1,6 @@
 {
   imports = [
+    ./games
     ./mpv
 
     ./android-studio.nix
