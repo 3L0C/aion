@@ -37,9 +37,9 @@ c "Client"
 # River window toggles
 w "Window"
 {
-    m "Swap HP" %{{riverdo swap-outputs --focused-tag --with "HDMI-A-1"}}
-    n "Swap BenQ" %{{riverdo swap-outputs --focused-tag --with "DP-3"}}
-    e "Swap AOC" %{{riverdo swap-outputs --focused-tag --with "DP-1"}}
+    m "Swap HP" %{{riverdo swap-outputs --focused-tag --with "%(MONITOR_HP)"}}
+    n "Swap BenQ" %{{riverdo swap-outputs --focused-tag --with "%(MONITOR_BENQ)"}}
+    e "Swap AOC" %{{riverdo swap-outputs --focused-tag --with "%(MONITOR_AOC)"}}
     s "Swap Outputs"
     {
         ... "Swap tags %(index+1)" %{{riverdo swap-outputs --tags %(index+1)}}
