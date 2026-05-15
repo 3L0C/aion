@@ -10,9 +10,10 @@
       polarity = lib.mkDefault "dark";
       wallpaper = lib.mkDefault ../features/de/wallpapers/Blackdune.jpg;
     };
+
     cursor = {
-      package = lib.mkDefault pkgs.phinger-cursors;
-      name = lib.mkDefault "phinger-cursors-dark";
+      package = lib.mkDefault pkgs.rose-pine-cursor;
+      name = lib.mkDefault "BreezeX-RosePineDawn-Linux";
       baseSize = lib.mkDefault 24;
     };
     fonts = {
