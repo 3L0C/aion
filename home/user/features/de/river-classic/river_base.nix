@@ -33,7 +33,7 @@ in {
         uwsm finalize
       '';
     };
-    "xdg-desktop-portal/river-classic-portals.conf".text = portalText;
+    "xdg-desktop-portal/riverclassic-portals.conf".text = portalText;
     "xdg-desktop-portal-wlr/config.ini".text = lib.generators.toINI {} {
       screencast = {
         chooser_type = "dmenu";
