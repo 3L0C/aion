@@ -8,6 +8,7 @@
     ./dolphin-emu.nix
     ./dunst.nix
     ./gimp.nix
+    ./imv.nix
     ./keepassxc.nix
     ./kitty.nix
     ./lutris.nix
