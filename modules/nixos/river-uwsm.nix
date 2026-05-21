@@ -22,12 +22,12 @@ in {
 
     windowManager = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.custom.zrwm;
-      defaultText = lib.literalExpression "pkgs.custom.zrwm";
+      default = pkgs.ocdwm;
+      defaultText = lib.literalExpression "pkgs.ocdwm";
       description = ''
         Window manager to install alongside River 0.4.x. River 0.4.x removed
         the built-in WM, so a separate WM speaking the rwm protocol is required
-        (e.g., zrwm, ocdwm). This is installed system-wide; the home-manager
+        (default: ocdwm). This is installed system-wide; the home-manager
         side starts it as a session-scoped systemd service.
       '';
     };

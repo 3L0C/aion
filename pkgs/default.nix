@@ -8,5 +8,4 @@ in {
   scripts = pkgs.lib.recurseIntoAttrs (callPackage ./scripts {});
   shiru = callPackage ./shiru {};
   river-shifttags = callPackage ./river-shifttags {};
-  zrwm = callPackage ./zrwm {};
 }
