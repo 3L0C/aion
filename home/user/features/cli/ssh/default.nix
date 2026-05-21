@@ -14,13 +14,15 @@
     mikuru = "tail7d01e8.ts.net";
     yuki = "tail7d01e8.ts.net";
   };
-  tailnetMatchBlocks = lib.mapAttrs' (hostname: domain: {
+
+  # Generate SSH settings entries for all tailnet hosts except the current one
+  tailnetSettings = lib.mapAttrs' (hostname: domain: {
     name = hostname;
     value = {
-      hostname = "${hostname}.${domain}";
-      user = "user";
-      identityFile = "~/.ssh/id_3L0C";
-      addKeysToAgent = "yes";
+      HostName = "${hostname}.${domain}";
+      User = "user";
+      IdentityFile = "~/.ssh/id_3L0C";
+      AddKeysToAgent = "yes";
     };
   }) (lib.filterAttrs (hostname: _: hostname != currentHost) tailnetHosts);
   # All SSH key names to deploy via sops
@@ -68,101 +70,101 @@ in {
     enableDefaultConfig = false;
     package = pkgs.stable.openssh;
 
-    matchBlocks =
+    settings =
       {
         "codeberg.org-john" = {
-          hostname = "codeberg.org";
-          user = "git";
-          identityFile = "~/.ssh/id_john";
-          addKeysToAgent = "yes";
+          HostName = "codeberg.org";
+          User = "git";
+          IdentityFile = "~/.ssh/id_john";
+          AddKeysToAgent = "yes";
         };
 
         "codeberg.org-anon" = {
-          hostname = "codeberg.org";
-          user = "git";
-          identityFile = "~/.ssh/id_anon-T430";
-          addKeysToAgent = "yes";
+          HostName = "codeberg.org";
+          User = "git";
+          IdentityFile = "~/.ssh/id_anon-T430";
+          AddKeysToAgent = "yes";
         };
 
         "codeberg.org:anon" = {
-          hostname = "codeberg.org";
-          user = "git";
-          identityFile = "~/.ssh/id_anon-T430";
-          addKeysToAgent = "yes";
+          HostName = "codeberg.org";
+          User = "git";
+          IdentityFile = "~/.ssh/id_anon-T430";
+          AddKeysToAgent = "yes";
         };
 
         "codeberg.org-anskrevy" = {
-          hostname = "codeberg.org";
-          user = "git";
-          identityFile = "~/.ssh/id_anskrevy";
-          addKeysToAgent = "yes";
+          HostName = "codeberg.org";
+          User = "git";
+          IdentityFile = "~/.ssh/id_anskrevy";
+          AddKeysToAgent = "yes";
         };
 
         "codeberg.org:anskrevy" = {
-          hostname = "codeberg.org";
-          user = "git";
-          identityFile = "~/.ssh/id_anskrevy";
-          addKeysToAgent = "yes";
+          HostName = "codeberg.org";
+          User = "git";
+          IdentityFile = "~/.ssh/id_anskrevy";
+          AddKeysToAgent = "yes";
         };
 
         "github.com-john" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_john";
-          addKeysToAgent = "yes";
+          HostName = "github.com";
+          User = "git";
+          IdentityFile = "~/.ssh/id_john";
+          AddKeysToAgent = "yes";
         };
 
         "github.com-anon" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_anon-T430";
-          addKeysToAgent = "yes";
+          HostName = "github.com";
+          User = "git";
+          IdentityFile = "~/.ssh/id_anon-T430";
+          AddKeysToAgent = "yes";
         };
 
         "github.com-anskrevy" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_anskrevy";
-          addKeysToAgent = "yes";
+          HostName = "github.com";
+          User = "git";
+          IdentityFile = "~/.ssh/id_anskrevy";
+          AddKeysToAgent = "yes";
         };
 
         "openwrt" = {
-          hostname = "192.168.1.1";
-          port = 53920;
-          user = "root";
-          identityFile = "~/.ssh/openwrt";
-          addKeysToAgent = "yes";
+          HostName = "192.168.1.1";
+          Port = 53920;
+          User = "root";
+          IdentityFile = "~/.ssh/openwrt";
+          AddKeysToAgent = "yes";
         };
 
         "vult-server" = {
-          hostname = "45.77.184.169";
-          port = 22;
-          user = "root";
-          identityFile = "~/.ssh/id_Cole";
-          addKeysToAgent = "yes";
+          HostName = "45.77.184.169";
+          Port = 22;
+          User = "root";
+          IdentityFile = "~/.ssh/id_Cole";
+          AddKeysToAgent = "yes";
         };
 
         "aur.archlinux.org " = {
-          identityFile = "~/.ssh/id_aur";
-          user = "aur";
-          addKeysToAgent = "yes";
+          IdentityFile = "~/.ssh/id_aur";
+          User = "aur";
+          AddKeysToAgent = "yes";
         };
 
         "github.com-3L0C" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_3L0C";
-          addKeysToAgent = "yes";
+          HostName = "github.com";
+          User = "git";
+          IdentityFile = "~/.ssh/id_3L0C";
+          AddKeysToAgent = "yes";
         };
 
         "github.com-csug" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/id_CSUG-Cole";
-          addKeysToAgent = "yes";
+          HostName = "github.com";
+          User = "git";
+          IdentityFile = "~/.ssh/id_CSUG-Cole";
+          AddKeysToAgent = "yes";
         };
       }
-      // tailnetMatchBlocks;
+      // tailnetSettings;
   };
 
   services.ssh-agent.enable = true;
