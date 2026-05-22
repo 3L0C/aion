@@ -10,6 +10,7 @@ in {
   sops.secrets."tailscale/authkey_expires".sopsFile = config.sops.commonSecretsFile;
 
   services.tailscale = {
+    package = pkgs.master.tailscale;
     enable = true;
     useRoutingFeatures =
       if isHeadless
