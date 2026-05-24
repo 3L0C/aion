@@ -1,9 +1,7 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
-  home.packages = [pkgs.ocdwm];
+{lib, ...}: let
+  ocdwmDevBin = "/home/user/Projects/ocdwm-dev/result/bin";
+in {
+  home.sessionPath = [ocdwmDevBin];
 
   systemd.user.services.ocdwm = lib.custom.mkWaylandService {
     river = {
@@ -13,7 +11,7 @@
 
       Service = {
         Type = "simple";
-        ExecStart = lib.getExe pkgs.ocdwm;
+        ExecStart = "${ocdwmDevBin}/ocdwm";
         Restart = "on-failure";
         RestartSec = "3s";
       };
