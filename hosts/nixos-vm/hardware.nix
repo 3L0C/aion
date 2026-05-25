@@ -41,8 +41,8 @@
       device = "aion";
       fsType = "virtiofs";
     };
-    "/home/user/programs" = {
-      device = "programs";
+    "/home/user/Projects" = {
+      device = "Projects";
       fsType = "virtiofs";
     };
   };
