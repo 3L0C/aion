@@ -1,6 +1,7 @@
-{...}: {
+{lib, ...}: {
   imports = [
     ./hardware.nix
+    ./disks.nix
     ../common/vm.nix
     ../common/pc.nix
     ../common/users/user
@@ -17,7 +18,7 @@
     enable = true;
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = true; # Convenient for VM debugging
+      PasswordAuthentication = lib.mkForce true; # Convenient for VM debugging
     };
   };
 

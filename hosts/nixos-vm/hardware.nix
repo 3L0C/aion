@@ -22,21 +22,7 @@
     kernelModules = ["kvm-amd" "virtio_gpu"];
     extraModulePackages = [];
   };
-
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/5f098dc9-e496-43ab-8022-ce5095bd882f";
-      fsType = "ext4";
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/3AB3-2FF4";
-      fsType = "vfat";
-      options = [
-        "fmask=0077"
-        "dmask=0077"
-      ];
-    };
     "/mnt/aion" = {
       device = "aion";
       fsType = "virtiofs";

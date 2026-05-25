@@ -41,6 +41,7 @@
   ];
   userSpec.modifierKeys = lib.mkForce {
     river = "Super+Control";
+    river-classic = "Super+Control";
     hyprland = "SUPER_CONTROL";
     niri = "Mod+Ctrl";
   };
