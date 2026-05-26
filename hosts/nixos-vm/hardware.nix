@@ -23,7 +23,7 @@
     extraModulePackages = [];
   };
   fileSystems = {
-    "/mnt/aion" = {
+    "/home/user/aion" = {
       device = "aion";
       fsType = "virtiofs";
     };
