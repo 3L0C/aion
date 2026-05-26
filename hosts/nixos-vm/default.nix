@@ -25,8 +25,8 @@
   # Open firewall for SSH
   networking.firewall.allowedTCPPorts = [22];
   security.pam.services = {
-    greetd.rules.auth.u2f.enable = lib.mkForce false;
-    swaylock.rules.auth.u2f.enable = lib.mkForce false;
+    greetd.rules.auth.u2f.enable = lib.mkOverride 49 false;
+    swaylock.rules.auth.u2f.enable = lib.mkOverride 49 false;
   };
 
   system.stateVersion = "26.05";
