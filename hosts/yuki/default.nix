@@ -11,5 +11,5 @@
     ../common/optional/fixes/amdgpu-sdma-fix.nix
     ../common/optional/ollama.nix
   ];
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
 }
