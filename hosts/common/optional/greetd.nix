@@ -12,15 +12,15 @@ in {
     enable = true;
     settings = {
       default_session = {
-        command = ''
-          ${lib.getExe pkgs.tuigreet} \
-          --greeting 'wake up...' \
-          --time --time-format '%Y-%m-%d %H:%M:%S' \
-          --remember --remember-session \
-          --asterisks \
-          --sessions ${sessionData}/share/wayland-sessions \
-          --theme '${tuigreetTheme}'
-        '';
+        command = lib.concatStringsSep " " [
+          (lib.getExe pkgs.tuigreet)
+          "--greeting 'wake up...'"
+          "--time --time-format '%Y-%m-%d %H:%M:%S'"
+          "--remember --remember-session"
+          "--asterisks"
+          "--sessions ${sessionData}/share/wayland-sessions"
+          "--theme '${tuigreetTheme}'"
+        ];
         user = "greeter";
       };
     };
