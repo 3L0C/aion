@@ -5,6 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    gh # GitHub CLI tool
     git-crypt # Transparent file encryption in git
   ];
 
