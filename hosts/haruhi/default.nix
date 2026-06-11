@@ -4,11 +4,11 @@
     ./hardware.nix
     ./mounts.nix
     ./syncthing.nix
-    ./bootloader.nix
     ../common/pc.nix
     ../common/optional/kmonad
+    ../common/optional/lanzeboote.nix
     ../common/users/user
   ];
 
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
 }

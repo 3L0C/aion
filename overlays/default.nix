@@ -33,6 +33,13 @@
   wine-ge-overlay = final: _prev: {
     inherit (inputs.nix-gaming.packages.${final.stdenv.hostPlatform.system}) wine-ge;
   };
+  lanzaboote-overlay = final: _prev: {
+    lanzaboote-src = final.applyPatches {
+      name = "lanzaboote-no-bootspec-enable";
+      src = inputs.lanzaboote;
+      patches = [./lanzaboote-no-bootspec-enable.patch];
+    };
+  };
   lix = _final: prev: {
     inherit
       (prev.lixPackageSets.latest)

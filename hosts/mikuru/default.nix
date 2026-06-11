@@ -1,12 +1,13 @@
 {inputs, ...}: {
   imports = [
     ./bootloader.nix
-    ./hardware.nix
     ./disks.nix
+    ./hardware.nix
+    ./syncthing.nix
     ./zfs.nix
     ../common/optional/stylix.nix
-    ./syncthing.nix
     ../common/optional/fail2ban.nix
+    ../common/optional/lanzeboote.nix
     ./modules/arr.nix
     ./modules/audiobookshelf.nix
     ./modules/bentopdf.nix
@@ -35,5 +36,5 @@
     dockerCompat = true; # Create docker alias
   };
   virtualisation.oci-containers.backend = "podman";
-  system.stateVersion = "24.11";
+  system.stateVersion = "26.11";
 }

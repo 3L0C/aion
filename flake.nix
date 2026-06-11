@@ -99,9 +99,12 @@
         specialArgs = {
           inherit
             lib
-            inputs
             outputs
             ;
+          inputs = import ./overlays/inputs.nix {
+            inherit inputs;
+            pkgs = pkgsFor.${system};
+          };
           aionRev = self.shortRev or self.dirtyShortRev or "dirty";
         };
         modules = [
