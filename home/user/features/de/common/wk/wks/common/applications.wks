@@ -46,7 +46,7 @@ o "Open"
         l "Lutris" %{{lutris}}
         m "OpenMW" ^before %{{%(CMD_SWITCH_WS) %(WS_GAMES)}} %{{openmw-launcher}}
         p "Playlist" %{{dmenuplaylist --list}}
-        s "Steam" ^before %{{%(CMD_SWITCH_WS) %(WS_GAMES)}} %{{mullvad-exclude steam}}
+        s "Steam" ^before %{{%(CMD_SWITCH_WS) %(WS_GAMES)}} %{{steam}}
     }
     p "Pulsemixer" %{{kitty --class pulsemixer pulsemixer}}
     r "DrRacket" %{{drracket}}
