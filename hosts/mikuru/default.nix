@@ -1,6 +1,5 @@
 {inputs, ...}: {
   imports = [
-    ./bootloader.nix
     ./disks.nix
     ./hardware.nix
     ./syncthing.nix
