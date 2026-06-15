@@ -1,5 +1,9 @@
 # qBittorrent download client confined to AirVPN
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   sops.secrets."airvpn/wg-conf" = {};
   vpnNamespaces.airvpn = {
     enable = true;
@@ -106,6 +110,7 @@
         WebUI = {
           Address = "*";
           AlternativeUIEnabled = true;
+          RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
           AuthSubnetWhitelist = "192.168.1.0/24";
           AuthSubnetWhitelistEnabled = false;
           "Password_PBKDF2" = ''"@ByteArray(yNDAAuHNo2Zn1qqpyx0oqA==:eijfjdysIMFtGZzwXa+vtErsS/mikLmz2K+QYw5W7KXJA7jhP3lIsuppD9sWxdekpUMTI/U1YmINyrm8RiNCYQ==)"'';
