@@ -8,7 +8,7 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.0.0";
+      url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
@@ -100,11 +100,8 @@
           inherit
             lib
             outputs
+            inputs
             ;
-          inputs = import ./overlays/inputs.nix {
-            inherit inputs;
-            pkgs = pkgsFor.${system};
-          };
           aionRev = self.shortRev or self.dirtyShortRev or "dirty";
         };
         modules = [
