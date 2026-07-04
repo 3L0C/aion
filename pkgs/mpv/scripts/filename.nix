@@ -15,6 +15,6 @@ pkgs.mpvScripts.buildLua {
   meta = {
     description = "Filename script for mpv";
     license = lib.licenses.unlicense;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

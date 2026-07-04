@@ -73,6 +73,6 @@ pkgs.mpvScripts.buildLua {
     '';
     homepage = "https://github.com/occivink/mpv-gallery-view";
     license = lib.licenses.unlicense;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

@@ -28,6 +28,6 @@ pkgs.mpvScripts.buildLua {
     description = "Script for mpv that turns it into a jellyfin client.";
     homepage = "https://github.com/EmperorPenguin18/mpv-jellyfin";
     license = lib.licenses.unlicense;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

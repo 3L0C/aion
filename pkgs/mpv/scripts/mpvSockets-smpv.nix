@@ -22,6 +22,6 @@ pkgs.mpvScripts.buildLua {
     description = "Fork of mpvSockets made compatible with umpv and more";
     homepage = "https://github.com/3L0C/mpvSockets-smpv";
     license = lib.licenses.mit;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

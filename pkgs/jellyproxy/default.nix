@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/johndovern/JellyProxy";
     license = licenses.gpl3Only;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../maintainers.nix).threeloc];
     mainProgram = "jellyproxy";
     platforms = platforms.unix;
   };

@@ -55,7 +55,7 @@ stdenv.mkDerivation {
     description = "Some scripts to interface with mpv via sockets";
     homepage = "https://github.com/3L0C/mpv-scripts";
     license = licenses.gpl3;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../maintainers.nix).threeloc];
     platforms = platforms.unix;
   };
 }

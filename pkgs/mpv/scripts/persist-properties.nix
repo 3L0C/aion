@@ -22,6 +22,6 @@ pkgs.mpvScripts.buildLua {
     description = "Keeps selected property values (like volume) between player sessions";
     homepage = "https://github.com/d87/mpv-persist-properties";
     license = lib.licenses.mit;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

@@ -22,6 +22,6 @@ pkgs.mpvScripts.buildLua {
     description = "Script for mpv to select tracks based on their title";
     homepage = "https://github.com/po5/trackselect";
     license = lib.licenses.mit;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

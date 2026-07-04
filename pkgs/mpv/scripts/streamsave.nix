@@ -22,6 +22,6 @@ pkgs.mpvScripts.buildLua {
     description = "mpv script aimed at saving live streams and clipping online videos without encoding.";
     homepage = "https://github.com/Sagnac/streamsave";
     license = lib.licenses.mit;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }

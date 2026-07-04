@@ -22,6 +22,6 @@ pkgs.mpvScripts.buildLua {
     description = "An advanced conditional subtitle track selector for mpv player";
     homepage = "https://github.com/CogentRedTester/mpv-sub-select";
     license = lib.licenses.mit;
-    maintainers = ["3L0C"];
+    maintainers = [(import ../../maintainers.nix).threeloc];
   };
 }
