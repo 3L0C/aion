@@ -2,6 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
+  unstableGitUpdater,
   bash,
   makeWrapper,
   mpv,
@@ -50,6 +51,8 @@ stdenv.mkDerivation {
     }
     done
   '';
+
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Some scripts to interface with mpv via sockets";

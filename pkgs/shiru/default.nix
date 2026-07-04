@@ -1,6 +1,7 @@
 {
   appimageTools,
   fetchurl,
+  nix-update-script,
 }: let
   pname = "shiru";
   version = "6.1.12";
@@ -14,6 +15,8 @@
 in
   appimageTools.wrapType2 {
     inherit pname version src;
+
+    passthru.updateScript = nix-update-script {};
 
     extraInstallCommands = ''
       install -m 444 -D ${appimageContents}/shiru.desktop $out/share/applications/shiru.desktop

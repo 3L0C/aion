@@ -2,6 +2,7 @@
   lib,
   python3Packages,
   fetchPypi,
+  nix-update-script,
 }:
 python3Packages.buildPythonApplication rec {
   pname = "jellyproxy";
@@ -21,6 +22,8 @@ python3Packages.buildPythonApplication rec {
   dependencies = with python3Packages; [
     python-mpv-jsonipc
   ];
+
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A proxy that sits between jellyfin-mpv-shim and mpv to filter and control IPC commands";

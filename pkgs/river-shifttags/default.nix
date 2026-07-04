@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitLab,
+  nix-update-script,
   pkg-config,
   wayland,
   wayland-scanner,
@@ -43,6 +44,8 @@ stdenv.mkDerivation rec {
     make install PREFIX=/ DESTDIR=$out
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A small utility for the river Wayland compositor to rotate the focused tags";
