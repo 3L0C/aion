@@ -6,7 +6,7 @@
 }:
 pkgs.mpvScripts.buildLua {
   pname = "mpv-streamsave";
-  version = "0-unstable-2024-07-18";
+  version = "0.28.0-unstable-2024-07-18";
   scriptPath = "streamsave.lua";
 
   src = fetchFromGitHub {

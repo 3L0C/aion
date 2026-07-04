@@ -12,7 +12,7 @@
 }:
 stdenv.mkDerivation {
   pname = "mpv-scripts";
-  version = "666ee5c";
+  version = "0-unstable-2026-03-31";
   src = fetchFromGitHub {
     owner = "3L0C";
     repo = "mpv-scripts";

@@ -6,21 +6,15 @@
 }:
 pkgs.mpvScripts.buildLua {
   pname = "mpv-jellyfin";
-  version = "0-unstable-2025-08-05";
+  version = "1.2-unstable-2026-03-22";
   scriptPath = "scripts/jellyfin.lua";
 
   src = fetchFromGitHub {
     owner = "EmperorPenguin18";
     repo = "mpv-jellyfin";
-    rev = "15c94c843bb723e004da8ff4b2a22c7eda51f26e";
-    hash = "sha256-dli/YNDSbPYgu3navhpSTiJn17dqRxISVPZpw9yzbNc=";
+    rev = "ff3e8f2cd301b0c789ad36d03bc3cc03bba61615";
+    hash = "sha256-bC9suv/wuxFk3rhIKMsv6Bwcag9wkWkphh8g32wDlno=";
   };
-
-  postPatch = ''
-    substituteInPlace scripts/jellyfin.lua \
-      --replace-fail '\"username\"' \
-                     '\"Username\"'
-  '';
 
   passthru.updateScript = unstableGitUpdater {};
 

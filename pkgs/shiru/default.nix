@@ -4,11 +4,11 @@
   nix-update-script,
 }: let
   pname = "shiru";
-  version = "6.1.12";
+  version = "6.7.1";
 
   src = fetchurl {
     url = "https://github.com/RockinChaos/Shiru/releases/download/v${version}/linux-Shiru-v${version}.AppImage";
-    hash = "sha256-HMdIxzPv4MWysaFNoz12f1qMZx1g9lbyh/hpZOUAAtM=";
+    hash = "sha256-ol/9fdRqGIFKhNq2Va0cUhyPIrSX9PCld2cU2BnQ+ng=";
   };
 
   appimageContents = appimageTools.extract {inherit pname version src;};
