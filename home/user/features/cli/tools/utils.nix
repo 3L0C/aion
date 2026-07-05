@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
     atool # A script for managing file archives of various types
     bc # An arbitrary precision calculator language
-    croc # Easily and securely send things from one computer to another
+    stable.croc # Easily and securely send things from one computer to another (unstable v10.4.5 tag re-pushed upstream → hash mismatch; revert once nixpkgs fixes it)
     curl # command line tool and library for transferring data with URLs
     desktop-file-utils # Utilities for working with .desktop files
     fd # Simple, fast and user-friendly alternative to find
