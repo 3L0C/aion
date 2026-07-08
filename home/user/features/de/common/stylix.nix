@@ -14,6 +14,7 @@
   us = config.userSpec;
 in {
   imports = [inputs.stylix.homeModules.stylix];
+  home.pointerCursor.enable = true;
 
   stylix = {
     enable = true;
