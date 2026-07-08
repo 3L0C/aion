@@ -6,5 +6,6 @@
     ./swayidle.nix
     ./swaylock.nix
     ./swaybg.nix
+    ./tools.nix
   ];
 }

@@ -1,7 +1,6 @@
 {config, ...}: {
   virtualisation.oci-containers.containers.cleanuparr = {
     image = "ghcr.io/cleanuparr/cleanuparr:latest";
-    ports = ["11011:11011"];
     volumes = [
       "/var/lib/cleanuparr:/config"
       "/mnt/tank/data/torrents:/mnt/tank/data/torrents"

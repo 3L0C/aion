@@ -17,8 +17,11 @@
       ./locale.nix
       ./network.nix
       ./nix.nix
+      ./program.nix
       ./secrets.nix
       ./security.nix
+      ./services.nix
+      ./ssh.nix
       ./udev.nix
     ];
   environment.systemPackages = with pkgs; [

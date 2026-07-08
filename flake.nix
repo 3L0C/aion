@@ -21,8 +21,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -64,12 +66,9 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vpn-confinement = {
-      url = "github:Maroka-chan/VPN-Confinement";
-    };
+    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     secrets = {
       url = "git+ssh://git@github.com-3L0C/3L0C/aion-secrets.git";
-      flake = true;
     };
   };
 

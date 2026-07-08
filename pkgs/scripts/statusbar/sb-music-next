@@ -9,11 +9,17 @@ handle_block() {
 }
 
 mpc_status() {
+    # These mirror sb-music's state variables for consistency across the
+    # sb-mpv*/sb-music* family, but this particular script's output doesn't
+    # branch on them (always prints the "next" icon).
     if [[ "$(mpc)" =~ "volume: n/a   r" ]]; then
+        # shellcheck disable=SC2034
         MPC_STOPPED=1
     elif [[ "$(mpc status %state%)" == "paused" ]]; then
+        # shellcheck disable=SC2034
         MPC_PAUSED=1
     else
+        # shellcheck disable=SC2034
         MPC_PLAYING=1
     fi
 }

@@ -34,13 +34,7 @@ in {
       ];
     };
   };
-  systemd.user.services.hypridle = {
-    Unit = {
-      PartOf = lib.mkForce ["wayland-session@start\\x2dhyprland.target"];
-      After = lib.mkForce ["wayland-wm@start\\x2dhyprland.service"];
-    };
-    Install = {
-      WantedBy = lib.mkForce ["wayland-session@start\\x2dhyprland.target"];
-    };
+  systemd.user.services.hypridle = lib.custom.scopeServiceToWaylandSessions {
+    "hyprland.desktop" = {};
   };
 }

@@ -8,6 +8,9 @@
 
     ./features/de/river-classic
     ./features/de/river
+    ./features/de/hyprland
+    ./features/de/niri
+    ./features/de/kde
   ];
 
   # Single virtual monitor

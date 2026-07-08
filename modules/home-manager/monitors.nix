@@ -113,7 +113,7 @@ in {
     primaryMonitor = mkOption {
       type = types.nullOr monitorOption;
       readOnly = true;
-      default = lib.head (lib.filter (m: m.primary) config.monitors);
+      default = lib.findFirst (m: m.primary) null config.monitors;
     };
   };
 

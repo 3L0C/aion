@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.mpv = {
-    scripts = [pkgs.custom.mpvScripts.sub-select];
+    scripts = [pkgs.mpvScripts.mpv-sub-select];
     scriptOpts = {
       sub_select = {
         force_enable = "yes";

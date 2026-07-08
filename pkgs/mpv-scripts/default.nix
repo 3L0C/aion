@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     owner = "3L0C";
     repo = "mpv-scripts";
     rev = "9ee9cb09eb9249c3be4a15fa3bda6207eaae6a15";
-    sha256 = "sha256-ycT9td4/HHheTUXfqwfLRGYOPCMcIuWr6++i2+t90/k=";
+    hash = "sha256-ycT9td4/HHheTUXfqwfLRGYOPCMcIuWr6++i2+t90/k=";
   };
 
   nativeBuildInputs = [makeWrapper];
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Some scripts to interface with mpv via sockets";
     homepage = "https://github.com/3L0C/mpv-scripts";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     maintainers = [(import ../maintainers.nix).threeloc];
     platforms = platforms.unix;
   };

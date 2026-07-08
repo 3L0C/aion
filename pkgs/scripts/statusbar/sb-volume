@@ -14,7 +14,7 @@ case $BLOCK_BUTTON in
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-[ $(pamixer --get-mute) = true ] && echo "| Muted " && exit
+[ "$(pamixer --get-mute)" = true ] && echo "| Muted " && exit
 
 vol="$(pamixer --get-volume)"
 

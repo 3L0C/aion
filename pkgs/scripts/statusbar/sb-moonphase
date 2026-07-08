@@ -9,6 +9,7 @@ moonfile="${XDG_DATA_HOME:-$HOME/.local/share}/moonphase"
 
 icon="$(cat "$moonfile")"
 
+# shellcheck disable=SC2034 # name= documents each phase for readability; not read below (icon is what's printed)
 case "$icon" in
 	🌑) name="New" ;;
 	🌒) name="Waxing Crescent" ;;

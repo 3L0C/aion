@@ -11,7 +11,7 @@
       x11Support = false;
     };
 
-    font = lib.mkForce "${config.stylix.fonts.monospace.name} 14";
+    font = lib.mkForce "${config.stylix.fonts.monospace.name} ${toString config.userSpec.fonts.sizes.applications}";
     terminal = "${lib.getExe pkgs.kitty}";
 
     # Basic configuration
@@ -85,7 +85,7 @@
       entry = {
         background-color = mkLiteral "transparent";
         text-color = mkLiteral "@fg0";
-        placeholder-color = mkLiteral "#7c7c7c";
+        placeholder-color = mkLiteral colors.base04;
         placeholder = "Search applications...";
         blink = true;
         cursor = mkLiteral "text";

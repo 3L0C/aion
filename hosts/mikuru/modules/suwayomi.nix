@@ -4,11 +4,10 @@
 
   services.suwayomi-server = {
     enable = true;
-    openFirewall = true;
     group = "media";
 
     settings.server = {
-      ip = "0.0.0.0";
+      ip = "127.0.0.1";
       port = 4567;
       socksProxyEnabled = false;
       socksProxyVersion = 5; # 4 or 5

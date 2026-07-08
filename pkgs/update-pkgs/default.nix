@@ -31,11 +31,24 @@ writeShellApplication {
         set = builtins.getAttr (builtins.currentSystem) flake.legacyPackages;
         root = toString flake.outPath;
         fileOf = v: lib.removePrefix (root + "/") (lib.head (lib.splitString ":" v.meta.position));
+        # NOTE: the hex-ish branch on the classifier below is a heuristic, not an
+        # exact match on "is this a commit hash". A bare 7-40 char string of only
+        # [0-9a-f] would be misclassified as "branch" even if it were something
+        # else entirely -- e.g. a hypothetical all-digit date tag "20260315" (8
+        # chars, all in [0-9a-f]) would match and be treated as a branch pin. No
+        # package here currently uses such a version scheme, but a future one
+        # could trip this.
         modeOf = v:
           let ver = toString (v.version or ""); in
           if (builtins.match ".*-unstable-.*" ver) != null then "branch"
           else if (builtins.match "[0-9a-f]{7,40}" ver) != null then "branch"
           else "tag";
+        # Only descends into attrsets marked recurseForDerivations (the flag
+        # `lib.recurseIntoAttrs` sets), matching how `nix build`/`nix search`
+        # discover nested package sets. A namespace under `scripts` that isn't
+        # marked this way (e.g. a future `scripts.statusbar` with its own
+        # updateScript-bearing packages) won't be walked into, so its packages
+        # won't be discovered here even if they declare `passthru.updateScript`.
         go = path: s:
           lib.concatLists (lib.mapAttrsToList (n: v:
             if !(lib.isAttrs v) then []

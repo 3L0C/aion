@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs.master; [
+  home.packages = with pkgs; [
     deadlock-mod-manager
   ];
 }
