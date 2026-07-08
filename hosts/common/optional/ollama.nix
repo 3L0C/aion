@@ -13,6 +13,7 @@
     environmentVariables = {
       HIP_VISIBLE_DEVICES = "0";
       ROCR_VISIBLE_DEVICES = "0";
+      OLLAMA_CONTEXT_LENGTH = "65536";
     };
   };
   systemd.services.ollama.wantedBy = lib.mkForce [];
