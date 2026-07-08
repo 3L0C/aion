@@ -58,26 +58,21 @@ in {
     # Sonarr - TV show management
     sonarr = {
       enable = true;
-      openFirewall = true;
       group = "media";
     };
     radarr = {
       enable = true;
-      openFirewall = true;
       group = "media";
     };
     lidarr = {
       enable = true;
-      openFirewall = true;
       group = "media";
     };
     prowlarr = {
       enable = true;
-      openFirewall = true;
     };
     bazarr = {
       enable = true;
-      openFirewall = true;
       group = "media";
     };
     seerr = {

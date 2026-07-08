@@ -43,4 +43,5 @@
   };
   services.dbus.implementation = "broker";
   hardware.acpilight.enable = true;
+  hardware.keyboard.qmk.enable = true;
 }

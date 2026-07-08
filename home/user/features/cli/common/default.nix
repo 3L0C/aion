@@ -1,7 +1,7 @@
 {
   imports = [
     ./audio.nix
-    ./filesytems.nix
+    ./filesystems.nix
     ./help.nix
     ./man.nix
     ./media.nix

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# shellcheck disable=SC2034 # feeds the commented-out redshift case below; kept for easy re-enabling
 clock=$(date '+%H')
 
 # case "$clock" in

@@ -7,8 +7,11 @@
   };
 in {
   sops = {
-    secrets."porkbun/api-key" = {};
-    secrets."porkbun/secret-key" = {};
+    secrets = {
+      "porkbun/api-key" = {};
+      "porkbun/secret-key" = {};
+      "suwayomi/htpasswd".owner = "traefik";
+    };
     templates."traefik-env" = {
       content = ''
         PORKBUN_API_KEY=${config.sops.placeholder."porkbun/api-key"}
@@ -77,7 +80,11 @@ in {
           navidrome = mkRouter "navidrome.colebruns.com" "navidrome";
           kavita = mkRouter "kavita.colebruns.com" "kavita";
           komga = mkRouter "komga.colebruns.com" "komga";
-          suwayomi = mkRouter "suwayomi.colebruns.com" "suwayomi";
+          suwayomi =
+            mkRouter "suwayomi.colebruns.com" "suwayomi"
+            // {
+              middlewares = ["suwayomi-auth"];
+            };
           audiobookshelf = mkRouter "audiobookshelf.colebruns.com" "audiobookshelf";
           qbittorrent = mkRouter "qbittorrent.colebruns.com" "qbittorrent";
           glance = mkRouter "glance.colebruns.com" "glance";
@@ -90,6 +97,10 @@ in {
           flaresolverr = mkRouter "flaresolverr.colebruns.com" "flaresolverr";
           immich = mkRouter "immich.colebruns.com" "immich";
           photoprism = mkRouter "photoprism.colebruns.com" "photoprism";
+        };
+
+        middlewares = {
+          suwayomi-auth.basicAuth.usersFile = config.sops.secrets."suwayomi/htpasswd".path;
         };
 
         services = {

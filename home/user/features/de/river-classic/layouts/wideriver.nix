@@ -44,9 +44,9 @@ in {
             "--border-width                 4"
             "--border-width-monocle         4"
             "--border-width-smart-gaps      4"
-            "--border-color-focused         \"0x7FB4CA\""
-            "--border-color-focused-monocle \"0x7FB4CA\""
-            "--border-color-unfocused       \"0x393836\"" # Dark grey (base4)
+            "--border-color-focused         \"0x${config.lib.stylix.colors.base0D}\""
+            "--border-color-focused-monocle \"0x${config.lib.stylix.colors.base0D}\""
+            "--border-color-unfocused       \"0x${config.lib.stylix.colors.base04}\""
             "--log-threshold                info"
           ];
           Restart = "on-failure";

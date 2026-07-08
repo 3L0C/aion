@@ -1,22 +1,10 @@
 {
   lib,
   pkgs,
-  fetchFromGitHub,
-  unstableGitUpdater,
   enablePlaylistView ? true,
   enableContactSheet ? true,
 }:
-pkgs.mpvScripts.buildLua {
-  pname = "mpv-gallery-view";
-  version = "0-unstable-2024-09-27";
-
-  src = fetchFromGitHub {
-    owner = "occivink";
-    repo = "mpv-gallery-view";
-    rev = "4a8e664d52679fff3f05f29aa7a54b86150704bc";
-    hash = "sha256-u4PQtTKdE357G1X+Ag0Dexd/jhmZVsAXxdUgEp8bMPw=";
-  };
-
+pkgs.mpvScripts.mpv-gallery-view.overrideAttrs (oldAttrs: {
   postPatch = ''
     # Create the script directory structure
     mv scripts gallery-view
@@ -56,23 +44,32 @@ pkgs.mpvScripts.buildLua {
                         "$out/share/mpv/scripts/gallery-view/script-modules/?.lua;"
     ''}
   '';
+  installPhase = ''
+    runHook preInstall
+    mkdir -p "$out/share/mpv/scripts"
+    cp -a gallery-view "$out/share/mpv/scripts/gallery-view"
+    runHook postInstall
+  '';
+  dontFixup = false;
 
   scriptPath = "gallery-view";
-
-  passthru.updateScript = unstableGitUpdater {};
-
-  meta = {
-    description = "Gallery-view scripts for mpv";
-    longDescription = ''
-      mpv-gallery-view provides a gallery view for mpv that allows you to
-      navigate through multiple files in a grid-like interface.
-
-      Enabled components:
-      ${lib.optionalString enablePlaylistView "- Playlist view interface"}
-      ${lib.optionalString enableContactSheet "- Contact sheet grid view"}
-    '';
-    homepage = "https://github.com/occivink/mpv-gallery-view";
-    license = lib.licenses.unlicense;
-    maintainers = [(import ../../maintainers.nix).threeloc];
+  passthru = {
+    inherit (oldAttrs.passthru) updateScript;
+    scriptName = "gallery-view";
   };
-}
+
+  meta =
+    oldAttrs.meta
+    // {
+      description = "Gallery-view scripts for mpv";
+      longDescription = ''
+        mpv-gallery-view provides a gallery view for mpv that allows you to
+        navigate through multiple files in a grid-like interface.
+
+        Enabled components:
+        ${lib.optionalString enablePlaylistView "- Playlist view interface"}
+        ${lib.optionalString enableContactSheet "- Contact sheet grid view"}
+      '';
+      maintainers = [(import ../../maintainers.nix).threeloc];
+    };
+})

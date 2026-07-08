@@ -10,10 +10,6 @@
 
     # Default but needed(?) after using custom osc.lua with thumbnailer
     "DEL" = "script-message osc-visibility cycle";
-
-    # Play/Pause binds
-    "MBTN_LEFT" = "cycle pause ; run \"mpv-track\" \"\${input-ipc-server}\"";
-    "SPACE" = "cycle pause ; run \"mpv-track\" \"\${input-ipc-server}\"";
     "MBTN_RIGHT" = "cycle fullscreen";
 
     # Looping
@@ -78,19 +74,6 @@
 
     # Show cached video
     "j" = "show-text \"\${demuxer-cache-time}\"";
-    "alt+a" = "run \"yt-opts\" \"-aw\" \"\${path}\"; show-text \"downloading audio for webms\"";
-    "alt+A" = "run \"yt-opts\" \"-a\" \"\${path}\"; show-text \"downloading audio\"";
-    "alt+v" = "run \"yt-opts\" \"-v\" \"\${path}\"; show-text \"downloading video\"";
-    "alt+p" = "run \"yt-opts\" \"-ap\" \"\${path}\"; show-text \"downloading audio playlist\"";
-    "alt+P" = "run \"yt-opts\" \"-vp\" \"\${path}\"; show-text \"downloading video playlist\"";
     "alt+m" = "run \"notify-send\" \"mpv-message\" \"media-title: \${media-title}\\nfilename: \${filename}\\npath: \${path}\"";
-    "alt+w" = "run \"wsg2ytdlp-mpv\" \"\${path}\" \"\${media-title}\"; show-text \"downloading webm\"";
-    "alt+W" = "run \"wsg2ytdlp-mpv-playlist\" \"\${pid}\" ; show-text \"downloading webm playlist\"";
-    "alt+u" = "run \"mpv2ytdlp-playlist\" \"umpv_socket\" ; show-text \"downloading youtube playlist\"";
-    "alt+x" = "run \"webm2audio\" \"\${path}\"; show-text \"ripping webm audio\"";
-    "alt+r" = "run \"mpv-rename\" \"-a\" \"\${filename}\" \"\${path}\" \"\${pid}\" \"\${media-title}\"; show-text \"renaming webm\"";
-    "alt+R" = "run \"mpv-rename\" \"-m\" \"\${filename}\" \"\${path}\" \"\${pid}\"; show-text \"manually renaming webm\"";
-    "M" = "show-text \"File marked\"; run \"mpv-tracker\" \"\${path}\"";
-    "ctrl+m" = "show-text \"Saved to playlist\"; run \"mpv-playlist\" \"--mark\" \"\${path}\"";
   };
 }

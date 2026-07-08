@@ -12,24 +12,20 @@ in {
     enable = true;
     systemd.enable = false;
   };
-  systemd.user.services.waybar-hyprland = {
-    Unit = {
-      Description = "Waybar status bar (Hyprland)";
-      Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = ["wayland-session@start\\x2dhyprland.target"];
-      After = ["wayland-wm@start\\x2dhyprland.service"];
-    };
+  systemd.user.services.waybar-hyprland = lib.custom.mkWaylandService {
+    "hyprland.desktop" = {
+      Unit = {
+        Description = "Waybar status bar (Hyprland)";
+        Documentation = "https://github.com/Alexays/Waybar/wiki";
+      };
 
-    Service = {
-      Type = "simple";
-      ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/hyprland-config.json";
-      ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
-      Restart = "on-failure";
-      KillMode = "mixed";
-    };
-
-    Install = {
-      WantedBy = lib.mkForce ["wayland-session@start\\x2dhyprland.target"];
+      Service = {
+        Type = "simple";
+        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/hyprland-config.json";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+        Restart = "on-failure";
+        KillMode = "mixed";
+      };
     };
   };
   xdg.configFile."waybar/hyprland-config.json".text = builtins.toJSON (

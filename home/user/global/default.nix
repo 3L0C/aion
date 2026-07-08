@@ -13,8 +13,6 @@
       ./user-spec.nix
       ./secrets.nix
       ./yubikey.nix
-      ../features/cli/common
-      ../features/cli/zsh
       ../features/cli/git
       ../features/cli/ssh
       ../features/cli/authinfo.nix
@@ -25,7 +23,6 @@
   programs = {
     home-manager.enable = true;
   };
-  systemd.user.startServices = "sd-switch";
 
   home = {
     stateVersion = "26.11";

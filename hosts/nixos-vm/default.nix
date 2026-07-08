@@ -3,6 +3,7 @@
     ./hardware.nix
     ./disks.nix
     ../common/vm.nix
+    ../common/optional/kde.nix
     ../common/pc.nix
     ../common/users/user
   ];

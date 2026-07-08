@@ -3,8 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) concatStringsSep literalExpression mkEnableOption mkIf mkOption optionals types;
+
   cfg = config.services.yubikey-touch-detector;
 in {
   options.services.yubikey-touch-detector = {

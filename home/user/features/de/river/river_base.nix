@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   envExports = lib.concatStringsSep "\n" (
@@ -29,11 +28,4 @@ in {
     };
     "xdg-desktop-portal/river-portals.conf".text = portalText;
   };
-  home.packages = with pkgs; [
-    grim # Screenshot tool
-    slurp # Area selection for screenshots/screensharing
-    wayshot # Native, blazing-fast screenshot tool
-    wev # Wayland event viewer
-    wlopm # zwlr-output-power-management-v1 client
-  ];
 }

@@ -3,7 +3,7 @@
 {config, ...}: {
   virtualisation.oci-containers.containers.bentopdf = {
     image = "bentopdf/bentopdf-simple:latest";
-    ports = ["8083:8080"]; # BentoPDF serves on port 8080 internally
+    ports = ["127.0.0.1:8083:8080"]; # BentoPDF serves on port 8080 internally
     environment = {
       TZ = config.time.timeZone;
     };
@@ -12,5 +12,4 @@
       "--memory=512m"
     ];
   };
-  networking.firewall.allowedTCPPorts = [8083];
 }

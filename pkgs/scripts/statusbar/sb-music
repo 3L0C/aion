@@ -28,6 +28,7 @@ mpc_status() {
   if [[ "$(mpc)" =~ "volume: n/a   r" ]]; then
     MPC_STOPPED=1
   elif [[ "$(mpc status %state%)" == "paused" ]]; then
+    # shellcheck disable=SC2034 # documents the paused state alongside MPC_STOPPED/MPC_PLAYING; not read below
     MPC_PAUSED=1
   else
     MPC_PLAYING=1

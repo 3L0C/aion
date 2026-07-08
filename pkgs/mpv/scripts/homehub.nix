@@ -20,7 +20,7 @@ pkgs.mpvScripts.buildLua {
 
   meta = {
     description = "Script for mpv that turns it into a client for various home media services.";
-    homepage = "https://github.com/EmperorPenguin18/mpv-homehub";
+    homepage = "https://github.com/3L0C/mpv-homehub";
     license = lib.licenses.gpl3Plus;
     maintainers = [(import ../../maintainers.nix).threeloc];
   };

@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   programs.sioyek = {
     enable = true;
     bindings = {
@@ -22,7 +22,7 @@
     };
   };
   xdg.configFile."sioyek/prefs_user.config".text = ''
-    font_size 16
+    font_size ${toString config.userSpec.fonts.sizes.terminal}
     ui_font JetBrainsMonoNL Nerd Font
     background_color 0 0 0
     new_command _snp_next snp -n %{file_path}

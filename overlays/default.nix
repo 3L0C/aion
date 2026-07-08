@@ -34,13 +34,15 @@
     inherit (inputs.nix-gaming.packages.${final.stdenv.hostPlatform.system}) wine-ge;
   };
   lix = _final: prev: {
-    inherit
-      (prev.lixPackageSets.latest)
-      nixpkgs-review
-      nix-eval-jobs
-      nix-fast-build
-      colmena
-      ;
+    lixTools = {
+      inherit
+        (prev.lixPackageSets.latest)
+        nixpkgs-review
+        nix-eval-jobs
+        nix-fast-build
+        colmena
+        ;
+    };
   };
   modifications = _final: prev: {
     openldap = prev.openldap.overrideAttrs {

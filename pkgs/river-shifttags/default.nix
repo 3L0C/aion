@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.com/akumar-xyz/river-shifttags";
     license = licenses.gpl3Plus;
-    maintainers = [];
+    maintainers = [(import ../maintainers.nix).threeloc];
     mainProgram = "river-shifttags";
     platforms = platforms.linux;
   };

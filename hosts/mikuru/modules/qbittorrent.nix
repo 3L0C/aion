@@ -1,10 +1,23 @@
 # qBittorrent download client confined to AirVPN
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
-  sops.secrets."airvpn/wg-conf" = {};
+  sops = {
+    secrets = {
+      "airvpn/wg-conf" = {};
+      "qbittorrent/webui-password-pbkdf2" = {};
+    };
+    templates."qbittorrent-webui-password" = {
+      owner = "qbittorrent";
+      content = ''
+        [Preferences]
+        WebUI\Password_PBKDF2=${config.sops.placeholder."qbittorrent/webui-password-pbkdf2"}
+      '';
+    };
+  };
   vpnNamespaces.airvpn = {
     enable = true;
     wireguardConfigFile = config.sops.secrets."airvpn/wg-conf".path;
@@ -113,7 +126,6 @@
           RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
           AuthSubnetWhitelist = "192.168.1.0/24";
           AuthSubnetWhitelistEnabled = false;
-          "Password_PBKDF2" = ''"@ByteArray(yNDAAuHNo2Zn1qqpyx0oqA==:eijfjdysIMFtGZzwXa+vtErsS/mikLmz2K+QYw5W7KXJA7jhP3lIsuppD9sWxdekpUMTI/U1YmINyrm8RiNCYQ==)"'';
           Port = 8081;
           ServerDomains = "*";
         };
@@ -132,7 +144,18 @@
       enable = true;
       vpnNamespace = "airvpn";
     };
-    serviceConfig.UMask = "0002";
+    serviceConfig = {
+      UMask = "0002";
+      # Append the WebUI password after the module's own ExecStartPre installs
+      # the nix-generated qBittorrent.conf. QSettings merges the repeated
+      # [Preferences] section, so the appended key takes effect.
+      ExecStartPre = lib.mkAfter [
+        (pkgs.writeShellScript "qbittorrent-webui-password" ''
+          cat ${config.sops.templates."qbittorrent-webui-password".path} \
+            >> ${config.services.qbittorrent.profileDir}/qBittorrent/config/qBittorrent.conf
+        '')
+      ];
+    };
   };
   systemd.tmpfiles.rules = [
     "d /mnt/tank/data/torrents 0775 qbittorrent media -"

@@ -9,6 +9,7 @@
     ../common/optional/lanzeboote.nix
     ./modules/arr.nix
     ./modules/audiobookshelf.nix
+    ./modules/backup.nix
     ./modules/bentopdf.nix
     ./modules/cleanuparr.nix
     ./modules/flaresolverr.nix
