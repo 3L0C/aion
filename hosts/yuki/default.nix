@@ -10,6 +10,7 @@
     ../common/optional/fixes/amdgpu-sdma-fix.nix
     ../common/optional/lanzeboote.nix
     ../common/optional/ollama.nix
+    ../common/optional/open-webui.nix
   ];
   system.stateVersion = "26.11";
 }

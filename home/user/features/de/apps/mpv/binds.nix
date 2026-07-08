@@ -10,6 +10,8 @@
 
     # Default but needed(?) after using custom osc.lua with thumbnailer
     "DEL" = "script-message osc-visibility cycle";
+    "MBTN_LEFT" = "cycle pause ; run \"mpv-track\" \"\${input-ipc-server}\"";
+    "SPACE" = "cycle pause ; run \"mpv-track\" \"\${input-ipc-server}\"";
     "MBTN_RIGHT" = "cycle fullscreen";
 
     # Looping

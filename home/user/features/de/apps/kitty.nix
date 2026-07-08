@@ -48,7 +48,7 @@ in {
       detect_urls = true;
 
       # Scrollback
-      scrollback_lines = 2000;
+      scrollback_lines = 9000;
       scrollback_pager = "less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER";
       scrollback_pager_history_size = 0;
       wheel_scroll_multiplier = "5.0";

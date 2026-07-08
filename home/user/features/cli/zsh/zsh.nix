@@ -78,7 +78,6 @@
 
       # Custom keybindings
       bindkey -s '^o' 'lfcd\n'               # Ctrl-O: Open lf and cd
-      bindkey -s '^a' 'bc -lq\n'             # Ctrl-A: Open calculator
       bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n' # Ctrl-F: Fuzzy find directory
       bindkey '^[[3~' delete-char            # Delete key
 
