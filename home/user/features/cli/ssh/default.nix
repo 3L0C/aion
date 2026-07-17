@@ -45,23 +45,27 @@
   ];
 
   # Generate sops.secrets entries for all SSH keys (private + public)
-  sshKeySecrets = lib.listToAttrs (lib.flatten (map (name: [
-      {
-        name = "ssh_keys/${name}";
-        value = {
-          path = "${homeDirectory}/.ssh/${name}";
-          mode = "0600";
-        };
-      }
-      {
-        name = "ssh_keys/${name}.pub";
-        value = {
-          path = "${homeDirectory}/.ssh/${name}.pub";
-          mode = "0644";
-        };
-      }
-    ])
-    sshKeyNames));
+  sshKeySecrets = lib.listToAttrs (
+    lib.flatten (
+      map (name: [
+        {
+          name = "ssh_keys/${name}";
+          value = {
+            path = "${homeDirectory}/.ssh/${name}";
+            mode = "0600";
+          };
+        }
+        {
+          name = "ssh_keys/${name}.pub";
+          value = {
+            path = "${homeDirectory}/.ssh/${name}.pub";
+            mode = "0644";
+          };
+        }
+      ])
+      sshKeyNames
+    )
+  );
 in {
   # SSH keys deployed from sops secrets
   sops.secrets = sshKeySecrets;
@@ -161,6 +165,13 @@ in {
           HostName = "github.com";
           User = "git";
           IdentityFile = "~/.ssh/id_CSUG-Cole";
+          AddKeysToAgent = "yes";
+        };
+
+        "codeberg.org" = {
+          HostName = "codeberg.org";
+          User = "git";
+          IdentityFile = "~/.ssh/id_3L0C";
           AddKeysToAgent = "yes";
         };
       }
