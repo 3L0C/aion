@@ -54,6 +54,11 @@
             url = "https://codeberg.org/river/river/commit/d4fef528467974b9014b0bc9c47a9ea682cc8d4b.patch";
             hash = "sha256-88YZMUjo9fDz5OT6glI8wCrUolUOa7K15bN7DBNFUAQ=";
           })
+          (prev.fetchpatch {
+            name = "seat-pointer-warp-before-op.patch";
+            url = "https://codeberg.org/river/river/commit/01e63f8d5b76d94f56e86519f8bde34486a12475.patch";
+            hash = "sha256-Z/JHrk9kUkyuRbEw98h1WKCtAtIKUReVPrdFreSf3jw=";
+          })
         ];
     });
   in {
