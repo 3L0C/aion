@@ -272,7 +272,7 @@
       }
 
       #custom-window {
-          background-color: @base02;
+          background-color: @base00;
           color: @base05;
           padding: 0 5px;
           margin: 0;
@@ -280,7 +280,8 @@
 
       /* A seat is on this output */
       #custom-window.focused {
-          color: @base0A;
+          background-color: @base02;
+          color: @base05;
       }
     '';
   };
