@@ -44,7 +44,19 @@
         ;
     };
   };
-  modifications = _final: prev: {
+  modifications = _final: prev: let
+    river-patched = prev.river.overrideAttrs (oldAttrs: {
+      patches =
+        (oldAttrs.patches or [])
+        ++ [
+          (prev.fetchpatch {
+            name = "cursor-fix-window-jittering.patch";
+            url = "https://codeberg.org/river/river/commit/d4fef528467974b9014b0bc9c47a9ea682cc8d4b.patch";
+            hash = "sha256-88YZMUjo9fDz5OT6glI8wCrUolUOa7K15bN7DBNFUAQ=";
+          })
+        ];
+    });
+  in {
     openldap = prev.openldap.overrideAttrs {
       doCheck = !prev.stdenv.hostPlatform.isi686;
     };
@@ -84,7 +96,8 @@
           mainProgram = "river-classic";
         };
     });
-    river-no-session = prev.river.overrideAttrs (oldAttrs: {
+    river = river-patched;
+    river-no-session = river-patched.overrideAttrs (oldAttrs: {
       postInstall =
         (oldAttrs.postInstall or "")
         + ''
