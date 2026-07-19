@@ -16,6 +16,13 @@ in {
         Restart = "on-failure";
       };
     };
-    river = {};
+    river = {
+      Unit.Description = "swaybg wallpaper daemon";
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.swaybg}/bin/swaybg --mode fill --image ${wallpaper}";
+        Restart = "on-failure";
+      };
+    };
   };
 }
