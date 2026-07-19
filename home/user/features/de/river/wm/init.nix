@@ -32,7 +32,6 @@ in {
 
       ### Settings ────────────────────────────────────────────────────────
       octl set layout tile
-      octl set stack dwindle
       octl set nmaster 1
       octl set mfact 0.60
       octl set gaps-inner 10
@@ -43,7 +42,7 @@ in {
       octl set border color urgent '${colors.base08}'
       octl set focus-follows-pointer on
       octl set pointer warp on
-      octl set keyboard repeat 50 300
+      octl set keyboard repeat 50 250
       octl set cursor theme '${config.stylix.cursor.name}' ${toString config.stylix.cursor.size}
 
       ### Window rules ────────────────────────────────────────────────────
@@ -52,7 +51,6 @@ in {
       ${onOutput "DP-3" "octl rules add send --app-id=emacs DP-3"}
       octl rules add tag --app-id=emacs 2
       octl rules add tag --app-id=org.keepassxc.KeePassXC 9
-      octl rules add tag --app-id=discord 2
       octl rules add tag --app-id=vesktop 4
       octl bind spawn '${terminal} tmux' to Super+Return
       octl bind spawn '${terminal}' to Super+Shift+Return
@@ -71,7 +69,6 @@ in {
       octl bind window tag shift next --occupied to Super+Shift+l
       octl bind window tag shift prev --occupied to Super+Shift+h
       octl bind exec sh -c 'octl window resize to 35% 35% && octl window move to 64% 62%' to Super+z
-      octl bind set stack even to Super+t
 
       ### Media keys (normal mode) ────────────────────────────────────────
       octl bind spawn '${pamixer} -i 5' to XF86AudioRaiseVolume
