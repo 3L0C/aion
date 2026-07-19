@@ -20,16 +20,19 @@
     };
   applyOverride = overrides: monitor:
     monitor // (overrides.${monitor.name} or {});
+  profileExec = ["systemctl --user restart swaybg.service"];
   allMonitorsProfile = {
     profile = {
       name = "all";
       outputs = map monitorToKanshiOutput config.monitors;
+      exec = profileExec;
     };
   };
   mkLayoutProfile = layoutName: overrides: {
     profile = {
       name = layoutName;
       outputs = map (m: monitorToKanshiOutput (applyOverride overrides m)) config.monitors;
+      exec = profileExec;
     };
   };
   layoutProfiles = lib.mapAttrsToList mkLayoutProfile config.monitorLayouts;
@@ -39,6 +42,7 @@
     profile = {
       inherit (monitor) name;
       outputs = [(monitorToKanshiOutput monitor)];
+      exec = profileExec;
     };
   };
   singleMonitorProfiles = map mkSingleMonitorProfile config.monitors;
