@@ -1,24 +1,33 @@
-# River 0.4.x window and tag management (via zrwm-msg)
-# Multi-output / cross-output operations are not currently exposed; revisit
-# once zrwm or ocdwm provides equivalents.
+# River 0.4.x window and tag management (via octl/ocdwm)
+# Mirrors the river-classic menus minus features ocdwm lacks:
+# sticky and swap-outputs (see doc/2026-07-19-ocdwm-gap-list.md).
 
 c "Client"
 {
-    q "Quit" %{{zrwm-msg killwindow}}
-    f "Toggle float" %{{zrwm-msg togglefloating}}
-    F "Toggle fullscreen" %{{zrwm-msg togglefullscreen}}
-    s "Toggle sticky" %{{zrwm-msg togglesticky}}
+    l "Tag Right" +keep %{{%(CMD_WS_NEXT)}}
+    h "Tag Left" +keep %{{%(CMD_WS_PREV)}}
+    # Move to output (--take = window takes destination's active tags)
+    A "AOC (take tags)" %{{%(CMD_MOVE_TO_AOC) --take}}
+    B "BenQ (take tags)" %{{%(CMD_MOVE_TO_BENQ) --take}}
+    H "HP (take tags)" %{{%(CMD_MOVE_TO_HP) --take}}
+    m "HP" %{{%(CMD_MOVE_TO_HP)}}
+    n "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
+    e "AOC" %{{%(CMD_MOVE_TO_AOC)}}
+    o "Output" +keep
+    {
+        a "AOC" %{{%(CMD_MOVE_TO_AOC)}}
+        A "AOC & follow" %{{%(CMD_MOVE_TO_AOC) && octl output focus name %(MONITOR_AOC)}}
+        b "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
+        B "BenQ & follow" %{{%(CMD_MOVE_TO_BENQ) && octl output focus name %(MONITOR_BENQ)}}
+        h "HP" %{{%(CMD_MOVE_TO_HP)}}
+        H "HP & follow" %{{%(CMD_MOVE_TO_HP) && octl output focus name %(MONITOR_HP)}}
+    }
+    q "Quit" %{{%(CMD_CLOSE_WINDOW)}}
+    f "Toggle float" %{{%(CMD_TOGGLE_FLOAT)}}
+    F "Toggle fullscreen" %{{%(CMD_TOGGLE_FULLSCREEN)}}
     t "Tag" +keep
     {
-        1 "Tag 1" %{{zrwm-msg tag 1}}
-        2 "Tag 2" %{{zrwm-msg tag 2}}
-        3 "Tag 3" %{{zrwm-msg tag 4}}
-        4 "Tag 4" %{{zrwm-msg tag 8}}
-        5 "Tag 5" %{{zrwm-msg tag 16}}
-        6 "Tag 6" %{{zrwm-msg tag 32}}
-        7 "Tag 7" %{{zrwm-msg tag 64}}
-        8 "Tag 8" %{{zrwm-msg tag 128}}
-        9 "Tag 9" %{{zrwm-msg tag 256}}
+        ... "Tag %(index+1)" %{{%(CMD_MOVE_TO_WS) %(index+1)}}
     }
 }
 
@@ -26,21 +35,19 @@ w "Window"
 {
     t "View tags" +keep
     {
-        1 "View tag 1" %{{zrwm-msg view 1}}
-        2 "View tag 2" %{{zrwm-msg view 2}}
-        3 "View tag 3" %{{zrwm-msg view 4}}
-        4 "View tag 4" %{{zrwm-msg view 8}}
-        5 "View tag 5" %{{zrwm-msg view 16}}
-        6 "View tag 6" %{{zrwm-msg view 32}}
-        7 "View tag 7" %{{zrwm-msg view 64}}
-        8 "View tag 8" %{{zrwm-msg view 128}}
-        9 "View tag 9" %{{zrwm-msg view 256}}
+        ... "View tag %(index+1)" %{{%(CMD_SWITCH_WS) %(index+1)}}
     }
     l "Layout" +keep
     {
-        s "split_tile" %{{zrwm-msg setlayout split_tile}}
-        d "deck" %{{zrwm-msg setlayout deck}}
-        f "float" %{{zrwm-msg setlayout float}}
+        t "tile" %{{octl set layout tile}}
+        m "monocle" %{{octl set layout monocle}}
+        f "floating" %{{octl set layout floating}}
+        s "Stack" +keep
+        {
+            e "even" %{{octl set stack even}}
+            d "dwindle" %{{octl set stack dwindle}}
+            i "diminish" %{{octl set stack diminish}}
+        }
     }
-    r "Reload zrwm" %{{zrwm-msg reload}}
+    r "Restart ocdwm" %{{systemctl --user restart ocdwm}}
 }
