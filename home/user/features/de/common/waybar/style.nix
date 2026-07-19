@@ -224,6 +224,64 @@
           padding: 0;
           margin: 0;
       }
+
+      /* ========== ocdwm (river 0.4.x) octl modules ========== */
+
+      /* Vacant tags are hidden (tag.sh emits empty text); with --show-empty
+       * they render dimmed via this base style. State classes come from the
+       * scripts' JSON. */
+      #custom-tag {
+          background-color: @base00;
+          color: @base04;
+          padding: 0 8px;
+          margin: 0;
+      }
+
+      #custom-tag.occupied {
+          color: @base05;
+      }
+
+      /* The output's viewed tag set (river/tags' "focused" look) */
+      #custom-tag.viewed {
+          background-color: @base02;
+          color: @base05;
+      }
+
+      /* Tags of the focused window; combines with .viewed's background */
+      #custom-tag.focused {
+          color: @base0A;
+      }
+
+      #custom-tag.urgent {
+          background-color: @base08;
+          color: @base00;
+      }
+
+      #custom-layout {
+          background-color: @base00;
+          color: @base05;
+          padding: 0 5px;
+          margin: 0;
+      }
+
+      #custom-mode {
+          background-color: @base09;
+          color: @base00;
+          padding: 0 5px;
+          margin: 0;
+      }
+
+      #custom-window {
+          background-color: @base02;
+          color: @base05;
+          padding: 0 5px;
+          margin: 0;
+      }
+
+      /* A seat is on this output */
+      #custom-window.focused {
+          color: @base0A;
+      }
     '';
   };
 }

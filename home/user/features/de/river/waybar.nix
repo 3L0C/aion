@@ -15,32 +15,76 @@
     else "";
 
   isLaptop = config.hostSpec.kind == "laptop";
-in {
-  systemd.user.services.waybar-river = lib.custom.mkWaylandService {
-    river = {
-      Unit = {
-        Description = "Waybar status bar (River 0.4.x)";
-        Documentation = "https://github.com/Alexays/Waybar/wiki";
+
+  scriptsDir = "${config.xdg.configHome}/waybar/scripts";
+  tagNumbers = lib.range 1 9;
+
+  octlModulesLeft =
+    map (n: "custom/tag#${toString n}") tagNumbers
+    ++ [
+      "custom/layout"
+      "custom/mode"
+      "custom/window"
+    ];
+  octlModules = output:
+    lib.listToAttrs (map (n: {
+        name = "custom/tag#${toString n}";
+        value = {
+          exec = "${scriptsDir}/tag.sh ${toString n} ${output}";
+          return-type = "json";
+          format = "{}";
+          on-click = "octl tag view ${toString n}";
+          on-click-right = "octl tag toggle ${toString n}";
+          tooltip = false;
+        };
+      })
+      tagNumbers)
+    // {
+      "custom/layout" = {
+        exec = "${scriptsDir}/layout.sh ${output}";
+        return-type = "json";
+        format = "{}";
+        on-click = "octl layout next";
+        on-click-right = "octl layout prev";
+        tooltip = false;
       };
 
-      Service = {
-        Type = "simple";
-        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
-        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
-        Restart = "on-failure";
-        KillMode = "mixed";
+      "custom/mode" = {
+        exec = "${scriptsDir}/mode.sh";
+        return-type = "json";
+        format = "{}";
+        tooltip = false;
+      };
+
+      "custom/window" = {
+        exec = "${scriptsDir}/window.sh ${output}";
+        return-type = "json";
+        format = "{}";
+        escape = true;
+        expand = true;
+        max-length = 100;
+        on-click-right = "octl window zoom";
+        on-scroll-down = "octl window focus next";
+        on-scroll-up = "octl window focus prev";
+        tooltip = false;
       };
     };
-  };
-  xdg.configFile."waybar/river-config.json".text = builtins.toJSON (
+
+  mkBar = monitor:
     shared.mkConfig {
-      modulesLeft = [];
-      compositorModules = lib.optionalAttrs isLaptop {
-        inherit (shared.sharedModules) battery;
-      };
+      modulesLeft = octlModulesLeft;
+
+      compositorModules =
+        octlModules monitor.name
+        // lib.optionalAttrs isLaptop {
+          inherit (shared.sharedModules) battery;
+        };
 
       extraSettings =
         {
+          name = "ocdwm-bar";
+          output = monitor.name;
+
           modules-right =
             [
               "custom/mpris"
@@ -78,6 +122,37 @@ in {
             input-filename = config.hostSpec.cpuTempInput;
           };
         };
+    };
+
+  enabledMonitors = lib.filter (m: m.enabled) config.monitors;
+in {
+  systemd.user.services.waybar-river = lib.custom.mkWaylandService {
+    river = {
+      Unit = {
+        Description = "Waybar status bar (River 0.4.x)";
+        Documentation = "https://github.com/Alexays/Waybar/wiki";
+      };
+
+      Service = {
+        Type = "simple";
+        ExecStart = "${waybar} -c ${config.xdg.configHome}/waybar/river-config.json";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+        Restart = "on-failure";
+        KillMode = "mixed";
+      };
+    };
+  };
+
+  xdg.configFile =
+    {
+      "waybar/river-config.json".text =
+        builtins.toJSON (map mkBar enabledMonitors);
     }
-  );
+    // lib.listToAttrs (map (s: {
+      name = "waybar/scripts/${s}";
+      value = {
+        source = ./waybar-scripts/${s};
+        executable = true;
+      };
+    }) ["tag.sh" "layout.sh" "mode.sh" "window.sh" "focus.sh"]);
 }
