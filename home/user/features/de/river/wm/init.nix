@@ -68,7 +68,7 @@ in {
       octl bind window send prev --take to ${meh}+h
       octl bind window tag shift next --occupied to Super+Shift+l
       octl bind window tag shift prev --occupied to Super+Shift+h
-      octl bind exec sh -c 'octl window resize to 35% 35% && octl window move to 64% 62%' to Super+z
+      octl bind exec -- sh -c 'octl window resize to 35% 35% && octl window move to 64% 62%' to Super+z
 
       ### Media keys (normal mode) ────────────────────────────────────────
       octl bind spawn '${pamixer} -i 5' to XF86AudioRaiseVolume
@@ -83,7 +83,6 @@ in {
       octl bind spawn '${asusctl} leds next' to XF86KbdBrightnessUp
       octl bind spawn '${asusctl} leds prev' to XF86KbdBrightnessDown
       octl bind spawn '${touchpad-toggle}' to XF86TouchpadToggle
-      octl keymap mode declare locked
       octl bind spawn --mode=locked '${pamixer} -i 5' to XF86AudioRaiseVolume
       octl bind spawn --mode=locked '${pamixer} -d 5' to XF86AudioLowerVolume
       octl bind spawn --mode=locked '${pamixer} --toggle-mute' to XF86AudioMute
