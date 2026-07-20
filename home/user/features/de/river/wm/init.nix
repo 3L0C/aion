@@ -64,8 +64,8 @@ in {
       ${onOutput "HDMI-A-1" "octl bind output focus name HDMI-A-1 to ${meh}+m"}
       ${onOutput "DP-3" "octl bind output focus name DP-3 to ${meh}+n"}
       ${onOutput "DP-1" "octl bind output focus name DP-1 to ${meh}+e"}
-      octl bind window send next to ${meh}+l
-      octl bind window send prev to ${meh}+h
+      octl bind window send next --take to ${meh}+l
+      octl bind window send prev --take to ${meh}+h
       octl bind window tag shift next --occupied to Super+Shift+l
       octl bind window tag shift prev --occupied to Super+Shift+h
       octl bind exec sh -c 'octl window resize to 35% 35% && octl window move to 64% 62%' to Super+z

@@ -28,7 +28,7 @@ in {
       logLevel = "info";
       conflicts = "ocdwm-debug.service";
     };
-    ocdwm-debug = builtins.removeAttrs (mkOcdwmService {
+    ocdwm-debug = removeAttrs (mkOcdwmService {
       logLevel = "debug";
       conflicts = "ocdwm.service";
     }) ["Install"];
