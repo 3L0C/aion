@@ -4,7 +4,7 @@ d "Dmenu scripts"
     C-b "dbrowse"
     {
         b "Home" %{{dbrowse}}
-        d "Dir" %{{dbrowse "$(echo "" | dmenu -i -c -bw 4)"}}
+        d "Dir" +unwrap %{{dbrowse "$(echo "" | dmenu -i -c -bw 4)"}}
     }
     g "Gitignore auto" %{{dmenugitignore-auto}}
     m "Manga"
