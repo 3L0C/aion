@@ -31,7 +31,7 @@ in {
       #!/usr/bin/env bash
 
       ### Settings ────────────────────────────────────────────────────────
-      octl set layout tile
+      octl set scheme tile
       octl set nmaster 1
       octl set mfact 0.60
       octl set gaps-inner 10

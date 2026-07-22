@@ -39,9 +39,10 @@ w "Window"
     }
     l "Layout" +keep
     {
-        t "tile" %{{octl set layout tile}}
-        m "monocle" %{{octl set layout monocle}}
+        t "tile" %{{octl set scheme tile}}
+        m "monocle" %{{octl set scheme monocle}}
         f "floating" %{{octl set layout floating}}
+        o "overview" %{{octl output overview}}
         s "Stack" +keep
         {
             e "even" %{{octl set stack even}}
