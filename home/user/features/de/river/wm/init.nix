@@ -31,7 +31,10 @@ in {
       #!/usr/bin/env bash
 
       ### Settings ────────────────────────────────────────────────────────
-      octl set scheme tile
+      octl set stack spiral --all
+      octl set scroll centered --all
+      octl set default-width --all 0.80
+      octl output column width 0.80
       octl set nmaster 1
       octl set mfact 0.60
       octl set gaps-inner 10
@@ -44,6 +47,13 @@ in {
       octl set pointer warp on
       octl set keyboard repeat 50 250
       octl set cursor theme '${config.stylix.cursor.name}' ${toString config.stylix.cursor.size}
+      octl bind window column consume to Super+c
+      octl bind window column release to Super+x
+      octl bind window column cycle to Super+d
+      octl bind window column default to Super+0
+      octl bind set scroll left to Super+f
+      octl bind set scroll centered to Super+p
+      octl bind set scroll visible to Super+b
 
       ### Window rules ────────────────────────────────────────────────────
       ${onOutput "DP-3" "octl rules add send --app-id=firefox DP-3"}
@@ -55,6 +65,7 @@ in {
       octl bind spawn '${terminal} tmux' to Super+Return
       octl bind spawn '${terminal}' to Super+Shift+Return
       octl bind spawn '${launcher}' to Super+r
+      octl bind spawn '${menu}' to Super+comma
       octl bind spawn '${menu} --press "d u"' to Super+period
       octl bind spawn "${menu} --press 'o'" to Super+o
       octl bind spawn "${menu} --press 'e'" to Super+e
@@ -68,7 +79,7 @@ in {
       octl bind window send prev --take to ${meh}+h
       octl bind window tag shift next --occupied to Super+Shift+l
       octl bind window tag shift prev --occupied to Super+Shift+h
-      octl bind exec -- sh -c 'octl window resize to 35% 35% && octl window move to 64% 62%' to Super+z
+      octl bind spawn 'octl window resize to 35% 35% && octl window move to 64% 62%' to Super+z
 
       ### Media keys (normal mode) ────────────────────────────────────────
       octl bind spawn '${pamixer} -i 5' to XF86AudioRaiseVolume
