@@ -31,29 +31,34 @@ in {
       #!/usr/bin/env bash
 
       ### Settings ────────────────────────────────────────────────────────
-      octl set stack spiral --all
-      octl set scroll centered --all
-      octl set default-width --all 0.80
-      octl output column width 0.80
-      octl set nmaster 1
-      octl set mfact 0.60
-      octl set gaps-inner 10
-      octl set gaps-outer 20
-      octl set border width 4
-      octl set border color focused '${colors.base0D}'
-      octl set border color unfocused '${colors.base04}'
-      octl set border color urgent '${colors.base08}'
-      octl set focus-follows-pointer on
-      octl set pointer warp on
-      octl set keyboard repeat 50 250
-      octl set cursor theme '${config.stylix.cursor.name}' ${toString config.stylix.cursor.size}
+      octl layout tiling stack spiral --all
+      octl layout scrolling policy centered --all
+      octl layout scrolling column-width --all 0.95
+      octl output column width 0.95
+      octl layout tiling nmaster 1
+      octl layout tiling mfact 0.60
+      octl gaps inner 10
+      octl gaps outer 20
+      octl border width 4
+      octl border color focused '${colors.base0D}'
+      octl border color unfocused '${colors.base04}'
+      octl border color urgent '${colors.base08}'
+      octl input pointer follow on
+      octl input pointer warp on
+      octl input keyboard repeat 50 250
+      octl input cursor theme '${config.stylix.cursor.name}' ${toString config.stylix.cursor.size}
+
+      ### Scrolling ───────────────────────────────────────────────────────
       octl bind window column consume to Super+c
       octl bind window column release to Super+x
       octl bind window column cycle to Super+d
       octl bind window column default to Super+0
-      octl bind set scroll left to Super+f
-      octl bind set scroll centered to Super+p
-      octl bind set scroll visible to Super+b
+      octl bind layout scrolling policy left to Super+f
+      octl bind layout scrolling policy centered to Super+p
+      octl bind layout scrolling policy visible to Super+b
+
+      ### Overview ────────────────────────────────────────────────────────
+      octl bind output overview to Super+g
 
       ### Window rules ────────────────────────────────────────────────────
       ${onOutput "DP-3" "octl rules add send --app-id=firefox DP-3"}

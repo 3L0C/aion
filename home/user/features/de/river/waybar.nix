@@ -35,6 +35,8 @@
           format = "{}";
           on-click = "octl tag view ${toString n}";
           on-click-right = "octl tag toggle ${toString n}";
+          on-scroll-down = "octl tag next";
+          on-scroll-up = "octl tag prev";
           tooltip = false;
         };
       })
@@ -45,7 +47,9 @@
         return-type = "json";
         format = "{}";
         on-click = "octl layout next";
-        on-click-right = "octl scheme next";
+        on-click-right = "octl layout tiling scheme next";
+        on-scroll-down = "octl layout tiling stack next";
+        on-scroll-up = "octl layout tiling stack prev";
         tooltip = false;
       };
 

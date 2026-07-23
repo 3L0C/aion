@@ -39,15 +39,15 @@ w "Window"
     }
     l "Layout" +keep
     {
-        t "tile" %{{octl set scheme tile}}
-        m "monocle" %{{octl set scheme monocle}}
-        f "floating" %{{octl set layout floating}}
+        t "tile" %{{octl layout tiling scheme tile}}
+        m "monocle" %{{octl layout tiling scheme monocle}}
+        f "floating" %{{octl layout floating}}
         o "overview" %{{octl output overview}}
         s "Stack" +keep
         {
-            e "even" %{{octl set stack even}}
-            d "dwindle" %{{octl set stack dwindle}}
-            i "diminish" %{{octl set stack diminish}}
+            e "even" %{{octl layout tiling stack even}}
+            d "dwindle" %{{octl layout tiling stack dwindle}}
+            i "diminish" %{{octl layout tiling stack diminish}}
         }
     }
     r "Restart ocdwm" %{{systemctl --user restart ocdwm}}
