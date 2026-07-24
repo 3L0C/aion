@@ -34,7 +34,7 @@
     };
 
     wk = {
-      url = "github:3L0C/wk";
+      url = "github:3L0C/wk/fix/release-flicker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
