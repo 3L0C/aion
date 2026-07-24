@@ -47,9 +47,9 @@
         return-type = "json";
         format = "{}";
         on-click = "octl layout next";
-        on-click-right = "octl layout tiling scheme next";
-        on-scroll-down = "octl layout tiling stack next";
-        on-scroll-up = "octl layout tiling stack prev";
+        on-click-right = "octl layout prev";
+        on-scroll-down = "octl layout tiling next";
+        on-scroll-up = "octl layout tiling prev";
         tooltip = false;
       };
 
@@ -67,6 +67,7 @@
         escape = true;
         expand = true;
         max-length = 100;
+        on-click = "octl output overview";
         on-click-right = "octl window zoom --no-warp";
         on-scroll-down = "octl window focus next --no-warp";
         on-scroll-up = "octl window focus prev --no-warp";

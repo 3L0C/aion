@@ -31,7 +31,7 @@ in {
       #!/usr/bin/env bash
 
       ### Settings ────────────────────────────────────────────────────────
-      octl layout tiling stack spiral --all
+      octl layout tiling spiral --all
       octl layout scrolling policy centered --all
       octl layout scrolling column-width --all 0.95
       octl output column width 0.95
@@ -58,7 +58,7 @@ in {
       octl bind layout scrolling policy visible to Super+b
 
       ### Overview ────────────────────────────────────────────────────────
-      octl bind output overview to Super+g
+      octl bind output overview to Super+n
 
       ### Window rules ────────────────────────────────────────────────────
       ${onOutput "DP-3" "octl rules add send --app-id=firefox DP-3"}
