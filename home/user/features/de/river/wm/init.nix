@@ -31,7 +31,6 @@ in {
       #!/usr/bin/env bash
 
       ### Settings ────────────────────────────────────────────────────────
-      octl layout tiling spiral --all
       octl layout scrolling policy centered --all
       octl layout scrolling column-width --all 0.95
       octl output column width 0.95
@@ -60,6 +59,9 @@ in {
       ### Overview ────────────────────────────────────────────────────────
       octl bind output overview to Super+n
 
+      ### Swaps ───────────────────────────────────────────────────────────
+      octl bind output swap tags --ring HDMI-A-1,DP-3 to ${meh}+space
+
       ### Window rules ────────────────────────────────────────────────────
       ${onOutput "DP-3" "octl rules add send --app-id=firefox DP-3"}
       octl rules add tag --app-id=firefox 3
@@ -67,6 +69,8 @@ in {
       octl rules add tag --app-id=emacs 2
       octl rules add tag --app-id=org.keepassxc.KeePassXC 9
       octl rules add tag --app-id=vesktop 4
+      ${onOutput "DP-3" "octl rules add send --app-id=steam DP-3"}
+      octl rules add tag --app-id=steam 4
       octl bind spawn '${terminal} tmux' to Super+Return
       octl bind spawn '${terminal}' to Super+Shift+Return
       octl bind spawn '${launcher}' to Super+r
