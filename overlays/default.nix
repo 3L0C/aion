@@ -62,6 +62,23 @@
         ];
     });
   in {
+    master = prev.master.extend (_mFinal: mPrev: {
+      claude-code = mPrev.claude-code.overrideAttrs (let
+        version = "2.1.219";
+        checksums = {
+          "linux-x64" = "22cfd6f5b3061c0391ba84e9cf8c9deaa37783aac18b004d42ec061e98f00691";
+          "linux-arm64" = "1f834b322ba9d1291cc7ffeff16a6795a59145bda279dbd59cd7ecebc7b7f15a";
+          "darwin-arm64" = "a8e806faaefac53c7a0f26523d8a45c60dbef3407b14ef990c75765d08febc82";
+        };
+        platformKey = "${mPrev.stdenv.hostPlatform.node.platform}-${mPrev.stdenv.hostPlatform.node.arch}";
+      in {
+        inherit version;
+        src = mPrev.fetchurl {
+          url = "https://downloads.claude.ai/claude-code-releases/${version}/${platformKey}/claude";
+          sha256 = checksums.${platformKey};
+        };
+      });
+    });
     openldap = prev.openldap.overrideAttrs {
       doCheck = !prev.stdenv.hostPlatform.isi686;
     };
