@@ -6,7 +6,6 @@
     ./features/de
     ./features/dev
 
-    ./features/de/river-classic
     ./features/de/river
     ./features/de/hyprland
     ./features/de/niri

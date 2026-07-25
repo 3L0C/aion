@@ -131,6 +131,11 @@
 
   enabledMonitors = lib.filter (m: m.enabled) config.monitors;
 in {
+  programs.waybar = {
+    enable = true;
+    systemd.enable = false;
+  };
+
   systemd.user.services.waybar-river = lib.custom.mkWaylandService {
     river = {
       Unit = {
