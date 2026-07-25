@@ -60,17 +60,15 @@ in {
       octl bind output overview to Super+n
 
       ### Swaps ───────────────────────────────────────────────────────────
-      octl bind output swap tags --ring HDMI-A-1,DP-3 to ${meh}+space
+      octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 --rev to ${meh}+space
+      octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 to ${meh}+0
 
       ### Window rules ────────────────────────────────────────────────────
-      ${onOutput "DP-3" "octl rules add send --app-id=firefox DP-3"}
-      octl rules add tag --app-id=firefox 3
-      ${onOutput "DP-3" "octl rules add send --app-id=emacs DP-3"}
-      octl rules add tag --app-id=emacs 2
-      octl rules add tag --app-id=org.keepassxc.KeePassXC 9
-      octl rules add tag --app-id=vesktop 4
-      ${onOutput "DP-3" "octl rules add send --app-id=steam DP-3"}
-      octl rules add tag --app-id=steam 4
+      octl rules add --tags 3 --output=DP-3 --app-id=firefox
+      octl rules add --tags 2 --output=DP-3 --app-id=emacs
+      octl rules add --tags 9 --app-id=org.keepassxc.KeePassXC
+      octl rules add --tags 4 --app-id=vesktop
+      octl rules add --tags 4 --output=DP-3 --app-id=steam
       octl bind spawn '${terminal} tmux' to Super+Return
       octl bind spawn '${terminal}' to Super+Shift+Return
       octl bind spawn '${launcher}' to Super+r
