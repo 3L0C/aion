@@ -9,6 +9,7 @@
         "--favor-decSpeed" # Optimize for decompression speed
       ];
     };
+    tmp.cleanOnBoot = true;
 
     loader = {
       systemd-boot = {
