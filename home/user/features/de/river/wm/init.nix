@@ -61,7 +61,9 @@ in {
 
       ### Swaps ───────────────────────────────────────────────────────────
       octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 --rev to ${meh}+space
-      octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 to ${meh}+0
+      octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 to ${meh}+parenright
+      octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 to ${meh}+j
+      octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 --rev to ${meh}+k
 
       ### Window rules ────────────────────────────────────────────────────
       octl rules add --tags 3 --output=DP-3 --app-id=firefox
@@ -77,8 +79,6 @@ in {
       octl bind spawn "${menu} --press 'o'" to Super+o
       octl bind spawn "${menu} --press 'e'" to Super+e
       octl bind session exit to Super+Shift+q
-      octl bind output focus next to ${meh}+j
-      octl bind output focus prev to ${meh}+k
       ${onOutput "HDMI-A-1" "octl bind output focus name HDMI-A-1 to ${meh}+m"}
       ${onOutput "DP-3" "octl bind output focus name DP-3 to ${meh}+n"}
       ${onOutput "DP-1" "octl bind output focus name DP-1 to ${meh}+e"}
