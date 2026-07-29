@@ -32,7 +32,7 @@ in {
 
       ### Settings ────────────────────────────────────────────────────────
       octl layout scrolling policy centered --all
-      octl layout scrolling column-width --all 0.95
+      octl layout scrolling default-width --all 0.95
       octl output column width 0.95
       octl layout tiling nmaster 1
       octl layout tiling mfact 0.60
@@ -57,7 +57,8 @@ in {
       octl bind layout scrolling policy visible to Super+b
 
       ### Overview ────────────────────────────────────────────────────────
-      octl bind output overview to Super+n
+      octl bind output overview cycle next --until-release=Super to Super+n
+      octl bind output overview cycle prev --until-release=Super to Super+Shift+n
 
       ### Swaps ───────────────────────────────────────────────────────────
       octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 --rev to ${meh}+space
@@ -66,11 +67,11 @@ in {
       octl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 --rev to ${meh}+k
 
       ### Window rules ────────────────────────────────────────────────────
-      octl rules add --tags 3 --output=DP-3 --app-id=firefox
-      octl rules add --tags 2 --output=DP-3 --app-id=emacs
-      octl rules add --tags 9 --app-id=org.keepassxc.KeePassXC
-      octl rules add --tags 4 --app-id=vesktop
-      octl rules add --tags 4 --output=DP-3 --app-id=steam
+      octl window rules add --tags 3 --output=DP-3 --app-id=firefox
+      octl window rules add --tags 2 --output=DP-3 --app-id=emacs
+      octl window rules add --tags 9 --app-id=org.keepassxc.KeePassXC
+      octl window rules add --tags 4 --app-id=vesktop
+      octl window rules add --tags 4 --output=DP-3 --app-id=steam
       octl bind spawn '${terminal} tmux' to Super+Return
       octl bind spawn '${terminal}' to Super+Shift+Return
       octl bind spawn '${launcher}' to Super+r
