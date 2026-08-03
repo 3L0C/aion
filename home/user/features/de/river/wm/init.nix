@@ -31,11 +31,6 @@ in {
       #!/usr/bin/env bash
 
       ### Settings ────────────────────────────────────────────────────────
-      octl layout scrolling policy centered --all
-      octl layout scrolling default-width --all 0.95
-      octl output column width 0.95
-      octl layout tiling nmaster 1
-      octl layout tiling mfact 0.60
       octl gaps inner 10
       octl gaps outer 20
       octl border width 4
@@ -47,7 +42,16 @@ in {
       octl input keyboard repeat 50 250
       octl input cursor theme '${config.stylix.cursor.name}' ${toString config.stylix.cursor.size}
 
+      ### Tiling ──────────────────────────────────────────────────────────
+      octl output column width 0.95
+      octl layout tiling nmaster 1
+      octl layout tiling mfact 0.60
+
       ### Scrolling ───────────────────────────────────────────────────────
+      octl layout scrolling policy visible --all
+      octl layout scrolling default-width --all 0.95
+      ${onOutput "DP-3" "octl layout scrolling --output DP-3"}
+      octl bind window column default to Super+a
       octl bind window column consume to Super+c
       octl bind window column release to Super+x
       octl bind window column cycle to Super+d
