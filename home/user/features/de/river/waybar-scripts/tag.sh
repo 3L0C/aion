@@ -1,4 +1,13 @@
 #!/bin/sh
+# tag.sh [--show-empty] TAG [OUTPUT]
+#
+# tag.sh feeds one waybar custom/tag module.
+#
+# Streams `oxctl subscribe tags` (for OUTPUT when given) and emits one line
+# of waybar JSON per event for tag number TAG (1-based). Vacant tags render as
+# empty text so waybar hides the module; with --show-empty they render dimmed
+# via the base #custom-tag style instead. State classes: focused / urgent /
+# viewed / occupied.
 
 usage() {
 	echo "usage: tag.sh [--show-empty] TAG [OUTPUT]" >&2
@@ -34,7 +43,7 @@ if [ -n "$output" ]; then
 fi
 
 while :; do
-	octl subscribe tags "$@" |
+	oxctl subscribe tags "$@" |
 		jq -c --unbuffered --argjson t "$tag" --argjson show "$show_empty" '
             { text: (if $show or (.viewed | index($t)) or (.occupied | index($t))
                      then ($t | tostring)
@@ -45,5 +54,5 @@ while :; do
                      , (if (.viewed   | index($t)) then "viewed"   else empty end)
                      , (if (.occupied | index($t)) then "occupied" else empty end) ]
             }'
-	sleep 1 # reconnect loop: octl exits when the wm goes away
+	sleep 1 # reconnect loop: oxctl exits when the wm goes away
 done

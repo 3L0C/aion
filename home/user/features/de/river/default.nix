@@ -1,7 +1,7 @@
 {
   imports = [
     ./river_base.nix
-    ./wm/ocdwm.nix
+    ./wm/oxbow.nix
     ./wm/init.nix
     ./waybar.nix
     ../eww

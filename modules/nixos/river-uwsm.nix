@@ -22,12 +22,12 @@ in {
 
     windowManager = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.ocdwm;
-      defaultText = lib.literalExpression "pkgs.ocdwm";
+      default = pkgs.oxbow;
+      defaultText = lib.literalExpression "pkgs.oxbow";
       description = ''
         Window manager to install alongside River 0.4.x. River 0.4.x removed
         the built-in WM, so a separate WM speaking the rwm protocol is required
-        (default: ocdwm). This is installed system-wide; the home-manager
+        (default: oxbow). This is installed system-wide; the home-manager
         side starts it as a session-scoped systemd service.
       '';
     };

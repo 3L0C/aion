@@ -19,24 +19,26 @@
   scriptsDir = "${config.xdg.configHome}/waybar/scripts";
   tagNumbers = lib.range 1 9;
 
-  octlModulesLeft =
+  oxctlModulesLeft =
     map (n: "custom/tag#${toString n}") tagNumbers
     ++ [
       "custom/layout"
       "custom/mode"
       "custom/window"
     ];
-  octlModules = output:
+
+  # Per-output oxctl module definitions (scripts filter on --output)
+  oxctlModules = output:
     lib.listToAttrs (map (n: {
         name = "custom/tag#${toString n}";
         value = {
           exec = "${scriptsDir}/tag.sh ${toString n} ${output}";
           return-type = "json";
           format = "{}";
-          on-click = "octl tag view ${toString n}";
-          on-click-right = "octl tag toggle ${toString n}";
-          on-scroll-down = "octl tag next";
-          on-scroll-up = "octl tag prev";
+          on-click = "oxctl tag view ${toString n}";
+          on-click-right = "oxctl tag toggle ${toString n}";
+          on-scroll-down = "oxctl tag next";
+          on-scroll-up = "oxctl tag prev";
           tooltip = false;
         };
       })
@@ -46,10 +48,10 @@
         exec = "${scriptsDir}/layout.sh ${output}";
         return-type = "json";
         format = "{}";
-        on-click = "octl layout next";
-        on-click-right = "octl layout prev";
-        on-scroll-down = "octl layout tiling next";
-        on-scroll-up = "octl layout tiling prev";
+        on-click = "oxctl layout next";
+        on-click-right = "oxctl layout prev";
+        on-scroll-down = "oxctl layout tiling next";
+        on-scroll-up = "oxctl layout tiling prev";
         tooltip = false;
       };
 
@@ -67,27 +69,27 @@
         escape = true;
         expand = true;
         max-length = 100;
-        on-click = "octl output overview";
-        on-click-right = "octl window zoom --no-warp";
-        on-scroll-down = "octl window focus next --no-warp";
-        on-scroll-up = "octl window focus prev --no-warp";
+        on-click = "oxctl output overview";
+        on-click-right = "oxctl window zoom --no-warp";
+        on-scroll-down = "oxctl window focus next --no-warp";
+        on-scroll-up = "oxctl window focus prev --no-warp";
         tooltip = false;
       };
     };
 
   mkBar = monitor:
     shared.mkConfig {
-      modulesLeft = octlModulesLeft;
+      modulesLeft = oxctlModulesLeft;
 
       compositorModules =
-        octlModules monitor.name
+        oxctlModules monitor.name
         // lib.optionalAttrs isLaptop {
           inherit (shared.sharedModules) battery;
         };
 
       extraSettings =
         {
-          name = "ocdwm-bar";
+          name = "oxbow-bar";
           output = monitor.name;
 
           modules-right =

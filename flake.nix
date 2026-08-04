@@ -48,8 +48,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ocdwm = {
-      url = "git+ssh://git@github.com-3L0C/3L0C/ocdwm?ref=wip-rework";
+    oxbow = {
+      url = "git+ssh://git@github.com-3L0C/3L0C/oxbow?ref=release-prep";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

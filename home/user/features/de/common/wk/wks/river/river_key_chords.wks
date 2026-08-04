@@ -1,8 +1,8 @@
 # River 0.4.x entry point for WK
-# Used when launching wk from River 0.4.x (with ocdwm).
-# All actions go through octl (ocdwm's CLI).
+# Used when launching wk from River 0.4.x (with oxbow).
+# All actions go through oxctl (oxbow's CLI).
 
-# Workspace numbers — octl TAGS accept plain indices (1-32)
+# Workspace numbers — oxctl TAGS accept plain indices (1-32)
 :var "WS_1" "1"
 :var "WS_2" "2"
 :var "WS_3" "3"
@@ -19,33 +19,33 @@
 :var "MONITOR_HP" "HDMI-A-1"
 
 # Window management commands
-:var "CMD_CLOSE_WINDOW" "octl window close"
-:var "CMD_TOGGLE_FLOAT" "octl window toggle floating"
-:var "CMD_TOGGLE_FULLSCREEN" "octl window toggle fullscreen"
+:var "CMD_CLOSE_WINDOW" "oxctl window close"
+:var "CMD_TOGGLE_FLOAT" "oxctl window toggle floating"
+:var "CMD_TOGGLE_FULLSCREEN" "oxctl window toggle fullscreen"
 
 # Stack navigation
-:var "CMD_FOCUS_NEXT" "octl window focus next"
-:var "CMD_FOCUS_PREV" "octl window focus prev"
-:var "CMD_FOCUS_DOWN" "octl window focus down"
-:var "CMD_FOCUS_UP" "octl window focus up"
-:var "CMD_SWAP_DOWN" "octl window shift next"
-:var "CMD_SWAP_UP" "octl window shift prev"
+:var "CMD_FOCUS_NEXT" "oxctl window focus next"
+:var "CMD_FOCUS_PREV" "oxctl window focus prev"
+:var "CMD_FOCUS_DOWN" "oxctl window focus down"
+:var "CMD_FOCUS_UP" "oxctl window focus up"
+:var "CMD_SWAP_DOWN" "oxctl window shift next"
+:var "CMD_SWAP_UP" "oxctl window shift prev"
 
 # Tag operations (parametric — callers append a TAGS index)
-:var "CMD_SWITCH_WS" "octl tag view"
-:var "CMD_GO_WORKSPACE" "octl tag view"
-:var "CMD_MOVE_TO_WS" "octl window tag set"
+:var "CMD_SWITCH_WS" "oxctl tag view"
+:var "CMD_GO_WORKSPACE" "oxctl tag view"
+:var "CMD_MOVE_TO_WS" "oxctl window tag set"
 
 # Relative tag navigation
-:var "CMD_WS_NEXT" "octl tag next --occupied"
-:var "CMD_WS_PREV" "octl tag prev --occupied"
-:var "CMD_MOVE_NEXT" "octl window tag shift next --occupied"
-:var "CMD_MOVE_PREV" "octl window tag shift prev --occupied"
+:var "CMD_WS_NEXT" "oxctl tag next --occupied"
+:var "CMD_WS_PREV" "oxctl tag prev --occupied"
+:var "CMD_MOVE_NEXT" "oxctl window tag shift next --occupied"
+:var "CMD_MOVE_PREV" "oxctl window tag shift prev --occupied"
 
 # Monitor/output operations (target monitors by identity, not position)
-:var "CMD_MOVE_TO_BENQ" "octl window send to %(MONITOR_BENQ)"
-:var "CMD_MOVE_TO_AOC" "octl window send to %(MONITOR_AOC)"
-:var "CMD_MOVE_TO_HP" "octl window send to %(MONITOR_HP)"
+:var "CMD_MOVE_TO_BENQ" "oxctl window send to %(MONITOR_BENQ)"
+:var "CMD_MOVE_TO_AOC" "oxctl window send to %(MONITOR_AOC)"
+:var "CMD_MOVE_TO_HP" "oxctl window send to %(MONITOR_HP)"
 
 # Screenshot utilities (use slurp for window mode)
 :var "CMD_GET_WINDOW_GEOMETRY" "slurp"

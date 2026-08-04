@@ -27,8 +27,8 @@
   riverdo-overlay = final: _prev: {
     inherit (inputs.riverdo.packages.${final.stdenv.hostPlatform.system}) riverdo;
   };
-  ocdwm-overlay = final: _prev: {
-    inherit (inputs.ocdwm.packages.${final.stdenv.hostPlatform.system}) ocdwm;
+  oxbow-overlay = final: _prev: {
+    inherit (inputs.oxbow.packages.${final.stdenv.hostPlatform.system}) oxbow;
   };
   wine-ge-overlay = final: _prev: {
     inherit (inputs.nix-gaming.packages.${final.stdenv.hostPlatform.system}) wine-ge;

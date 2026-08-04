@@ -49,7 +49,7 @@ in {
       description = ''
         Modifier key(s) for window manager keybindings, per compositor.
         Different compositors use different syntax:
-        - River 0.4.x (ocdwm): "super", "super,shift", "super,ctrl"
+        - River 0.4.x (oxbow): "super", "super,shift", "super,ctrl"
         - River Classic (riverctl): "Super", "Super+Control", "Shift+Control+Alt"
         - Hyprland: "SUPER", "SUPER_CONTROL", "SUPER_SHIFT"
         - Niri: "Mod", "Mod+Shift", "Mod+Ctrl" (Mod = Super on TTY, Alt in window)

@@ -1,6 +1,6 @@
-# River 0.4.x window and tag management (via octl/ocdwm)
-# Mirrors the river-classic menus minus features ocdwm lacks:
-# sticky and swap-outputs (see doc/2026-07-19-ocdwm-gap-list.md).
+# River 0.4.x window and tag management (via oxctl/oxbow)
+# Mirrors the river-classic menus minus features oxbow lacks:
+# sticky and swap-outputs (see doc/2026-07-19-oxbow-gap-list.md).
 
 c "Client"
 {
@@ -16,11 +16,11 @@ c "Client"
     o "Output" +keep
     {
         a "AOC" %{{%(CMD_MOVE_TO_AOC)}}
-        A "AOC & follow" %{{%(CMD_MOVE_TO_AOC) && octl output focus name %(MONITOR_AOC)}}
+        A "AOC & follow" %{{%(CMD_MOVE_TO_AOC) && oxctl output focus name %(MONITOR_AOC)}}
         b "BenQ" %{{%(CMD_MOVE_TO_BENQ)}}
-        B "BenQ & follow" %{{%(CMD_MOVE_TO_BENQ) && octl output focus name %(MONITOR_BENQ)}}
+        B "BenQ & follow" %{{%(CMD_MOVE_TO_BENQ) && oxctl output focus name %(MONITOR_BENQ)}}
         h "HP" %{{%(CMD_MOVE_TO_HP)}}
-        H "HP & follow" %{{%(CMD_MOVE_TO_HP) && octl output focus name %(MONITOR_HP)}}
+        H "HP & follow" %{{%(CMD_MOVE_TO_HP) && oxctl output focus name %(MONITOR_HP)}}
     }
     q "Quit" %{{%(CMD_CLOSE_WINDOW)}}
     f "Toggle float" %{{%(CMD_TOGGLE_FLOAT)}}
@@ -39,16 +39,16 @@ w "Window"
     }
     l "Layout" +keep
     {
-        t "tile" %{{octl layout tiling scheme tile}}
-        m "monocle" %{{octl layout tiling scheme monocle}}
-        f "floating" %{{octl layout floating}}
-        o "overview" %{{octl output overview}}
+        t "tile" %{{oxctl layout tiling scheme tile}}
+        m "monocle" %{{oxctl layout tiling scheme monocle}}
+        f "floating" %{{oxctl layout floating}}
+        o "overview" %{{oxctl output overview}}
         s "Stack" +keep
         {
-            e "even" %{{octl layout tiling stack even}}
-            d "dwindle" %{{octl layout tiling stack dwindle}}
-            i "diminish" %{{octl layout tiling stack diminish}}
+            e "even" %{{oxctl layout tiling stack even}}
+            d "dwindle" %{{oxctl layout tiling stack dwindle}}
+            i "diminish" %{{oxctl layout tiling stack diminish}}
         }
     }
-    r "Restart ocdwm" %{{systemctl --user restart ocdwm}}
+    r "Restart oxbow" %{{systemctl --user restart oxbow}}
 }

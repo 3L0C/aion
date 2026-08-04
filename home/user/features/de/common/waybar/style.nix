@@ -225,7 +225,7 @@
           margin: 0;
       }
 
-      /* ========== ocdwm (river 0.4.x) octl modules ========== */
+      /* ========== oxbow (river 0.4.x) oxctl modules ========== */
 
       /* Vacant tags are hidden (tag.sh emits empty text); with --show-empty
        * they render dimmed via this base style. State classes come from the
