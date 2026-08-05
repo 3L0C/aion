@@ -15,9 +15,9 @@
   uwsm-app = lib.getExe' pkgs.uwsm "uwsm-app";
   touchpad-toggle = lib.getExe pkgs.custom.scripts.touchpad-toggle;
 
-  launcher = "${uwsm-app} -- ${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
+  launcher = "${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
   terminal = "${uwsm-app} -- ${kitty}";
-  menu = "${uwsm-app} -- wk-river";
+  menu = "wk-river";
 
   # Only emit output-targeted lines for outputs this host actually has.
   monitorNames = map (m: m.name) config.monitors;
@@ -37,7 +37,7 @@ in {
       oxctl border color focused '${colors.base0D}'
       oxctl border color unfocused '${colors.base04}'
       oxctl border color urgent '${colors.base08}'
-      oxctl input pointer follow on
+      oxctl input pointer follow not-scrolling
       oxctl input pointer warp on
       oxctl input keyboard repeat 50 250
       oxctl input cursor theme '${config.stylix.cursor.name}' ${toString config.stylix.cursor.size}
@@ -48,17 +48,32 @@ in {
       oxctl layout tiling mfact 0.60
 
       ### Scrolling ───────────────────────────────────────────────────────
-      oxctl layout scrolling policy visible --all
+      oxctl layout scrolling align visible --all
       oxctl layout scrolling default-width --all 0.95
       ${onOutput "DP-3" "oxctl layout scrolling --output DP-3"}
       oxctl bind window column default to Super+a
       oxctl bind window column consume to Super+c
       oxctl bind window column release to Super+x
       oxctl bind window column cycle to Super+d
-      oxctl bind window column default to Super+0
-      oxctl bind layout scrolling policy left to Super+f
-      oxctl bind layout scrolling policy centered to Super+p
-      oxctl bind layout scrolling policy visible to Super+b
+      oxctl bind layout scrolling centered to Super+f
+      oxctl bind layout scrolling visible to Super+p
+      oxctl bind layout scrolling left to Super+b
+
+      ### Toggles ─────────────────────────────────────────────────────────
+      oxctl bind window toggle floating to Super+Shift+space
+      oxctl bind window toggle fake-fullscreen to Super+Shift+i
+      oxctl bind window toggle maximize to Super+Shift+f
+      oxctl bind window toggle sticky occupied to Super+Shift+s
+      oxctl bind window toggle swallow to Super+w
+      oxctl bind tag toggle 1 to Super+Shift+1
+      oxctl bind tag toggle 2 to Super+Shift+2
+      oxctl bind tag toggle 3 to Super+Shift+3
+      oxctl bind tag toggle 4 to Super+Shift+4
+      oxctl bind tag toggle 5 to Super+Shift+5
+      oxctl bind tag toggle 6 to Super+Shift+6
+      oxctl bind tag toggle 7 to Super+Shift+7
+      oxctl bind tag toggle 8 to Super+Shift+8
+      oxctl bind tag toggle 9 to Super+Shift+9
 
       ### Overview ────────────────────────────────────────────────────────
       oxctl bind output overview cycle next --until-release=Super to Super+n
@@ -76,6 +91,7 @@ in {
       oxctl window rules add --tags 9 --app-id=org.keepassxc.KeePassXC
       oxctl window rules add --tags 4 --app-id=vesktop
       oxctl window rules add --tags 4 --output=DP-3 --app-id=steam
+      oxctl window rules add --swallow=terminal --app-id=kitty
       oxctl bind spawn '${terminal} tmux' to Super+Return
       oxctl bind spawn '${terminal}' to Super+Shift+Return
       oxctl bind spawn '${launcher}' to Super+r
@@ -84,9 +100,9 @@ in {
       oxctl bind spawn "${menu} --press 'o'" to Super+o
       oxctl bind spawn "${menu} --press 'e'" to Super+e
       oxctl bind session exit to Super+Shift+q
-      ${onOutput "HDMI-A-1" "oxctl bind output focus name HDMI-A-1 to ${meh}+m"}
-      ${onOutput "DP-3" "oxctl bind output focus name DP-3 to ${meh}+n"}
-      ${onOutput "DP-1" "oxctl bind output focus name DP-1 to ${meh}+e"}
+      ${onOutput "HDMI-A-1" "oxctl bind output focus match --name=^HDMI-A-1$ to ${meh}+m"}
+      ${onOutput "DP-3" "oxctl bind output focus match --name=^DP-3$ to ${meh}+n"}
+      ${onOutput "DP-1" "oxctl bind output focus match --name=^DP-1$ to ${meh}+e"}
       oxctl bind window send next --take to ${meh}+l
       oxctl bind window send prev --take to ${meh}+h
       oxctl bind window tag shift next --occupied to Super+Shift+l
