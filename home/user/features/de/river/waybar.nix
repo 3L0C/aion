@@ -75,6 +75,20 @@
         on-scroll-up = "oxctl window focus prev --no-warp";
         tooltip = false;
       };
+
+      "custom/capture" = {
+        exec = "${scriptsDir}/capture.sh ${output}";
+        return-type = "json";
+        format = "{}";
+        tooltip = false;
+      };
+
+      "custom/capture-sep" = {
+        exec = "${scriptsDir}/capture.sh ${output} sep";
+        return-type = "json";
+        format = "{}";
+        tooltip = false;
+      };
     };
 
   mkBar = monitor:
@@ -94,6 +108,8 @@
 
           modules-right =
             [
+              "custom/capture-sep"
+              "custom/capture"
               "custom/mpris"
               "custom/sep"
               "pulseaudio"
@@ -166,5 +182,5 @@ in {
         source = ./waybar-scripts/${s};
         executable = true;
       };
-    }) ["tag.sh" "layout.sh" "mode.sh" "window.sh" "focus.sh"]);
+    }) ["tag.sh" "layout.sh" "mode.sh" "window.sh" "focus.sh" "capture.sh"]);
 }

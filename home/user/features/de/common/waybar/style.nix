@@ -283,6 +283,19 @@
           background-color: @base02;
           color: @base05;
       }
+
+      #custom-capture {
+          padding: 0;
+          margin: 0;
+      }
+
+      /* The output has a capture session */
+      #custom-capture.recording {
+          background-color: @base08;
+          color: @base00;
+          padding: 0 5px;
+          margin: 0 5px;
+      }
     '';
   };
 }
