@@ -75,6 +75,10 @@ in {
       oxctl bind tag toggle 8 to Super+Shift+8
       oxctl bind tag toggle 9 to Super+Shift+9
 
+      ### Scratchpads ─────────────────────────────────────────────────────
+      oxctl window rules add --app-id=kitten-scratch --scratchpad=kitten-scratch --move-to=25%,25% --resize-to=50%,50%
+      oxctl bind spawn 'oxctl scratchpad toggle kitten-scratch || kitty --app-id=kitten-scratch -o font_size=24' to Super+Shift+Return
+
       ### Overview ────────────────────────────────────────────────────────
       oxctl bind output overview cycle next --until-release=Super to Super+n
       oxctl bind output overview cycle prev --until-release=Super to Super+Shift+n
@@ -99,7 +103,6 @@ in {
           --move-to=64%,62% \
           --sticky=occupied ${onOutput "DP-3" "--output DP-3"}
       oxctl bind spawn '${terminal} tmux' to Super+Return
-      oxctl bind spawn '${terminal}' to Super+Shift+Return
       oxctl bind spawn '${launcher}' to Super+r
       oxctl bind spawn '${menu}' to Super+comma
       oxctl bind spawn '${menu} --press "d u"' to Super+period
