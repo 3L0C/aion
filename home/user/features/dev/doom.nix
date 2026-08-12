@@ -41,6 +41,9 @@
     # :tools projectile
     universal-ctags # generates an index (or tag) file of language objects found in source files
 
+    # :lang bash
+    bash-language-server
+
     # :lang cc
     clang-tools
 
