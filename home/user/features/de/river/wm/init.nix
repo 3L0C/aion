@@ -92,6 +92,12 @@ in {
       oxctl window rules add --tags 4 --app-id=vesktop
       oxctl window rules add --tags 4 --output=DP-3 --app-id=steam
       oxctl window rules add --swallow=terminal --app-id=kitty
+      oxctl window rules add --title=Picture-in-Picture \
+          --spawn-position=end \
+          --spawn-focus=disabled \
+          --resize-to=35%,35% \
+          --move-to=64%,62% \
+          --sticky=occupied ${onOutput "DP-3" "--output DP-3"}
       oxctl bind spawn '${terminal} tmux' to Super+Return
       oxctl bind spawn '${terminal}' to Super+Shift+Return
       oxctl bind spawn '${launcher}' to Super+r
