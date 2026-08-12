@@ -1,5 +1,6 @@
 {lib, ...}: let
-  oxbowDevBin = "/home/user/Projects/oxbow-dev/result/bin";
+  oxbowDevInstall = "/home/user/Projects/oxbow-dev/_build/install/default";
+  oxbowDevBin = "${oxbowDevInstall}/bin";
 
   mkOxbowService = {
     logLevel,
@@ -22,6 +23,14 @@
     };
 in {
   home.sessionPath = [oxbowDevBin];
+  programs.zsh.initContent = ''
+    if [[ -d ${oxbowDevInstall}/share/zsh/site-functions ]]; then
+      fpath+=(${oxbowDevInstall}/share/zsh/site-functions)
+      autoload -Uz _oxbow _oxctl
+      compdef _oxbow oxbow
+      compdef _oxctl oxctl
+    fi
+  '';
 
   systemd.user.services = {
     oxbow = mkOxbowService {
