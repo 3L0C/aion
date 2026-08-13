@@ -89,33 +89,63 @@ in {
       oxctl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 to ${meh}+j
       oxctl bind output swap tags --ring HDMI-A-1,DP-3,DP-1 --rev to ${meh}+k
 
+      ### Window tagging ──────────────────────────────────────────────────
+      oxctl bind window tag set 1 to Super+Control+1
+      oxctl bind window tag set 2 to Super+Control+2
+      oxctl bind window tag set 3 to Super+Control+3
+      oxctl bind window tag set 4 to Super+Control+4
+      oxctl bind window tag set 5 to Super+Control+5
+      oxctl bind window tag set 6 to Super+Control+6
+      oxctl bind window tag set 7 to Super+Control+7
+      oxctl bind window tag set 8 to Super+Control+8
+      oxctl bind window tag set 9 to Super+Control+9
+
       ### Window rules ────────────────────────────────────────────────────
-      oxctl window rules add --tags 3 --output=DP-3 --app-id=firefox
-      oxctl window rules add --tags 2 --output=DP-3 --app-id=emacs
+      oxctl window rules add --tags 3 --app-id=firefox
+      oxctl window rules add --tags 2 --app-id=emacs
       oxctl window rules add --tags 9 --app-id=org.keepassxc.KeePassXC
       oxctl window rules add --tags 4 --app-id=vesktop
-      oxctl window rules add --tags 4 --output=DP-3 --app-id=steam
+      oxctl window rules add --tags 4 --app-id=steam
       oxctl window rules add --swallow=terminal --app-id=kitty
       oxctl window rules add --title=Picture-in-Picture \
           --spawn-position=end \
           --spawn-focus=disabled \
           --resize-to=35%,35% \
           --move-to=64%,62% \
-          --sticky=occupied ${onOutput "DP-3" "--output DP-3"}
+          --sticky=occupied
+
+      ### Bindings - deltas over oxbow built-ins ──────────────────────────
+      # Terminal (overrides built-in plain-kitty Super+Return)
       oxctl bind spawn '${terminal} tmux' to Super+Return
+
+      # Launcher ──────────────────────────────────────────────────────────
       oxctl bind spawn '${launcher}' to Super+r
+
+      # wk menu extras (Super+comma is built-in) ──────────────────────────
       oxctl bind spawn '${menu}' to Super+comma
       oxctl bind spawn '${menu} --press "d u"' to Super+period
       oxctl bind spawn "${menu} --press 'o'" to Super+o
       oxctl bind spawn "${menu} --press 'e'" to Super+e
+
+      # Session exit (built-in Super+Shift+Escape also works) ─────────────
       oxctl bind session exit to Super+Shift+q
+
+      # Output focus ──────────────────────────────────────────────────────
       ${onOutput "HDMI-A-1" "oxctl bind output focus match --name=^HDMI-A-1$ to ${meh}+m"}
       ${onOutput "DP-3" "oxctl bind output focus match --name=^DP-3$ to ${meh}+n"}
       ${onOutput "DP-1" "oxctl bind output focus match --name=^DP-1$ to ${meh}+e"}
+
+      # Send focused window to next/prev output ───────────────────────────
       oxctl bind window send next --take to ${meh}+l
       oxctl bind window send prev --take to ${meh}+h
+
+      # Send focused window to next/prev occupied tag ─────────────────────
       oxctl bind window tag shift next --occupied to Super+Shift+l
       oxctl bind window tag shift prev --occupied to Super+Shift+h
+      oxctl bind window tag shift next --follow to Super+Control+l
+      oxctl bind window tag shift prev --follow to Super+Control+h
+
+      # Floating preset ───────────────────────────────────────────────────
       oxctl bind spawn 'oxctl window resize to 35% 35% && oxctl window move to 64% 62%' to Super+z
 
       ### Media keys (normal mode) ────────────────────────────────────────
