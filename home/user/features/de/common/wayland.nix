@@ -19,7 +19,7 @@
     };
 
   home.packages = with pkgs; [
-    wf-recorder # Utility program for screen recording of wlroots-based compositors
+    master.wf-recorder # Utility program for screen recording of wlroots-based compositors
     wl-clipboard # Command-line copy/paste utilities for Wayland
     wlr-randr # Xrandr clone for wlroots compositors
   ];
