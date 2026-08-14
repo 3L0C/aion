@@ -49,7 +49,7 @@
     };
 
     oxbow = {
-      url = "git+ssh://git@github.com-3L0C/3L0C/oxbow?ref=release-prep";
+      url = "github:3L0C/oxbow";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

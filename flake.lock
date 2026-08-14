@@ -832,18 +832,17 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1786589584,
-        "narHash": "sha256-iAEOjc68UF6T3BGeA0sP+qQWI/U9CNr210fCwXagQaQ=",
-        "ref": "release-prep",
-        "rev": "5c8264d420678acc68dfd0c39270a818264e1642",
-        "revCount": 319,
-        "type": "git",
-        "url": "ssh://git@github.com-3L0C/3L0C/oxbow"
+        "lastModified": 1786701589,
+        "narHash": "sha256-yI+SMIK/lEIeU8m4tspOOqkvc4Ppnwxh/EgXKnq9ABA=",
+        "owner": "3L0C",
+        "repo": "oxbow",
+        "rev": "71f8b79f87b616c0dbcf1979463e26054be3d45d",
+        "type": "github"
       },
       "original": {
-        "ref": "release-prep",
-        "type": "git",
-        "url": "ssh://git@github.com-3L0C/3L0C/oxbow"
+        "owner": "3L0C",
+        "repo": "oxbow",
+        "type": "github"
       }
     },
     "pre-commit": {
