@@ -200,7 +200,7 @@
       }
 
       #idle_inhibitor.activated {
-          color: @base08;
+          color: @base0A;
       }
 
       /* Control Center group */
