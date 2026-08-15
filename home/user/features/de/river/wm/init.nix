@@ -114,6 +114,11 @@ in {
           --move-to=64%,62% \
           --sticky=occupied
 
+      ### Passthrough mode ────────────────────────────────────────────────
+      oxctl keymap mode declare passthrough
+      oxctl bind keymap mode enter passthrough to Super+F1
+      oxctl bind keymap mode enter --mode=passthrough normal to Super+F1
+
       ### Bindings - deltas over oxbow built-ins ──────────────────────────
       # Terminal (overrides built-in plain-kitty Super+Return)
       oxctl bind spawn '${terminal} tmux' to Super+Return
