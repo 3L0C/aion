@@ -70,6 +70,7 @@
     ocamlPackages.ocp-indent
     ocamlPackages.utop
     opam
+    opam-publish
 
     # :lang org
     graphviz
