@@ -20,7 +20,7 @@
     bc = "bc -ql";
     yt = "yt-dlp --add-metadata -i";
     yta = "yt -x -f bestaudio/best";
-    ffmpeg = "ffmpeg -hide-banner";
+    ffmpeg = "ffmpeg -hide_banner";
     fmpv = "mpv --x11-name=fmpv";
     sctl = "systemctl";
     sys = "systemctl";
