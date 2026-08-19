@@ -43,11 +43,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    riverdo = {
-      url = "github:3L0C/riverdo";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     oxbow = {
       url = "github:3L0C/oxbow";
       inputs.nixpkgs.follows = "nixpkgs";

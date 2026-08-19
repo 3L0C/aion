@@ -5,7 +5,6 @@
   ...
 }: let
   waybar = lib.getExe config.programs.waybar.package;
-  riverdo = lib.getExe pkgs.riverdo;
   kitty = lib.getExe pkgs.kitty;
   shared = import ../../../common/waybar/shared.nix {inherit lib pkgs;};
   wlanIface =
@@ -62,15 +61,11 @@ in {
 
           "river/layout" = {
             format = "{}";
-            on-click-right = "${riverdo} swap-outputs --focused-tag --swap DP-3 --with DP-1";
             tooltip = false;
           };
 
           "river/window" = {
             format = "{}";
-            on-click-right = "${riverdo} zoom";
-            on-scroll-up = "${riverdo} focus-view previous";
-            on-scroll-down = "${riverdo} focus-view next";
             max-length = 100;
             expand = true;
             tooltip = false;

@@ -13,7 +13,6 @@
   uwsm = "${lib.getExe pkgs.uwsm}";
   pamixer = "${lib.getExe pkgs.pamixer}";
   riverctl = "${lib.getExe' pkgs.river-classic "riverctl"}";
-  riverdo = "${lib.getExe pkgs.riverdo}";
   rofi = "${lib.getExe config.programs.rofi.finalPackage}";
   uwsm-app = "${lib.getExe' pkgs.uwsm "uwsm-app"}";
   touchpad-toggle = "${lib.getExe pkgs.custom.scripts.touchpad-toggle}";
@@ -22,7 +21,6 @@
   terminal = "${uwsm-app} -- ${kitty}";
   normalBindings = lib.custom.mkRiverBindsScript pkgs "river-normal-bindings" {
     bindings = [
-      "${mod} Z spawn '${riverdo} move-to top-left 0 resize-to 35%x35% move-to bottom-right 20'"
       "${mod} Return spawn '${terminal} tmux'"
       "${modShift} Return spawn '${terminal}'"
       "${mod} R spawn '${launcher}'"
@@ -37,22 +35,10 @@
       "${meh} M focus-output \"HDMI-A-1\""
       "${meh} N focus-output \"DP-3\""
       "${meh} E focus-output \"DP-1\""
-      "${meh} Space spawn '${riverdo} swap-outputs --focused-tag --swap DP-3 --with DP-1'"
-      "${meh} G spawn '${riverdo} swap-outputs --focused-tag --with DP-1'"
-      "${meh} S spawn '${riverdo} swap-outputs --focused-tag --with HDMI-A-1'"
-      "${meh} T spawn '${riverdo} swap-outputs --focused-tag --with DP-3'"
+
       "${mod} J focus-view next"
       "${mod} K focus-view previous"
-      "${meh} L spawn '${riverdo} output next'"
-      "${meh} H spawn '${riverdo} output previous'"
-      "${mod} L spawn '${riverdo} shift-tag next --occupied'"
-      "${mod} H spawn '${riverdo} shift-tag previous --occupied'"
-      "${mod} Tab spawn '${riverdo} shift-tag +1'"
-      "${modShift} Tab spawn '${riverdo} shift-tag -1'"
-      "${modShift} L spawn '${riverdo} shift-view next --occupied'"
-      "${modShift} H spawn '${riverdo} shift-view previous --occupied'"
-      "${mod} S spawn '${riverdo} stick --tags occupied'"
-      "${modShift} S spawn '${riverdo} unstick'"
+
       "${modShift} J swap next"
       "${modShift} K swap previous"
       "${modShift} Space toggle-float"

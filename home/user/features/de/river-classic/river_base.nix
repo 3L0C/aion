@@ -42,7 +42,6 @@ in {
     };
   };
   home.packages = with pkgs; [
-    riverdo # Improved riverctl
     lswt # Command that lists Wayland toplevels
     ristate # River-status client written in Rust
     river-bedload # Display information about river in json in the STDOUT
