@@ -1,6 +1,7 @@
 {pkgs}: let
   inherit (pkgs) callPackage;
 in {
+  openshot-qt = callPackage ./openshot-qt {};
   backup-mikuru = callPackage ./backup-mikuru {};
   jellyproxy = callPackage ./jellyproxy {};
   mpvScripts = callPackage ./mpv/scripts.nix {};
