@@ -4,7 +4,6 @@
     ./filename.nix
     ./gallery-view.nix
     ./homehub.nix
-    ./modernz.nix
     ./mpris.nix
     ./mpvSockets-smpv.nix
     ./persist-properties.nix
