@@ -77,6 +77,7 @@
     keep-open = true;
     force-window = "yes";
     taskbar-progress = true;
+    window-dragging = false;
 
     # CACHE
     cache-pause-initial = false;
