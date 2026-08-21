@@ -9,9 +9,7 @@
     ./optional/fixes
     ./optional/graphics.nix
     ./optional/sddm.nix
-    ./optional/hyprland.nix
     ./optional/keyring.nix
-    ./optional/niri.nix
     ./optional/nh.nix
     ./optional/pipewire.nix
     ./optional/river.nix
