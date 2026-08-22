@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:denful/import-tree";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     lanzaboote = {
@@ -67,60 +69,7 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    lib = nixpkgs.lib.extend (_: _: (import ./lib {inherit (nixpkgs) lib;}) // home-manager.lib);
-    supportedSystems = [
-      "x86_64-linux"
-    ];
-    pkgsFor = lib.genAttrs supportedSystems (
-      system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = builtins.attrValues (import ./overlays {inherit inputs;});
-        }
-    );
-    forEachSystem = f: lib.genAttrs supportedSystems (sys: f pkgsFor.${sys});
-    mkNixos = hostname: system: {
-      name = hostname;
-      value = lib.nixosSystem {
-        specialArgs = {
-          inherit
-            lib
-            outputs
-            inputs
-            ;
-          aionRev = self.shortRev or self.dirtyShortRev or "dirty";
-        };
-        modules = [
-          {nixpkgs.pkgs = pkgsFor.${system};}
-
-          ./hosts/${hostname}/spec.nix
-          ./hosts/${hostname}
-        ];
-      };
-    };
-  in {
-    legacyPackages = forEachSystem (pkgs: pkgs.custom);
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
-    checks = forEachSystem (pkgs: import ./checks.nix {inherit inputs pkgs;});
-    devShells = forEachSystem (pkgs: {
-      default = import ./shell.nix {
-        inherit pkgs;
-        checks = self.checks.${pkgs.stdenv.hostPlatform.system};
-      };
-    });
-    nixosConfigurations = lib.listToAttrs [
-      (mkNixos "yuki" "x86_64-linux")
-      (mkNixos "nixos-vm" "x86_64-linux")
-      (mkNixos "mikuru" "x86_64-linux")
-      (mkNixos "haruhi" "x86_64-linux")
-    ];
-  };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;}
+    (inputs.import-tree ./modules);
 }

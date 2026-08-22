@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./host-spec.nix
-  ];
-}
