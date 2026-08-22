@@ -1,7 +1,9 @@
+# NixOS VM configuration for debugging
 {lib, ...}: {
   imports = [
     ./hardware.nix
     ./disks.nix
+
     ../common/vm.nix
     ../common/optional/kde.nix
     ../common/pc.nix

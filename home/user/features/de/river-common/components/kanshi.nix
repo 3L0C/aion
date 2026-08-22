@@ -18,9 +18,11 @@
         then builtins.fromJSON monitor.scale * 1.0 # Ensure float
         else null;
     };
-  applyOverride = overrides: monitor:
-    monitor // (overrides.${monitor.name} or {});
+
+  applyOverride = overrides: monitor: monitor // (overrides.${monitor.name} or {});
+
   profileExec = ["systemctl --user restart swaybg.service"];
+
   allMonitorsProfile = {
     profile = {
       name = "all";
@@ -28,6 +30,7 @@
       exec = profileExec;
     };
   };
+
   mkLayoutProfile = layoutName: overrides: {
     profile = {
       name = layoutName;
@@ -45,6 +48,7 @@
       exec = profileExec;
     };
   };
+
   singleMonitorProfiles = map mkSingleMonitorProfile config.monitors;
 in {
   services.kanshi = {
@@ -56,8 +60,9 @@ in {
       ++ layoutProfiles
       ++ singleMonitorProfiles;
   };
-  systemd.user.services.kanshi = lib.custom.scopeServiceToWaylandSessions {
-    riverclassic = {};
+
+  # Rescope the home-manager kanshi unit to the river wayland session.
+  systemd.user.services.kanshi = lib.custom.mkWaylandService {
     river = {};
   };
 }

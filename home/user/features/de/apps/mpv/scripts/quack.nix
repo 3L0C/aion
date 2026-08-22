@@ -1,7 +1,5 @@
 {pkgs, ...}: {
   programs.mpv = {
-    scripts = [
-      pkgs.mpvScripts.quack
-    ];
+    scripts = [pkgs.mpvScripts.quack];
   };
 }

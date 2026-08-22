@@ -1,3 +1,4 @@
+# MPV lua script set; follows nixpkgs pkgs/applications/video/mpv/scripts.nix
 {
   lib,
   pkgs,

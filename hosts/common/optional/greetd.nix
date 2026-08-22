@@ -1,3 +1,4 @@
+# greetd display manager with tuigreet
 {
   pkgs,
   lib,
@@ -12,6 +13,9 @@ in {
     enable = true;
     settings = {
       default_session = {
+        # Keep the command a single-line string. For values with newlines,
+        # nixpkgs' TOML generator emits a multi-line literal (''') that
+        # greetd 0.10.3's TOML parser rejects.
         command = lib.concatStringsSep " " [
           (lib.getExe pkgs.tuigreet)
           "--greeting 'wake up...'"
@@ -25,9 +29,12 @@ in {
       };
     };
   };
+
+  # Fix greetd startup race: https://github.com/apognu/tuigreet/issues/68
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
   };
+
   users.groups.greeter = {};
   users.users.greeter = {
     isSystemUser = true;

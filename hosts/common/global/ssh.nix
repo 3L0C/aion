@@ -13,6 +13,8 @@
     (hostname: builtins.pathExists "${secretsDir}/hosts/${hostname}/ssh_host_ed25519_key.pub")
     hosts;
 in {
+  # home-manager (services.ssh-agent) owns SSH_AUTH_SOCK. Do not enable the
+  # NixOS agent (programs.ssh.startAgent) here.
   programs.ssh = {
     enableAskPassword = false;
     askPassword = "";

@@ -20,7 +20,6 @@
 
     settings = {
       log.date = "iso";
-
       core.whitespace = "-trailing-space";
       branch.autosetuprebase = "always";
       branch.sort = "committerdate";

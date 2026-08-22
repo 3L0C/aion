@@ -19,15 +19,6 @@
         };
       }
       {
-        condition = "gitdir:~/programs/John/";
-        contents = {
-          user = {
-            name = "johndovern";
-            email = "92282293+johndovern@users.noreply.github.com";
-          };
-        };
-      }
-      {
         condition = "gitdir:~/programs/CSUG/";
         contents = {
           user = {

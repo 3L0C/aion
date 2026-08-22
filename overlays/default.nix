@@ -66,21 +66,6 @@
           install ${./schemes}/*.yaml $out/share/themes/
         '';
     });
-    river-classic-no-session = prev.river-classic.overrideAttrs (oldAttrs: {
-      postInstall =
-        (oldAttrs.postInstall or "")
-        + ''
-          # Remove the plain river.desktop session file
-          rm -f $out/share/wayland-sessions/river.desktop
-          mv $out/bin/river $out/bin/river-classic
-        '';
-
-      meta =
-        oldAttrs.meta
-        // {
-          mainProgram = "river-classic";
-        };
-    });
     river-no-session = final.master.river.overrideAttrs (oldAttrs: {
       postInstall =
         (oldAttrs.postInstall or "")

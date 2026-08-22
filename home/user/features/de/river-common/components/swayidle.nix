@@ -3,10 +3,15 @@
   pkgs,
   ...
 }: let
-  lock = "${pkgs.swaylock}/bin/swaylock --daemonize; ${pkgs.systemd}/bin/loginctl lock-session";
+  lock = ''
+    ${pkgs.swaylock}/bin/swaylock --daemonize; \
+    ${pkgs.systemd}/bin/loginctl lock-session
+  '';
   display = status: "${pkgs.wlopm}/bin/wlopm --${status} \\*";
-  displayTimeout = 120; # 2 minutes
-  lockTimeout = 3600; # 1 hr
+  # 2 minutes
+  displayTimeout = 120;
+  # 1 hr
+  lockTimeout = 3600;
 in {
   services.swayidle = {
     enable = true;
@@ -31,8 +36,8 @@ in {
       }
     ];
   };
-  systemd.user.services.swayidle = lib.custom.scopeServiceToWaylandSessions {
-    riverclassic = {};
+
+  systemd.user.services.swayidle = lib.custom.mkWaylandService {
     river = {};
   };
 }

@@ -3,6 +3,11 @@
   pkgs,
   ...
 }: let
+  # Generate a yt-dlp config at ~/.config/yt-dlp/<name>.conf.
+  #   output:     exact -o argument (include quotes where wanted)
+  #   format:     -f value (wrapped in single quotes); null emits the
+  #               commented-out quality placeholder instead
+  #   noPlaylist: append --no-playlist (default true)
   mkYtdlpConf = {
     name,
     output,
@@ -21,9 +26,11 @@
           -f '${format}'
         ''
         else ''
+          #-f "bv*+ba/b"
         ''
       )
       + lib.optionalString noPlaylist ''
+
         --no-playlist
       '';
   };

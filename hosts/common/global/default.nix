@@ -24,12 +24,14 @@
       ./ssh.nix
       ./udev.nix
     ];
+
   environment.systemPackages = with pkgs; [
     pciutils
   ];
 
   hardware.enableAllFirmware = true;
   documentation.man.cache.enable = true;
+
   services.irqbalance.enable = true;
   systemd = {
     services.journalctl-vacuum = {

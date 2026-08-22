@@ -1,3 +1,4 @@
+# Wine visual novel prefix scripts.
 {pkgs, ...}: {
   home.packages = with pkgs; [
     custom.scripts.vn.vn-init

@@ -42,18 +42,25 @@
     sub-ass-force-margins = true;
     sub-ass-override = "force";
     sub-font-size = 48;
+    sub-color = "#FFFFFFFF";
     sub-border-size = 2;
+    sub-border-color = "#000000";
     sub-pos = 95;
     sub-margin-y = 90;
     sub-auto = "fuzzy";
     sub-file-paths = "subs:sub:subtitles:Subtitles:Subs:Sub";
     sub-scale-with-window = true;
     sub-ass-scale-with-window = true;
+
+    # VIDEO
     vd-lavc-threads = 0;
     vd-queue-max-bytes = "2GiB";
     vd-queue-max-samples = 60;
     vd-queue-max-secs = 2;
+
+    # VIDEO PROFILE
     profile = "gpu-hq";
+    hwdec = "auto";
     gpu-api = "vulkan";
     vo = "gpu-next";
 
@@ -72,8 +79,10 @@
     osd-bold = false;
 
     #VLC Screenshots
-    screenshot-template = "~/pictures/shared/anime-related/my-screens/vlcsnap-%F-T%wH.%wM.%wS.%wT-F%{estimated-frame-number}v%#01n";
+    screenshot-template = "~/Pictures/shared/mpv/vlcsnap-%F-T%wH.%wM.%wS.%wT-F%{estimated-frame-number}v%#01n";
     screenshot-format = "png";
+
+    # WINDOW
     keep-open = true;
     force-window = "yes";
     taskbar-progress = true;
@@ -91,6 +100,8 @@
     gpu-shader-cache-dir = "~~/shaders/shader-cache-dir/";
     icc-cache-dir = "~~/icc/icc-cache-dir/";
     stream-buffer-size = "5MiB"; # KiB, MiB
+
+    # SCALE
     video-sync = "display-resample";
 
     # Youtube-dl to yt-dlp

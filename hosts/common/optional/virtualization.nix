@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   users.users.user.extraGroups = ["libvirtd"];
+
   environment.systemPackages = with pkgs; [
     virt-manager
     virt-viewer
@@ -11,6 +12,7 @@
     adwaita-icon-theme
     virtiofsd
   ];
+
   virtualisation = {
     libvirtd = {
       enable = true;
@@ -22,8 +24,12 @@
     spiceUSBRedirection.enable = true;
   };
   services.spice-vdagentd.enable = true;
+
   networking.firewall = {
     trustedInterfaces = ["virbr0"];
+
+    # "loose" lets packets from libvirt NAT and Tailscale pass the reverse
+    # path check.
     checkReversePath = "loose";
   };
 }

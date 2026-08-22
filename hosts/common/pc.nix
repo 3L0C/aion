@@ -1,3 +1,4 @@
+# Base configuration for desktop and laptop hosts
 {config, ...}: {
   imports = [
     ./global
@@ -25,6 +26,7 @@
     ./optional/openssh-server.nix
     ./optional/yubikey.nix
   ];
+
   assertions = [
     {
       assertion = config.hostSpec.kind == "desktop" || config.hostSpec.kind == "laptop";
@@ -40,7 +42,10 @@
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
   };
+
   services.dbus.implementation = "broker";
+
+  # udev rules for laptop backlight control
   hardware.acpilight.enable = true;
   hardware.keyboard.qmk.enable = true;
 }

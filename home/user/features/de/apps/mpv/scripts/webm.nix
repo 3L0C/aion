@@ -1,7 +1,3 @@
 {pkgs, ...}: {
-  programs.mpv = {
-    scripts = [
-      pkgs.mpvScripts.mpv-webm
-    ];
-  };
+  programs.mpv.scripts = [pkgs.mpvScripts.mpv-webm];
 }

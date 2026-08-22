@@ -36,7 +36,9 @@ in {
     escapeTime = 0;
     mouse = true;
     keyMode = "vi";
+
     prefix = "C-b";
+
     plugins = with pkgs.tmuxPlugins; [
       resurrect
       yank
@@ -114,6 +116,7 @@ in {
       source-file ~/.config/tmux/twm-horizontal.conf
     '';
   };
+
   xdg.configFile."tmux/twm.conf".text = ''
     # TWM Vertical layout configuration
     # All bindings require prefix key

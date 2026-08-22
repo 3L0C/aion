@@ -18,11 +18,11 @@ in {
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "text/html" = "firefox.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "x-scheme-handler/about" = "firefox.desktop";
-        "x-scheme-handler/unknown" = "firefox.desktop";
+        "text/html" = "librewolf.desktop";
+        "x-scheme-handler/http" = "librewolf.desktop";
+        "x-scheme-handler/https" = "librewolf.desktop";
+        "x-scheme-handler/about" = "librewolf.desktop";
+        "x-scheme-handler/unknown" = "librewolf.desktop";
       };
     };
 
@@ -35,13 +35,13 @@ in {
     # User directory paths - using standard capitalized names
     userDirs = {
       enable = true;
-      createDirectories = true; # Automatically create directories
-
+      createDirectories = true;
       desktop = "${home}/Desktop";
       documents = "${home}/Documents";
       download = "${home}/Downloads";
       music = "${home}/Music";
       pictures = "${home}/Pictures";
+      projects = "${home}/Projects";
       publicShare = "${home}/Public";
       templates = "${home}/Templates";
       videos = "${home}/Videos";

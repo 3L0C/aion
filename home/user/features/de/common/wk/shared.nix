@@ -1,9 +1,11 @@
+# Shared wk helpers. mkWkVariant builds compositor-specific wk binaries.
 {
   pkgs,
   config,
   lib,
 }: let
   wksDir = ./wks;
+
   base16Colors = [
     "base00"
     "base01"
@@ -22,6 +24,7 @@
     "base0E"
     "base0F"
   ];
+
   themeVars = lib.concatStringsSep "\n" (
     map (name: '':var "${name}" "${config.lib.stylix.colors.withHashtag.${name}}"'') base16Colors
   );
@@ -33,7 +36,9 @@ in {
   }:
     (pkgs.wk.override {
       wksContent = ''
+        # Stylix theme colors
         ${themeVars}
+
         :include "${entryPoint}"
       '';
       wksDirs = [
@@ -50,9 +55,13 @@ in {
           rm -rf $out/share/man
         '';
     });
+
+  # Plain wk: settings only, no compositor bindings.
   wk = pkgs.wk.override {
     wksContent = ''
+      # Stylix theme colors
       ${themeVars}
+
       :include "common/settings.wks"
     '';
     wksDirs = [

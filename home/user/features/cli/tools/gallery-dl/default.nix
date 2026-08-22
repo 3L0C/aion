@@ -1,4 +1,7 @@
 {
+  # Basically a mashup of:
+  #   - https://github.com/mikf/gallery-dl/blob/master/docs/gallery-dl-example.conf
+  #   - https://github.com/mikf/gallery-dl/blob/master/docs/gallery-dl.conf
   programs.gallery-dl = {
     enable = true;
     settings = {

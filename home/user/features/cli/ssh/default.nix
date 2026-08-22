@@ -28,20 +28,10 @@
   # All SSH key names to deploy via sops
   sshKeyNames = [
     "id_3L0C"
-    "id_anon-T430"
     "id_anskrevy"
     "id_aur"
-    "id_Cole"
     "id_CSUG-Cole"
-    "id_deb-mount"
-    "id_debVPN"
-    "id_ed25519_sk"
-    "id_ed25519_sk_2"
-    "id_john"
     "id_openwrt"
-    "id_rsa"
-    "id_rsa_an0nym0ous"
-    "id_ssh_server"
   ];
 
   # Generate sops.secrets entries for all SSH keys (private + public)
@@ -76,55 +66,6 @@ in {
 
     settings =
       {
-        "codeberg.org-john" = {
-          HostName = "codeberg.org";
-          User = "git";
-          IdentityFile = "~/.ssh/id_john";
-          AddKeysToAgent = "yes";
-        };
-
-        "codeberg.org-anon" = {
-          HostName = "codeberg.org";
-          User = "git";
-          IdentityFile = "~/.ssh/id_anon-T430";
-          AddKeysToAgent = "yes";
-        };
-
-        "codeberg.org:anon" = {
-          HostName = "codeberg.org";
-          User = "git";
-          IdentityFile = "~/.ssh/id_anon-T430";
-          AddKeysToAgent = "yes";
-        };
-
-        "codeberg.org-anskrevy" = {
-          HostName = "codeberg.org";
-          User = "git";
-          IdentityFile = "~/.ssh/id_anskrevy";
-          AddKeysToAgent = "yes";
-        };
-
-        "codeberg.org:anskrevy" = {
-          HostName = "codeberg.org";
-          User = "git";
-          IdentityFile = "~/.ssh/id_anskrevy";
-          AddKeysToAgent = "yes";
-        };
-
-        "github.com-john" = {
-          HostName = "github.com";
-          User = "git";
-          IdentityFile = "~/.ssh/id_john";
-          AddKeysToAgent = "yes";
-        };
-
-        "github.com-anon" = {
-          HostName = "github.com";
-          User = "git";
-          IdentityFile = "~/.ssh/id_anon-T430";
-          AddKeysToAgent = "yes";
-        };
-
         "github.com-anskrevy" = {
           HostName = "github.com";
           User = "git";
@@ -137,14 +78,6 @@ in {
           Port = 53920;
           User = "root";
           IdentityFile = "~/.ssh/openwrt";
-          AddKeysToAgent = "yes";
-        };
-
-        "vult-server" = {
-          HostName = "45.77.184.169";
-          Port = 22;
-          User = "root";
-          IdentityFile = "~/.ssh/id_Cole";
           AddKeysToAgent = "yes";
         };
 
@@ -179,7 +112,4 @@ in {
   };
 
   services.ssh-agent.enable = true;
-  home.sessionVariables = {
-    SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
-  };
 }

@@ -4,9 +4,7 @@
   ...
 }: {
   programs.mpv = {
-    scripts = [
-      pkgs.custom.mpvScripts.homehub
-    ];
+    scripts = [pkgs.custom.mpvScripts.homehub];
     scriptOpts = {
       homehub = {
         enable = false;

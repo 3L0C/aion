@@ -4,6 +4,7 @@
   feeds = import ./feeds.nix;
   videos = import ./videos.nix;
 in {
+  # AdGuard password for the DNS stats widget.
   sops.secrets."adguard/password" = {};
 
   sops.templates."glance-env" = {
@@ -11,6 +12,7 @@ in {
       ADGUARD_PASSWORD=${config.sops.placeholder."adguard/password"}
     '';
   };
+
   stylix.targets.glance.enable = true;
 
   services.glance = {

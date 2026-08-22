@@ -5,6 +5,7 @@
 }: {
   userSpec = {
     kbdOptions = lib.mkDefault "";
+
     theme = {
       base16Scheme = lib.mkDefault "kanagawa-abyss";
       polarity = lib.mkDefault "dark";
@@ -16,6 +17,7 @@
       name = lib.mkDefault "BreezeX-RosePineDawn-Linux";
       baseSize = lib.mkDefault 24;
     };
+
     fonts = {
       emoji = {
         package = lib.mkDefault pkgs.noto-fonts-color-emoji;
@@ -40,11 +42,13 @@
         terminal = lib.mkDefault 16;
       };
     };
+
     icons = {
       package = lib.mkDefault pkgs.papirus-icon-theme;
       dark = lib.mkDefault "Papirus-Dark";
       light = lib.mkDefault "Papirus-Light";
     };
+
     opacity = {
       applications = lib.mkDefault 1.0;
       desktop = lib.mkDefault 1.0;

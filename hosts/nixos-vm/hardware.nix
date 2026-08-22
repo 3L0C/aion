@@ -1,3 +1,4 @@
+# Hardware configuration for the QEMU/KVM virtual machine.
 {
   lib,
   modulesPath,
@@ -13,7 +14,7 @@
         "ahci"
         "xhci_pci"
         "virtio_pci"
-        "virtio_gpu" # Required for Wayland compositors in VM
+        "virtio_gpu" # Necessary for Wayland compositors in the VM.
         "sr_mod"
         "virtio_blk"
       ];
@@ -22,7 +23,10 @@
     kernelModules = ["kvm-amd" "virtio_gpu"];
     extraModulePackages = [];
   };
+
+  # disko provides / and /boot (see ./disks.nix).
   fileSystems = {
+    # virtiofs mounts from the host.
     "/home/user/aion" = {
       device = "aion";
       fsType = "virtiofs";

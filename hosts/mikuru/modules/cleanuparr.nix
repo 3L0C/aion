@@ -1,3 +1,5 @@
+# Cleanuparr qBittorrent orphan torrent cleaner.
+# There is no native NixOS module, so it runs as a Podman container.
 {config, ...}: {
   virtualisation.oci-containers.containers.cleanuparr = {
     image = "ghcr.io/cleanuparr/cleanuparr:latest";
@@ -18,6 +20,7 @@
       "--network=host"
     ];
   };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/cleanuparr 0755 1000 1000 -"
   ];

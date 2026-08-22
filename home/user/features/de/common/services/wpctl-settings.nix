@@ -4,7 +4,7 @@
   ...
 }: {
   systemd.user.services.wpctl-settings = lib.custom.mkWaylandService {
-    riverclassic = {
+    river = {
       Unit = {
         Description = "Configure WirePlumber Bluetooth settings";
       };
@@ -18,6 +18,5 @@
         RestartSec = 2;
       };
     };
-    river = {};
   };
 }

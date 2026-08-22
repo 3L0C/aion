@@ -7,6 +7,7 @@
 
     wireplumber.extraConfig."11-bluetooth-policy" = {
       "wireplumber.settings" = {
+        # Fix duplicated bluetooth headsets
         "bluetooth.autoswitch-to-headset-profile" = false;
       };
     };

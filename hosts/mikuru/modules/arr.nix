@@ -1,3 +1,4 @@
+# *arr media stack with HTTP health checks that restart unresponsive services.
 {pkgs, ...}: let
   mkHealthCheck = name: port: let
     checkScript = pkgs.writeShellScript "${name}-health-check" ''
@@ -60,21 +61,31 @@ in {
       enable = true;
       group = "media";
     };
+
+    # Radarr - movie management
     radarr = {
       enable = true;
       group = "media";
     };
+
+    # Lidarr - music management
     lidarr = {
       enable = true;
       group = "media";
     };
+
+    # Prowlarr - indexer manager
     prowlarr = {
       enable = true;
     };
+
+    # Bazarr - subtitle management
     bazarr = {
       enable = true;
       group = "media";
     };
+
+    # Jellyseerr - request management for Jellyfin
     seerr = {
       enable = true;
       openFirewall = true;

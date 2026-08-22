@@ -1,3 +1,5 @@
+# haruhi: ASUS ROG Zephyrus G16 2025 (GU605CR)
+# Intel Core Ultra 9 285H (Arrow Lake H) + NVIDIA RTX 5070 Ti (Blackwell)
 {
   config,
   inputs,
@@ -6,10 +8,16 @@
 }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
+
+    # Arrow Lake iGPU uses the same architecture as Lunar Lake.
+    # This module enables the xe driver and VAAPI.
     "${inputs.nixos-hardware}/common/gpu/intel/lunar-lake"
+
     "${inputs.nixos-hardware}/common/gpu/nvidia/blackwell"
+
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd
+
     ../common/optional/nvidia.nix
     ../common/optional/power.nix
     ../common/optional/fixes/asus-shutdown-fix.nix
@@ -32,7 +40,7 @@
         "cryptd"
       ];
 
-      # Enable systemd in initrd for FIDO2 LUKS support
+      # systemd in initrd is necessary for FIDO2 LUKS unlock.
       systemd.enable = true;
     };
 
@@ -41,19 +49,28 @@
       "asus_wmi" # ASUS WMI for backlight and hotkeys
     ];
     extraModulePackages = [];
+
+    # OLED backlight fix: disable the NVIDIA backlight handlers so Intel controls the panel.
+    # Reference: https://bbs.archlinux.org/viewtopic.php?id=305237
     kernelParams = [
       "nvidia.NVreg_EnableBacklightHandler=0"
       "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=0"
       "i915.enable_dpcd_backlight=1"
     ];
   };
+
   hardware.nvidia = {
     dynamicBoost.enable = true;
+
+    # RTD3: the dGPU can power down fully. This needs offload mode.
     powerManagement.finegrained = true;
 
     prime = {
+      # Bus IDs confirmed with lspci. Do not change without a new lspci check.
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
+
+      # Run an app on the dGPU with: nvidia-offload <command>
       offload = {
         enable = true;
         enableOffloadCmd = true;
@@ -64,10 +81,12 @@
   nix.settings.max-jobs = 24; # Core Ultra 9 285H has 24 threads
 
   hardware = {
-    enableAllFirmware = true;
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  # ASUS ROG daemon: keyboard backlight, fan control, power profiles.
   services.asusd = {
     enable = true;
   };

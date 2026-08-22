@@ -9,6 +9,7 @@
       "fit_to_page_width" = "w";
       "fit_to_page_height" = "e";
       "previous_item" = "M";
+      # TODO: package sioyek next or previous
       "_snp_next" = "N";
       "_snp_prev" = "P";
       "_snp_quit" = "q";
@@ -21,9 +22,12 @@
       "goto_mark" = "'";
     };
   };
+
+  # Cannot use programs.sioyek.config because of repeated 'new_command' identifiers.
+  # TODO: open a pr to add programs.sioyek.new_commands
   xdg.configFile."sioyek/prefs_user.config".text = ''
     font_size ${toString config.userSpec.fonts.sizes.terminal}
-    ui_font JetBrainsMonoNL Nerd Font
+    ui_font monospace
     background_color 0 0 0
     new_command _snp_next snp -n %{file_path}
     new_command _snp_prev snp -p %{file_path}

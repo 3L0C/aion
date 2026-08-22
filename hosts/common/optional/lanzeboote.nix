@@ -7,14 +7,16 @@
   imports = [inputs.lanzaboote.nixosModules.lanzaboote];
 
   environment.systemPackages = with pkgs; [
-    sbctl # For debugging and troubleshooting Secure Boot
+    sbctl # Secure Boot debugging
   ];
 
   boot = {
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
+
       autoGenerateKeys.enable = true;
+
       autoEnrollKeys = {
         enable = true;
         includeMicrosoftKeys = true;

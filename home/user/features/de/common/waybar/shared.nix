@@ -1,3 +1,4 @@
+# Shared Waybar configuration helpers
 {
   lib,
   pkgs,
@@ -15,6 +16,8 @@ in rec {
     expand-left = true;
     no-center = true;
   };
+
+  # Shared modules-right list (same for both compositors)
   modulesRight = [
     "custom/mpris"
     "custom/sep"
@@ -36,23 +39,21 @@ in rec {
 
   # Shared module definitions
   sharedModules = {
-    "custom/sep" = {
-      format = "|";
-      tooltip = false;
-    };
     "custom/cc-toggle" = {
-      format = " ctrl ";
+      format = "| ctrl ";
       on-click = "eww open --toggle control-center";
       tooltip = false;
     };
+
     idle_inhibitor = {
-      format = " {icon} ";
+      format = "| {icon} ";
       format-icons = {
-        deactivated = "-"; # eye closed (idle inhibited)
-        activated = "0"; # eye open (normal)
+        deactivated = "-";
+        activated = "0";
       };
       tooltip = false;
     };
+
     "custom/mpris" = {
       format = "| {} ";
       format-empty = "";
@@ -64,8 +65,9 @@ in rec {
       on-click-right = "eww open --toggle media-panel";
       tooltip = false;
     };
+
     pulseaudio = {
-      format = " {volume}% ";
+      format = "| {volume}% ";
       format-muted = " MUTED ";
       on-scroll-up = "pamixer -i 2";
       on-scroll-down = "pamixer -d 2";
@@ -77,26 +79,26 @@ in rec {
     # Note: hwmon-path is host-specific, override in extraSettings
     temperature = {
       interval = 10;
-      format = " {temperatureC}°C ";
+      format = "| {temperatureC}°C ";
       tooltip = false;
     };
 
     cpu = {
-      format = " {usage}% ";
+      format = "| {usage}% ";
       interval = 10;
       on-click = "${kitty} -e htop";
       tooltip = false;
     };
 
     memory = {
-      format = " {used:0.1f}G ";
+      format = "| {used:0.1f}G ";
       interval = 10;
       on-click = "${kitty} -e htop";
       tooltip = false;
     };
 
     network = {
-      format-wifi = " {essid} ({signalStrength}%) ";
+      format-wifi = "| {essid} ({signalStrength}%) ";
       format-ethernet = " {ifname} ";
       format-linked = " {ifname} (No IP)";
       format-disconnected = " Disconnected";
@@ -107,7 +109,7 @@ in rec {
     };
 
     clock = {
-      format = " {:%B %d %H:%M} ";
+      format = "| {:%b %d %H:%M} ";
       tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       tooltip = false;
     };
@@ -117,15 +119,16 @@ in rec {
       spacing = 5;
       tooltip = false;
     };
+
     battery = {
       interval = 10;
       states = {
         warning = 30;
         critical = 15;
       };
-      format = " - {capacity}% ";
-      format-charging = " + {capacity}% ";
-      format-plugged = " {capacity}% ";
+      format = "| - {capacity}% ";
+      format-charging = "| + {capacity}% ";
+      format-plugged = "| {capacity}% ";
       format-icons = [
         ""
         ""
@@ -135,13 +138,16 @@ in rec {
       ];
       tooltip = false;
     };
+
     backlight = {
-      format = " bkl:{percent}% ";
+      format = "| bkl:{percent}% ";
       on-scroll-up = "brightnessctl set +5%";
       on-scroll-down = "brightnessctl set 5%-";
       tooltip = false;
     };
   };
+
+  # Helper to build complete waybar config
   mkConfig = {
     modulesLeft,
     compositorModules ? {},

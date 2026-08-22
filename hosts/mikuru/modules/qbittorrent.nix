@@ -8,6 +8,9 @@
   sops = {
     secrets = {
       "airvpn/wg-conf" = {};
+
+      # WebUI password hash (PBKDF2 "@ByteArray(...)" string). Kept out of the repo
+      # and the nix store. Injected into qBittorrent.conf at service start.
       "qbittorrent/webui-password-pbkdf2" = {};
     };
     templates."qbittorrent-webui-password" = {
@@ -18,6 +21,8 @@
       '';
     };
   };
+
+  # VPN namespace name is limited to 7 characters.
   vpnNamespaces.airvpn = {
     enable = true;
     wireguardConfigFile = config.sops.secrets."airvpn/wg-conf".path;
@@ -35,11 +40,12 @@
       }
     ]; # AirVPN forwarded port
   };
+
   services.qbittorrent = {
     enable = true;
     webuiPort = 8081;
     torrentingPort = 38681; # AirVPN forwarded port
-    openFirewall = false; # Handled by VPN namespace
+    openFirewall = false; # The VPN namespace opens the ports.
     serverConfig = {
       Application = {
         FileLogger = {
@@ -126,6 +132,7 @@
           RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
           AuthSubnetWhitelist = "192.168.1.0/24";
           AuthSubnetWhitelistEnabled = false;
+          # Password_PBKDF2 comes from sops (see the ExecStartPre below).
           Port = 8081;
           ServerDomains = "*";
         };
@@ -139,12 +146,14 @@
       };
     };
   };
+
   systemd.services.qbittorrent = {
     vpnConfinement = {
       enable = true;
       vpnNamespace = "airvpn";
     };
     serviceConfig = {
+      # Group-writable umask so *arr services can hardlink downloads.
       UMask = "0002";
       # Append the WebUI password after the module's own ExecStartPre installs
       # the nix-generated qBittorrent.conf. QSettings merges the repeated
@@ -157,9 +166,11 @@
       ];
     };
   };
+
   systemd.tmpfiles.rules = [
     "d /mnt/tank/data/torrents 0775 qbittorrent media -"
     "d /mnt/tank/data/torrents/.incomplete 0775 qbittorrent media -"
   ];
+
   users.users.qbittorrent.extraGroups = ["media"];
 }

@@ -57,6 +57,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Some scripts to interface with mpv via sockets";
     homepage = "https://github.com/3L0C/mpv-scripts";
+    # Upstream has no LICENSE file. gpl3 is deprecated, so use the more
+    # conservative gpl3Only per repo convention.
     license = licenses.gpl3Only;
     maintainers = [(import ../maintainers.nix).threeloc];
     platforms = platforms.unix;

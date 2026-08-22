@@ -26,7 +26,11 @@
     kernelModules = ["kvm-amd"];
     extraModulePackages = [];
   };
+
   nix.settings.max-jobs = 12; # Ryzen 5 5600X: 6 cores / 12 threads
+
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # GPU for hardware transcoding (Jellyfin). RADV and radeonsi VA-API are on by default.
   hardware.graphics.enable = true;
 }

@@ -34,6 +34,9 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [cfg.package];
+
+    # Unit descriptions below are ISC-licensed, author Maxim Baz. See
+    # https://github.com/maximbaz/yubikey-touch-detector/blob/c9fdff7163361d6323e2de0449026710cacbc08a/LICENSE
     systemd.user.sockets.yubikey-touch-detector = mkIf cfg.socket.enable {
       Unit.Description = "Unix socket activation for YubiKey touch detector service";
       Socket = {
@@ -43,6 +46,7 @@ in {
       };
       Install.WantedBy = ["sockets.target"];
     };
+
     systemd.user.services.yubikey-touch-detector = {
       Unit = {
         Description = "Detects when your YubiKey is waiting for a touch";

@@ -9,8 +9,6 @@
     ../common/optional/lanzeboote.nix
     ../common/users/user
   ];
-  boot.initrd.systemd.emergencyAccess = true;
-  boot.kernelParams = ["rd.systemd.debug_shell=1"];
 
   system.stateVersion = "26.11";
 }

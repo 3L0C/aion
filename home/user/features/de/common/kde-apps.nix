@@ -1,3 +1,4 @@
+# KDE/Plasma applications and utilities
 {pkgs, ...}: {
   home.packages = with pkgs; [
     kdePackages.dolphin # Advanced file manager

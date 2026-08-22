@@ -1,3 +1,4 @@
+# Shared Waybar dwm style statusbar
 {
   programs.waybar = {
     style = ''
@@ -23,59 +24,10 @@
           padding: 0 5px;
       }
 
-      /* ========== Hyprland workspaces ========== */
-      #workspaces {
-          margin: 0;
-          padding: 0;
-      }
-
-      #workspaces button {
-          background-color: @base00;
-          color: @base05;
-          border: none;
-          padding: 0 8px;
-          margin: 0;
-      }
-
-      #workspaces button.active {
-          background-color: @base02;
-          color: @base05;
-      }
-
-      #workspaces button.active:hover {
-          background-color: @base02;
-          color: @base05;
-          box-shadow: none;
-          text-shadow: none;
-          transition: none;
-          border-color: transparent;
-      }
-
-      #workspaces button:not(.active):hover {
-          box-shadow: none;
-          text-shadow: none;
-          background: none;
-          transition: none;
-          border-color: transparent;
-      }
-
-      #workspaces button.urgent {
-          background-color: @base08;
-          color: @base00;
-      }
-
-      /* Hyprland custom layout indicator */
+      /* Layout indicator */
       #custom-layout {
           background-color: @base00;
           color: @base05;
-          padding: 0 5px;
-          margin: 0;
-      }
-
-      /* Hyprland submap styling */
-      #submap {
-          background-color: @base09;
-          color: @base00;
           padding: 0 5px;
           margin: 0;
       }

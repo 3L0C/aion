@@ -5,10 +5,15 @@
 }: {
   home.packages = with pkgs;
     [
+      # File Preview Tools
+      chafa # Image-to-text converter for terminal display
+      epub-thumbnailer # EPUB e-books thumbnailer
+      ffmpegthumbnailer # Lightweight video thumbnailer, also a vidthumb dep
+      stable.highlight # Fast and flexible source code highlighter - CLI version
       pistol # General purpose file previewer
-      kitty # Fast, feature-rich, GPU based terminal emulator
-      ffmpegthumbnailer # Lightweight video thumbnailer
-      jq # Lightweight and flexible command-line JSON processor
+      mediainfo # Supplies technical and tag information about media files (CLI interface)
+      ueberzugpp # Drop in replacement for ueberzug written in C++
+      jq # JSON processor, vidthumb dep
     ]
     ++ (builtins.filter lib.isDerivation (builtins.attrValues custom.scripts.lf));
 

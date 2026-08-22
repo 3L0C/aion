@@ -1,4 +1,9 @@
+# Virtual "Noise Canceling Source" microphone with RNNoise. Input only;
+# output is untouched. RNNoise requires 48000 Hz.
 {pkgs, ...}: {
+  # PipeWire 1.6's filter-graph LADSPA loader resolves `plugin` against
+  # LADSPA_PATH and appends `.so`. The field must be a library name only,
+  # and the package must be on LADSPA_PATH.
   services.pipewire.extraLadspaPackages = [pkgs.rnnoise-plugin.ladspa];
 
   services.pipewire.extraConfig.pipewire."99-input-denoising" = {

@@ -1,3 +1,5 @@
+# River 0.4.x compositor with UWSM integration. River 0.4.x ships no window
+# manager; the windowManager option supplies one (default: oxbow).
 {
   config,
   lib,

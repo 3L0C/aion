@@ -22,6 +22,8 @@ in {
       commonSecretsFile = "${secretsDir}/hosts/common/secrets.yaml";
 
       age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
+      # Password secrets for all normal users
       secrets =
         lib.mapAttrs' (n: _: {
           name = "passwords/${n}";

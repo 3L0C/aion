@@ -1,3 +1,5 @@
+# Home configuration for haruhi (laptop)
+# ASUS ROG Zephyrus G16 2025 (GU605CR)
 {lib, ...}: {
   imports = [
     ./global
@@ -8,17 +10,18 @@
 
     ./features/de/river
   ];
+
   monitors = [
     {
-      name = "eDP-1"; # Internal laptop display
+      name = "eDP-1";
       primary = true;
       width = 2560;
-      height = 1600; # 16:10 aspect ratio
+      height = 1600;
       refreshRate = 240.0;
       position = "0x0";
       x = 0;
       y = 0;
-      scale = "1.5"; # HiDPI scaling for 16" 2.5K
+      scale = "1.5";
       enabled = true;
       isOLED = true; # Enable burn-in mitigation
       workspaces = [
@@ -36,6 +39,8 @@
       transform = "normal";
     }
   ];
+
+  # kmonad maps caps to esc/shift. Do not set the XKB swap.
   userSpec = {
     kbdOptions = "";
     kmonadDevice = "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-mouse";

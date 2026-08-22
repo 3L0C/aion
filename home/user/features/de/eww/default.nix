@@ -1,3 +1,6 @@
+# EWW (ElKowar's Wacky Widgets)
+# - Media panel: Shows all active MPRIS players with prev/play-pause/next controls
+# - Control Center: Modular widget system with host-specific layouts
 {
   config,
   lib,
@@ -6,22 +9,27 @@
 }: let
   colors = config.lib.stylix.colors.withHashtag;
   inherit (config.stylix) fonts;
+
   isLaptop = config.hostSpec.kind == "laptop";
   primaryMonitorName = config.primaryMonitor.name;
+
   polls = {
     cc-state = ''
       (defpoll cc-state :interval "1s"
         "~/.config/eww/scripts/control-center.sh")
     '';
+
     power-profile = ''
       (defpoll power-profile :interval "2s"
         "~/.config/eww/scripts/power-profile.sh")
     '';
+
     touchpad-state = ''
       (defpoll touchpad-state :interval "1s"
         "cat $XDG_RUNTIME_DIR/touchpad-state 2>/dev/null || echo enabled")
     '';
   };
+
   widgets = {
     volume-control = {
       requires = ["cc-state"];
@@ -42,6 +50,7 @@
                 ""))))
       '';
     };
+
     backlight-control = {
       requires = ["cc-state"];
       definition = ''
@@ -60,6 +69,7 @@
               "󰌵")))
       '';
     };
+
     power-profile-control = {
       requires = ["power-profile"];
       definition = ''
@@ -82,6 +92,7 @@
       '';
     };
   };
+
   quickActionButtons = {
     search = {
       requires = [];
@@ -91,6 +102,7 @@
           "")
       '';
     };
+
     touchpad = {
       requires = ["touchpad-state"];
       definition = ''
@@ -101,6 +113,7 @@
       '';
     };
   };
+
   layouts = {
     laptop = {
       widgets = ["volume-control" "backlight-control" "power-profile-control"];
@@ -112,6 +125,7 @@
       quickActions = ["search"];
     };
   };
+
   currentLayout =
     if isLaptop
     then layouts.laptop
@@ -122,10 +136,13 @@
     buttonPolls = lib.concatMap (b: quickActionButtons.${b}.requires) layout.quickActions;
   in
     lib.unique (widgetPolls ++ buttonPolls);
+
   generatePolls = pollNames:
     lib.concatStringsSep "\n" (map (p: polls.${p}) pollNames);
+
   generateWidgets = widgetNames:
     lib.concatStringsSep "\n" (map (w: widgets.${w}.definition) widgetNames);
+
   generateQuickActions = buttonNames: ''
     (defwidget quick-actions []
       (box :class "cc-row"
@@ -133,6 +150,7 @@
            :space-evenly true
         ${lib.concatStringsSep "\n    " (map (b: quickActionButtons.${b}.definition) buttonNames)}))
   '';
+
   generateContentWidget = layout: ''
     (defwidget control-center-content []
       (eventbox :onrightclick "eww close control-center"
@@ -142,6 +160,7 @@
           ${lib.concatStringsSep "\n      " (map (w: "(${w})") layout.widgets)}
           (quick-actions))))
   '';
+
   controlCenterYuck = let
     requiredPolls = collectPolls currentLayout;
   in ''
@@ -182,6 +201,7 @@ in {
     enable = true;
     package = pkgs.eww;
   };
+
   home.packages = with pkgs;
     [
       playerctl
@@ -190,6 +210,7 @@ in {
       brightnessctl
     ]
     ++ lib.optional isLaptop asusctl;
+
   xdg.configFile = {
     "eww/media-panel.yuck".text = ''
       ; EWW Media Panel - Shows all active MPRIS players
@@ -244,12 +265,15 @@ in {
                   :onclick "playerctl --player=''${data.player} next"
             "󰒭")))
     '';
+
     "eww/control-center.yuck".text = controlCenterYuck;
+
     "eww/eww.yuck".text = ''
       ; EWW Configuration - Import all panels
       (include "./media-panel.yuck")
       (include "./control-center.yuck")
     '';
+
     "eww/scripts/media-players.sh" = {
       source = ./scripts/media-players.sh;
       executable = true;
@@ -264,6 +288,7 @@ in {
       source = ./scripts/power-profile.sh;
       executable = true;
     };
+
     "eww/eww.scss".text = ''
       // EWW Styling - Media Panel and Control Center
       // Colors from stylix (base16)

@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./layouts/wideriver.nix
-  ];
-}

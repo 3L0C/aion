@@ -1,3 +1,5 @@
+# Tailscale mesh VPN. The mode follows hostSpec.kind: server for headless,
+# client for desktop/laptop. The sops auth key removes the manual `tailscale up`.
 {
   config,
   lib,
@@ -50,6 +52,7 @@ in {
                     if [ "$2" != "up" ] || [ "$1" = "wg0-mullvad" ] || [ "$1" = "tailscale0" ]; then
                       exit 0
                     fi
+
                     (
                       timeout=60
                       while [ $timeout -gt 0 ]; do
@@ -85,6 +88,9 @@ in {
     after = ["tailscaled.service"];
     wants = ["tailscaled.service"];
   };
+
+  # The default Type=notify with a 90s timeout blocks graphical.target when
+  # the network is slow. Fail fast and let systemd retry.
   systemd.services.tailscaled-autoconnect = {
     serviceConfig = {
       TimeoutStartSec = "5s";

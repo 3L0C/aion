@@ -5,22 +5,25 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     historySubstringSearch.enable = true;
-    defaultKeymap = "viins"; # Start in vi insert mode
+
+    defaultKeymap = "viins";
+
     history = {
       size = 10000000;
       save = 10000000;
       path = "${config.xdg.cacheHome}/zsh/history";
-      share = true; # Share history between terminals in real-time
+      share = true;
       ignoreAllDups = true;
       ignoreDups = true;
       ignoreSpace = true;
       expireDuplicatesFirst = true;
     };
+
     setOptions = [
       "AUTOCD" # Automatically cd into typed directory
       "INTERACTIVE_COMMENTS" # Allow comments in interactive shell
-      "HIST_FIND_NO_DUPS"
-      "HIST_SAVE_NO_DUPS"
+      "HIST_FIND_NO_DUPS" # Do not display duplicates of a line previously found
+      "HIST_SAVE_NO_DUPS" # When writing out the history file, older commands that duplicate newer ones are omitted
     ];
 
     # Completion styling
@@ -31,6 +34,7 @@
       compinit
       _comp_options+=(globdots) # Include hidden files
     '';
+
     initContent = ''
       # Disable ctrl-s to freeze terminal
       stty stop undef
@@ -66,6 +70,8 @@
 
       echo -ne '\e[5 q' # Use beam shape cursor on startup
       preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt
+
+      # lf integration; cd on quit
       lfcd () {
           tmp="$(mktemp)"
           lf -last-dir-path="$tmp" "$@"
@@ -80,8 +86,8 @@
       bindkey -s '^o' 'lfcd\n'               # Ctrl-O: Open lf and cd
       bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n' # Ctrl-F: Fuzzy find directory
       bindkey '^[[3~' delete-char            # Delete key
-
     '';
+
     profileExtra = "";
   };
 }

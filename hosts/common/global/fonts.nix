@@ -6,8 +6,8 @@
       noto-fonts-cjk-sans # Google Noto CJK Sans fonts
       noto-fonts-cjk-serif # Google Noto CJK Serif fonts
       noto-fonts-color-emoji # Google Noto Color Emoji font
-      ipafont # Japanese outline fonts by Information-technology Promotion Agency, Japan (IPA)
-      hanazono # A free Japanese kanji font, which contains about 78,685 characters (and 2 SPACEs) defined in ISO/IEC 10646 standard / the Unicode standard
+      ipafont # Japanese outline fonts (IPA)
+      hanazono # Japanese kanji font with wide ISO/IEC 10646 coverage
       nerd-fonts.jetbrains-mono # Patched font JetBrains Mono from nerd fonts library
       nerd-fonts.symbols-only # High number of extra glyphs from popular 'iconic fonts' (monospace)
       mplus-outline-fonts.githubRelease # M+ Japanese outline fonts
@@ -15,11 +15,13 @@
       vista-fonts # Some TrueType fonts from Microsoft Windows Vista
       roboto # Google's signature family of fonts
       ubuntu-sans # Ubuntu font family
+
       source-han-sans # Source Han Sans fonts (includes Japanese)
       source-han-serif # Source Han Serif fonts (includes Japanese)
       ibm-plex # IBM Plex fonts including Japanese support
       freefont_ttf # Free fonts (includes FreeSerif, FreeSans, FreeMono)
     ];
+
     fontconfig = {
       enable = true;
       antialias = true;
@@ -32,6 +34,7 @@
         lcdfilter = "default";
       };
       useEmbeddedBitmaps = true;
+
       defaultFonts = {
         serif = [
           "Inter Nerd Font"
@@ -67,6 +70,8 @@
           "Noto Color Emoji"
         ];
       };
+
+      # Japanese language preferences and aliases
       localConf = ''
         <?xml version="1.0"?>
         <!DOCTYPE fontconfig SYSTEM "fonts.dtd">

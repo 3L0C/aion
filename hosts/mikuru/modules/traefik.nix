@@ -3,7 +3,7 @@
     rule = "Host(`${host}`)";
     inherit service;
     entryPoints = ["websecure"];
-    tls = {}; # Uses default/stored wildcard cert
+    tls = {};
   };
 in {
   sops = {
@@ -118,6 +118,7 @@ in {
           immich.loadBalancer.servers = [{url = "http://localhost:2283";}];
           photoprism.loadBalancer.servers = [{url = "http://localhost:2342";}];
           audiobookshelf.loadBalancer.servers = [{url = "http://localhost:13378";}];
+          # qBittorrent listens on the VPN namespace IP, not localhost.
           qbittorrent.loadBalancer.servers = [{url = "http://192.168.15.1:8081";}];
           glance.loadBalancer.servers = [{url = "http://localhost:8080";}];
           notifiarr.loadBalancer.servers = [{url = "http://localhost:5454";}];
@@ -131,9 +132,11 @@ in {
       };
     };
   };
+
   systemd.services.traefik.serviceConfig.EnvironmentFile = [
     config.sops.templates."traefik-env".path
   ];
+
   systemd.tmpfiles.rules = [
     "d /var/lib/traefik 0750 traefik traefik -"
   ];

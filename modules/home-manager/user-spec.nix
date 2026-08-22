@@ -42,23 +42,13 @@ in {
       type = types.attrsOf types.str;
       default = {
         river = "super";
-        river-classic = "Super";
-        hyprland = "SUPER";
-        niri = "Mod";
       };
       description = ''
         Modifier key(s) for window manager keybindings, per compositor.
-        Different compositors use different syntax:
-        - River 0.4.x (oxbow): "super", "super,shift", "super,ctrl"
-        - River Classic (riverctl): "Super", "Super+Control", "Shift+Control+Alt"
-        - Hyprland: "SUPER", "SUPER_CONTROL", "SUPER_SHIFT"
-        - Niri: "Mod", "Mod+Shift", "Mod+Ctrl" (Mod = Super on TTY, Alt in window)
+        River 0.4.x (oxbow) syntax: "super", "super,shift", "super,ctrl"
       '';
       example = {
         river = "super,ctrl";
-        river-classic = "Super+Control";
-        hyprland = "SUPER_CONTROL";
-        niri = "Mod+Ctrl";
       };
     };
 

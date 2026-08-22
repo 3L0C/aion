@@ -7,6 +7,7 @@
 
   stylix = {
     enable = true;
+    # Services opt in to theming individually
     autoEnable = false;
 
     base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-abyss.yaml";

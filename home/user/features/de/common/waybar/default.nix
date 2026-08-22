@@ -1,13 +1,15 @@
+# Waybar shared configuration
 {pkgs, ...}: {
   imports = [
     ./style.nix
   ];
+
+  # Disable stylix's additional CSS
   stylix.targets.waybar.addCss = false;
 
   # Statusbar scripts used by waybar modules
   home.packages =
     (with pkgs.custom.scripts.statusbar; [
-      sb-internet # Network status
       sb-mpris-json # MPRIS with Playing > Paused > Stopped priority
     ])
     ++ [

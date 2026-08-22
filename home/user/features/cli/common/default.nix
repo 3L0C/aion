@@ -8,9 +8,6 @@
     ./menu.nix
     ./misc.nix
     ./networking.nix
-    ./nix.nix
-    ./previewers.nix
-    ./spelling.nix
     ./system.nix
   ];
 }

@@ -1,4 +1,5 @@
-{lib, ...}: {
+# Home configuration for nixos-vm (debugging VM)
+{
   imports = [
     ./global
 
@@ -7,9 +8,6 @@
     ./features/dev
 
     ./features/de/river
-    ./features/de/hyprland
-    ./features/de/niri
-    ./features/de/kde
   ];
 
   # Single virtual monitor
@@ -41,10 +39,4 @@
       transform = "normal";
     }
   ];
-  userSpec.modifierKeys = lib.mkForce {
-    river = "Super+Control";
-    river-classic = "Super+Control";
-    hyprland = "SUPER_CONTROL";
-    niri = "Mod+Ctrl";
-  };
 }

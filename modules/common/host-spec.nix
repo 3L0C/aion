@@ -20,6 +20,7 @@ in {
       default = false;
       description = "Whether the host is used for work";
     };
+
     cpuThermalZone = mkOption {
       type = types.nullOr types.int;
       description = "Thermal zone to use for CPU temp monitoring";
@@ -40,6 +41,7 @@ in {
       description = "The name of the ethernet interface, if applicable";
       default = null;
     };
+
     cpuHwmonPath = mkOption {
       type = types.nullOr types.str;
       description = "Absolute path to CPU temperature hwmon directory";
@@ -52,12 +54,15 @@ in {
       default = "temp1_input";
       example = "temp3_input";
     };
+
     primaryUser = mkOption {
       type = types.nullOr types.str;
       default = null;
       description = "Primary administrator account name for the host";
       example = "user";
     };
+
+    # Data only; does not dictate configuration settings
     work = mkOption {
       type = types.attrsOf types.anything;
       default = {};

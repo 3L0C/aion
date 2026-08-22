@@ -1,3 +1,5 @@
+# Notifiarr notification relay for *arr apps.
+# There is no native NixOS module, so it runs as a Podman container.
 {config, ...}: {
   virtualisation.oci-containers.containers.notifiarr = {
     image = "golift/notifiarr:latest";
@@ -15,6 +17,7 @@
       "--memory=512m"
     ];
   };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/notifiarr 0755 root root -"
   ];

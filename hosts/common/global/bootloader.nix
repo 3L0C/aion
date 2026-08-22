@@ -1,22 +1,28 @@
 {pkgs, ...}: {
   boot = {
+    # Zen kernel: better for Wine/gaming than Xanmod
     kernelPackages = pkgs.linuxPackages_zen;
+
+    # LZ4 initrd: trades compression ratio for faster decompression at boot
     initrd = {
       compressor = pkgs: "${pkgs.lz4.out}/bin/lz4";
       compressorArgs = [
         "-l" # Legacy format for better compatibility
-        "-10" # Maximum compression level for LZ4
-        "--favor-decSpeed" # Optimize for decompression speed
+        "-10"
+        "--favor-decSpeed"
       ];
     };
+
+    # /tmp stays on the root disk and is cleared at boot. A tmpfs would
+    # compete with large Nix builds for memory.
     tmp.cleanOnBoot = true;
 
     loader = {
       systemd-boot = {
         enable = true;
         configurationLimit = 10;
-        consoleMode = "max"; # Maximum console resolution
-        editor = false; # Disable boot menu editor for security
+        consoleMode = "max";
+        editor = false; # Boot menu editor allows init= root escalation
       };
       efi.canTouchEfiVariables = true;
     };

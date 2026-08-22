@@ -1,3 +1,6 @@
+# Visual novel wine helpers: vn-init, vn-run, vn-shell, vn-migrate.
+# wine and wine-ge store paths are baked in at build time, so the scripts
+# do not depend on PATH order.
 {
   cabextract,
   coreutils,
@@ -8,7 +11,11 @@
   winetricks,
   writeShellScriptBin,
 }: let
+  # vcrun2022 is omitted: winetricks refuses to install it next to vcrun2015,
+  # and vcrun2015 covers most VN engines.
   winetricksVerbs = "corefonts cjkfonts d3dx9 vcrun2015 xact quartz ffdshow";
+
+  # winetricks shells out to cabextract / 7z for extraction.
   initPath = "${winetricks}/bin:${wine}/bin:${wine-ge}/bin:${coreutils}/bin:${cabextract}/bin:${p7zip}/bin";
 in {
   vn-init = writeShellScriptBin "vn-init" ''

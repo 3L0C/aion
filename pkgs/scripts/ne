@@ -17,12 +17,12 @@ readonly GRAY='\033[0;90m'
 readonly NC='\033[0m' # No Color
 
 # Default values
-MODE="config"           # config, options, home, home-options, pkgs
-HOST=""                 # Auto-detect if empty
-FLAKE="."              # Current directory
-OUTPUT_FORMAT="auto"    # auto, json, raw
-APPLY=""               # Custom apply expression
-JQ_FILTER="."          # JQ filter to apply
+MODE="config"        # config, options, home, home-options, pkgs
+HOST=""              # Auto-detect if empty
+FLAKE="."            # Current directory
+OUTPUT_FORMAT="auto" # auto, json, raw
+APPLY=""             # Custom apply expression
+JQ_FILTER="."        # JQ filter to apply
 QUIET=false
 VERBOSE=false
 SHOW_TRACE=false
@@ -61,7 +61,7 @@ success() {
 # ==============================================================================
 
 usage() {
-    cat << EOF
+    cat <<EOF
 Usage: ne [OPTIONS] <path>
 
 Quick Nix evaluation helper for flake configurations.
@@ -114,7 +114,7 @@ EOF
 }
 
 examples() {
-    cat << 'EOF'
+    cat <<'EOF'
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                        ne - Usage Examples                                 ║
 ╚════════════════════════════════════════════════════════════════════════════╝
@@ -288,7 +288,7 @@ declare -A MODE_BUILDERS=(
     [config]="build_nixos_config_target"
     [options]="build_nixos_options_target"
     [home]="build_home_config_target"
-    [home-options]="build_home_options_target"
+    [home - options]="build_home_options_target"
     [pkgs]="build_pkgs_target"
 )
 
@@ -376,16 +376,16 @@ process_output() {
     local output="$1"
 
     case "$OUTPUT_FORMAT" in
-        json)
-            if command -v jq >/dev/null 2>&1; then
-                echo "$output" | jq "$JQ_FILTER"
-            else
-                echo "$output"
-            fi
-            ;;
-        *)
+    json)
+        if command -v jq >/dev/null 2>&1; then
+            echo "$output" | jq "$JQ_FILTER"
+        else
             echo "$output"
-            ;;
+        fi
+        ;;
+    *)
+        echo "$output"
+        ;;
     esac
 }
 
@@ -396,93 +396,93 @@ process_output() {
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
-        -h|--home)
-            MODE="home"
-            shift
-            ;;
-        --home-options)
-            MODE="home-options"
-            shift
-            ;;
-        -c|--config)
-            MODE="config"
-            shift
-            ;;
-        -o|--options)
-            MODE="options"
-            shift
-            ;;
-        -p|--pkgs)
-            MODE="pkgs"
-            shift
-            ;;
-        -j|--json)
-            OUTPUT_FORMAT="json"
-            shift
-            ;;
-        -r|--raw)
-            OUTPUT_FORMAT="raw"
-            shift
-            ;;
-        --jq)
-            JQ_FILTER="$2"
-            OUTPUT_FORMAT="json"
-            shift 2
-            ;;
-        --keys)
-            GET_KEYS=true
-            shift
-            ;;
-        --values)
-            GET_VALUES=true
-            shift
-            ;;
-        --length)
-            GET_LENGTH=true
-            shift
-            ;;
-        --apply)
-            APPLY="$2"
-            shift 2
-            ;;
-        -H|--host)
-            HOST="$2"
-            shift 2
-            ;;
-        --flake)
-            FLAKE="$2"
-            shift 2
-            ;;
-        -q|--quiet)
-            QUIET=true
-            shift
-            ;;
-        -v|--verbose)
-            VERBOSE=true
-            shift
-            ;;
-        --dry-run)
-            DRY_RUN=true
-            VERBOSE=true
-            shift
-            ;;
-        --show-trace)
-            SHOW_TRACE=true
-            shift
-            ;;
-        --examples)
-            examples
-            ;;
-        --help)
-            usage
-            ;;
-        -*)
-            error "Unknown option: $1\nUse --help for usage information"
-            ;;
-        *)
-            POSITIONAL_ARGS+=("$1")
-            shift
-            ;;
+    -h | --home)
+        MODE="home"
+        shift
+        ;;
+    --home-options)
+        MODE="home-options"
+        shift
+        ;;
+    -c | --config)
+        MODE="config"
+        shift
+        ;;
+    -o | --options)
+        MODE="options"
+        shift
+        ;;
+    -p | --pkgs)
+        MODE="pkgs"
+        shift
+        ;;
+    -j | --json)
+        OUTPUT_FORMAT="json"
+        shift
+        ;;
+    -r | --raw)
+        OUTPUT_FORMAT="raw"
+        shift
+        ;;
+    --jq)
+        JQ_FILTER="$2"
+        OUTPUT_FORMAT="json"
+        shift 2
+        ;;
+    --keys)
+        GET_KEYS=true
+        shift
+        ;;
+    --values)
+        GET_VALUES=true
+        shift
+        ;;
+    --length)
+        GET_LENGTH=true
+        shift
+        ;;
+    --apply)
+        APPLY="$2"
+        shift 2
+        ;;
+    -H | --host)
+        HOST="$2"
+        shift 2
+        ;;
+    --flake)
+        FLAKE="$2"
+        shift 2
+        ;;
+    -q | --quiet)
+        QUIET=true
+        shift
+        ;;
+    -v | --verbose)
+        VERBOSE=true
+        shift
+        ;;
+    --dry-run)
+        DRY_RUN=true
+        VERBOSE=true
+        shift
+        ;;
+    --show-trace)
+        SHOW_TRACE=true
+        shift
+        ;;
+    --examples)
+        examples
+        ;;
+    --help)
+        usage
+        ;;
+    -*)
+        error "Unknown option: $1\nUse --help for usage information"
+        ;;
+    *)
+        POSITIONAL_ARGS+=("$1")
+        shift
+        ;;
     esac
 done
 

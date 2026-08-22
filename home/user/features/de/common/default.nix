@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   imports = [
     ./services
     ./tools
@@ -6,21 +6,16 @@
     ./wk
 
     ./browsers.nix
-    ./tridactyl.nix
     ./document-viewers.nix
-    ./filemanagers.nix
+    ./feishin.nix
     ./gnome-apps.nix
     ./kde-apps.nix
-    ./music-players.nix
     ./security.nix
     ./stylix.nix
+    ./tridactyl.nix
     ./virtualization.nix
     ./wayland.nix
     ./wine.nix
     ./xdg.nix
-  ];
-
-  home.packages = with pkgs; [
-    overskride
   ];
 }

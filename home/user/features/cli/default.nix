@@ -1,10 +1,11 @@
 {
   imports = [
-    ./bash.nix
     ./common
-    ./nix-tools.nix
-    ./starship.nix
     ./tools
     ./zsh
+
+    ./bash.nix
+    ./nix-tools.nix
+    ./starship.nix
   ];
 }

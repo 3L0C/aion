@@ -1,3 +1,5 @@
+# Audiobookshelf audiobook/podcast server.
+# There is no native NixOS module, so it runs as a Podman container.
 {config, ...}: {
   virtualisation.oci-containers.containers.audiobookshelf = {
     image = "ghcr.io/advplyr/audiobookshelf:latest";
@@ -17,6 +19,7 @@
       "--cpus=2"
     ];
   };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/audiobookshelf/config 0755 root root -"
     "d /var/lib/audiobookshelf/metadata 0755 root root -"

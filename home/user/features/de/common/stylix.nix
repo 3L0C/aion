@@ -10,10 +10,15 @@
     if scaleStr == "auto"
     then 1.0
     else builtins.fromJSON scaleStr;
+
   scaledCursorSize = builtins.floor (config.userSpec.cursor.baseSize * monitorScale);
+
   us = config.userSpec;
 in {
   imports = [inputs.stylix.homeModules.stylix];
+
+  # Stylix's cursor.nix sets name/package/size but not enable, so without this
+  # the cursor silently reverts to the wlroots default.
   home.pointerCursor.enable = true;
 
   stylix = {

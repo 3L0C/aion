@@ -1,3 +1,4 @@
+# Home configuration for yuki (desktop)
 {
   imports = [
     ./global
@@ -8,6 +9,10 @@
 
     ./features/de/river
   ];
+
+  # Base layout ("all" / work): HP far-left, BenQ center, AOC primary far-right.
+  # Alternate layout ("gaming"): HP far-left, AOC primary center, BenQ far-right.
+  # All three outputs have logical width 2560 (BenQ's 3840 ÷ 1.5 scale).
   monitors = [
     {
       name = "HDMI-A-1"; # HP Omen

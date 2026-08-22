@@ -1,3 +1,4 @@
+# KDE Plasma (Wayland) as a greetd session option, without SDDM
 {pkgs, ...}: {
   services.desktopManager.plasma6.enable = true;
 

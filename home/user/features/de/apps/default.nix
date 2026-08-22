@@ -3,22 +3,22 @@
     ./games
     ./mpv
 
-    ./android-studio.nix
     ./discord.nix
     ./dolphin-emu.nix
     ./dunst.nix
     ./gimp.nix
     ./imv.nix
+    ./inkscape.nix
     ./keepassxc.nix
     ./kitty.nix
     ./lutris.nix
-    ./mullvad.nix
+    ./nomacs.nix
     ./obs.nix
     ./office.nix
+    ./openshot-qt.nix
     ./qbittorrent.nix
     ./rofi.nix
     ./sioyek.nix
-    ./thunderbird.nix
     ./vlc.nix
     ./vn.nix
   ];

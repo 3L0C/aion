@@ -7,8 +7,11 @@
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
   home-manager.users.user = import ../../../../home/user/${config.hostSpec.name}.nix;
+
   programs.zsh.enable = true;
+
   programs.nh.flake = "${config.users.users.user.home}/aion";
+
   users.groups.user = {};
   users.users.user = {
     packages = [pkgs.home-manager];
@@ -31,10 +34,14 @@ in {
         "network"
         "video"
       ];
+
+    # TODO: move authorized keys to secrets
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBM61uXhrZmkI+QGEboOUPnYRb1ZMM85qaYKEGeWRTTZ"
     ];
   };
+
+  # PAM services for screen lockers
   security.pam.services = lib.mkIf (config.hostSpec.kind != "headless") {
     hyprlock = {};
     swaylock = {};

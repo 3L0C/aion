@@ -1,5 +1,3 @@
 {pkgs, ...}: {
-  programs.mpv = {
-    scripts = [pkgs.custom.mpvScripts.trackselect];
-  };
+  programs.mpv.scripts = [pkgs.custom.mpvScripts.trackselect];
 }

@@ -4,6 +4,7 @@
     ./hardware.nix
     ./syncthing.nix
     ./zfs.nix
+
     ../common/optional/stylix.nix
     ../common/optional/fail2ban.nix
     ../common/optional/lanzeboote.nix
@@ -28,13 +29,16 @@
     ./modules/samba.nix
     ./modules/suwayomi.nix
     inputs.vpn-confinement.nixosModules.default
+
     ../common/headless.nix
     ../common/users/user
   ];
   virtualisation.podman = {
     enable = true;
-    dockerCompat = true; # Create docker alias
+    dockerCompat = true;
   };
   virtualisation.oci-containers.backend = "podman";
+
+  # Do not change after the initial install.
   system.stateVersion = "26.11";
 }

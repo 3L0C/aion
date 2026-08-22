@@ -35,7 +35,6 @@
 
   nix.settings.max-jobs = 16;
   hardware = {
-    enableAllFirmware = true; # Helps with compatibility
     xone.enable = true; # Enable the xone driver for xbox one, etc. accessories
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };

@@ -1,11 +1,7 @@
 {pkgs, ...}: {
   programs.mpv = {
-    scripts = [
-      (pkgs.custom.mpvScripts.gallery-view.override {
-        enableContactSheet = true;
-        enablePlaylistView = true;
-      })
-    ];
+    # Gallery-view scripts for mpv
+    scripts = [pkgs.mpvScripts.mpv-gallery-view];
     bindings = {
       "g" = "script-binding playlist_view/playlist-view-toggle";
     };
@@ -88,6 +84,7 @@
         ACCEPT = "ENTER";
         CANCEL = "ESC";
       };
+
       gallery_worker = {
         # mpv-gallery-view | https://github.com/occivink/mpv-gallery-view
         # This is the settings file for scripts/gallery-thumbgen.lua and its copies
@@ -108,6 +105,7 @@
         #See also: ytdl_hook-exclude in mpv's manpage.
         ytdl_exclude = "";
       };
+
       playlist_view = {
         # mpv-gallery-view | https://github.com/occivink/mpv-gallery-view
         # This is the settings file for scripts/playlist-view.lua

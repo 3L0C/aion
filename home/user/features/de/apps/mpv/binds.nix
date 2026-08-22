@@ -71,11 +71,11 @@
 
     # Screenshot WITHOUT subs
     "ctrl+s" = "screenshot video";
-    "e" = "script-binding stats/display-stats";
-    "E" = "script-binding stats/display-stats-toggle";
 
     # Show cached video
     "j" = "show-text \"\${demuxer-cache-time}\"";
+
+    # Get some info
     "alt+m" = "run \"notify-send\" \"mpv-message\" \"media-title: \${media-title}\\nfilename: \${filename}\\npath: \${path}\"";
   };
 }

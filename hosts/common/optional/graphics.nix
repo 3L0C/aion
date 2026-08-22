@@ -6,6 +6,5 @@
     };
 
     uinput.enable = true;
-    enableRedistributableFirmware = true;
   };
 }
