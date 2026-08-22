@@ -4,7 +4,7 @@ in {
   openshot-qt = callPackage ./openshot-qt {};
 
   backup-mikuru = callPackage ./backup-mikuru {};
-
+  jellyproxy = callPackage ./jellyproxy {};
   mpvScripts = callPackage ./mpv/scripts.nix {};
 
   mpvUserScripts = pkgs.lib.recurseIntoAttrs (callPackage ./mpv/user-scripts {});
