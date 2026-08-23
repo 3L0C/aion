@@ -1,0 +1,182 @@
+{
+  flake.modules.nixos.fonts = {pkgs, ...}: {
+    fonts = {
+      packages = with pkgs; [
+        inter-nerdfont # A typeface specially designed for user interfaces
+
+        noto-fonts # Google Noto TTF fonts
+        noto-fonts-cjk-sans # Google Noto CJK Sans fonts
+        noto-fonts-cjk-serif # Google Noto CJK Serif fonts
+        noto-fonts-color-emoji # Google Noto Color Emoji font
+
+        ipafont # Japanese outline fonts (IPA)
+
+        hanazono # Japanese kanji font with wide ISO/IEC 10646 coverage
+
+        nerd-fonts.jetbrains-mono # Patched font JetBrains Mono from nerd fonts library
+        nerd-fonts.symbols-only # High number of extra glyphs from popular 'iconic fonts' (monospace)
+
+        mplus-outline-fonts.githubRelease # M+ Japanese outline fonts
+
+        corefonts # Microsoft Windows fonts
+
+        vista-fonts # Some TrueType fonts from Microsoft Windows Vista
+
+        roboto # Google's signature family of fonts
+
+        ubuntu-sans # Ubuntu font family
+
+        source-han-sans # Source Han Sans fonts (includes Japanese)
+        source-han-serif # Source Han Serif fonts (includes Japanese)
+
+        ibm-plex # IBM Plex fonts including Japanese support
+        freefont_ttf # Free fonts (includes FreeSerif, FreeSans, FreeMono)
+
+        symbola # Basic Latin, Greek, Cyrillic and many Symbol blocks of Unicode
+      ];
+
+      fontconfig = {
+        enable = true;
+        antialias = true;
+        hinting = {
+          enable = true;
+          style = "slight";
+        };
+        subpixel = {
+          rgba = "rgb";
+          lcdfilter = "default";
+        };
+        useEmbeddedBitmaps = true;
+
+        defaultFonts = {
+          serif = [
+            "Inter Nerd Font"
+            "Roboto"
+            "Noto Serif"
+            "FreeSerif"
+            "Noto Serif CJK JP"
+            "IPAPMincho"
+            "Symbols Nerd Font"
+            "Symbola"
+            "Noto Color Emoji"
+          ];
+          sansSerif = [
+            "Inter Nerd Font"
+            "Roboto"
+            "Noto Sans"
+            "FreeSans"
+            "Noto Sans CJK JP"
+            "Source Han Sans JP"
+            "IPAPGothic"
+            "IBM Plex Sans JP"
+            "Symbols Nerd Font"
+            "Symbola"
+            "Noto Color Emoji"
+          ];
+          monospace = [
+            "JetBrainsMonoNL Nerd Font"
+            "Noto Sans Mono"
+            "Noto Sans Mono CJK JP"
+            "IPAPGothic"
+            "Symbols Nerd Font Mono"
+            "Symbola"
+            "Noto Color Emoji"
+          ];
+          emoji = [
+            "Noto Color Emoji"
+          ];
+        };
+
+        # Japanese language preferences and aliases
+        localConf = ''
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+          <fontconfig>
+            <!-- Japanese language-specific font preferences -->
+            <match>
+              <test name="lang" compare="contains">
+                <string>ja</string>
+              </test>
+              <test name="family">
+                <string>serif</string>
+              </test>
+              <edit name="family" mode="prepend">
+                <string>Noto Serif CJK JP</string>
+              </edit>
+            </match>
+
+            <match>
+              <test name="lang" compare="contains">
+                <string>ja</string>
+              </test>
+              <test name="family">
+                <string>sans-serif</string>
+              </test>
+              <edit name="family" mode="prepend">
+                <string>Noto Sans CJK JP</string>
+              </edit>
+            </match>
+
+            <match>
+              <test name="lang" compare="contains">
+                <string>ja</string>
+              </test>
+              <test name="family">
+                <string>monospace</string>
+              </test>
+              <edit name="family" mode="prepend">
+                <string>Noto Sans Mono CJK JP</string>
+              </edit>
+            </match>
+
+            <!-- Font aliases for compatibility -->
+            <alias>
+              <family>sans</family>
+              <prefer>
+                <family>sans-serif</family>
+              </prefer>
+            </alias>
+
+            <alias>
+              <family>mono</family>
+              <prefer>
+                <family>monospace</family>
+              </prefer>
+            </alias>
+
+            <!-- Japanese font family aliases -->
+            <alias>
+              <family>JAPANESE-SERIF</family>
+              <prefer>
+                <family>Noto Serif CJK JP</family>
+                <family>IPAPMincho</family>
+                <family>Source Han Serif JP</family>
+                <family>M+ 1c</family>
+              </prefer>
+            </alias>
+
+            <alias>
+              <family>JAPANESE-SANS</family>
+              <prefer>
+                <family>Noto Sans CJK JP</family>
+                <family>Source Han Sans JP</family>
+                <family>IPAPGothic</family>
+                <family>M+ 1c</family>
+              </prefer>
+            </alias>
+
+            <alias>
+              <family>JAPANESE-MONO</family>
+              <prefer>
+                <family>Noto Sans Mono CJK JP</family>
+                <family>IPAPGothic</family>
+                <family>Source Han Sans JP</family>
+                <family>M+ 1c</family>
+              </prefer>
+            </alias>
+          </fontconfig>
+        '';
+      };
+    };
+  };
+}
