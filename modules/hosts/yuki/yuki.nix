@@ -14,7 +14,7 @@ in {
       amdgpu-sdma-fix
       ollama
       open-webui
-      syncthing
+      syncthing-ports
     ];
 
     hostSpec = {
@@ -35,7 +35,7 @@ in {
     };
 
     home-manager.users.user.imports =
-      (with hm; [cli de dev river oxbow eww])
+      (with hm; [cli de dev river oxbow eww syncthing])
       ++ [hm."hosts/yuki"];
 
     # Do not change after the initial install. See the stateVersion option documentation.

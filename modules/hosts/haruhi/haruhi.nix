@@ -12,7 +12,7 @@ in {
       backlight
       kmonad
       lanzaboote
-      syncthing
+      syncthing-ports
     ];
 
     hostSpec = {
@@ -34,7 +34,7 @@ in {
     };
 
     home-manager.users.user.imports =
-      (with hm; [cli de dev river oxbow eww])
+      (with hm; [cli de dev river oxbow eww syncthing])
       ++ [hm."hosts/haruhi"];
 
     system.stateVersion = "26.11";
