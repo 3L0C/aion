@@ -4,7 +4,7 @@
       default_stages = ["pre-commit"];
       src = ../..;
       hooks = {
-        alejandra.enable = true;
+        nixfmt.enable = true;
         deadnix.enable = true;
         statix.enable = true;
 
