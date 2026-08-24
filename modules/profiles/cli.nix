@@ -1,0 +1,31 @@
+{config, ...}: {
+  flake.modules.homeManager.cli.imports = with config.flake.modules.homeManager; [
+    archives
+    audio-tools
+    bash
+    bat
+    btop
+    claude
+    cli-core
+    documents
+    eza
+    filesystems
+    fzf
+    gallery-dl
+    gpg
+    help
+    lf
+    man
+    media
+    menu
+    mpc
+    networking
+    nix-index
+    starship
+    system
+    tmux
+    web-tools
+    yt-dlp
+    zsh
+  ];
+}

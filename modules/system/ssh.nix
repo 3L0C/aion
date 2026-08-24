@@ -1,14 +1,16 @@
 # SSH client configuration
 {
+  config,
+  inputs,
+  ...
+}: {
   flake.modules.nixos.ssh = {
     pkgs,
     lib,
-    inputs,
-    outputs,
     ...
   }: let
     secretsDir = inputs.secrets.outPath;
-    hosts = lib.attrNames outputs.nixosConfigurations;
+    hosts = lib.attrNames config.hosts;
     hostsWithKeys =
       lib.filter
       (hostname: builtins.pathExists "${secretsDir}/hosts/${hostname}/ssh_host_ed25519_key.pub")
@@ -23,7 +25,6 @@
       knownHosts = lib.genAttrs hostsWithKeys (hostname: {
         publicKey =
           builtins.readFile "${secretsDir}/hosts/${hostname}/ssh_host_ed25519_key.pub";
-        extraHostNames = ["${hostname}.tail7d01e8.ts.net"];
       });
       knownHostsFiles = [
         (pkgs.writeText "known_hosts_github" ''

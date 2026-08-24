@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./wpctl-settings.nix
-  ];
-}

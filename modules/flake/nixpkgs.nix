@@ -33,6 +33,11 @@
     wine-ge = final: _prev: {
       inherit (inputs.nix-gaming.packages.${final.stdenv.hostPlatform.system}) wine-ge;
     };
+
+    # Lix-linked builds of tools that hardcode a Nix reference, for
+    # ad-hoc `nix run`. Namespaced under pkgs.lixTools.*: shadowing the
+    # canonical attrs caused infinite recursion (nix-update ->
+    # nixpkgs-review -> itself through the overlay).
     lix = _final: prev: {
       lixTools = {
         inherit
@@ -49,6 +54,9 @@
       openldap = prev.openldap.overrideAttrs {
         doCheck = !prev.stdenv.hostPlatform.isi686;
       };
+
+      # xdg-desktop-portal-wlr: build from master for PipeWire 1.6.x fix and
+      # screencast improvements (buffer flags, damage reporting) not in 0.8.1
       xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs {
         version = "0.8.1-unstable-2026-03-19";
         src = prev.fetchFromGitHub {

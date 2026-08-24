@@ -1,0 +1,37 @@
+{config, ...}: {
+  flake.modules.homeManager.de.imports = with config.flake.modules.homeManager; [
+    android
+    appearance
+    browsers
+    document-viewers
+    dunst
+    feishin
+    games
+    gimp
+    gnome-apps
+    hm-wayland
+    imv
+    inkscape
+    kde-apps
+    keepassxc
+    kitty
+    mpv
+    nomacs
+    obs
+    office
+    openshot-qt
+    qbittorrent
+    rofi
+    security
+    sioyek
+    stylix
+    tridactyl
+    vesktop
+    virtualization
+    vlc
+    waybar
+    wk
+    wpctl-settings
+    xdg
+  ];
+}

@@ -1,0 +1,22 @@
+{
+  flake.modules.homeManager.eza = {
+    config,
+    lib,
+    ...
+  }: {
+    programs.eza = {
+      enable = true;
+
+      icons = "always";
+      git = true;
+    };
+
+    programs.zsh.shellAliases = lib.mkIf config.programs.zsh.enable {
+      l = "eza -lah";
+      la = "eza -lah";
+      ll = "eza -lh";
+      ls = "eza --no-quotes --color=auto --group-directories-first";
+      lsa = "eza -lah";
+    };
+  };
+}

@@ -1,0 +1,7 @@
+{
+  flake.modules.homeManager.qbittorrent = {pkgs, ...}: {
+    home.packages = with pkgs; [
+      qbittorrent # An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar
+    ];
+  };
+}

@@ -1,9 +1,14 @@
 # haruhi: ASUS ROG Zephyrus G16 2025 (GU605CR)
 # Intel Core Ultra 9 285H (Arrow Lake H) + NVIDIA RTX 5070 Ti (Blackwell)
 {
+  inputs,
+  config,
+  ...
+}: let
+  nixosModules = config.flake.modules.nixos;
+in {
   flake.modules.nixos."hosts/haruhi" = {
     config,
-    inputs,
     lib,
     ...
   }: {
@@ -19,7 +24,7 @@
         common-pc-laptop
         common-pc-ssd
       ])
-      ++ (with config.flake.modules.nixos; [
+      ++ (with nixosModules; [
         nvidia
         power
         asus-shutdown-fix

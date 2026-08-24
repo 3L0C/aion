@@ -1,6 +1,6 @@
-{
+# sops-nix wiring for both classes.
+{inputs, ...}: {
   flake.modules.nixos.secrets = {
-    inputs,
     config,
     lib,
     ...
@@ -34,6 +34,22 @@
           })
           normalUsers;
       };
+    };
+  };
+
+  # Home-manager sops-nix integration (old home/user/global/secrets.nix)
+  flake.modules.homeManager.secrets = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [inputs.sops-nix.homeManagerModules.sops];
+
+    home.packages = [pkgs.sops];
+
+    sops = {
+      age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+      defaultSopsFile = "${inputs.secrets.outPath}/users/user/secrets.yaml";
     };
   };
 }

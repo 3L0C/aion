@@ -1,0 +1,64 @@
+# oxbow entry point for wk
+
+# Workspace numbers
+:var "WS_1" "1"
+:var "WS_2" "2"
+:var "WS_3" "3"
+:var "WS_4" "4"
+:var "WS_5" "5"
+:var "WS_6" "6"
+:var "WS_7" "7"
+:var "WS_8" "8"
+:var "WS_9" "9"
+
+# Monitors
+:var "MONITOR_BENQ" "DP-3"
+:var "MONITOR_AOC" "DP-1"
+:var "MONITOR_HP" "HDMI-A-1"
+
+# Window management commands
+:var "CMD_CLOSE_WINDOW" "oxctl window close"
+:var "CMD_TOGGLE_FLOAT" "oxctl window toggle floating"
+:var "CMD_TOGGLE_FULLSCREEN" "oxctl window toggle fullscreen"
+
+# Stack navigation
+:var "CMD_FOCUS_NEXT" "oxctl window focus next"
+:var "CMD_FOCUS_PREV" "oxctl window focus prev"
+:var "CMD_FOCUS_DOWN" "oxctl window focus down"
+:var "CMD_FOCUS_UP" "oxctl window focus up"
+:var "CMD_SWAP_DOWN" "oxctl window shift next"
+:var "CMD_SWAP_UP" "oxctl window shift prev"
+
+# Tag operations (partial application)
+:var "CMD_SWITCH_WS" "oxctl tag view"
+:var "CMD_GO_WORKSPACE" "oxctl tag view"
+:var "CMD_MOVE_TO_WS" "oxctl window tag set"
+
+# Relative tag navigation
+:var "CMD_WS_NEXT" "oxctl tag next --occupied"
+:var "CMD_WS_PREV" "oxctl tag prev --occupied"
+:var "CMD_MOVE_NEXT" "oxctl window tag shift next --occupied"
+:var "CMD_MOVE_PREV" "oxctl window tag shift prev --occupied"
+
+# Monitor/output operations
+:var "CMD_MOVE_TO_BENQ" "oxctl window send to %(MONITOR_BENQ)"
+:var "CMD_MOVE_TO_AOC" "oxctl window send to %(MONITOR_AOC)"
+:var "CMD_MOVE_TO_HP" "oxctl window send to %(MONITOR_HP)"
+
+# Screenshot utilities
+:var "CMD_GET_WINDOW_GEOMETRY" "slurp"
+
+# Workflow workspace assignments
+:var "WS_EMACS" "2"
+:var "WS_FIREFOX" "3"
+:var "WS_GAMES" "4"
+:var "WS_CHROMIUM" "4"
+:var "WS_FEEDS" "5"
+:var "WS_KEEPASSXC" "9"
+:var "WS_SUPERSONIC" "9"
+
+# DE commands
+:var "CMD_DE_EXIT" "uwsm stop"
+
+:include "../common/main.wks"
+:include "window-management.wks"

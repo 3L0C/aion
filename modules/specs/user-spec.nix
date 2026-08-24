@@ -1,6 +1,10 @@
 {
   # User specification: preferences that follow the user across hosts
-  flake.modules.homeManager.user-spec = {lib, ...}: let
+  flake.modules.homeManager.user-spec = {
+    lib,
+    pkgs,
+    ...
+  }: let
     inherit (lib) mkOption types;
 
     # Font option type: package + name
@@ -190,6 +194,19 @@
           default = 1.0;
           description = "Opacity for terminal";
         };
+      };
+
+      terminal = mkOption {
+        type = types.package;
+        default = pkgs.kitty;
+        defaultText = "pkgs.kitty";
+        description = "Terminal emulator package";
+      };
+
+      defaultBrowser = mkOption {
+        type = types.str;
+        default = "librewolf.desktop";
+        description = "Desktop file name of the default web browser";
       };
     };
   };

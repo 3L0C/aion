@@ -1,0 +1,19 @@
+{
+  flake.modules.nixos.pipewire = {
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+
+      wireplumber.extraConfig."11-bluetooth-policy" = {
+        "wireplumber.settings" = {
+          # Fix duplicated bluetooth headsets
+          "bluetooth.autoswitch-to-headset-profile" = false;
+        };
+      };
+    };
+
+    hardware.alsa.enablePersistence = true;
+  };
+}
