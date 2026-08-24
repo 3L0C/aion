@@ -2,10 +2,7 @@
   lib' = config.flake.lib;
 in {
   flake.modules.homeManager.river = {pkgs, ...}: let
-    lock = ''
-      ${pkgs.swaylock}/bin/swaylock --daemonize; \
-      ${pkgs.systemd}/bin/loginctl lock-session
-    '';
+    lock = "${pkgs.swaylock}/bin/swaylock --daemonize; ${pkgs.systemd}/bin/loginctl lock-session";
     display = status: "${pkgs.wlopm}/bin/wlopm --${status} \\*";
     # 2 minutes
     displayTimeout = 120;
