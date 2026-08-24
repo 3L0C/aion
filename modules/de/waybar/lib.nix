@@ -61,7 +61,7 @@
 
       pulseaudio = {
         format = "| {volume}% ";
-        format-muted = " MUTED ";
+        format-muted = "| MUTED ";
         on-scroll-up = "pamixer -i 2";
         on-scroll-down = "pamixer -d 2";
         on-click = "${terminal} --class pulsemixer pulsemixer";
@@ -92,10 +92,10 @@
 
       network = {
         format-wifi = "| {essid} ({signalStrength}%) ";
-        format-ethernet = " {ifname} ";
-        format-linked = " {ifname} (No IP)";
-        format-disconnected = " Disconnected";
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
+        format-ethernet = "| {ifname} ";
+        format-linked = "| {ifname} (No IP) ";
+        format-disconnected = "| Disconnected ";
+        format-alt = "| {ifname}: {ipaddr}/{cidr} ";
         tooltip-format = "{ifname}: {ipaddr}";
         on-click = "${terminal} -e nmtui";
         tooltip = false;
