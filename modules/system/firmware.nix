@@ -1,6 +1,6 @@
 {
-  flake.modules.nixos.firmware = {pkgs, ...}: {
-    environment.systemPackages = [pkgs.pciutils];
+  flake.modules.nixos.firmware = { pkgs, ... }: {
+    environment.systemPackages = [ pkgs.pciutils ];
     hardware.enableAllFirmware = true;
   };
 }

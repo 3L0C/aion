@@ -1,32 +1,34 @@
-{inputs, ...}: {
-  flake.modules.nixos.lanzaboote = {
-    lib,
-    pkgs,
-    ...
-  }: {
-    imports = [inputs.lanzaboote.nixosModules.lanzaboote];
+{ inputs, ... }: {
+  flake.modules.nixos.lanzaboote =
+    {
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-    environment.systemPackages = with pkgs; [
-      sbctl # Secure Boot debugging
-    ];
+      environment.systemPackages = with pkgs; [
+        sbctl # Secure Boot debugging
+      ];
 
-    boot = {
-      lanzaboote = {
-        enable = true;
-        pkiBundle = "/var/lib/sbctl";
-
-        autoGenerateKeys.enable = true;
-
-        autoEnrollKeys = {
+      boot = {
+        lanzaboote = {
           enable = true;
-          includeMicrosoftKeys = true;
+          pkiBundle = "/var/lib/sbctl";
+
+          autoGenerateKeys.enable = true;
+
+          autoEnrollKeys = {
+            enable = true;
+            includeMicrosoftKeys = true;
+          };
+        };
+        loader = {
+          # Lanzaboote replaces systemd-boot
+          systemd-boot.enable = lib.mkForce false;
+          efi.canTouchEfiVariables = true;
         };
       };
-      loader = {
-        # Lanzaboote replaces systemd-boot
-        systemd-boot.enable = lib.mkForce false;
-        efi.canTouchEfiVariables = true;
-      };
     };
-  };
 }

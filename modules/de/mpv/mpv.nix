@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.mpv = {pkgs, ...}: {
+  flake.modules.homeManager.mpv = { pkgs, ... }: {
     programs.mpv.enable = true;
 
     # MPV helper scripts

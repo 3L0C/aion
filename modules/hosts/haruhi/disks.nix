@@ -1,7 +1,7 @@
 # Declarative disk partitioning for haruhi
-{inputs, ...}: {
+{ inputs, ... }: {
   flake.modules.nixos."hosts/haruhi" = {
-    imports = [inputs.disko.nixosModules.disko];
+    imports = [ inputs.disko.nixosModules.disko ];
 
     disko.devices = {
       disk.main = {

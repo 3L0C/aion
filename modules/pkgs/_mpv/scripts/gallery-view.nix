@@ -69,18 +69,16 @@ pkgs.mpvScripts.mpv-gallery-view.overrideAttrs (oldAttrs: {
     scriptName = "gallery-view";
   };
 
-  meta =
-    oldAttrs.meta
-    // {
-      description = "Gallery-view scripts for mpv";
-      longDescription = ''
-        mpv-gallery-view provides a gallery view for mpv that allows you to
-        navigate through multiple files in a grid-like interface.
+  meta = oldAttrs.meta // {
+    description = "Gallery-view scripts for mpv";
+    longDescription = ''
+      mpv-gallery-view provides a gallery view for mpv that allows you to
+      navigate through multiple files in a grid-like interface.
 
-        Enabled components:
-        ${lib.optionalString enablePlaylistView "- Playlist view interface"}
-        ${lib.optionalString enableContactSheet "- Contact sheet grid view"}
-      '';
-      maintainers = [(import ../../_maintainers.nix).threeloc];
-    };
+      Enabled components:
+      ${lib.optionalString enablePlaylistView "- Playlist view interface"}
+      ${lib.optionalString enableContactSheet "- Contact sheet grid view"}
+    '';
+    maintainers = [ (import ../../_maintainers.nix).threeloc ];
+  };
 })

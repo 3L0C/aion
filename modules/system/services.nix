@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.services = {pkgs, ...}: {
+  flake.modules.nixos.services = { pkgs, ... }: {
     services = {
       dbus = {
         enable = true;

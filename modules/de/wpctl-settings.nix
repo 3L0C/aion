@@ -1,7 +1,9 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.flake.lib) mkWaylandService;
-in {
-  flake.modules.homeManager.wpctl-settings = {pkgs, ...}: {
+in
+{
+  flake.modules.homeManager.wpctl-settings = { pkgs, ... }: {
     systemd.user.services.wpctl-settings = mkWaylandService {
       river = {
         Unit = {

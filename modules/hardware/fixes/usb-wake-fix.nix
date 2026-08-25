@@ -1,6 +1,6 @@
 # Disable wake-on-USB for Logitech receivers (ID 046d:c547 and any 046d)
 {
-  flake.modules.nixos.usb-wake-fix = {pkgs, ...}: {
+  flake.modules.nixos.usb-wake-fix = { pkgs, ... }: {
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c547", ATTR{power/wakeup}="disabled"
       SUBSYSTEM=="usb", ATTRS{idVendor}=="046d", ATTR{power/wakeup}="disabled"
@@ -9,8 +9,8 @@
     # Fallback for devices the udev rules miss at boot
     systemd.services.disable-logitech-wakeup = {
       description = "Disable Logitech USB receiver wakeup";
-      wantedBy = ["multi-user.target"];
-      after = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;

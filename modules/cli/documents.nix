@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.documents = {pkgs, ...}: {
+  flake.modules.homeManager.documents = { pkgs, ... }: {
     home.packages = with pkgs; [
       catdoc # A convertor for Microsoft Word, Excel, PowerPoint and RTF Files to text
       glow # Command-line markdown renderer

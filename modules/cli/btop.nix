@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.btop = {pkgs, ...}: {
+  flake.modules.homeManager.btop = { pkgs, ... }: {
     programs.btop = {
       enable = true;
 
@@ -10,6 +10,6 @@
       };
     };
 
-    home.packages = with pkgs; [nvtopPackages.amd];
+    home.packages = with pkgs; [ nvtopPackages.amd ];
   };
 }

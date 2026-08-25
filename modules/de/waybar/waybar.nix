@@ -1,6 +1,6 @@
 {
   # Waybar shared configuration
-  flake.modules.homeManager.waybar = {pkgs, ...}: {
+  flake.modules.homeManager.waybar = { pkgs, ... }: {
     # Disable stylix's additional CSS
     stylix.targets.waybar.addCss = false;
 

@@ -16,12 +16,12 @@ pkgs.mpvScripts.buildLua {
     hash = "sha256-bC9suv/wuxFk3rhIKMsv6Bwcag9wkWkphh8g32wDlno=";
   };
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Script for mpv that turns it into a jellyfin client.";
     homepage = "https://github.com/EmperorPenguin18/mpv-jellyfin";
     license = lib.licenses.unlicense;
-    maintainers = [(import ../../_maintainers.nix).threeloc];
+    maintainers = [ (import ../../_maintainers.nix).threeloc ];
   };
 }

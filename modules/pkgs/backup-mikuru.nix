@@ -1,5 +1,5 @@
 {
-  perSystem = {pkgs, ...}: {
-    packages.backup-mikuru = pkgs.callPackage ./_backup-mikuru {};
+  perSystem = { pkgs, ... }: {
+    packages.backup-mikuru = pkgs.callPackage ./_backup-mikuru { };
   };
 }

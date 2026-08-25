@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.bootloader = {pkgs, ...}: {
+  flake.modules.nixos.bootloader = { pkgs, ... }: {
     boot = {
       # Zen kernel: better for Wine/gaming than Xanmod
       kernelPackages = pkgs.linuxPackages_zen;

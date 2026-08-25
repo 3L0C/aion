@@ -1,6 +1,6 @@
 {
-  flake.modules.nixos.nvidia = {lib, ...}: {
-    services.xserver.videoDrivers = ["nvidia"];
+  flake.modules.nixos.nvidia = { lib, ... }: {
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware.nvidia = {
       # Open kernel modules: required for Turing+ (RTX 20+), mandatory for

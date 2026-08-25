@@ -1,7 +1,7 @@
 # Ollama LLM server on 127.0.0.1:11434. The GPU package variant and
 # the device pin are host slices (see modules/hosts/yuki/ollama.nix).
 {
-  flake.modules.nixos.ollama = {lib, ...}: {
+  flake.modules.nixos.ollama = { lib, ... }: {
     services.ollama = {
       enable = true;
 
@@ -14,7 +14,7 @@
     };
 
     # No autostart; keep the GPU free by default.
-    systemd.services.ollama.wantedBy = lib.mkForce [];
-    systemd.services.ollama-model-loader.wantedBy = lib.mkForce [];
+    systemd.services.ollama.wantedBy = lib.mkForce [ ];
+    systemd.services.ollama-model-loader.wantedBy = lib.mkForce [ ];
   };
 }

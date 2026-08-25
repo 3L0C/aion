@@ -1,7 +1,7 @@
-{inputs, ...}: {
-  perSystem = {system, ...}: {
+{ inputs, ... }: {
+  perSystem = { system, ... }: {
     checks.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-      default_stages = ["pre-commit"];
+      default_stages = [ "pre-commit" ];
       src = ../..;
       hooks = {
         nixfmt.enable = true;

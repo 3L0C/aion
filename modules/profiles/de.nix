@@ -1,4 +1,4 @@
-{config, ...}: {
+{ config, ... }: {
   flake.modules.homeManager.de.imports = with config.flake.modules.homeManager; [
     android
     appearance

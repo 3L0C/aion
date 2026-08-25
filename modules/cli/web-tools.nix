@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.web-tools = {pkgs, ...}: {
+  flake.modules.homeManager.web-tools = { pkgs, ... }: {
     home.packages = with pkgs; [
       jqp # TUI playground to experiment with jq
       lynx # Text browser for the World Wide Web

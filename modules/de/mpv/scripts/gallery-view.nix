@@ -1,8 +1,8 @@
 {
-  flake.modules.homeManager.mpv = {pkgs, ...}: {
+  flake.modules.homeManager.mpv = { pkgs, ... }: {
     programs.mpv = {
       # Gallery-view scripts for mpv
-      scripts = [pkgs.mpvScripts.mpv-gallery-view];
+      scripts = [ pkgs.mpvScripts.mpv-gallery-view ];
       bindings = {
         "g" = "script-binding playlist_view/playlist-view-toggle";
       };

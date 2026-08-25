@@ -1,6 +1,6 @@
 # KDE Plasma (Wayland) as a greetd session option, without SDDM
 {
-  flake.modules.nixos.kde = {pkgs, ...}: {
+  flake.modules.nixos.kde = { pkgs, ... }: {
     # Do not import the wayland aspect here. plasma6 does its own
     # Wayland setup (portals, qt.platformTheme, dbus), and the forced
     # QT_QPA_PLATFORM can interfere.

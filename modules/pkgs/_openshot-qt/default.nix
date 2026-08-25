@@ -1,7 +1,8 @@
 {
   appimageTools,
   fetchurl,
-}: let
+}:
+let
   pname = "openshot-qt";
   version = "3.5.1";
 
@@ -14,17 +15,17 @@
     inherit pname version src;
   };
 in
-  appimageTools.wrapAppImage {
-    inherit pname version;
-    src = appimageContents;
-    extraPkgs = pkgs: [pkgs.libva];
-    extraInstallCommands = ''
-      install -m 444 -D ${appimageContents}/org.openshot.OpenShot.desktop \
-        $out/share/applications/org.openshot.OpenShot.desktop
-      substituteInPlace $out/share/applications/org.openshot.OpenShot.desktop \
-        --replace-fail 'Exec=openshot-qt-launch %F' 'Exec=openshot-qt %F'
-      install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/openshot-qt.png \
-        $out/share/icons/hicolor/512x512/apps/openshot-qt.png
-    '';
-    passthru.src = src;
-  }
+appimageTools.wrapAppImage {
+  inherit pname version;
+  src = appimageContents;
+  extraPkgs = pkgs: [ pkgs.libva ];
+  extraInstallCommands = ''
+    install -m 444 -D ${appimageContents}/org.openshot.OpenShot.desktop \
+      $out/share/applications/org.openshot.OpenShot.desktop
+    substituteInPlace $out/share/applications/org.openshot.OpenShot.desktop \
+      --replace-fail 'Exec=openshot-qt-launch %F' 'Exec=openshot-qt %F'
+    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/openshot-qt.png \
+      $out/share/icons/hicolor/512x512/apps/openshot-qt.png
+  '';
+  passthru.src = src;
+}

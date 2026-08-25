@@ -1,6 +1,8 @@
-{writeShellScriptBin}: let
+{ writeShellScriptBin }:
+let
   mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
-in {
+in
+{
   sb-actions = mkScript "sb-actions" ./sb-actions;
   sb-battery = mkScript "sb-battery" ./sb-battery;
   sb-clock = mkScript "sb-clock" ./sb-clock;

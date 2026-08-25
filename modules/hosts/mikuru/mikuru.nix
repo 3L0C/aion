@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   hm = config.flake.modules.homeManager;
-in {
+in
+{
   hosts.mikuru = {
     system = "x86_64-linux";
   };
@@ -57,7 +59,7 @@ in {
       syncthing.port = 8384;
     };
 
-    home-manager.users.user.imports = [hm.cli];
+    home-manager.users.user.imports = [ hm.cli ];
 
     # Do not change after the initial install.
     system.stateVersion = "26.11";

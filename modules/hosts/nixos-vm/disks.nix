@@ -1,6 +1,6 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   flake.modules.nixos."hosts/nixos-vm" = {
-    imports = [inputs.disko.nixosModules.disko];
+    imports = [ inputs.disko.nixosModules.disko ];
 
     disko.devices = {
       disk.main = {
@@ -17,8 +17,14 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                extraArgs = ["-n" "NIXBOOT"];
-                mountOptions = ["fmask=0077" "dmask=0077"];
+                extraArgs = [
+                  "-n"
+                  "NIXBOOT"
+                ];
+                mountOptions = [
+                  "fmask=0077"
+                  "dmask=0077"
+                ];
               };
             };
             root = {
@@ -28,7 +34,10 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
-                extraArgs = ["-L" "NIXROOT"];
+                extraArgs = [
+                  "-L"
+                  "NIXROOT"
+                ];
               };
             };
           };

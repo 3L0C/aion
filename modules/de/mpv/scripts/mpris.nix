@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.mpv = {pkgs, ...}: {
-    programs.mpv.scripts = [pkgs.mpvScripts.mpris];
+  flake.modules.homeManager.mpv = { pkgs, ... }: {
+    programs.mpv.scripts = [ pkgs.mpvScripts.mpris ];
   };
 }

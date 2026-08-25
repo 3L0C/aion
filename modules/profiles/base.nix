@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   nixosModules = config.flake.modules.nixos;
-in {
+in
+{
   flake.modules.nixos.base.imports = with nixosModules; [
     antimicrox
     bootloader

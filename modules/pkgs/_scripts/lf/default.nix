@@ -1,7 +1,9 @@
 # Scripts for the lf file manager.
-{writeShellScriptBin}: let
+{ writeShellScriptBin }:
+let
   mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
-in {
+in
+{
   preview = mkScript "lf-preview-script" ./lf-preview-script;
 
   select = mkScript "lf-select" ./lf-select;

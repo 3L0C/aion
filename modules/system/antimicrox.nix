@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.antimicrox = {pkgs, ...}: {
+  flake.modules.nixos.antimicrox = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       antimicrox
     ];

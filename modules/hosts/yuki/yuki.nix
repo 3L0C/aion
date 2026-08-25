@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   hm = config.flake.modules.homeManager;
-in {
+in
+{
   hosts.yuki = {
     system = "x86_64-linux";
   };
@@ -35,8 +37,16 @@ in {
     };
 
     home-manager.users.user.imports =
-      (with hm; [cli de dev river oxbow eww syncthing])
-      ++ [hm."hosts/yuki"];
+      (with hm; [
+        cli
+        de
+        dev
+        river
+        oxbow
+        eww
+        syncthing
+      ])
+      ++ [ hm."hosts/yuki" ];
 
     # Do not change after the initial install. See the stateVersion option documentation.
     system.stateVersion = "26.11";

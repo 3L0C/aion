@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.security = {pkgs, ...}: {
+  flake.modules.nixos.security = { pkgs, ... }: {
     security = {
       rtkit.enable = true;
 
@@ -12,18 +12,18 @@
             commands = [
               {
                 command = "${pkgs.systemd}/bin/systemctl suspend";
-                options = ["NOPASSWD"];
+                options = [ "NOPASSWD" ];
               }
               {
                 command = "${pkgs.systemd}/bin/reboot";
-                options = ["NOPASSWD"];
+                options = [ "NOPASSWD" ];
               }
               {
                 command = "${pkgs.systemd}/bin/poweroff";
-                options = ["NOPASSWD"];
+                options = [ "NOPASSWD" ];
               }
             ];
-            groups = ["wheel"];
+            groups = [ "wheel" ];
           }
         ];
 
@@ -36,7 +36,7 @@
         '';
       };
 
-      pam.services.swaylock = {};
+      pam.services.swaylock = { };
     };
   };
 }

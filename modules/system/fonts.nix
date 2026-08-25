@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.fonts = {pkgs, ...}: {
+  flake.modules.nixos.fonts = { pkgs, ... }: {
     fonts = {
       packages = with pkgs; [
         inter-nerdfont # A typeface specially designed for user interfaces

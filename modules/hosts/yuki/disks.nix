@@ -1,6 +1,6 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   flake.modules.nixos."hosts/yuki" = {
-    imports = [inputs.disko.nixosModules.disko];
+    imports = [ inputs.disko.nixosModules.disko ];
 
     disko.devices = {
       disk.main = {
@@ -17,8 +17,14 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                extraArgs = ["-n" "NIXBOOT"];
-                mountOptions = ["fmask=0077" "dmask=0077"];
+                extraArgs = [
+                  "-n"
+                  "NIXBOOT"
+                ];
+                mountOptions = [
+                  "fmask=0077"
+                  "dmask=0077"
+                ];
               };
             };
             luks = {
@@ -35,7 +41,10 @@
                     "token-timeout=30"
                   ];
                 };
-                extraFormatArgs = ["--label" "NIXLUKS"];
+                extraFormatArgs = [
+                  "--label"
+                  "NIXLUKS"
+                ];
                 content = {
                   type = "lvm_pv";
                   vg = "nix";
@@ -54,7 +63,10 @@
               type = "swap";
               discardPolicy = "both";
               resumeDevice = true;
-              extraArgs = ["-L" "NIXSWAP"];
+              extraArgs = [
+                "-L"
+                "NIXSWAP"
+              ];
             };
           };
           root = {
@@ -63,7 +75,10 @@
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
-              extraArgs = ["-L" "NIXROOT"];
+              extraArgs = [
+                "-L"
+                "NIXROOT"
+              ];
             };
           };
         };

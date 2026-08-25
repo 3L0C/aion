@@ -2,7 +2,8 @@
   config,
   inputs,
   ...
-}: {
+}:
+{
   flake.overlays = {
     stable = final: _prev: {
       stable = import inputs.nixpkgs-stable {
@@ -40,8 +41,7 @@
     # nixpkgs-review -> itself through the overlay).
     lix = _final: prev: {
       lixTools = {
-        inherit
-          (prev.lixPackageSets.latest)
+        inherit (prev.lixPackageSets.latest)
           nixpkgs-review
           nix-eval-jobs
           nix-fast-build
@@ -68,20 +68,16 @@
       };
 
       base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
-        postInstall =
-          (oldAttrs.postInstall or "")
-          + ''
-            # Add custom base16 schemes
-            install ${./nixpkgs/schemes}/*.yaml $out/share/themes/
-          '';
+        postInstall = (oldAttrs.postInstall or "") + ''
+          # Add custom base16 schemes
+          install ${./nixpkgs/schemes}/*.yaml $out/share/themes/
+        '';
       });
       river-no-session = final.master.river.overrideAttrs (oldAttrs: {
-        postInstall =
-          (oldAttrs.postInstall or "")
-          + ''
-            # Remove the plain river.desktop session file
-            rm -f $out/share/wayland-sessions/river.desktop
-          '';
+        postInstall = (oldAttrs.postInstall or "") + ''
+          # Remove the plain river.desktop session file
+          rm -f $out/share/wayland-sessions/river.desktop
+        '';
       });
     };
   };

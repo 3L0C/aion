@@ -1,8 +1,10 @@
 # MPV IPC-socket controllers and media handlers, distinct from the Lua
 # plugin scripts in mpv-scripts/.
-{writeShellScriptBin}: let
+{ writeShellScriptBin }:
+let
   mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
-in {
+in
+{
   # Requires the homehub lua script
   hmpv = mkScript "hmpv" ./hmpv;
 

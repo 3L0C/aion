@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.dev = {pkgs, ...}: {
+  flake.modules.homeManager.dev = { pkgs, ... }: {
     home.packages = with pkgs; [
       gdb # GNU Debugger
       gef # GDB Enhanced Features - GDB plugin with extra features

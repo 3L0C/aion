@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.cli-core = {pkgs, ...}: {
+  flake.modules.homeManager.cli-core = { pkgs, ... }: {
     home.packages = with pkgs; [
       bc # An arbitrary precision calculator language
       stable.croc # Easily and securely send things from one computer to another (unstable v10.4.5 tag re-pushed upstream → hash mismatch; revert once nixpkgs fixes it)

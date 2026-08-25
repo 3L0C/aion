@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.games = {pkgs, ...}: {
+  flake.modules.homeManager.games = { pkgs, ... }: {
     home.packages = with pkgs; [
       deadlock-mod-manager
     ];

@@ -1,67 +1,78 @@
 {
-  flake.modules.homeManager.yubikey-touch-detector = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: let
-    inherit (lib) concatStringsSep literalExpression mkEnableOption mkIf mkOption optionals types;
+  flake.modules.homeManager.yubikey-touch-detector =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    let
+      inherit (lib)
+        concatStringsSep
+        literalExpression
+        mkEnableOption
+        mkIf
+        mkOption
+        optionals
+        types
+        ;
 
-    cfg = config.services.yubikey-touch-detector;
-  in {
-    options.services.yubikey-touch-detector = {
-      enable = mkEnableOption "a tool to detect when your YubiKey is waiting for a touch";
+      cfg = config.services.yubikey-touch-detector;
+    in
+    {
+      options.services.yubikey-touch-detector = {
+        enable = mkEnableOption "a tool to detect when your YubiKey is waiting for a touch";
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.yubikey-touch-detector;
-        defaultText = "pkgs.yubikey-touch-detector";
-        description = ''
-          Package to use. Binary is expected to be called "yubikey-touch-detector".
-        '';
+        package = mkOption {
+          type = types.package;
+          default = pkgs.yubikey-touch-detector;
+          defaultText = "pkgs.yubikey-touch-detector";
+          description = ''
+            Package to use. Binary is expected to be called "yubikey-touch-detector".
+          '';
+        };
+
+        socket.enable = mkEnableOption "starting the process only when the socket is used";
+
+        extraArgs = mkOption {
+          type = types.listOf types.str;
+          default = [ "--libnotify" ];
+          defaultText = literalExpression ''[ "--libnotify" ]'';
+          description = ''
+            Extra arguments to pass to the tool. The arguments are not escaped.
+          '';
+        };
       };
 
-      socket.enable = mkEnableOption "starting the process only when the socket is used";
+      config = mkIf cfg.enable {
+        home.packages = [ cfg.package ];
 
-      extraArgs = mkOption {
-        type = types.listOf types.str;
-        default = ["--libnotify"];
-        defaultText = literalExpression ''[ "--libnotify" ]'';
-        description = ''
-          Extra arguments to pass to the tool. The arguments are not escaped.
-        '';
+        # Unit descriptions below are ISC-licensed, author Maxim Baz. See
+        # https://github.com/maximbaz/yubikey-touch-detector/blob/c9fdff7163361d6323e2de0449026710cacbc08a/LICENSE
+        systemd.user.sockets.yubikey-touch-detector = mkIf cfg.socket.enable {
+          Unit.Description = "Unix socket activation for YubiKey touch detector service";
+          Socket = {
+            ListenFIFO = "%t/yubikey-touch-detector.sock";
+            RemoveOnStop = true;
+            SocketMode = "0660";
+          };
+          Install.WantedBy = [ "sockets.target" ];
+        };
+
+        systemd.user.services.yubikey-touch-detector = {
+          Unit = {
+            Description = "Detects when your YubiKey is waiting for a touch";
+            Requires = optionals cfg.socket.enable [ "yubikey-touch-detector.socket" ];
+          };
+          Service = {
+            ExecStart = "${cfg.package}/bin/yubikey-touch-detector ${concatStringsSep " " cfg.extraArgs}";
+            Environment = [ "PATH=${lib.makeBinPath [ pkgs.gnupg ]}" ];
+            Restart = "on-failure";
+            RestartSec = "1sec";
+          };
+          Install.Also = optionals cfg.socket.enable [ "yubikey-touch-detector.socket" ];
+          Install.WantedBy = [ "default.target" ];
+        };
       };
     };
-
-    config = mkIf cfg.enable {
-      home.packages = [cfg.package];
-
-      # Unit descriptions below are ISC-licensed, author Maxim Baz. See
-      # https://github.com/maximbaz/yubikey-touch-detector/blob/c9fdff7163361d6323e2de0449026710cacbc08a/LICENSE
-      systemd.user.sockets.yubikey-touch-detector = mkIf cfg.socket.enable {
-        Unit.Description = "Unix socket activation for YubiKey touch detector service";
-        Socket = {
-          ListenFIFO = "%t/yubikey-touch-detector.sock";
-          RemoveOnStop = true;
-          SocketMode = "0660";
-        };
-        Install.WantedBy = ["sockets.target"];
-      };
-
-      systemd.user.services.yubikey-touch-detector = {
-        Unit = {
-          Description = "Detects when your YubiKey is waiting for a touch";
-          Requires = optionals cfg.socket.enable ["yubikey-touch-detector.socket"];
-        };
-        Service = {
-          ExecStart = "${cfg.package}/bin/yubikey-touch-detector ${concatStringsSep " " cfg.extraArgs}";
-          Environment = ["PATH=${lib.makeBinPath [pkgs.gnupg]}"];
-          Restart = "on-failure";
-          RestartSec = "1sec";
-        };
-        Install.Also = optionals cfg.socket.enable ["yubikey-touch-detector.socket"];
-        Install.WantedBy = ["default.target"];
-      };
-    };
-  };
 }

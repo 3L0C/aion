@@ -1,15 +1,17 @@
-{inputs, ...}: {
-  flake.modules.homeManager.nix-index = {
-    config,
-    pkgs,
-    ...
-  }: let
-    nix-index-database =
-      import inputs.nix-index-database.outPath {inherit pkgs;};
-  in {
-    programs.nix-index.enable = true;
+{ inputs, ... }: {
+  flake.modules.homeManager.nix-index =
+    {
+      config,
+      pkgs,
+      ...
+    }:
+    let
+      nix-index-database = import inputs.nix-index-database.outPath { inherit pkgs; };
+    in
+    {
+      programs.nix-index.enable = true;
 
-    home.file."${config.xdg.cacheHome}/nix-index/files".source =
-      nix-index-database.nix-index-small-database;
-  };
+      home.file."${config.xdg.cacheHome}/nix-index/files".source =
+        nix-index-database.nix-index-small-database;
+    };
 }

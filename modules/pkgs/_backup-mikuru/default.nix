@@ -211,7 +211,7 @@ writeShellApplication {
 
   meta = {
     description = "Consistent backup of mikuru's service state to the tank ZFS pool";
-    maintainers = [(import ../_maintainers.nix).threeloc];
+    maintainers = [ (import ../_maintainers.nix).threeloc ];
     mainProgram = "mikuru-backup";
     platforms = lib.platforms.linux;
   };

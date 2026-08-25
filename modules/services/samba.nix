@@ -1,6 +1,6 @@
 # Samba share for /mnt with authenticated access for Windows/macOS clients.
 {
-  flake.modules.nixos.samba = {config, ...}: {
+  flake.modules.nixos.samba = { config, ... }: {
     services = {
       samba = {
         enable = true;

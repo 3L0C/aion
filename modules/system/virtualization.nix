@@ -1,6 +1,6 @@
 {
-  flake.modules.nixos.virtualization = {pkgs, ...}: {
-    users.users.user.extraGroups = ["libvirtd"];
+  flake.modules.nixos.virtualization = { pkgs, ... }: {
+    users.users.user.extraGroups = [ "libvirtd" ];
 
     environment.systemPackages = with pkgs; [
       virt-manager # Desktop user interface for managing virtual machines
@@ -19,7 +19,7 @@
         enable = true;
         qemu = {
           swtpm.enable = true;
-          vhostUserPackages = [pkgs.virtiofsd];
+          vhostUserPackages = [ pkgs.virtiofsd ];
         };
       };
       spiceUSBRedirection.enable = true;
@@ -27,7 +27,7 @@
     services.spice-vdagentd.enable = true;
 
     networking.firewall = {
-      trustedInterfaces = ["virbr0"];
+      trustedInterfaces = [ "virbr0" ];
 
       # "loose" lets packets from libvirt NAT and Tailscale pass the reverse
       # path check.
@@ -35,7 +35,7 @@
     };
   };
 
-  flake.modules.homeManager.virtualization = {pkgs, ...}: {
+  flake.modules.homeManager.virtualization = { pkgs, ... }: {
     home.packages = with pkgs; [
       libguestfs # Access and modify virtual machine disk images
       qemu # Generic and open source machine emulator and virtualizer

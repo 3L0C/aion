@@ -1,7 +1,7 @@
 {
-  flake.modules.homeManager.mpv = {pkgs, ...}: {
+  flake.modules.homeManager.mpv = { pkgs, ... }: {
     programs.mpv = {
-      scripts = [pkgs.custom.mpvScripts.streamsave];
+      scripts = [ pkgs.custom.mpvScripts.streamsave ];
       scriptOpts = {
         streamsave = {
           # General Options

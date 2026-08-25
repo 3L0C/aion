@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gpg = {pkgs, ...}: {
+  flake.modules.homeManager.gpg = { pkgs, ... }: {
     programs.gpg = {
       enable = true;
       settings = {

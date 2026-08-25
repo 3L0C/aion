@@ -1,5 +1,5 @@
 {
-  perSystem = {pkgs, ...}: {
-    packages.openshot-qt = pkgs.callPackage ./_openshot-qt {};
+  perSystem = { pkgs, ... }: {
+    packages.openshot-qt = pkgs.callPackage ./_openshot-qt { };
   };
 }

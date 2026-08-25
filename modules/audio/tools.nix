@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.audio-tools = {pkgs, ...}: {
+  flake.modules.homeManager.audio-tools = { pkgs, ... }: {
     home.packages = with pkgs; [
       pamixer # Pulseaudio command line mixer
       pulsemixer # CLI and curses mixer for pulseaudio

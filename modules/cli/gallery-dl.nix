@@ -45,7 +45,7 @@
           };
 
           "4chan" = {
-            directory = ["{board}_{thread} -- '{title}'"];
+            directory = [ "{board}_{thread} -- '{title}'" ];
             # filename = "{filename}.{extension}";
           };
           artstation = {
@@ -58,7 +58,7 @@
             recursive = true;
           };
           batoto = {
-            directory = ["{chapter:>03}{chapter_minor|_lit[.0]}"];
+            directory = [ "{chapter:>03}{chapter_minor|_lit[.0]}" ];
             filename = "{num|page:>03}.{extension}";
           };
           bbc = {
@@ -179,11 +179,11 @@
           };
           mangadex = {
             lang = "en";
-            directory = ["{chapter:>03}{chapter_minor|_lit[.0]}"];
+            directory = [ "{chapter:>03}{chapter_minor|_lit[.0]}" ];
             filename = "{num|page:>03}.{extension}";
           };
           mangasee = {
-            directory = ["{chapter:>03}{chapter_minor|_lit[.0]}"];
+            directory = [ "{chapter:>03}{chapter_minor|_lit[.0]}" ];
             filename = "{num|page:>03}.{extension}";
           };
           mangoxo = {

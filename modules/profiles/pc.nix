@@ -1,8 +1,10 @@
 # Base configuration for desktop and laptop hosts
-{config, ...}: let
+{ config, ... }:
+let
   nixosModules = config.flake.modules.nixos;
-in {
-  flake.modules.nixos.pc = {config, ...}: {
+in
+{
+  flake.modules.nixos.pc = { config, ... }: {
     imports = with nixosModules; [
       bluetooth
       boot-quiet

@@ -39,7 +39,8 @@
       "D" = "cycle deinterlace";
 
       # Video sync toggle (disable for files with PTS issues causing choppiness)
-      "R" = "cycle-values video-sync \"display-resample\" \"audio\"; show-text \"video-sync: \${video-sync}\"";
+      "R" =
+        "cycle-values video-sync \"display-resample\" \"audio\"; show-text \"video-sync: \${video-sync}\"";
 
       # Volume
       "AXIS_UP" = "add volume 5";
@@ -79,7 +80,8 @@
       "j" = "show-text \"\${demuxer-cache-time}\"";
 
       # Get some info
-      "alt+m" = "run \"notify-send\" \"mpv-message\" \"media-title: \${media-title}\\nfilename: \${filename}\\npath: \${path}\"";
+      "alt+m" =
+        "run \"notify-send\" \"mpv-message\" \"media-title: \${media-title}\\nfilename: \${filename}\\npath: \${path}\"";
     };
   };
 }

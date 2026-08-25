@@ -1,6 +1,6 @@
 # Networking tools and utilities
 {
-  flake.modules.homeManager.networking = {pkgs, ...}: {
+  flake.modules.homeManager.networking = { pkgs, ... }: {
     home.packages = with pkgs; [
       iproute2 # Collection of utilities for controlling TCP/IP networking
       ipset # Administration tool for IP sets

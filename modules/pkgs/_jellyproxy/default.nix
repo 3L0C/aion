@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     python-mpv-jsonipc
   ];
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A proxy that sits between jellyfin-mpv-shim and mpv to filter and control IPC commands";
@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/johndovern/JellyProxy";
     license = licenses.gpl3Only;
-    maintainers = [(import ../_maintainers.nix).threeloc];
+    maintainers = [ (import ../_maintainers.nix).threeloc ];
     mainProgram = "jellyproxy";
     platforms = platforms.unix;
   };

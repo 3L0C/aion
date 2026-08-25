@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.keyring = {lib, ...}: {
+  flake.modules.nixos.keyring = { lib, ... }: {
     services.gnome = {
       gnome-keyring.enable = true;
       gcr-ssh-agent.enable = lib.mkForce false;

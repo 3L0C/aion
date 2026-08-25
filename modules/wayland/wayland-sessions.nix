@@ -1,66 +1,61 @@
 {
-  flake.modules.nixos.wayland-sessions = {
-    config,
-    lib,
-    ...
-  }: let
-    inherit (lib) mkOption types;
+  flake.modules.nixos.wayland-sessions =
+    {
+      config,
+      lib,
+      ...
+    }:
+    let
+      inherit (lib) mkOption types;
 
-    session = types.submodule {
+      session = types.submodule {
+        options = {
+          name = mkOption {
+            type = types.str;
+            example = "firefox-session";
+          };
+          desktopName = mkOption {
+            type = types.nullOr types.str;
+            example = "Firefox Session";
+            default = null;
+          };
+          exec = mkOption {
+            type = types.nullOr types.str;
+            example = "firefox-session";
+            default = null;
+          };
+        };
+      };
+    in
+    {
       options = {
-        name = mkOption {
-          type = types.str;
-          example = "firefox-session";
-        };
-        desktopName = mkOption {
-          type = types.nullOr types.str;
-          example = "Firefox Session";
-          default = null;
-        };
-        exec = mkOption {
-          type = types.nullOr types.str;
-          example = "firefox-session";
-          default = null;
+        wayland.sessions = mkOption {
+          type = types.listOf session;
+          default = [ ];
         };
       };
-    };
-  in {
-    options = {
-      wayland.sessions = mkOption {
-        type = types.listOf session;
-        default = [];
-      };
-    };
 
-    config = {
-      environment.etc = builtins.listToAttrs (
-        map (
-          {
-            name,
-            desktopName,
-            exec,
-          }: {
-            name = "wayland-sessions/${name}.desktop";
-            value = {
-              text = ''
-                [Desktop Entry]
-                Name=${
-                  if desktopName != null
-                  then desktopName
-                  else name
-                }
-                Exec=${
-                  if exec != null
-                  then exec
-                  else name
-                }
-                Type=Application
-              '';
-            };
-          }
-        )
-        config.wayland.sessions
-      );
+      config = {
+        environment.etc = builtins.listToAttrs (
+          map (
+            {
+              name,
+              desktopName,
+              exec,
+            }:
+            {
+              name = "wayland-sessions/${name}.desktop";
+              value = {
+                text = ''
+                  [Desktop Entry]
+                  Name=${if desktopName != null then desktopName else name}
+                  Exec=${if exec != null then exec else name}
+                  Type=Application
+                '';
+              };
+            }
+          ) config.wayland.sessions
+        );
+      };
     };
-  };
 }

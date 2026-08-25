@@ -1,11 +1,11 @@
 # PhotoPrism photo management
 {
-  flake.modules.nixos.photoprism = {config, ...}: {
+  flake.modules.nixos.photoprism = { config, ... }: {
     traefikRoutes.photoprism.port = 2342;
 
     # The sops password seeds the initial database only.
     # PhotoPrism stores the live password in its own database.
-    sops.secrets."photoprism/admin-password" = {};
+    sops.secrets."photoprism/admin-password" = { };
 
     services.photoprism = {
       enable = true;

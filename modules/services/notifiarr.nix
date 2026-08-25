@@ -1,7 +1,7 @@
 # Notifiarr notification relay for *arr apps.
 # There is no native NixOS module, so it runs as a Podman container.
 {
-  flake.modules.nixos.notifiarr = {config, ...}: {
+  flake.modules.nixos.notifiarr = { config, ... }: {
     traefikRoutes.notifiarr.port = 5454;
 
     virtualisation.oci-containers.containers.notifiarr = {

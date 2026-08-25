@@ -13,6 +13,10 @@
     };
 
     # The jellyfin user needs access to the render devices for GPU transcoding.
-    users.users.jellyfin.extraGroups = ["render" "video" "media"];
+    users.users.jellyfin.extraGroups = [
+      "render"
+      "video"
+      "media"
+    ];
   };
 }

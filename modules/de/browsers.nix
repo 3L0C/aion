@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.browsers = {pkgs, ...}: {
+  flake.modules.homeManager.browsers = { pkgs, ... }: {
     home.packages = with pkgs; [
       firefox # Web browser built from Firefox source tree
       librewolf # Fork of Firefox, focused on privacy, security and freedom

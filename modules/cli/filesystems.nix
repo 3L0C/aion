@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.filesystems = {pkgs, ...}: {
+  flake.modules.homeManager.filesystems = { pkgs, ... }: {
     home.packages = with pkgs; [
       dosfstools # DOS filesystem utilities
       ntfs3g # NTFS filesystem driver and utilities

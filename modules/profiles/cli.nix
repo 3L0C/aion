@@ -1,4 +1,4 @@
-{config, ...}: {
+{ config, ... }: {
   flake.modules.homeManager.cli.imports = with config.flake.modules.homeManager; [
     archives
     audio-tools

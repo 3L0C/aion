@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     hash = "sha256-ycT9td4/HHheTUXfqwfLRGYOPCMcIuWr6++i2+t90/k=";
   };
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
   buildInputs = [
     bash
     jq
@@ -41,18 +41,18 @@ stdenv.mkDerivation {
       # Wrap each script with necessary PATH additions
       wrapProgram "$out/bin/$script_name" \
         --prefix PATH : ${
-      lib.makeBinPath [
-        bash
-        jq
-        mpv
-        socat
-        perl
-      ]
-    }
+          lib.makeBinPath [
+            bash
+            jq
+            mpv
+            socat
+            perl
+          ]
+        }
     done
   '';
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "Some scripts to interface with mpv via sockets";
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     # Upstream has no LICENSE file. gpl3 is deprecated, so use the more
     # conservative gpl3Only per repo convention.
     license = licenses.gpl3Only;
-    maintainers = [(import ../_maintainers.nix).threeloc];
+    maintainers = [ (import ../_maintainers.nix).threeloc ];
     platforms = platforms.unix;
   };
 }

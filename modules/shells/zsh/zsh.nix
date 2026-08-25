@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zsh = {config, ...}: {
+  flake.modules.homeManager.zsh = { config, ... }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;

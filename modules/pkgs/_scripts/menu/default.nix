@@ -1,7 +1,9 @@
 # Menu-driven utilities. The scripts hardcode dmenu; a menu-neutral variable is future work.
-{writeShellScriptBin}: let
+{ writeShellScriptBin }:
+let
   mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
-in {
+in
+{
   gitignore = mkScript "dmenugitignore" ./dmenugitignore;
   gitignore-auto = mkScript "dmenugitignore-auto" ./dmenugitignore-auto;
 

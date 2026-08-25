@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   hm = config.flake.modules.homeManager;
-in {
+in
+{
   hosts.haruhi = {
     system = "x86_64-linux";
   };
@@ -34,8 +36,16 @@ in {
     };
 
     home-manager.users.user.imports =
-      (with hm; [cli de dev river oxbow eww syncthing])
-      ++ [hm."hosts/haruhi"];
+      (with hm; [
+        cli
+        de
+        dev
+        river
+        oxbow
+        eww
+        syncthing
+      ])
+      ++ [ hm."hosts/haruhi" ];
 
     system.stateVersion = "26.11";
   };

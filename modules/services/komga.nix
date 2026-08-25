@@ -3,7 +3,7 @@
   flake.modules.nixos.komga = {
     traefikRoutes.komga.port = 25600;
 
-    users.users.komga.extraGroups = ["media"];
+    users.users.komga.extraGroups = [ "media" ];
 
     services.komga = {
       enable = true;

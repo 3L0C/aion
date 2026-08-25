@@ -7,6 +7,6 @@
       enable = true;
     };
 
-    users.users.jackett.extraGroups = ["media"];
+    users.users.jackett.extraGroups = [ "media" ];
   };
 }

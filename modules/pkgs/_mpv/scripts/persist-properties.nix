@@ -16,12 +16,12 @@ pkgs.mpvScripts.buildLua {
     hash = "sha256-C2nejhkxAZgfKRl9FrZZqODq2xW6zCbv/sBiqXSAd2k=";
   };
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Keeps selected property values (like volume) between player sessions";
     homepage = "https://github.com/d87/mpv-persist-properties";
     license = lib.licenses.mit;
-    maintainers = [(import ../../_maintainers.nix).threeloc];
+    maintainers = [ (import ../../_maintainers.nix).threeloc ];
   };
 }

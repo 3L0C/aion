@@ -1,9 +1,9 @@
 # Navidrome music streaming server
 {
-  flake.modules.nixos.navidrome = {config, ...}: {
+  flake.modules.nixos.navidrome = { config, ... }: {
     traefikRoutes.navidrome.port = 4533;
 
-    users.users.navidrome.extraGroups = ["media"];
+    users.users.navidrome.extraGroups = [ "media" ];
 
     services.navidrome = {
       enable = true;

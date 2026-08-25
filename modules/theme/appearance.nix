@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.appearance = {pkgs, ...}: {
+  flake.modules.homeManager.appearance = { pkgs, ... }: {
     home.packages = with pkgs; [
       lxappearance # Feature-rich GTK+ theme switcher of the LXDE Desktop
       libsForQt5.qt5ct # Qt5 Configuration Utility

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.maintenance = {pkgs, ...}: {
+  flake.modules.nixos.maintenance = { pkgs, ... }: {
     services.irqbalance.enable = true;
     systemd = {
       services.journalctl-vacuum = {
@@ -10,8 +10,8 @@
         };
       };
       timers.journalctl-vacuum = {
-        wantedBy = ["timers.target"];
-        partOf = ["journalctl-vacuum.service"];
+        wantedBy = [ "timers.target" ];
+        partOf = [ "journalctl-vacuum.service" ];
         timerConfig.OnCalendar = "weekly";
       };
 

@@ -1,5 +1,5 @@
 {
-  perSystem = {pkgs, ...}: {
-    packages.update-pkgs = pkgs.callPackage ./_update-pkgs {};
+  perSystem = { pkgs, ... }: {
+    packages.update-pkgs = pkgs.callPackage ./_update-pkgs { };
   };
 }

@@ -19,7 +19,7 @@
 writeShellApplication {
   name = "update-pkgs";
 
-  runtimeInputs = [git];
+  runtimeInputs = [ git ];
 
   text = ''
     # nix-update edits the source file in the working tree, so operate from the

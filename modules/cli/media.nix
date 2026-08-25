@@ -2,7 +2,7 @@
 # Command-line tools for video/audio processing, syntax highlighting, and HTML
 # formatting These are development and content creation utilities
 {
-  flake.modules.homeManager.media = {pkgs, ...}: {
+  flake.modules.homeManager.media = { pkgs, ... }: {
     home.packages = with pkgs; [
       ffmpeg # Complete solution to record, convert and stream audio and video
       mkvtoolnix-cli # Set of tools to create, edit and inspect Matroska files

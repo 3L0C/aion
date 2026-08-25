@@ -1,12 +1,12 @@
 # Audiobookshelf audiobook/podcast server.
 # There is no native NixOS module, so it runs as a Podman container.
 {
-  flake.modules.nixos.audiobookshelf = {config, ...}: {
+  flake.modules.nixos.audiobookshelf = { config, ... }: {
     traefikRoutes.audiobookshelf.port = 13378;
 
     virtualisation.oci-containers.containers.audiobookshelf = {
       image = "ghcr.io/advplyr/audiobookshelf:latest";
-      ports = ["127.0.0.1:13378:80"];
+      ports = [ "127.0.0.1:13378:80" ];
       volumes = [
         "/var/lib/audiobookshelf/config:/config"
         "/var/lib/audiobookshelf/metadata:/metadata"

@@ -16,12 +16,12 @@ pkgs.mpvScripts.buildLua {
     hash = "sha256-YtW2I6CuGfubZfgOBoSdlQ/YMQHi8FOKgzE4QhjSg38=";
   };
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Script for mpv to select tracks based on their title";
     homepage = "https://github.com/po5/trackselect";
     license = lib.licenses.mit;
-    maintainers = [(import ../../_maintainers.nix).threeloc];
+    maintainers = [ (import ../../_maintainers.nix).threeloc ];
   };
 }

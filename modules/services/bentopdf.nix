@@ -1,12 +1,12 @@
 # BentoPDF - Privacy-first PDF toolkit
 # Client-side processing, no server-side data storage needed
 {
-  flake.modules.nixos.bentopdf = {config, ...}: {
+  flake.modules.nixos.bentopdf = { config, ... }: {
     traefikRoutes.bentopdf.port = 8083;
 
     virtualisation.oci-containers.containers.bentopdf = {
       image = "bentopdf/bentopdf-simple:latest";
-      ports = ["127.0.0.1:8083:8080"]; # BentoPDF serves on port 8080 internally
+      ports = [ "127.0.0.1:8083:8080" ]; # BentoPDF serves on port 8080 internally
       environment = {
         TZ = config.time.timeZone;
       };

@@ -3,9 +3,11 @@
   rsync,
   winePackages,
   writeShellScriptBin,
-}: let
+}:
+let
   mkScript = name: file: writeShellScriptBin name (builtins.readFile file);
-in {
+in
+{
   nb = mkScript "nb" ./nix/nb;
   ne = mkScript "ne" ./ne;
 
@@ -20,11 +22,11 @@ in {
   converter-sh = mkScript "converter.sh" ./media/converter.sh;
 
 
-  statusbar = callPackage ./statusbar {};
+  statusbar = callPackage ./statusbar { };
 
-  menu = callPackage ./menu {};
+  menu = callPackage ./menu { };
 
-  lf = callPackage ./lf {};
+  lf = callPackage ./lf { };
 
   vn = callPackage ./vn {
     # winePackages creates the 32-bit prefixes that VN engines need.

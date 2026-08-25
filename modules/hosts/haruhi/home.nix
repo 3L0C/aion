@@ -1,7 +1,7 @@
 # Home configuration for haruhi (laptop)
 # ASUS ROG Zephyrus G16 2025 (GU605CR)
 {
-  flake.modules.homeManager."hosts/haruhi" = {lib, ...}: {
+  flake.modules.homeManager."hosts/haruhi" = { lib, ... }: {
     monitors = [
       {
         name = "eDP-1";

@@ -1,7 +1,7 @@
 # Cleanuparr qBittorrent orphan torrent cleaner.
 # There is no native NixOS module, so it runs as a Podman container.
 {
-  flake.modules.nixos.cleanuparr = {config, ...}: {
+  flake.modules.nixos.cleanuparr = { config, ... }: {
     traefikRoutes.cleanuparr.port = 11011;
 
     virtualisation.oci-containers.containers.cleanuparr = {

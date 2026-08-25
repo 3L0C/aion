@@ -12,7 +12,7 @@
 
       # Intel ME interface is a common cause of shutdown hangs and is not needed
       # for normal operation.
-      blacklistedKernelModules = ["mei_me"];
+      blacklistedKernelModules = [ "mei_me" ];
     };
   };
 }

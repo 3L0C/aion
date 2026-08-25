@@ -15,12 +15,12 @@
               url = "https://selfh.st/rss/";
               title = "selfh.st";
             }
-            {url = "https://ciechanow.ski/atom.xml";}
+            { url = "https://ciechanow.ski/atom.xml"; }
             {
               url = "https://www.joshwcomeau.com/rss.xml";
               title = "Josh Comeau";
             }
-            {url = "https://samwho.dev/rss.xml";}
+            { url = "https://samwho.dev/rss.xml"; }
             {
               url = "https://ishadeed.com/feed.xml";
               title = "Ahmad Shadeed";
@@ -43,8 +43,8 @@
         {
           type = "group";
           widgets = [
-            {type = "hacker-news";}
-            {type = "lobsters";}
+            { type = "hacker-news"; }
+            { type = "lobsters"; }
           ];
         }
         {

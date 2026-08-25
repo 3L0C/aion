@@ -1,9 +1,9 @@
 # Suwayomi manga download server (Tachiyomi-compatible)
 {
-  flake.modules.nixos.suwayomi = {config, ...}: {
+  flake.modules.nixos.suwayomi = { config, ... }: {
     traefikRoutes.suwayomi = {
       port = 4567;
-      middlewares = ["suwayomi-auth"];
+      middlewares = [ "suwayomi-auth" ];
     };
 
     # Suwayomi has no usable built-in auth. Traefik protects it at the
@@ -13,7 +13,7 @@
       basicAuth.usersFile = config.sops.secrets."suwayomi/htpasswd".path;
     };
 
-    users.users.suwayomi.extraGroups = ["media"];
+    users.users.suwayomi.extraGroups = [ "media" ];
 
     services.suwayomi-server = {
       enable = true;
@@ -45,7 +45,7 @@
         excludeEntryWithUnreadChapters = false;
         autoDownloadNewChaptersLimit = 0; # 0 disables the limit
         autoDownloadIgnoreReUploads = false;
-        downloadConversions = {};
+        downloadConversions = { };
 
         extensionRepos = [
           "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"

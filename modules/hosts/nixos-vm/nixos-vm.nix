@@ -1,12 +1,14 @@
 # NixOS VM configuration for debugging
-{config, ...}: let
+{ config, ... }:
+let
   hm = config.flake.modules.homeManager;
-in {
+in
+{
   hosts.nixos-vm = {
     system = "x86_64-linux";
   };
 
-  flake.modules.nixos."hosts/nixos-vm" = {lib, ...}: {
+  flake.modules.nixos."hosts/nixos-vm" = { lib, ... }: {
     imports = with config.flake.modules.nixos; [
       base
       pc
@@ -31,7 +33,7 @@ in {
     };
 
     # Open firewall for SSH
-    networking.firewall.allowedTCPPorts = [22];
+    networking.firewall.allowedTCPPorts = [ 22 ];
 
     # Disable yubikey-required PAM rules — VM has no yubikey access.
     # mkOverride 49 beats mkForce (50) in the yubikey aspect.
@@ -50,8 +52,15 @@ in {
     };
 
     home-manager.users.user.imports =
-      (with hm; [cli de dev river oxbow eww])
-      ++ [hm."hosts/nixos-vm"];
+      (with hm; [
+        cli
+        de
+        dev
+        river
+        oxbow
+        eww
+      ])
+      ++ [ hm."hosts/nixos-vm" ];
 
     system.stateVersion = "26.11";
   };

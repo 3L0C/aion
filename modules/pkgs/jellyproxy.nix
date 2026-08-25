@@ -1,5 +1,5 @@
 {
-  perSystem = {pkgs, ...}: {
-    packages.jellyproxy = pkgs.callPackage ./_jellyproxy {};
+  perSystem = { pkgs, ... }: {
+    packages.jellyproxy = pkgs.callPackage ./_jellyproxy { };
   };
 }

@@ -1,6 +1,6 @@
 # VA-API for hardware transcoding on the RX 6600 XT.
 {
-  flake.modules.nixos."hosts/mikuru" = {pkgs, ...}: {
+  flake.modules.nixos."hosts/mikuru" = { pkgs, ... }: {
     hardware.graphics = {
       enable = true;
       extraPackages = with pkgs; [

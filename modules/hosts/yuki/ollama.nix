@@ -2,7 +2,7 @@
 # the pin, ollama splits models onto the gfx1036 iGPU because it
 # sees more free memory there.
 {
-  flake.modules.nixos."hosts/yuki" = {pkgs, ...}: {
+  flake.modules.nixos."hosts/yuki" = { pkgs, ... }: {
     services.ollama = {
       package = pkgs.ollama-rocm;
       environmentVariables = {
