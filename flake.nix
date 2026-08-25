@@ -66,8 +66,9 @@
     };
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
+
     secrets = {
-      url = "git+ssh://git@github.com-3L0C/3L0C/aion-secrets.git";
+      url = "git+ssh://git@github.com/3L0C/aion-secrets.git";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";

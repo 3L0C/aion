@@ -994,11 +994,11 @@
         "rev": "8d964213827fd5b896dca9430080c5c275a786e1",
         "revCount": 31,
         "type": "git",
-        "url": "ssh://git@github.com-3L0C/3L0C/aion-secrets.git"
+        "url": "ssh://git@github.com/3L0C/aion-secrets.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com-3L0C/3L0C/aion-secrets.git"
+        "url": "ssh://git@github.com/3L0C/aion-secrets.git"
       }
     },
     "sops-nix": {
