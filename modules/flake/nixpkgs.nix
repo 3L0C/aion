@@ -51,10 +51,6 @@
     };
 
     modifications = final: prev: {
-      openldap = prev.openldap.overrideAttrs {
-        doCheck = !prev.stdenv.hostPlatform.isi686;
-      };
-
       # xdg-desktop-portal-wlr: build from master for PipeWire 1.6.x fix and
       # screencast improvements (buffer flags, damage reporting) not in 0.8.1
       xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs {
