@@ -1,7 +1,9 @@
 ((nil
   . ((eglot-workspace-configuration
-      . (:nil
+      . (:nixd
          (:formatting (:command ["nixfmt"])
-          :nix (:flake (:autoArchive t
-                        :autoEvalInputs t
-                        :nixpkgsInputName "nixpkgs"))))))))
+          :nixpkgs (:expr "import (builtins.getFlake \"/home/user/aion\").inputs.nixpkgs { }")
+          :options (:nixos
+                    (:expr "(builtins.getFlake \"/home/user/aion\").nixosConfigurations.yuki.options")
+                    :home-manager
+                    (:expr "(builtins.getFlake \"/home/user/aion\").nixosConfigurations.yuki.options.home-manager.users.type.getSubOptions [ ]"))))))))
