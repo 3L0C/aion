@@ -30,6 +30,7 @@
         "pulseaudio"
         "idle_inhibitor"
         "custom/cc-toggle"
+        "custom/sep"
         "tray"
       ];
 
@@ -42,7 +43,7 @@
         };
 
         idle_inhibitor = {
-          format = "| {icon} ";
+          format = "{icon} ";
           format-icons = {
             deactivated = "-";
             activated = "0";
@@ -107,6 +108,11 @@
         clock = {
           format = "| {:%b %d %H:%M} ";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          tooltip = false;
+        };
+
+        "custom/sep" = {
+          format = "| ";
           tooltip = false;
         };
 

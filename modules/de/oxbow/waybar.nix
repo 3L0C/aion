@@ -115,23 +115,17 @@ in
               "custom/capture-sep"
               "custom/capture"
               "custom/mpris"
-              "custom/sep"
               "pulseaudio"
-              "custom/sep"
               "temperature"
-              "custom/sep"
               "memory"
             ]
             ++ lib.optionals isLaptop [
-              "custom/sep"
               "battery"
             ]
             ++ [
-              "custom/sep"
               "clock"
               "custom/sep"
               "idle_inhibitor"
-              "custom/sep"
               "custom/cc-toggle"
               "custom/sep"
               "tray"
