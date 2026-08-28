@@ -19,17 +19,13 @@
       };
     };
 
-    wk = final: _prev: {
-      inherit (inputs.wk.packages.${final.stdenv.hostPlatform.system}) wk;
-    };
+    wk = inputs.wk.overlays.default;
 
     wk-prompt = final: _prev: {
       inherit (inputs.wk-prompt.packages.${final.stdenv.hostPlatform.system}) wk-prompt;
     };
 
-    oxbow = final: _prev: {
-      oxbow = inputs.oxbow.packages.${final.stdenv.hostPlatform.system}.default;
-    };
+    oxbow = inputs.oxbow.overlays.default;
 
     wine-ge = final: _prev: {
       inherit (inputs.nix-gaming.packages.${final.stdenv.hostPlatform.system}) wine-ge;
