@@ -28,7 +28,7 @@
     };
 
     oxbow = final: _prev: {
-      inherit (inputs.oxbow.packages.${final.stdenv.hostPlatform.system}) oxbow;
+      oxbow = inputs.oxbow.packages.${final.stdenv.hostPlatform.system}.default;
     };
 
     wine-ge = final: _prev: {
