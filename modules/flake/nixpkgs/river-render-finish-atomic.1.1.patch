@@ -1,0 +1,87 @@
+diff --git a/river/Window.zig b/river/Window.zig
+index b840746..d08b1e2 100644
+--- a/river/Window.zig
++++ b/river/Window.zig
+@@ -266,6 +266,9 @@ rendering_requested: RenderingRequested = .init,
+
+ /// The currently rendered position/dimensions of the window in the scene graph
+ box: wlr.Box = .{ .x = 0, .y = 0, .width = 0, .height = 0 },
++/// The clip boxes applied to the scene graph in the latest render sequence
++applied_clip: wlr.Box = .{ .x = 0, .y = 0, .width = 0, .height = 0 },
++applied_content_clip: wlr.Box = .{ .x = 0, .y = 0, .width = 0, .height = 0 },
+
+ foreign_toplevel_handle: ?*wlr.ExtForeignToplevelHandleV1 = null,
+ wlr_toplevel_handle: ?*wlr.ForeignToplevelHandleV1 = null,
+@@ -934,28 +937,52 @@ pub fn renderFinish(window: *Window) void {
+     // dimensions event is completed.
+     // Keeping the nodes enabled while closing is necessary for frame perfection.
+     const enabled = !requested.hidden and (window.state == .mapped or window.state == .closing);
+-    window.tree.node.setEnabled(enabled);
+-    window.popup_tree.node.setEnabled(enabled);
+
++    var clip: wlr.Box = requested.clip;
++    var content_clip: wlr.Box = requested.content_clip;
++    var x: i32 = requested.x;
++    var y: i32 = requested.y;
++    if (window.wm_requested.fullscreen) |output| {
++        x = output.sent.x;
++        y = output.sent.y;
++        const width, const height = output.sent.dimensions();
++        clip = .{ .x = 0, .y = 0, .width = width, .height = height };
++        content_clip = .{ .x = 0, .y = 0, .width = 0, .height = 0 };
++    }
++
++    // Each scene graph update below is applied on its own and sends
++    // wl_surface enter/leave and scale events to clients immediately. A window
++    // that moves and gets a new clip in the same render sequence passes through
++    // an intermediate state (new position with the old clip, or the old clip
++    // offset with the new size) that can overlap an adjacent output. Clients
++    // react to the transient with a rescale.
++    //
++    // Disable the scene nodes while the position or clip changes and enable
++    // them again once everything is applied. wlroots sends no leave events for
++    // a disabled node and sends only the net change when it is enabled again.
++    const changed = window.box.x != x or window.box.y != y or
++        !std.meta.eql(clip, window.applied_clip) or
++        !std.meta.eql(content_clip, window.applied_content_clip);
++    if (changed or !enabled) {
++        window.tree.node.setEnabled(false);
++        window.popup_tree.node.setEnabled(false);
++    }
++    window.applied_clip = clip;
++    window.applied_content_clip = content_clip;
++
++    window.box.x = x;
++    window.box.y = y;
+     window.box.width = window.rendering_sent.width;
+     window.box.height = window.rendering_sent.height;
+
+-    var clip: wlr.Box = requested.clip;
+-    var content_clip: wlr.Box = requested.content_clip;
+     if (window.wm_requested.fullscreen) |output| {
+-        window.box.x = output.sent.x;
+-        window.box.y = output.sent.y;
+         window.fullscreen_background.node.setEnabled(true);
+         const width, const height = output.sent.dimensions();
+         window.fullscreen_background.setSize(width, height);
+-        clip = .{ .x = 0, .y = 0, .width = width, .height = height };
+-        content_clip = .{ .x = 0, .y = 0, .width = 0, .height = 0 };
+         inline for (.{ "left", "right", "top", "bottom" }) |edge| {
+             @field(window.border, edge).node.setEnabled(false);
+         }
+     } else {
+-        window.box.x = requested.x;
+-        window.box.y = requested.y;
+         window.fullscreen_background.node.setEnabled(false);
+         window.drawBorders();
+     }
+@@ -974,6 +1001,9 @@ pub fn renderFinish(window: *Window) void {
+             decoration.renderFinish(&clip);
+         }
+     }
++
++    window.tree.node.setEnabled(enabled);
++    window.popup_tree.node.setEnabled(enabled);
+ }
+
+ fn drawBorders(window: *Window) void {

@@ -65,7 +65,16 @@
           install ${./nixpkgs/schemes}/*.yaml $out/share/themes/
         '';
       });
-      river-no-session = final.master.river.overrideAttrs (oldAttrs: {
+
+      # River with local patches under test
+      river-dev = final.master.river.overrideAttrs (oldAttrs: {
+        patches = (oldAttrs.patches or [ ]) ++ [
+          ./nixpkgs/river-render-finish-atomic.1.1.patch
+        ];
+      });
+
+      # River without a session file
+      river-no-session = final.river-dev.overrideAttrs (oldAttrs: {
         postInstall = (oldAttrs.postInstall or "") + ''
           # Remove the plain river.desktop session file
           rm -f $out/share/wayland-sessions/river.desktop
