@@ -43,7 +43,7 @@
         };
 
         idle_inhibitor = {
-          format = "{icon} ";
+          format = " {icon} ";
           format-icons = {
             deactivated = "-";
             activated = "0";
@@ -112,7 +112,7 @@
         };
 
         "custom/sep" = {
-          format = "| ";
+          format = "|";
           tooltip = false;
         };
 
