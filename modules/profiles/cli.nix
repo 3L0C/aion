@@ -8,6 +8,7 @@
     claude
     cli-core
     documents
+    exercism
     eza
     filesystems
     fzf
