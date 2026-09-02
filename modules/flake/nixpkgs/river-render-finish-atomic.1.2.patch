@@ -1,0 +1,25 @@
+diff --git a/river/Window.zig b/river/Window.zig
+index b840746..b7c8e73 100644
+--- a/river/Window.zig
++++ b/river/Window.zig
+@@ -934,8 +934,8 @@ pub fn renderFinish(window: *Window) void {
+     // dimensions event is completed.
+     // Keeping the nodes enabled while closing is necessary for frame perfection.
+     const enabled = !requested.hidden and (window.state == .mapped or window.state == .closing);
+-    window.tree.node.setEnabled(enabled);
+-    window.popup_tree.node.setEnabled(enabled);
++    window.tree.node.setEnabled(false);
++    window.popup_tree.node.setEnabled(false);
+
+     window.box.width = window.rendering_sent.width;
+     window.box.height = window.rendering_sent.height;
+@@ -974,6 +974,9 @@ pub fn renderFinish(window: *Window) void {
+             decoration.renderFinish(&clip);
+         }
+     }
++
++    window.tree.node.setEnabled(enabled);
++    window.popup_tree.node.setEnabled(enabled);
+ }
+
+ fn drawBorders(window: *Window) void {

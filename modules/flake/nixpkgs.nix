@@ -69,7 +69,7 @@
       # River with local patches under test
       river-dev = final.master.river.overrideAttrs (oldAttrs: {
         patches = (oldAttrs.patches or [ ]) ++ [
-          ./nixpkgs/river-render-finish-atomic.1.1.patch
+          ./nixpkgs/river-render-finish-atomic.1.2.patch
         ];
       });
 
