@@ -55,6 +55,11 @@
         ))
         dict # Dictionary client
 
+        # :tools lookup
+        ripgrep # Utility that combines the usability of The Silver Searcher with the raw speed of grep
+        sqlite # Self-contained, serverless, zero-configuration, transactional SQL database engine
+        wordnet # Lexical database for the English language
+
         # :tools lsp
         nodejs # Event-driven I/O framework for the V8 JavaScript engine
         clang # C language family frontend for LLVM (wrapper script)
