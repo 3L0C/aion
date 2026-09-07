@@ -30,6 +30,8 @@ in
       home.packages = [
         wk
         pkgs.wk-prompt
+        pkgs.grim # screenshot binds in wks/common/applications.wks
+        pkgs.slurp # Select a region in a Wayland compositor
       ];
     };
 }
