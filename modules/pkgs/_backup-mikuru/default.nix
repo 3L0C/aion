@@ -1,3 +1,7 @@
+# Backup of mikuru service state into the tank ZFS pool.
+# Run as `sudo mikuru-backup`. backup-state.timer also runs it.
+# zfs, systemctl, and pg_dumpall come from the host PATH so that the tools
+# match the running kernel module and Postgres server.
 {
   lib,
   writeShellApplication,
@@ -25,6 +29,16 @@ writeShellApplication {
       echo "ERROR: $*" >&2
       exit 1
     }
+
+    # Add each new mikuru service here.
+    # Format: "systemd-unit:absolute-state-path". The script stops each unit,
+    # copies the path, then restarts the units in reverse order. An empty path
+    # only stops the unit. An empty unit only copies the path. The script
+    # skips units that are not on the running system.
+    # Not listed: postgresql (pg_dumpall below), stateless podman containers,
+    # samba passdb (live_paths below), immich media (on /mnt/tank).
+    # A path removed from this list keeps its stale mirror under <dest>/state.
+    # Remove that mirror by hand.
     services=(
       "traefik:/var/lib/traefik"                          # services.traefik.dataDir (ACME acme.json)
       "glance:/var/lib/private/glance"                    # DynamicUser + StateDirectory=glance
