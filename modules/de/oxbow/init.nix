@@ -115,7 +115,7 @@
           oxctl window rules add --title=Picture-in-Picture \
               --spawn-position=end \
               --spawn-focus=disabled \
-              --resize-to=35%,35% \
+              --resize-to=34.3%,35% \
               --move-to=64%,62% \
               --sticky=occupied
 
@@ -156,7 +156,7 @@
           oxctl bind window tag shift prev --follow to Super+Control+h
 
           # Floating preset ───────────────────────────────────────────────────
-          oxctl bind spawn 'oxctl window resize to 35% 35% && oxctl window move to 64% 62%' to Super+z
+          oxctl bind spawn 'oxctl window resize to 34.3% 35% && oxctl window move to 64% 62%' to Super+z
 
           ### Media keys (normal mode) ────────────────────────────────────────
           oxctl bind spawn '${pamixer} -i 5' to XF86AudioRaiseVolume
