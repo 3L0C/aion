@@ -6,8 +6,8 @@
 
         # needed for GNOME services outside of GNOME Desktop
         packages = with pkgs; [
-          gcr
-          gnome-settings-daemon
+          gcr_4 # GNOME crypto services (daemon and tools)
+          gnome-settings-daemon # GNOME Settings Daemon
         ];
       };
 
