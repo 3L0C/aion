@@ -1,7 +1,10 @@
 {
   callPackage,
+  fzf,
+  jq,
   rsync,
   winePackages,
+  writeShellApplication,
   writeShellScriptBin,
 }:
 let
@@ -17,10 +20,18 @@ in
 
   touchpad-toggle = mkScript "touchpad-toggle" ./river/touchpad-toggle;
 
+  window-pick = writeShellApplication {
+    name = "window-pick";
+    runtimeInputs = [
+      fzf
+      jq
+    ];
+    text = builtins.readFile ./oxbow/window-pick;
+  };
+
   media = mkScript "media" ./media/media;
 
   converter-sh = mkScript "converter.sh" ./media/converter.sh;
-
 
   statusbar = callPackage ./statusbar { };
 

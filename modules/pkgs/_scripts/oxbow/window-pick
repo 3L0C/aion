@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Pick an oxbow window with fzf in the current terminal.
+# Print the identifier of the picked window. Exit 1 if no window is picked.
+#
+# Usage: window-pick [--filter REGEX] [--filter-app-id REGEX] [--filter-title REGEX]
+#
+# Each filter removes the windows that match REGEX from the list.
+# --filter matches the app-id or the title. You can give each option more than one time.
+#
+# Example:
+#
+#   id="$(window-pick --filter-app-id '^firefox$')" && \
+#       oxctl window focus match --identifier "$id"
+
+app_ids=()
+titles=()
+while (($#)); do
+    case "$1" in
+    --filter)
+        app_ids+=("${2:?window-pick: $1 needs a value}")
+        titles+=("$2")
+        ;;
+    --filter-app-id) app_ids+=("${2:?window-pick: $1 needs a value}") ;;
+    --filter-title) titles+=("${2:?window-pick: $1 needs a value}") ;;
+    *)
+        echo "window-pick: unknown option: $1" >&2
+        exit 2
+        ;;
+    esac
+    shift 2
+done
+
+oxctl window list --json |
+    jq -r \
+        --argjson app_ids "$(jq -n '$ARGS.positional' --args "${app_ids[@]}")" \
+        --argjson titles "$(jq -n '$ARGS.positional' --args "${titles[@]}")" \
+        '.[]
+        | select(.stashed != true)
+        | select((.app_id // "") as $a | any($app_ids[]; . as $r | $a | test($r)) | not)
+        | select((.title // "") as $t | any($titles[]; . as $r | $t | test($r)) | not)
+        | "\(.identifier)\t\(.title)"' |
+    fzf --delimiter '\t' --with-nth 2.. --accept-nth 1

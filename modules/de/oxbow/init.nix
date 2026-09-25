@@ -17,6 +17,13 @@
       rofi = lib.getExe config.programs.rofi.finalPackage;
       uwsm-app = lib.getExe' pkgs.uwsm "uwsm-app";
       touchpad-toggle = lib.getExe pkgs.custom.scripts.touchpad-toggle;
+      window-pick = lib.getExe pkgs.custom.scripts.window-pick;
+
+      # Runs in the kitten-search window. Focus the picked window.
+      focus-pick = pkgs.writeShellScript "focus-pick" ''
+        id="$(${window-pick} --filter-app-id '^kitten-(search|scratch)$')" &&
+            oxctl window focus match --identifier "$id"
+      '';
 
       launcher = "${rofi} -show drun -run-command \"${uwsm-app} -- {cmd}\"";
       terminal = "${uwsm-app} -- ${kitty}";
@@ -83,6 +90,8 @@
           ### Scratchpads ─────────────────────────────────────────────────────
           oxctl window rules add --app-id=kitten-scratch --scratchpad=kitten-scratch --move-to=25%,25% --resize-to=50%,50%
           oxctl bind spawn 'oxctl scratchpad toggle kitten-scratch || kitty --app-id=kitten-scratch -o font_size=24' to Super+Shift+Return
+          oxctl window rules add --app-id='^kitten-search$' --resize-to=50%,25% --move-to=25%,70%
+          oxctl bind spawn '${kitty} --app-id=kitten-search -o font_size=16 ${focus-pick}' to Super+slash
 
           ### Overview ────────────────────────────────────────────────────────
           oxctl bind output overview cycle next --until-release=Super to Super+n
@@ -188,6 +197,9 @@
       };
 
       # Scripts referenced by bindings
-      home.packages = [ pkgs.custom.scripts.touchpad-toggle ];
+      home.packages = [
+        pkgs.custom.scripts.touchpad-toggle
+        pkgs.custom.scripts.window-pick
+      ];
     };
 }

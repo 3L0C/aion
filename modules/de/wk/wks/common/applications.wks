@@ -51,15 +51,17 @@ o "Open"
     p "Pulsemixer" %{{kitty --class pulsemixer pulsemixer}}
     r "DrRacket" %{{drracket}}
     # Screenshot prefix
-    s "Screenshot"
+    s "Screenshot" +unwrap
     {
-        c "Copy Shot"
+        c "Copy Shot" +unwrap
         {
-            f "Full screen" +unwrap %{{grim - | wl-copy -t image/png}}
-            s "Selected area" +unwrap %{{grim -g "$(slurp)" - | wl-copy -t image/png}}
+            f "Full screen" %{{grim - | wl-copy -t image/png}}
+            s "Selected area" %{{grim -g "$(slurp)" - | wl-copy -t image/png}}
+            w "Window" %{{kitty --app-id=kitten-search -o font_size=16 sh -c 'id="$(window-pick --filter-app-id "^kitten-search$")" && grim -T "$id" - | setsid -f wl-copy -t image/png >/dev/null 2>&1'}}
         }
-        f "Full screen" +unwrap %{{grim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send "Screenshot of desktop taken"}}
-        s "Selected area" +unwrap %{{grim -g "$(slurp)" pic-selected-"$(date '+%y%m%d-%H%M-%S').png"}}
+        f "Full screen" %{{grim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send "Screenshot of desktop taken"}}
+        s "Selected area" %{{grim -g "$(slurp)" pic-selected-"$(date '+%y%m%d-%H%M-%S').png"}}
+        w "Window" %{{kitty --app-id=kitten-search -o font_size=16 sh -c 'id="$(window-pick --filter-app-id "^kitten-search$")" && grim -T "$id" pic-window-$(date +%y%m%d-%H%M-%S).png && notify-send "Screenshot of window taken"'}}
     }
     t "Thunderbird" %{{thunderbird}}
 }
