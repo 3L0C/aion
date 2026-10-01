@@ -14,7 +14,7 @@
     in
     {
       home.packages = [
-        pkgs.handlr-regex
+        pkgs.stable.handlr-regex
         shadowedXdgOpen
       ];
 
