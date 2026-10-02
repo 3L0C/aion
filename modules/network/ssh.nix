@@ -56,8 +56,16 @@
             AddKeysToAgent = "yes";
           };
 
-          "openwrt" = {
+          "flint2" = {
             HostName = "192.168.1.1";
+            Port = 53920;
+            User = "root";
+            IdentityFile = "~/.ssh/openwrt";
+            AddKeysToAgent = "yes";
+          };
+
+          "linksys" = {
+            HostName = "192.168.1.124";
             Port = 53920;
             User = "root";
             IdentityFile = "~/.ssh/openwrt";
