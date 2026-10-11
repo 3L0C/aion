@@ -14,11 +14,11 @@
           x11Support = false;
         };
 
-        font = lib.mkForce "${config.stylix.fonts.monospace.name} ${toString config.userSpec.fonts.sizes.applications}";
-        terminal = lib.getExe config.userSpec.terminal;
-
         # Basic configuration
-        extraConfig = {
+        settings = {
+          font = lib.mkForce "${config.stylix.fonts.monospace.name} ${toString config.userSpec.fonts.sizes.applications}";
+          terminal = lib.getExe config.userSpec.terminal;
+
           modi = "drun,run,window,ssh";
           display-drun = "Applications";
           display-run = "Run";

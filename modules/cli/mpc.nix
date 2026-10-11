@@ -18,7 +18,7 @@
 
       services.mpdris2 = {
         enable = true;
-        notifications = false;
+        settings.Bling.notify = false;
       };
     };
 }
