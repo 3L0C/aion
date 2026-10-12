@@ -1,6 +1,6 @@
 # Suwayomi manga download server (Tachiyomi-compatible)
 {
-  flake.modules.nixos.suwayomi = { config, ... }: {
+  flake.modules.nixos.suwayomi = { pkgs, config, ... }: {
     traefikRoutes.suwayomi = {
       port = 4567;
       middlewares = [ "suwayomi-auth" ];
@@ -18,6 +18,8 @@
     services.suwayomi-server = {
       enable = true;
       group = "media";
+
+      package = pkgs.custom.suwayomi-server;
 
       settings.server = {
         # Loopback only: Traefik exposes the service with basic auth.
