@@ -19,6 +19,7 @@
     nomacs
     obs
     office
+    openlogi
     openshot-qt
     qbittorrent
     rofi
