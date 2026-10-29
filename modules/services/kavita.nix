@@ -9,7 +9,7 @@
 
     services.kavita = {
       enable = true;
-      tokenKeyFile = config.sops.secrets."kavita/token-key".path;
+      credentials.token_key = config.sops.secrets."kavita/token-key".path;
       settings.Port = 5000;
     };
   };
