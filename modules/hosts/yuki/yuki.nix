@@ -15,7 +15,6 @@ in
       usb-wake-fix
       amdgpu-sdma-fix
       ollama
-      open-webui
       syncthing-ports
     ];
 
