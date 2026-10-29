@@ -15,7 +15,6 @@
         "vt.global_cursor_default=0"
       ];
 
-      initrd.verbose = false;
       loader.timeout = 3;
     };
   };

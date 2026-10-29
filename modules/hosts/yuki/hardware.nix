@@ -26,9 +26,6 @@
             "dm-snapshot"
             "cryptd"
           ];
-
-          # Enable systemd in initrd for FIDO2 LUKS support
-          systemd.enable = true;
         };
 
         kernelModules = [

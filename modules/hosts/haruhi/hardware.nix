@@ -49,9 +49,6 @@ in
             "dm-snapshot"
             "cryptd"
           ];
-
-          # systemd in initrd is necessary for FIDO2 LUKS unlock.
-          systemd.enable = true;
         };
 
         kernelModules = [
